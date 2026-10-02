@@ -284,7 +284,9 @@ FAILING = web.AppKey("failing", set[str])
 
 
 @pytest.fixture
-async def api() -> AsyncIterator[tuple[TestServer, list[str]]]:
+async def api(
+    socket_enabled: None,
+) -> AsyncIterator[tuple[TestServer, list[str]]]:
     requested: list[str] = []
     failing: set[str] = set()
 
@@ -310,7 +312,7 @@ async def api() -> AsyncIterator[tuple[TestServer, list[str]]]:
 
 
 @pytest.fixture
-async def session() -> AsyncIterator[aiohttp.ClientSession]:
+async def session(socket_enabled: None) -> AsyncIterator[aiohttp.ClientSession]:
     async with aiohttp.ClientSession() as client_session:
         yield client_session
 

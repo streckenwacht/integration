@@ -178,13 +178,13 @@ def test_fixture_invariants(name: str) -> None:
 
 
 @pytest.fixture
-async def session() -> AsyncIterator[aiohttp.ClientSession]:
+async def session(socket_enabled: None) -> AsyncIterator[aiohttp.ClientSession]:
     async with aiohttp.ClientSession() as client_session:
         yield client_session
 
 
 @pytest.fixture
-async def server() -> AsyncIterator[TestServer]:
+async def server(socket_enabled: None) -> AsyncIterator[TestServer]:
     async def wfs(request: web.Request) -> web.Response:
         query = request.query
         assert query["outputFormat"] == "application/json"

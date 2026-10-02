@@ -49,7 +49,7 @@ async def slow(request: web.Request) -> web.Response:
 
 
 @pytest.fixture
-async def server() -> AsyncIterator[TestServer]:
+async def server(socket_enabled: None) -> AsyncIterator[TestServer]:
     app = web.Application()
     app.router.add_get("/ua", echo_user_agent)
     app.router.add_get("/text", wrong_content_type)
@@ -61,7 +61,7 @@ async def server() -> AsyncIterator[TestServer]:
 
 
 @pytest.fixture
-async def provider() -> AsyncIterator[DummyProvider]:
+async def provider(socket_enabled: None) -> AsyncIterator[DummyProvider]:
     async with aiohttp.ClientSession() as session:
         yield DummyProvider(session)
 
