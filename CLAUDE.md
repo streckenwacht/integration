@@ -29,6 +29,7 @@ Stand: Es gibt noch **keinen Integrationscode**. Vorhanden sind Doku, `README.md
 6. Code, Kommentare, Entity-IDs auf Englisch; UI-Texte über `strings.json` + `translations/de.json` und `en.json`.
 7. Tests mit `pytest-homeassistant-custom-component`, gegen Fixtures – nicht gegen Live-APIs.
 8. **Lokale Umgebung:** Das Repo liegt auf einem Netzlaufwerk (`Z:` → Diskstation). Eine `.venv` dort braucht >10 min. Deshalb jeden `uv`-Befehl mit `UV_PROJECT_ENVIRONMENT=C:/Users/andy/.venvs/streckenwacht` ausführen (in VS-Code-Terminals über `.vscode/settings.json` automatisch gesetzt). Typisch: `uv run pytest`, `uv run ruff check .`, `uv run ruff format .`. Die HA-Testbibliothek (`--group ha-tests`) läuft unter Windows nicht (`fcntl`), nur in GitHub Actions. Ihre Version muss dieselbe `homeassistant`-Version pinnen wie die `dev`-Gruppe.
+9. **Live-Check außerhalb von HA:** `uv run tools/live_check.py --lat 48.7758 --lon 9.1829 --radius 15 --roads A8 A81`. Unter Windows findet `aiodns` (kommt mit HA) keine DNS-Server – lokale Live-Skripte brauchen `aiohttp.ThreadedResolver()` (im Skript bereits drin). Auf HA OS kein Thema.
 
 ## Brand-Bilder
 

@@ -57,7 +57,7 @@ Bewusste Architekturentscheidung: **eine** Integration (`streckenwacht`) mit meh
   - `GET /{roadId}/services/webcam` – Webcams (siehe Risiko unten: liefert aktuell leere Arrays)
   - `GET /{roadId}/services/parking_lorry` – LKW-Parkplätze
   - `GET /{roadId}/services/electric_charging_station` – E-Ladesäulen
-  - Liste aller `roadId`s: `GET /` → `{"roads": ["A1", …]}` (**verifiziert**, 112 Einträge).
+  - Liste aller `roadId`s: `GET /` → `{"roads": ["A1", …]}` (**verifiziert**, 113 Einträge, davon ein Datenfehler: `"A60 "` mit Leerzeichen neben `"A60"`, liefert nur leere Listen → trimmen und deduplizieren).
   - **Es gibt keine Geo-Abfrage** (kein „alle Meldungen im Umkreis"). Abgefragt wird immer pro Autobahn → siehe 2b.
 - **Wichtige Felder** (Stand Konzeption; **verifizierte Abweichungen siehe Abschnitt 2b**):
   - `identifier` – eindeutige ID der Meldung
@@ -160,7 +160,7 @@ Fixtures mit `tools/fetch_fixtures.py` geladen (`tests/fixtures/`). Diese Befund
 - Feldtypen: `isBlocked`, `delayTimeValue`, `averageSpeed`, `startLcPosition` sind **Strings** (`"false"`, `"38"`). Koordinate: `coordinate.lat` / `coordinate.long` (nicht `lon`). `extent`/`point` sind Komma-Strings.
 - `display_type`: `ROADWORKS`, `SHORT_TERM_ROADWORKS`, `CLOSURE`, `CLOSURE_ENTRY_EXIT`, `WARNING`. `future: true` = noch nicht begonnen.
 - `impact` ist ein Objekt (`lower`, `upper`, `symbols[]` = Fahrstreifen-Symbolik), kein Schweregrad.
-- `source` existiert **nur bei `warning`** – und war dort in der Stichprobe (A8: 15, A81: 7) **zu 100 % `"inrix"`**. Ein `"eva"`-Eintrag kam nicht vor. `abnormalTrafficType`: `QUEUING_TRAFFIC`, `SLOW_TRAFFIC`, `HEAVY_TRAFFIC`.
+- `source` existiert **nur bei `warning`** – und war dort in der Stichprobe (A8: 15, A81: 7) **zu 100 % `"inrix"`**. Ein `"eva"`-Eintrag kam nicht vor. `abnormalTrafficType`: `QUEUING_TRAFFIC`, `SLOW_TRAFFIC`, `HEAVY_TRAFFIC`, `UNSPECIFIED_ABNORMAL_TRAFFIC` (live gesehen) → Regel: jeder gesetzte Typ oder `delayTimeValue` > 0 = Stau.
   → **Stau-Daten stammen praktisch ausschließlich von INRIX.** Die Lizenzfrage (Abschnitt 6) betrifft damit nicht einen Randaspekt, sondern das komplette Feature „Staus".
 - Unfälle haben keine eigene Kategorie; sie würden als `warning` erscheinen (in der Stichprobe: keine).
 - Die Abfrage `A8` enthält auch Meldungen anderer Straßen (z. B. A995-Baustelle mit Titel „A8 | München-Süd – Sauerlach"). Identifier waren zwischen A8 und A81 überschneidungsfrei.
