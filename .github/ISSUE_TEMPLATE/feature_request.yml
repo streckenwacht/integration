@@ -1,0 +1,22 @@
+name: Idee oder Wunsch
+description: Vorschlag für eine neue Funktion oder Verbesserung.
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Worum geht es?
+      description: Welches Problem soll gelöst werden, bzw. was möchtest du erreichen?
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Wie könnte es aussehen?
+  - type: textarea
+    id: source
+    attributes:
+      label: Datenquelle
+      description: >-
+        Geht es um eine neue Datenquelle (z. B. ein anderes Bundesland)? Dann gern
+        einen Link zu den offenen Daten.

@@ -56,6 +56,10 @@ Dein Standort verlässt Home Assistant nicht. Streckenwacht lädt die Meldungen 
 
 Voraussetzung: Home Assistant **2026.3** oder neuer und [HACS](https://hacs.xyz/).
 
+**Mit einem Klick:** [![In HACS öffnen](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=streckenwacht&repository=integration&category=integration) → herunterladen, Home Assistant neu starten → [![Integration hinzufügen](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=streckenwacht)
+
+Oder von Hand:
+
 1. HACS öffnen → Menü (⋮) → **Benutzerdefinierte Repositories**.
 2. URL `https://github.com/streckenwacht/integration` eintragen, Typ **Integration**, hinzufügen.
 3. **Streckenwacht** in HACS öffnen → **Herunterladen**. Solange es nur Testversionen gibt, im Dialog die neueste Version wählen (ggf. Beta-Versionen anzeigen lassen).
@@ -106,9 +110,20 @@ Beispiel für den Bereich „Arbeitsweg“ (Gerät *Streckenwacht Arbeitsweg*). 
 
 Alle Entitäten haben das Attribut `unavailable_sources`: Ist eine Quelle gerade nicht erreichbar, steht sie dort – die angezeigten Daten sind dann der letzte bekannte Stand.
 
-Ein `new`-Event enthält `id`, `title`, `type`, `source`, `road`, `direction`, `start`, `end`, `delay_minutes`, `latitude`, `longitude`; ein `ended`-Event `id`, `title` und `source`. Nach einem Neustart oder einer Bereichsänderung werden bekannte Meldungen nicht erneut als neu gemeldet.
+Ein `new`-Event enthält `id`, `title`, `type`, `source`, `road`, `direction`, `start`, `end`, `delay_minutes`, `latitude`, `longitude`; ein `ended`-Event `id`, `title`, `type` und `source`. Nach einem Neustart oder einer Bereichsänderung werden bekannte Meldungen nicht erneut als neu gemeldet.
 
 ## Was du damit bauen kannst
+
+### Fertige Blueprints
+
+Ohne YAML: Blueprint importieren, Bereich und Handy auswählen, fertig.
+
+| Blueprint | Was sie tut | |
+|---|---|---|
+| **Stau-Benachrichtigung** | Push-Nachricht, sobald der Reisezeitverlust einen Schwellwert überschreitet; optional nur in einem Zeitfenster | [![Blueprint importieren](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fstreckenwacht%2Fintegration%2Fblob%2Fmain%2Fblueprints%2Fautomation%2Fstreckenwacht%2Fstau_benachrichtigung.yaml) |
+| **Neue oder beendete Meldung** | Push-Nachricht bei neuen Meldungen der gewählten Arten (z. B. Sperrung, Unfall), auf Wunsch auch bei deren Ende | [![Blueprint importieren](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fstreckenwacht%2Fintegration%2Fblob%2Fmain%2Fblueprints%2Fautomation%2Fstreckenwacht%2Fneue_meldung.yaml) |
+
+Die Benachrichtigungen gehen an ein Handy mit der offiziellen Home-Assistant-App. Wer es anders braucht, findet unten die Beispiele als YAML zum Anpassen.
 
 ### Push-Nachricht bei Reisezeitverlust
 

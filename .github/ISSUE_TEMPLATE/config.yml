@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Anleitung und Beispiele (README)
+    url: https://github.com/streckenwacht/integration#readme
+    about: Installation, Einrichtung, Entitäten und Beispiel-Automationen.

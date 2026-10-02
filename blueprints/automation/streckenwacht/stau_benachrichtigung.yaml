@@ -1,0 +1,75 @@
+blueprint:
+  name: Streckenwacht – Stau-Benachrichtigung
+  description: >-
+    Schickt eine Push-Nachricht an ein Handy mit der Home-Assistant-App, sobald
+    der Reisezeitverlust in einem Streckenwacht-Bereich einen Schwellwert
+    überschreitet. Optional nur in einem Zeitfenster (z. B. vor der Fahrt zur
+    Arbeit). Voraussetzung: Staumeldungen (INRIX) sind in den Optionen aktiviert.
+  domain: automation
+  author: Streckenwacht
+  homeassistant:
+    min_version: "2026.3.0"
+  source_url: https://github.com/streckenwacht/integration/blob/main/blueprints/automation/streckenwacht/stau_benachrichtigung.yaml
+  input:
+    delay_sensor:
+      name: Reisezeitverlust
+      description: Der Sensor „Reisezeitverlust“ des Bereichs.
+      selector:
+        entity:
+          filter:
+            integration: streckenwacht
+            domain: sensor
+            device_class: duration
+    threshold:
+      name: Schwellwert
+      description: Ab wie vielen Minuten Verlust benachrichtigt wird.
+      default: 15
+      selector:
+        number:
+          min: 1
+          max: 120
+          unit_of_measurement: min
+          mode: slider
+    notify_device:
+      name: Handy
+      description: Gerät mit der offiziellen Home-Assistant-App.
+      selector:
+        device:
+          filter:
+            integration: mobile_app
+    after:
+      name: Frühestens um
+      default: "00:00:00"
+      selector:
+        time: {}
+    before:
+      name: Spätestens um
+      default: "23:59:59"
+      selector:
+        time: {}
+
+mode: single
+
+triggers:
+  - trigger: numeric_state
+    entity_id: !input delay_sensor
+    above: !input threshold
+
+variables:
+  delay_sensor: !input delay_sensor
+
+conditions:
+  - condition: time
+    after: !input after
+    before: !input before
+
+actions:
+  - alias: Push-Nachricht an das Handy
+    domain: mobile_app
+    type: notify
+    device_id: !input notify_device
+    title: "Stau: +{{ states(delay_sensor) }} min"
+    message: >-
+      {{ state_attr(delay_sensor, 'title') or 'Stau im Bereich' }}
+      {%- set direction = state_attr(delay_sensor, 'direction') %}
+      {%- if direction %} ({{ direction }}){% endif %}

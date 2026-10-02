@@ -216,7 +216,9 @@ async def test_change_events(hass: HomeAssistant, fetch: AsyncMock) -> None:
 
     assert fired() == [("new", "autobahn:accident"), ("ended", "autobahn:jam")]
     state = hass.states.get(entity_id)
-    assert state.attributes["title"] == "jam"  # "ended" carries the known title
+    # "ended" carries the remembered title and type
+    assert state.attributes["title"] == "jam"
+    assert state.attributes["type"] == "traffic_jam"
 
 
 async def test_failure_does_not_fire_ended(
@@ -283,3 +285,32 @@ async def test_known_events_from_older_version_are_relearned_silently(
         if c.data["entity_id"] == entity_id
         and c.data["new_state"].attributes.get("event_type")
     ]
+
+
+async def test_ended_event_from_old_storage_without_type(
+    hass: HomeAssistant, hass_storage: dict, fetch: AsyncMock
+) -> None:
+    """Up to b3 only titles were stored; "ended" then has no type."""
+    from custom_components.streckenwacht.event import fingerprint
+
+    entry = make_entry()
+    entry.add_to_hass(hass)
+    (subentry_id,) = entry.subentries
+    hass_storage[f"{DOMAIN}.{entry.entry_id}.known_events"] = {
+        "version": 1,
+        "data": {
+            subentry_id: {
+                "fingerprint": fingerprint(entry, entry.subentries[subentry_id]),
+                "events": {
+                    "autobahn": {e.id: e.title for e in EVENTS}
+                    | {"autobahn:gone": "Alte Sperrung"}
+                },
+            }
+        },
+    }
+    assert await hass.config_entries.async_setup(entry.entry_id)
+    await hass.async_block_till_done()
+    state = hass.states.get(f"event.{PREFIX}_event_change")
+    assert state.attributes["event_type"] == "ended"
+    assert state.attributes["title"] == "Alte Sperrung"
+    assert state.attributes["type"] is None

@@ -1,0 +1,64 @@
+name: Fehler melden
+description: Etwas funktioniert nicht wie erwartet.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Danke fürs Melden! Mit Diagnose-Datei und Versionen lässt sich das meist schnell eingrenzen.
+        **Bitte keine Koordinaten oder Adressen posten** – die Diagnose-Datei schwärzt sie automatisch.
+  - type: textarea
+    id: description
+    attributes:
+      label: Was ist passiert?
+      description: Was hast du erwartet, was ist stattdessen passiert?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Wie lässt es sich nachvollziehen?
+      placeholder: |
+        1. Bereich mit Autobahn A81 angelegt
+        2. …
+  - type: input
+    id: ha_version
+    attributes:
+      label: Home-Assistant-Version
+      description: Einstellungen → Info
+      placeholder: "2026.9.4"
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Streckenwacht-Version
+      description: HACS → Streckenwacht, oder Geräte & Dienste → Streckenwacht
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: sources
+    attributes:
+      label: Betroffene Datenquelle(n)
+      multiple: true
+      options:
+        - Autobahn GmbH
+        - MobiData BW
+        - Stadt Stuttgart
+        - weiß nicht / alle
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnose-Datei
+      description: >-
+        Geräte & Dienste → Streckenwacht → ⋮ → „Diagnose herunterladen“ und die
+        Datei hier hineinziehen.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Protokoll
+      description: >-
+        Einstellungen → System → Protokolle, nach „streckenwacht“ filtern.
+        Für Details vorher Debug-Logging aktivieren (siehe README, „Fehlerbehebung“).
+      render: text

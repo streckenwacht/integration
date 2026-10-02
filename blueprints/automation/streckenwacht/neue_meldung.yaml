@@ -1,0 +1,93 @@
+blueprint:
+  name: Streckenwacht – Neue oder beendete Meldung
+  description: >-
+    Schickt eine Push-Nachricht an ein Handy mit der Home-Assistant-App, wenn in
+    einem Streckenwacht-Bereich eine Meldung der gewählten Art neu auftaucht –
+    und auf Wunsch auch, wenn sie wieder endet.
+  domain: automation
+  author: Streckenwacht
+  homeassistant:
+    min_version: "2026.3.0"
+  source_url: https://github.com/streckenwacht/integration/blob/main/blueprints/automation/streckenwacht/neue_meldung.yaml
+  input:
+    event_entity:
+      name: Ereignisänderung
+      description: Die Entität „Ereignisänderung“ des Bereichs.
+      selector:
+        entity:
+          filter:
+            integration: streckenwacht
+            domain: event
+    types:
+      name: Arten
+      description: Bei welchen Arten von Meldungen benachrichtigt wird.
+      default:
+        - closure
+        - accident
+      selector:
+        select:
+          multiple: true
+          options:
+            - label: Sperrung
+              value: closure
+            - label: Unfall
+              value: accident
+            - label: Stau
+              value: traffic_jam
+            - label: Baustelle
+              value: roadworks
+            - label: Sonstige Warnung
+              value: warning
+    notify_ended:
+      name: Auch bei Ende benachrichtigen
+      default: false
+      selector:
+        boolean: {}
+    notify_device:
+      name: Handy
+      description: Gerät mit der offiziellen Home-Assistant-App.
+      selector:
+        device:
+          filter:
+            integration: mobile_app
+
+# Several events can arrive in one update: send each of them.
+mode: queued
+max: 20
+
+triggers:
+  - trigger: state
+    entity_id: !input event_entity
+
+variables:
+  types: !input types
+  notify_ended: !input notify_ended
+  # to_state is empty when the entity is removed (e.g. the area was deleted)
+  event_type: "{{ trigger.to_state.attributes.get('event_type', '') if trigger.to_state else '' }}"
+  kind: "{{ trigger.to_state.attributes.get('type', '') if trigger.to_state else '' }}"
+  title: "{{ trigger.to_state.attributes.get('title', '') if trigger.to_state else '' }}"
+  where: >-
+    {%- set a = trigger.to_state.attributes if trigger.to_state else {} %}
+    {{- a.get('direction') or a.get('road') or '' -}}
+  labels:
+    closure: Sperrung
+    accident: Unfall
+    traffic_jam: Stau
+    roadworks: Baustelle
+    warning: Warnung
+
+conditions:
+  - condition: template
+    value_template: >-
+      {{ (event_type == 'new' and kind in types)
+         or (event_type == 'ended' and notify_ended and kind in types) }}
+
+actions:
+  - alias: Push-Nachricht an das Handy
+    domain: mobile_app
+    type: notify
+    device_id: !input notify_device
+    title: >-
+      {{ 'Neu' if event_type == 'new' else 'Beendet' }}:
+      {{ labels.get(kind, 'Meldung') }}
+    message: "{{ title }}{{ ' (' ~ where ~ ')' if where else '' }}"

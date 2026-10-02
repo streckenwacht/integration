@@ -21,6 +21,7 @@ from .const import (
 )
 from .coordinator import area_subentries
 from .entity import StreckenwachtEntity
+from .model import StreckenwachtEvent
 from .summary import event_attributes
 
 if TYPE_CHECKING:
@@ -81,8 +82,8 @@ class AreaChangeEvent(StreckenwachtEntity, EventEntity):
         super().__init__(entry, subentry, key)
         self._attr_event_types = [EVENT_NEW, EVENT_ENDED]
         self._fingerprint = fingerprint(entry, subentry)
-        # source -> {event id: title}
-        self._known: dict[Source, dict[str, str]] = {}
+        # source -> {event id: [title, type]} (title and type for "ended" events)
+        self._known: dict[Source, dict[str, list[str]]] = {}
 
     @property
     def _store(self) -> KnownEvents:
@@ -94,7 +95,7 @@ class AreaChangeEvent(StreckenwachtEntity, EventEntity):
         stored = self._store.get(self._subentry_id)
         if stored and stored.get("fingerprint") == self._fingerprint:
             self._known = {
-                Source(source): dict(events)
+                Source(source): {i: _known_value(v) for i, v in events.items()}
                 for source, events in stored.get("events", {}).items()
                 if source in _SOURCES
             }
@@ -117,18 +118,24 @@ class AreaChangeEvent(StreckenwachtEntity, EventEntity):
             known = self._known.get(source)
             if known is None:
                 # First data of this source for this area: learn silently.
-                self._known[source] = {i: e.title for i, e in current.items()}
+                self._known[source] = _remember(current)
                 changed = True
                 continue
             for event_id in sorted(current.keys() - known.keys()):
                 self._fire(EVENT_NEW, event_attributes(current[event_id]))
             for event_id in sorted(known.keys() - current.keys()):
+                title, event_type = known[event_id]
                 self._fire(
                     EVENT_ENDED,
-                    {"id": event_id, "title": known[event_id], "source": source.value},
+                    {
+                        "id": event_id,
+                        "title": title,
+                        "type": event_type or None,
+                        "source": source.value,
+                    },
                 )
             if current.keys() != known.keys():
-                self._known[source] = {i: e.title for i, e in current.items()}
+                self._known[source] = _remember(current)
                 changed = True
 
         # Sources that were switched off: forget them without announcements.
@@ -148,3 +155,14 @@ class AreaChangeEvent(StreckenwachtEntity, EventEntity):
     def _fire(self, event_type: str, attributes: dict[str, Any]) -> None:
         self._trigger_event(event_type, attributes)
         self.async_write_ha_state()
+
+
+def _remember(events: dict[str, StreckenwachtEvent]) -> dict[str, list[str]]:
+    return {i: [e.title, e.event_type.value] for i, e in events.items()}
+
+
+def _known_value(value: Any) -> list[str]:
+    """Stored [title, type]; versions up to 0.1.0b3 stored only the title."""
+    if isinstance(value, list) and len(value) == 2:
+        return [str(value[0]), str(value[1])]
+    return [str(value), ""]
