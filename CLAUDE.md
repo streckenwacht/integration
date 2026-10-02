@@ -6,7 +6,7 @@ Home-Assistant-Custom-Integration (HACS), Domain `streckenwacht`. Zeigt Baustell
 
 **`docs/HANDOVER.md` ist die vollständige Spezifikation.** Vor jeder größeren Arbeit lesen. Wichtigste Abschnitte: 2 (Datenquellen) inkl. **2b (verifizierte Abweichungen)**, 3 (Datenmodell), 4 (Architektur), 5 (Reihenfolge + Sicherheitshinweis), 6 (Risiken), 7 (HA/HACS-Standards). Abschnitt 10 listet, was entschieden ist und was bewusst offen bleibt.
 
-Stand: Es gibt noch **keinen Integrationscode**. Vorhanden sind Doku, `README.md`-Entwurf, `LICENSE` (MIT), `hacs.json`, Brand-Bilder und Tools.
+Stand: Grundgerüst und alle drei Provider sind fertig und getestet (Schritte 1–4). Als Nächstes: Coordinator, Config-Flow mit Subentries, Repairs (Schritt 5), dann Entities.
 
 ## Verbindliche Entscheidungen (nicht neu diskutieren)
 
@@ -21,14 +21,14 @@ Stand: Es gibt noch **keinen Integrationscode**. Vorhanden sind Doku, `README.md
 
 ## Arbeitsregeln
 
-1. **Feldnamen nie raten.** Fixtures mit `uv run --python 3.13 --no-project tools/fetch_fixtures.py` aktualisieren (auf diesem Windows-Rechner gibt es kein systemweites Python, nur `uv`); die Dateien in `tests/fixtures/` sind die Wahrheit über Formate. Weicht die Live-API von `docs/HANDOVER.md` ab, gilt die API – und die Abweichung wird im Handover nachgetragen.
+1. **Feldnamen nie raten.** Fixtures mit `uv run --python 3.13 --no-project tools/fetch_fixtures.py` aktualisieren; die Dateien in `tests/fixtures/` sind die Wahrheit über Formate. Weicht die Live-API von `docs/HANDOVER.md` ab, gilt die API – und die Abweichung wird im Handover nachgetragen.
 2. **Entwickelt wird gegen eine produktive Home-Assistant-Instanz.** Provider-Logik (HTTP + Parsing) deshalb erst als reines Python außerhalb von HA testen, bevor die Integration geladen wird. Ein fehlerhafter Provider darf nie die ganze Integration oder HA blockieren: Fehler pro Provider fangen und über die Repairs/Issue-Registry melden.
 3. Alle HTTP-Requests mit User-Agent `Streckenwacht/<version> (+https://github.com/streckenwacht/integration)`. Polling konservativ (Default 10–15 min).
 4. Stuttgart: per `outputFormat=application/json&srsName=EPSG:4326` abrufen – der Server liefert dann GeoJSON in WGS84, kein `pyproj` nötig. Datumsfelder dort sind Freitext → robust parsen, bei Fehlschlag Event trotzdem behalten. Autobahn-API hat **kein Endfeld** – Ende steht nur in `description` (Details: `docs/HANDOVER.md` 2b).
 5. Attribution pro Quelle mitführen (Stuttgart CC BY 4.0, MobiData BW DL-DE-BY-2.0, Autobahn GmbH).
 6. Code, Kommentare, Entity-IDs auf Englisch; UI-Texte über `strings.json` + `translations/de.json` und `en.json`.
 7. Tests mit `pytest-homeassistant-custom-component`, gegen Fixtures – nicht gegen Live-APIs.
-8. **Lokale Umgebung:** Das Repo liegt auf einem Netzlaufwerk (`Z:` → Diskstation). Eine `.venv` dort braucht >10 min. Deshalb jeden `uv`-Befehl mit `UV_PROJECT_ENVIRONMENT=C:/Users/andy/.venvs/streckenwacht` ausführen (in VS-Code-Terminals über `.vscode/settings.json` automatisch gesetzt). Typisch: `uv run pytest`, `uv run ruff check .`, `uv run ruff format .`. Die HA-Testbibliothek (`--group ha-tests`) läuft unter Windows nicht (`fcntl`), nur in GitHub Actions. Ihre Version muss dieselbe `homeassistant`-Version pinnen wie die `dev`-Gruppe.
+8. **Werkzeuge:** `uv run pytest`, `uv run ruff check .`, `uv run ruff format .`. Rechnerspezifisches (z. B. Pfad der virtuellen Umgebung) steht in `CLAUDE.local.md` (nicht im Repo). Die HA-Testbibliothek (`--group ha-tests`) läuft unter Windows nicht (`fcntl`), nur in GitHub Actions. Ihre Version muss dieselbe `homeassistant`-Version pinnen wie die `dev`-Gruppe.
 9. **Live-Check außerhalb von HA:** `uv run tools/live_check.py --lat 48.7758 --lon 9.1829 --radius 15 --roads A8 A81`. Unter Windows findet `aiodns` (kommt mit HA) keine DNS-Server – lokale Live-Skripte brauchen `aiohttp.ThreadedResolver()` (im Skript bereits drin). Auf HA OS kein Thema.
 
 ## Brand-Bilder
@@ -37,4 +37,4 @@ Fertig in `custom_components/streckenwacht/brand/` (HA ≥ 2026.3 lädt sie von 
 
 ## Offen / vor öffentlichem Release klären (nicht Aufgabe beim Coden)
 
-INRIX-Lizenzfrage (Stau-Daten der Autobahn-API), Impressumspflicht. Siehe `docs/HANDOVER.md` Abschnitte 6, 8, 10.
+Impressumspflicht; kurze Anfrage bei der Autobahn GmbH zu INRIX vor dem öffentlichen Bewerben. Die INRIX-Frage ist recherchiert und entschieden: Option „Staumeldungen (INRIX) einbeziehen“, Standard an; Warnungs-Fixtures (echte INRIX-Daten) nur lokal, nie committen. Siehe `docs/HANDOVER.md` Abschnitte 6, 8, 10.

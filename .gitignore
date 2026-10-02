@@ -16,6 +16,7 @@ node_modules/
 tools/brand/out/
 
 # Editor / OS
+CLAUDE.local.md
 .vscode/*
 !.vscode/extensions.json
 .idea/
