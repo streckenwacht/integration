@@ -172,7 +172,8 @@ Fixtures mit `tools/fetch_fixtures.py` geladen (`tests/fixtures/`). Diese Befund
 - 977 Features (statt 54), 2,6 MB, eine einzige landesweite Datei → **ein** Download pro Poll für alle Beobachtungsbereiche, Filterung lokal.
 - **Enthält doch kommunale Straßen:** `street` beginnt bei 361 von 977 Features mit „Gemeindestraße". Außerdem einzelne Autobahn-Abschnitte (`A5`, `A98`) → mögliche Dubletten mit der Autobahn-API. Verteilung: G 361, L 234, B 203, K 177, A 2.
 - `type` nur `CONSTRUCTION` / `ROAD_CLOSED`, `subtype` nur `""` / `ROAD_CLOSED_CONSTRUCTION`. `reference` immer `"MobiData BW"`.
-- Geometrie: 975 × `LineString`, 2 × `Point` → beide Typen unterstützen.
+- Geometrie: 975 × `LineString`, 2 × `Point` → beide Typen unterstützen. **Die `Point`-Features haben vertauschte Koordinaten** (`[lat, lon]` statt `[lon, lat]`) → der Provider repariert Positionen, deren erster Wert im deutschen Breitengrad-Bereich liegt.
+- `description` ist teils generisch („Bauphase“) oder beginnt mit „keine Beschreibung vorhanden“; Titel wird daher aus `street` + `description` gebildet (Logik in `providers/mobidata_bw.py`).
 - Viele Langläufer (Start 2015, Ende bis 2037). Kein Stau/Unfall-Inhalt – nur Baustellen/Sperrungen.
 
 **Stadt Stuttgart**

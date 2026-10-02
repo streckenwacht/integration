@@ -28,6 +28,7 @@ from custom_components.streckenwacht.providers import ProviderError
 from custom_components.streckenwacht.providers.autobahn import (
     AutobahnProvider,
 )
+from custom_components.streckenwacht.providers.mobidata_bw import MobiDataBWProvider
 
 
 def fmt(moment: datetime | None) -> str:
@@ -58,7 +59,7 @@ async def main(args: argparse.Namespace) -> int:
     connector = aiohttp.TCPConnector(resolver=aiohttp.ThreadedResolver())
     failed = False
     async with aiohttp.ClientSession(connector=connector) as session:
-        for provider in (AutobahnProvider(session),):
+        for provider in (AutobahnProvider(session), MobiDataBWProvider(session)):
             print(f"{provider.source}:")
             try:
                 show(await provider.async_fetch([area]), area)
