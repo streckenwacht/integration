@@ -28,7 +28,9 @@ Dieses Dokument war die Ausgangsspezifikation. Die Integration ist inzwischen um
 
 **Arbeitsweise:** Entwicklung auf `dev`, `main` nur für Releases (die produktive HACS-Installation folgt `main`).
 
-**Offen vor v0.1.0 bzw. vor öffentlichem Bewerben:** Beta-Erfahrungen (Nachtsperrungen, Event-Häufigkeit bei INRIX-Staus), Impressumsfrage, kurze Anfrage bei der Autobahn GmbH zu INRIX.
+**Offen vor v0.1.0:** Beta-Erfahrungen (Nachtsperrungen, Event-Häufigkeit bei INRIX-Staus).
+
+**Zurückgestellt (Entscheidung des Projektinhabers, 2026-10-02):** Impressumsfrage und Anfrage bei der Autobahn GmbH zu INRIX – erst wieder aufgreifen, wenn das Projekt öffentlich beworben werden soll.
 
 ---
 

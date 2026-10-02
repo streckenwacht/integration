@@ -38,4 +38,4 @@ Fertig in `custom_components/streckenwacht/brand/` (HA ≥ 2026.3 lädt sie von 
 
 ## Offen / vor öffentlichem Release klären (nicht Aufgabe beim Coden)
 
-Impressumspflicht; kurze Anfrage bei der Autobahn GmbH zu INRIX vor dem öffentlichen Bewerben. Die INRIX-Frage ist recherchiert und entschieden: Option „Staumeldungen (INRIX) einbeziehen“, Standard an; Warnungs-Fixtures (echte INRIX-Daten) nur lokal, nie committen. Siehe `docs/HANDOVER.md` Abschnitte 6, 8, 10.
+Impressumspflicht und Anfrage bei der Autobahn GmbH zu INRIX sind **auf Wunsch zurückgestellt** (2026-10-02) – nicht von sich aus erneut vorschlagen, erst beim öffentlichen Bewerben wieder aufgreifen. Die INRIX-Frage ist recherchiert und entschieden: Option „Staumeldungen (INRIX) einbeziehen“, Standard an; Warnungs-Fixtures (echte INRIX-Daten) nur lokal, nie committen. Siehe `docs/HANDOVER.md` Abschnitte 6, 8, 10.
