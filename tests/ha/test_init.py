@@ -228,3 +228,28 @@ async def test_options_change_reloads(
     await hass.async_block_till_done()
     assert entry.state is ConfigEntryState.LOADED
     assert set(entry.runtime_data.coordinators) == {Source.AUTOBAHN}
+
+
+async def test_area_without_source_is_not_queried(
+    hass: HomeAssistant, autobahn: AsyncMock, mobidata: AsyncMock
+) -> None:
+    city_only = ConfigSubentryData(
+        data=dict(AREA["data"]) | {"sources": ["mobidata_bw"]},
+        subentry_type=SUBENTRY_AREA,
+        title="Stadt",
+        unique_id=None,
+    )
+    entry = make_entry()
+    entry = MockConfigEntry(
+        domain=DOMAIN,
+        title="Streckenwacht",
+        options=dict(entry.options),
+        subentries_data=[city_only],
+    )
+    await setup(hass, entry)
+    (areas,) = autobahn.await_args.args
+    assert areas == []  # the only area does not show motorway events
+    (subentry_id,) = entry.subentries
+    coordinators = entry.runtime_data.coordinators
+    assert coordinators[Source.AUTOBAHN].data.by_area[subentry_id] == ()
+    assert len(coordinators[Source.MOBIDATA_BW].data.by_area[subentry_id]) == 1

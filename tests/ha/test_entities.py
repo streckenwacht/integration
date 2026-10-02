@@ -125,6 +125,7 @@ async def test_entities_and_device(
     events = hass.states.get(f"sensor.{PREFIX}_events")
     assert events.state == "3"  # planned closure not yet active
     assert events.attributes["roadworks"] == 1
+    assert events.attributes["by_source"] == {"autobahn": 3}
     assert events.attributes["unavailable_sources"] == []
 
     assert hass.states.get(f"sensor.{PREFIX}_travel_time_loss").state == "25"

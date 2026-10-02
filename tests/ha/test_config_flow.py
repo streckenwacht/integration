@@ -16,6 +16,8 @@ from homeassistant.data_entry_flow import FlowResultType
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
 from custom_components.streckenwacht.const import (
+    CONF_AREA_SOURCES,
+    CONF_DIRECTIONS,
     CONF_INCLUDE_INRIX,
     CONF_LOCATION,
     CONF_RADIUS,
@@ -24,7 +26,9 @@ from custom_components.streckenwacht.const import (
     CONF_SOURCES,
     DOMAIN,
     SUBENTRY_AREA,
+    Source,
 )
+from custom_components.streckenwacht.model import EventType, StreckenwachtEvent
 from custom_components.streckenwacht.providers import ProviderError
 
 ROADS = ["A1", "A8", "A81"]
@@ -36,6 +40,7 @@ OPTIONS = {
 AREA_INPUT = {
     "name": "Arbeitsweg",
     CONF_LOCATION: {"latitude": 48.78, "longitude": 9.18, CONF_RADIUS: 15000},
+    CONF_AREA_SOURCES: ["autobahn", "mobidata_bw"],
     CONF_ROADS: ["A81", "A8"],
 }
 
@@ -157,42 +162,114 @@ async def test_options_flow(hass: HomeAssistant) -> None:
 
 # --- Observation areas -------------------------------------------------------
 
+DIRECTION_EVENTS = [
+    StreckenwachtEvent(
+        id=f"autobahn:{i}",
+        source=Source.AUTOBAHN,
+        event_type=EventType.ROADWORKS,
+        title="x",
+        road="A81",
+        direction=direction,
+    )
+    for i, direction in enumerate(
+        [
+            "Singen -> Stuttgart",
+            "Stuttgart -> Singen",
+            "Singen -> Stuttgart",
+            "AS Böblingen-Hulb (aus Richtung Ehningen)",
+            None,
+        ]
+    )
+]
 
-async def test_add_area(hass: HomeAssistant, roads: AsyncMock) -> None:
-    entry = entry_with(OPTIONS)
-    entry.add_to_hass(hass)
-    result = await hass.config_entries.subentries.async_init(
+
+@pytest.fixture
+def directions() -> Iterator[AsyncMock]:
+    with patch(
+        "custom_components.streckenwacht.config_flow.AutobahnProvider.async_fetch",
+        return_value=DIRECTION_EVENTS,
+    ) as mock:
+        yield mock
+
+
+async def start_area_flow(hass: HomeAssistant, entry: MockConfigEntry) -> dict:
+    return await hass.config_entries.subentries.async_init(
         (entry.entry_id, SUBENTRY_AREA), context={"source": SOURCE_USER}
     )
+
+
+async def test_add_area_with_directions(
+    hass: HomeAssistant, roads: AsyncMock, directions: AsyncMock
+) -> None:
+    entry = entry_with(OPTIONS)
+    entry.add_to_hass(hass)
+    result = await start_area_flow(hass, entry)
     assert result["type"] is FlowResultType.FORM
-    assert CONF_ROADS in result["data_schema"].schema
+    schema = result["data_schema"].schema
+    assert CONF_ROADS in schema
+    assert CONF_AREA_SOURCES in schema  # two sources configured
 
     result = await hass.config_entries.subentries.async_configure(
         result["flow_id"], AREA_INPUT
     )
+    assert result["type"] is FlowResultType.FORM
+    assert result["step_id"] == "directions"
+    # only real carriageway directions are offered, sorted and deduplicated
+    (key,) = result["data_schema"].schema
+    options = result["data_schema"].schema[key].config["options"]
+    assert options == ["Singen -> Stuttgart", "Stuttgart -> Singen"]
+    (areas,) = directions.await_args.args
+    assert areas[0].roads == frozenset({"A8", "A81"})
+
+    result = await hass.config_entries.subentries.async_configure(
+        result["flow_id"], {CONF_DIRECTIONS: ["Singen -> Stuttgart"]}
+    )
     assert result["type"] is FlowResultType.CREATE_ENTRY
     (subentry,) = entry.subentries.values()
-    assert subentry.subentry_type == SUBENTRY_AREA
     assert subentry.title == "Arbeitsweg"
     assert dict(subentry.data) == {
         "latitude": 48.78,
         "longitude": 9.18,
         CONF_RADIUS: 15000.0,
         CONF_ROADS: ["A8", "A81"],
+        CONF_AREA_SOURCES: ["autobahn", "mobidata_bw"],
+        CONF_DIRECTIONS: ["Singen -> Stuttgart"],
     }
     roads.assert_awaited_once()
 
 
-async def test_area_without_autobahn_source(
-    hass: HomeAssistant, roads: AsyncMock
+async def test_area_without_motorway_source_skips_directions(
+    hass: HomeAssistant, roads: AsyncMock, directions: AsyncMock
 ) -> None:
+    entry = entry_with(OPTIONS)
+    entry.add_to_hass(hass)
+    result = await start_area_flow(hass, entry)
+    result = await hass.config_entries.subentries.async_configure(
+        result["flow_id"], AREA_INPUT | {CONF_AREA_SOURCES: ["mobidata_bw"]}
+    )
+    assert result["type"] is FlowResultType.CREATE_ENTRY
+    (subentry,) = entry.subentries.values()
+    assert subentry.data[CONF_AREA_SOURCES] == ["mobidata_bw"]
+    assert subentry.data[CONF_DIRECTIONS] == []
+    directions.assert_not_awaited()
+
+
+async def test_area_with_single_source(hass: HomeAssistant, roads: AsyncMock) -> None:
     entry = entry_with(OPTIONS | {CONF_SOURCES: ["stuttgart"]})
     entry.add_to_hass(hass)
-    result = await hass.config_entries.subentries.async_init(
-        (entry.entry_id, SUBENTRY_AREA), context={"source": SOURCE_USER}
-    )
-    assert CONF_ROADS not in result["data_schema"].schema
+    result = await start_area_flow(hass, entry)
+    schema = result["data_schema"].schema
+    assert CONF_ROADS not in schema
+    assert CONF_AREA_SOURCES not in schema  # nothing to choose
     roads.assert_not_awaited()
+
+    result = await hass.config_entries.subentries.async_configure(
+        result["flow_id"],
+        {"name": "Stadt", CONF_LOCATION: AREA_INPUT[CONF_LOCATION]},
+    )
+    assert result["type"] is FlowResultType.CREATE_ENTRY
+    (subentry,) = entry.subentries.values()
+    assert subentry.data[CONF_AREA_SOURCES] is None  # all configured sources
 
 
 @pytest.mark.parametrize(
@@ -209,6 +286,7 @@ async def test_area_without_autobahn_source(
             },
             {CONF_LOCATION: "radius_too_large"},
         ),
+        ({CONF_AREA_SOURCES: []}, {CONF_AREA_SOURCES: "no_sources"}),
     ],
 )
 async def test_area_validation(
@@ -216,9 +294,7 @@ async def test_area_validation(
 ) -> None:
     entry = entry_with(OPTIONS)
     entry.add_to_hass(hass)
-    result = await hass.config_entries.subentries.async_init(
-        (entry.entry_id, SUBENTRY_AREA), context={"source": SOURCE_USER}
-    )
+    result = await start_area_flow(hass, entry)
     result = await hass.config_entries.subentries.async_configure(
         result["flow_id"], AREA_INPUT | changes
     )
@@ -233,14 +309,31 @@ async def test_area_road_list_unavailable(hass: HomeAssistant) -> None:
         "custom_components.streckenwacht.config_flow.AutobahnProvider.async_fetch_roads",
         side_effect=ProviderError("down"),
     ):
-        result = await hass.config_entries.subentries.async_init(
-            (entry.entry_id, SUBENTRY_AREA), context={"source": SOURCE_USER}
+        result = await start_area_flow(hass, entry)
+    assert result["type"] is FlowResultType.ABORT
+    assert result["reason"] == "cannot_connect"
+
+
+async def test_area_directions_unavailable(
+    hass: HomeAssistant, roads: AsyncMock
+) -> None:
+    entry = entry_with(OPTIONS)
+    entry.add_to_hass(hass)
+    result = await start_area_flow(hass, entry)
+    with patch(
+        "custom_components.streckenwacht.config_flow.AutobahnProvider.async_fetch",
+        side_effect=ProviderError("down"),
+    ):
+        result = await hass.config_entries.subentries.async_configure(
+            result["flow_id"], AREA_INPUT
         )
     assert result["type"] is FlowResultType.ABORT
     assert result["reason"] == "cannot_connect"
 
 
-async def test_reconfigure_area(hass: HomeAssistant, roads: AsyncMock) -> None:
+async def test_reconfigure_area(
+    hass: HomeAssistant, roads: AsyncMock, directions: AsyncMock
+) -> None:
     entry = entry_with(
         OPTIONS,
         [
@@ -250,6 +343,8 @@ async def test_reconfigure_area(hass: HomeAssistant, roads: AsyncMock) -> None:
                     "longitude": 9.0,
                     CONF_RADIUS: 5000,
                     CONF_ROADS: ["A8"],
+                    CONF_AREA_SOURCES: None,
+                    CONF_DIRECTIONS: ["Stuttgart -> Karlsruhe"],
                 },
                 subentry_type=SUBENTRY_AREA,
                 title="Alt",
@@ -269,9 +364,20 @@ async def test_reconfigure_area(hass: HomeAssistant, roads: AsyncMock) -> None:
     result = await hass.config_entries.subentries.async_configure(
         result["flow_id"], AREA_INPUT
     )
+    assert result["step_id"] == "directions"
+    # the stored direction stays selectable even if it has no events right now
+    (key,) = result["data_schema"].schema
+    assert (
+        "Stuttgart -> Karlsruhe" in result["data_schema"].schema[key].config["options"]
+    )
+
+    result = await hass.config_entries.subentries.async_configure(
+        result["flow_id"], {CONF_DIRECTIONS: []}
+    )
     assert result["type"] is FlowResultType.ABORT
     assert result["reason"] == "reconfigure_successful"
     subentry = entry.subentries[subentry_id]
     assert subentry.title == "Arbeitsweg"
     assert subentry.data[CONF_ROADS] == ["A8", "A81"]
     assert subentry.data[CONF_RADIUS] == 15000.0
+    assert subentry.data[CONF_DIRECTIONS] == []

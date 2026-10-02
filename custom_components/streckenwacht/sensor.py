@@ -57,6 +57,7 @@ class EventsSensor(TimeDependentEntity, SensorEntity):
         counts = Counter(e.event_type for e in events)
         return {
             **{event_type.value: counts[event_type] for event_type in EventType},
+            "by_source": dict(Counter(e.source.value for e in events)),
             "events": listed(events),
             "unavailable_sources": self.unavailable_sources,
         }

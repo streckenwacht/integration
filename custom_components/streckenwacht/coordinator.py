@@ -14,6 +14,8 @@ from homeassistant.helpers import issue_registry as ir
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from .const import (
+    CONF_AREA_SOURCES,
+    CONF_DIRECTIONS,
     CONF_RADIUS,
     CONF_ROADS,
     DEFAULT_RADIUS,
@@ -47,6 +49,12 @@ def area_from_subentry(subentry: ConfigSubentry) -> ObservationArea:
         longitude=float(data[CONF_LONGITUDE]),
         radius_km=float(data.get(CONF_RADIUS, DEFAULT_RADIUS)) / 1000,
         roads=frozenset(data.get(CONF_ROADS, ())),
+        sources=(
+            frozenset(Source(s) for s in data[CONF_AREA_SOURCES])
+            if data.get(CONF_AREA_SOURCES) is not None
+            else None
+        ),
+        directions=frozenset(data.get(CONF_DIRECTIONS, ())),
     )
 
 
@@ -93,7 +101,10 @@ class StreckenwachtCoordinator(DataUpdateCoordinator[ProviderData]):
 
     async def _async_update_data(self) -> ProviderData:
         try:
-            events = await self.provider.async_fetch(list(self.areas.values()))
+            # Only areas showing this source: no download if none of them does.
+            events = await self.provider.async_fetch(
+                [area for area in self.areas.values() if area.uses(self.source)]
+            )
         except ProviderError as err:
             self._record_failure(str(err))
             raise UpdateFailed(f"{SOURCE_NAMES[self.source]}: {err}") from err

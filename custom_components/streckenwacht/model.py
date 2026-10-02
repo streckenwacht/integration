@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import StrEnum
@@ -94,6 +95,18 @@ class StreckenwachtEvent:
         return any(p.contains(now) for p in self.periods)
 
 
+_ROUTE_DIRECTION = re.compile(r"^[^>]+ -> [^>]+$")
+
+
+def is_route_direction(direction: str | None) -> bool:
+    """True for "Start -> Destination" directions of the Autobahn API.
+
+    Ramps ("AS Böblingen-Hulb (aus Richtung Ehningen)") and empty directions
+    cannot be assigned to a carriageway and are never filtered out.
+    """
+    return bool(direction and _ROUTE_DIRECTION.match(direction))
+
+
 @dataclass(frozen=True, slots=True)
 class ObservationArea:
     """A user-defined area to watch: a circle plus the motorways to query."""
@@ -105,11 +118,28 @@ class ObservationArea:
     # Autobahn road ids to query ("A8", "A81"). The Autobahn API has no spatial
     # query, so motorway events are only considered for the roads listed here.
     roads: frozenset[str] = frozenset()
+    # Sources shown in this area; None means all configured sources.
+    sources: frozenset[Source] | None = None
+    # Autobahn directions to keep ("Singen -> Stuttgart"); empty means all.
+    directions: frozenset[str] = frozenset()
+
+    def uses(self, source: Source) -> bool:
+        """Return True if events of this source are shown in the area."""
+        return self.sources is None or source in self.sources
 
     def contains(self, event: StreckenwachtEvent) -> bool:
         """Return True if the event lies within this area."""
-        if event.source is Source.AUTOBAHN and event.road not in self.roads:
+        if not self.uses(event.source):
             return False
+        if event.source is Source.AUTOBAHN:
+            if event.road not in self.roads:
+                return False
+            if (
+                self.directions
+                and is_route_direction(event.direction)
+                and event.direction not in self.directions
+            ):
+                return False
         distance = distance_to_geometry_km(
             self.latitude, self.longitude, event.geometry
         )

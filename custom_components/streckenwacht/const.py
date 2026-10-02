@@ -34,6 +34,8 @@ SUBENTRY_AREA: Final = "area"
 CONF_LOCATION: Final = "location"
 CONF_RADIUS: Final = "radius"  # meters, as returned by the location selector
 CONF_ROADS: Final = "roads"
+CONF_AREA_SOURCES: Final = "sources"  # per area; None/missing means all
+CONF_DIRECTIONS: Final = "directions"
 
 DEFAULT_RADIUS: Final = 10_000
 # geo.py's flat-earth approximation is accurate up to roughly 100 km.

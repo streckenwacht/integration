@@ -12,6 +12,7 @@ from custom_components.streckenwacht.model import (
     ObservationArea,
     Period,
     StreckenwachtEvent,
+    is_route_direction,
 )
 
 
@@ -125,3 +126,64 @@ AREA = ObservationArea(
 )
 def test_area_contains(event_kwargs: dict, expected: bool) -> None:
     assert AREA.contains(make_event(**event_kwargs)) is expected
+
+
+@pytest.mark.parametrize(
+    ("direction", "expected"),
+    [
+        ("Singen -> Stuttgart", True),
+        ("AS Böblingen-Hulb (aus Richtung Ehningen)", False),
+        ("", False),
+        (None, False),
+    ],
+)
+def test_is_route_direction(direction: str | None, expected: bool) -> None:
+    assert is_route_direction(direction) is expected
+
+
+def test_area_sources() -> None:
+    area = ObservationArea(
+        "Pendeln", 48.0, 9.0, 5, frozenset({"A8"}), sources=frozenset({Source.AUTOBAHN})
+    )
+    nearby = {"latitude": 48.0, "longitude": 9.0}
+    assert area.uses(Source.AUTOBAHN)
+    assert not area.uses(Source.STUTTGART)
+    assert area.contains(make_event(source=Source.AUTOBAHN, road="A8", **nearby))
+    assert not area.contains(make_event(source=Source.STUTTGART, **nearby))
+    assert AREA.uses(Source.STUTTGART)  # None means all sources
+
+
+@pytest.mark.parametrize(
+    ("direction", "expected"),
+    [
+        ("Singen -> Stuttgart", True),  # selected
+        ("Stuttgart -> Singen", False),  # opposite carriageway
+        ("AS Böblingen-Hulb (aus Richtung Ehningen)", True),  # ramp: always kept
+        (None, True),  # unknown: always kept
+    ],
+)
+def test_area_directions(direction: str | None, expected: bool) -> None:
+    area = ObservationArea(
+        "Pendeln",
+        48.0,
+        9.0,
+        5,
+        frozenset({"A81"}),
+        directions=frozenset({"Singen -> Stuttgart"}),
+    )
+    event = make_event(
+        source=Source.AUTOBAHN,
+        road="A81",
+        direction=direction,
+        latitude=48.0,
+        longitude=9.0,
+    )
+    assert area.contains(event) is expected
+
+
+def test_directions_do_not_affect_other_sources() -> None:
+    area = ObservationArea(
+        "Pendeln", 48.0, 9.0, 5, directions=frozenset({"Singen -> Stuttgart"})
+    )
+    event = make_event(direction="eine Richtung", latitude=48.0, longitude=9.0)
+    assert area.contains(event)

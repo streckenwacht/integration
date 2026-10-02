@@ -6,6 +6,7 @@ from typing import Any
 
 import voluptuous as vol
 from homeassistant.config_entries import (
+    SOURCE_RECONFIGURE,
     ConfigEntry,
     ConfigFlow,
     ConfigFlowResult,
@@ -20,6 +21,8 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .const import (
     BW_BOUNDS,
+    CONF_AREA_SOURCES,
+    CONF_DIRECTIONS,
     CONF_INCLUDE_INRIX,
     CONF_LOCATION,
     CONF_RADIUS,
@@ -36,6 +39,7 @@ from .const import (
     SUBENTRY_AREA,
     Source,
 )
+from .model import ObservationArea, is_route_direction
 from .providers import ProviderError
 from .providers.autobahn import AutobahnProvider
 
@@ -164,40 +168,38 @@ class StreckenwachtOptionsFlow(OptionsFlow):
 
 
 class AreaSubentryFlow(ConfigSubentryFlow):
-    """Add or change an observation area: name, circle on a map, motorways."""
+    """Add or change an observation area.
+
+    Step 1: name, circle on a map, sources, motorways.
+    Step 2 (only with motorways): the directions of travel to keep.
+    """
 
     _roads: list[str] | None = None
+    _title: str = ""
+    _data: dict[str, Any] | None = None
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
     ) -> SubentryFlowResult:
         """Add a new observation area."""
-        return await self._async_area_step("user", user_input, None)
+        return await self._async_area_step("user", user_input)
 
     async def async_step_reconfigure(
         self, user_input: dict[str, Any] | None = None
     ) -> SubentryFlowResult:
         """Change an existing observation area."""
-        subentry = self._get_reconfigure_subentry()
-        current = {
-            CONF_NAME: subentry.title,
-            CONF_LOCATION: {
-                CONF_LATITUDE: subentry.data[CONF_LATITUDE],
-                CONF_LONGITUDE: subentry.data[CONF_LONGITUDE],
-                CONF_RADIUS: subentry.data.get(CONF_RADIUS, DEFAULT_RADIUS),
-            },
-            CONF_ROADS: list(subentry.data.get(CONF_ROADS, [])),
-        }
-        return await self._async_area_step("reconfigure", user_input, current)
+        return await self._async_area_step("reconfigure", user_input)
+
+    def _enabled_sources(self) -> list[Source]:
+        enabled = self._get_entry().options.get(CONF_SOURCES, [])
+        return [source for source in Source if source.value in enabled]
 
     async def _async_area_step(
-        self,
-        step_id: str,
-        user_input: dict[str, Any] | None,
-        current: dict[str, Any] | None,
+        self, step_id: str, user_input: dict[str, Any] | None
     ) -> SubentryFlowResult:
-        entry = self._get_entry()
-        uses_autobahn = Source.AUTOBAHN.value in entry.options.get(CONF_SOURCES, [])
+        enabled = self._enabled_sources()
+        uses_autobahn = Source.AUTOBAHN in enabled
+        choose_sources = len(enabled) > 1
         if uses_autobahn and self._roads is None:
             try:
                 self._roads = await AutobahnProvider(
@@ -211,38 +213,44 @@ class AreaSubentryFlow(ConfigSubentryFlow):
             name = user_input[CONF_NAME].strip()
             location = user_input[CONF_LOCATION]
             radius = float(location.get(CONF_RADIUS) or DEFAULT_RADIUS)
+            sources = user_input.get(CONF_AREA_SOURCES) if choose_sources else None
             if not name:
                 errors[CONF_NAME] = "name_required"
             elif radius > MAX_RADIUS:
                 errors[CONF_LOCATION] = "radius_too_large"
+            elif choose_sources and not sources:
+                errors[CONF_AREA_SOURCES] = "no_sources"
             else:
-                data = {
+                roads = sorted(user_input.get(CONF_ROADS, []))
+                self._title = name
+                self._data = {
                     CONF_LATITUDE: float(location[CONF_LATITUDE]),
                     CONF_LONGITUDE: float(location[CONF_LONGITUDE]),
                     CONF_RADIUS: radius,
-                    CONF_ROADS: sorted(user_input.get(CONF_ROADS, [])),
+                    CONF_ROADS: roads,
+                    # None: all sources configured for the integration
+                    CONF_AREA_SOURCES: sorted(sources) if sources else None,
+                    CONF_DIRECTIONS: [],
                 }
-                if step_id == "reconfigure":
-                    return self.async_update_and_abort(
-                        entry, self._get_reconfigure_subentry(), title=name, data=data
-                    )
-                return self.async_create_entry(title=name, data=data)
+                if roads and (sources is None or Source.AUTOBAHN.value in sources):
+                    return await self.async_step_directions()
+                return self._async_finish()
 
-        defaults = current or {
-            CONF_NAME: "",
-            CONF_LOCATION: {
-                CONF_LATITUDE: self.hass.config.latitude,
-                CONF_LONGITUDE: self.hass.config.longitude,
-                CONF_RADIUS: DEFAULT_RADIUS,
-            },
-            CONF_ROADS: [],
-        }
         schema: dict[Any, Any] = {
             vol.Required(CONF_NAME): selector.TextSelector(),
             vol.Required(CONF_LOCATION): selector.LocationSelector(
                 selector.LocationSelectorConfig(radius=True, icon="mdi:road-variant")
             ),
         }
+        if choose_sources:
+            schema[vol.Required(CONF_AREA_SOURCES)] = selector.SelectSelector(
+                selector.SelectSelectorConfig(
+                    options=[source.value for source in enabled],
+                    multiple=True,
+                    mode=selector.SelectSelectorMode.LIST,
+                    translation_key=CONF_SOURCES,
+                )
+            )
         if uses_autobahn:
             schema[vol.Optional(CONF_ROADS)] = selector.SelectSelector(
                 selector.SelectSelectorConfig(
@@ -255,7 +263,93 @@ class AreaSubentryFlow(ConfigSubentryFlow):
         return self.async_show_form(
             step_id=step_id,
             data_schema=self.add_suggested_values_to_schema(
-                vol.Schema(schema), user_input or defaults
+                vol.Schema(schema), user_input or self._defaults(enabled)
             ),
             errors=errors,
         )
+
+    def _defaults(self, enabled: list[Source]) -> dict[str, Any]:
+        all_enabled = [source.value for source in enabled]
+        if self.source == SOURCE_RECONFIGURE:
+            subentry = self._get_reconfigure_subentry()
+            data = subentry.data
+            return {
+                CONF_NAME: subentry.title,
+                CONF_LOCATION: {
+                    CONF_LATITUDE: data[CONF_LATITUDE],
+                    CONF_LONGITUDE: data[CONF_LONGITUDE],
+                    CONF_RADIUS: data.get(CONF_RADIUS, DEFAULT_RADIUS),
+                },
+                CONF_AREA_SOURCES: data.get(CONF_AREA_SOURCES) or all_enabled,
+                CONF_ROADS: list(data.get(CONF_ROADS, [])),
+            }
+        return {
+            CONF_NAME: "",
+            CONF_LOCATION: {
+                CONF_LATITUDE: self.hass.config.latitude,
+                CONF_LONGITUDE: self.hass.config.longitude,
+                CONF_RADIUS: DEFAULT_RADIUS,
+            },
+            CONF_AREA_SOURCES: all_enabled,
+            CONF_ROADS: [],
+        }
+
+    async def async_step_directions(
+        self, user_input: dict[str, Any] | None = None
+    ) -> SubentryFlowResult:
+        """Choose the directions of travel; none selected means all."""
+        assert self._data is not None
+        if user_input is not None:
+            self._data[CONF_DIRECTIONS] = sorted(user_input.get(CONF_DIRECTIONS, []))
+            return self._async_finish()
+
+        current: list[str] = []
+        if self.source == SOURCE_RECONFIGURE:
+            subentry = self._get_reconfigure_subentry()
+            current = list(subentry.data.get(CONF_DIRECTIONS, []))
+        try:
+            options = await self._async_route_directions(self._data[CONF_ROADS])
+        except ProviderError:
+            return self.async_abort(reason="cannot_connect")
+        schema = vol.Schema(
+            {
+                vol.Optional(CONF_DIRECTIONS): selector.SelectSelector(
+                    selector.SelectSelectorConfig(
+                        options=sorted(set(options) | set(current)),
+                        multiple=True,
+                        mode=selector.SelectSelectorMode.LIST,
+                    )
+                )
+            }
+        )
+        return self.async_show_form(
+            step_id="directions",
+            data_schema=self.add_suggested_values_to_schema(
+                schema, {CONF_DIRECTIONS: current}
+            ),
+        )
+
+    async def _async_route_directions(self, roads: list[str]) -> list[str]:
+        """Directions ("Singen -> Stuttgart") currently used on these roads."""
+        provider = AutobahnProvider(async_get_clientsession(self.hass))
+        events = await provider.async_fetch(
+            [ObservationArea("", 0, 0, 0, roads=frozenset(roads))]
+        )
+        return sorted(
+            {
+                event.direction
+                for event in events
+                if event.direction and is_route_direction(event.direction)
+            }
+        )
+
+    def _async_finish(self) -> SubentryFlowResult:
+        assert self._data is not None
+        if self.source == SOURCE_RECONFIGURE:
+            return self.async_update_and_abort(
+                self._get_entry(),
+                self._get_reconfigure_subentry(),
+                title=self._title,
+                data=self._data,
+            )
+        return self.async_create_entry(title=self._title, data=self._data)

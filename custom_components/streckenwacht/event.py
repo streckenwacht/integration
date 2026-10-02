@@ -11,6 +11,8 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import StreckenwachtConfigEntry
 from .const import (
+    CONF_AREA_SOURCES,
+    CONF_DIRECTIONS,
     CONF_INCLUDE_INRIX,
     CONF_RADIUS,
     CONF_ROADS,
@@ -56,6 +58,8 @@ def fingerprint(entry: StreckenwachtConfigEntry, subentry: ConfigSubentry) -> st
             data.get("longitude"),
             data.get(CONF_RADIUS),
             ",".join(sorted(data.get(CONF_ROADS, ()))),
+            ",".join(sorted(data.get(CONF_AREA_SOURCES) or ())),
+            ",".join(sorted(data.get(CONF_DIRECTIONS, ()))),
             entry.options.get(CONF_INCLUDE_INRIX, DEFAULT_INCLUDE_INRIX),
         )
     )

@@ -57,12 +57,14 @@
           "data": {
             "name": "Name",
             "location": "Area",
+            "sources": "Data sources",
             "roads": "Motorways"
           },
           "data_description": {
             "name": "For example “Commute”. Used in entity names.",
             "location": "Move the marker and drag the circle. Maximum radius: 100 km.",
-            "roads": "The Autobahn API cannot search by area: only the motorways selected here are queried."
+            "sources": "Which sources to show in this area, e.g. only the motorway for a commute.",
+            "roads": "The Autobahn API cannot search by area: only the motorways selected here are queried. Ignored if the Autobahn source is not selected."
           }
         },
         "reconfigure": {
@@ -71,18 +73,28 @@
           "data": {
             "name": "Name",
             "location": "Area",
+            "sources": "Data sources",
             "roads": "Motorways"
           },
           "data_description": {
             "name": "For example “Commute”. Used in entity names.",
             "location": "Move the marker and drag the circle. Maximum radius: 100 km.",
-            "roads": "The Autobahn API cannot search by area: only the motorways selected here are queried."
+            "sources": "Which sources to show in this area, e.g. only the motorway for a commute.",
+            "roads": "The Autobahn API cannot search by area: only the motorways selected here are queried. Ignored if the Autobahn source is not selected."
+          }
+        },
+        "directions": {
+          "title": "Directions of travel",
+          "description": "Only show motorway events in these directions. Leave empty for all directions. Events without a clear direction (e.g. junction ramps) are always shown. On a commute the direction name can change at a motorway junction, e.g. “Singen -> Stuttgart” and then “Stuttgart -> Heilbronn”.",
+          "data": {
+            "directions": "Directions"
           }
         }
       },
       "error": {
         "name_required": "Please enter a name.",
-        "radius_too_large": "The radius must not exceed 100 km."
+        "radius_too_large": "The radius must not exceed 100 km.",
+        "no_sources": "Select at least one data source."
       },
       "abort": {
         "cannot_connect": "Could not load the list of motorways. Please try again later.",
