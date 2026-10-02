@@ -123,6 +123,8 @@ Beispiel für den Bereich „Arbeitsweg“ (Gerät *Streckenwacht Arbeitsweg*). 
 | `sensor.streckenwacht_arbeitsweg_travel_time_loss` | Reisezeitverlust | Größter aktueller Reisezeitverlust in Minuten (nur mit Staumeldungen) |
 | `event.streckenwacht_arbeitsweg_event_change` | Ereignisänderung | Event-Typ `new` oder `ended` |
 
+<img src="https://raw.githubusercontent.com/streckenwacht/integration/main/assets/screenshots/kalender.png" alt="Kalender in der Listenansicht: Nachtsperrungen als einzelne Termine, aktueller Stau" width="600">
+
 **Typen** (`type`): `roadworks` (Baustelle), `closure` (Sperrung), `traffic_jam` (Stau), `accident` (Unfall), `warning` (sonstige Warnung).
 
 Alle Entitäten haben das Attribut `unavailable_sources`: Ist eine Quelle gerade nicht erreichbar, steht sie dort – die angezeigten Daten sind dann der letzte bekannte Stand.
