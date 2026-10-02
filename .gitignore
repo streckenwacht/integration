@@ -25,3 +25,7 @@ Thumbs.db
 # Lokale HA-Testkonfiguration
 config/
 *.log
+
+# Real INRIX traffic data (Autobahn warnings): local only, not redistributed.
+# Tests use an inline example; see docs/HANDOVER.md, section 6.
+tests/fixtures/autobahn_*_warning.json

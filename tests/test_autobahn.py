@@ -27,7 +27,7 @@ from custom_components.streckenwacht.providers.autobahn import (
     parse_periods,
 )
 
-from .conftest import load_fixture
+from .conftest import FIXTURES, load_fixture
 
 
 def local(day: int, month: int, hour: int = 0, minute: int = 0) -> datetime:
@@ -259,7 +259,11 @@ def test_missing_optional_fields() -> None:
 @pytest.mark.parametrize("road", ["A8", "A81"])
 @pytest.mark.parametrize("service", SERVICES)
 def test_fixture_invariants(road: str, service: str) -> None:
-    items = load_fixture(f"autobahn_{road}_{service}.json")[service]
+    name = f"autobahn_{road}_{service}.json"
+    if not (FIXTURES / name).exists():
+        # Warning fixtures contain INRIX data and are not committed (local only).
+        pytest.skip(f"{name} not available (run tools/fetch_fixtures.py)")
+    items = load_fixture(name)[service]
     events = list(parse_items(items, road, service))
     assert len(events) == len(items), "every real item must parse"
     assert len({e.id for e in events}) == len(events)
@@ -292,7 +296,10 @@ async def api() -> AsyncIterator[tuple[TestServer, list[str]]]:
         requested.append(f"{road}/{name}")
         if f"{road}/{name}" in failing:
             return web.Response(status=503)
-        return web.json_response(load_fixture(f"autobahn_{road}_{name}.json"))
+        path = FIXTURES / f"autobahn_{road}_{name}.json"
+        if not path.exists():  # warning fixtures are local only (INRIX data)
+            return web.json_response({name: [WARNING_ITEM]})
+        return web.json_response(load_fixture(path.name))
 
     app = web.Application()
     app.router.add_get("/", roads)
