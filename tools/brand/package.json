@@ -1,0 +1,14 @@
+{
+  "name": "streckenwacht-brand",
+  "private": true,
+  "description": "Erzeugt alle Streckenwacht-Brand-Bilder (SVG + PNG) aus Code.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "@fontsource/space-grotesk": "5.3.0",
+    "opentype.js": "2.0.0",
+    "sharp": "0.35.5"
+  }
+}

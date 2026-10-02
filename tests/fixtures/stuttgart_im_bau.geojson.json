@@ -1,0 +1,1995 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65523",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1567,
+          48.8456
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Vollsperrung in mehreren Bauabschnitten. Eine Umleitung ist ausgeschildert",
+        "DETAILS_STANDORT": "zwischen Marco-Polo-Weg und Johanneskirche",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stammheim",
+        "ANFANG": "18.05.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Korntaler Straße",
+        "STADTBEREICH": "Nördlicher Bereich",
+        "BAUABTEILUNG": "12",
+        "BAUSTELLENNUMMER": "7374/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "Ende Dez. 2026",
+        "KOORDINATE_X": "511494.580",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5410307.838",
+        "ART_ARBEIT": "Kanalbauarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Vollsperrung in mehreren Bauabschnitten. Eine Umleitung ist ausgeschildert",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1567,
+        48.8456,
+        9.1567,
+        48.8456
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65524",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1066,
+          48.7194
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Halbseitige Sperrung / Vollsperrung je nach Bauphase. Eine Umleitung ist ausgeschildert.",
+        "DETAILS_STANDORT": "zwischen Untere Hagstraße und Steigstraße",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Rohr",
+        "ANFANG": "05.06.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Robert-Koch-Straße",
+        "STADTBEREICH": "Filderbereich",
+        "BAUABTEILUNG": "14",
+        "BAUSTELLENNUMMER": "7465/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "20.11.2026",
+        "KOORDINATE_X": "507842.000",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5396263.726",
+        "ART_ARBEIT": "Arbeiten an Versorgungsleitungen (Strom)",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Halbseitige Sperrung / Vollsperrung je nach Bauphase. Eine Umleitung ist ausgeschildert.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1066,
+        48.7194,
+        9.1066,
+        48.7194
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65525",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.2441,
+          48.777
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Je nach Bauphase geänderte Verkehrsführung, Sperrung von Fahrspuren und Auffahrten auf die B10.",
+        "DETAILS_STANDORT": "zwischen Langwiesenweg und Otto-Hirsch-Brücke",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Wangen",
+        "ANFANG": "08.06.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Uferstraße",
+        "STADTBEREICH": "Neckarbereich",
+        "BAUABTEILUNG": "13",
+        "BAUSTELLENNUMMER": "7470/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "28.02.2027",
+        "KOORDINATE_X": "517931.906",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5402694.437",
+        "ART_ARBEIT": "Arbeiten an Versorgungsleitungen (Strom)",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Je nach Bauphase geänderte Verkehrsführung, Sperrung von Fahrspuren und Auffahrten auf die B10.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.2441,
+        48.777,
+        9.2441,
+        48.777
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65526",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1951,
+          48.7669
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Fahrbahneinengung auf nur eine Fahrspur in Fahrtrichtung stadteinwärts.",
+        "DETAILS_STANDORT": "Zwischen Kreuzung Payerstraße und Kreuzung Waldebene Ost",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stuttgart-Ost",
+        "ANFANG": "29.06.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Pischekstraße",
+        "STADTBEREICH": "Innenstadtbereich",
+        "BAUABTEILUNG": "11",
+        "BAUSTELLENNUMMER": "7417/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "Mitte Nov. 2026",
+        "KOORDINATE_X": "514333.811",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5401566.544",
+        "ART_ARBEIT": "Arbeiten an Versorgungsleitungen (Wasser) und Straßenbauarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Fahrbahneinengung auf nur eine Fahrspur in Fahrtrichtung stadteinwärts.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1951,
+        48.7669,
+        9.1951,
+        48.7669
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65527",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1035,
+          48.7256
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Vollsperrung.Eine Umleitung ist ausgeschildert.",
+        "DETAILS_STANDORT": "Zwischen Robert-Koch-Straße und Am Hopfenrain",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Vaihingen",
+        "ANFANG": "02.07.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Waldburgstraße",
+        "STADTBEREICH": "Filderbereich",
+        "BAUABTEILUNG": "14",
+        "BAUSTELLENNUMMER": "7441/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "Mitte Okt. 2026",
+        "KOORDINATE_X": "507611.812",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5396956.275",
+        "ART_ARBEIT": "Straßenbauarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Vollsperrung.Eine Umleitung ist ausgeschildert.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1035,
+        48.7256,
+        9.1035,
+        48.7256
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65528",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1852,
+          48.7522
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Vollsperrung. Eine Umleitung ist ausgeschildert.",
+        "DETAILS_STANDORT": "zwischen Jahnstraße und Eiswelt Stuttgart",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Degerloch",
+        "ANFANG": "03.07.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Keßlerweg",
+        "STADTBEREICH": "Filderbereich",
+        "BAUABTEILUNG": "14",
+        "BAUSTELLENNUMMER": "7430/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "30.10.2026",
+        "KOORDINATE_X": "513613.897",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5399924.244",
+        "ART_ARBEIT": "Arbeiten an Versorgungsleitungen",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Vollsperrung. Eine Umleitung ist ausgeschildert.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1852,
+        48.7522,
+        9.1852,
+        48.7522
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65529",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1288,
+          48.7759
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Halbseitige Sperrung / Vollsperrung je nach Bauphase. Eine Umleitung wird ausgeschildert.",
+        "DETAILS_STANDORT": "Kreuzungsbereich Brahmsweg",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Botnang",
+        "ANFANG": "08.07.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Vaihinger Landstraße",
+        "STADTBEREICH": "Innenstadtbereich",
+        "BAUABTEILUNG": "11",
+        "BAUSTELLENNUMMER": "7460/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "23.12.2026",
+        "KOORDINATE_X": "509464.561",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5402551.562",
+        "ART_ARBEIT": "Arbeiten an Versorgungsleitungen (Wasser, Gas und Strom)",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Halbseitige Sperrung / Vollsperrung je nach Bauphase. Eine Umleitung wird ausgeschildert.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1288,
+        48.7759,
+        9.1288,
+        48.7759
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65530",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.0899,
+          48.7898
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Vollsperrung.Eine Umleitung ist ausgeschildert. Die Umleitungsstrecke verläuft über die Rotenwaldstraße, die Straße Am Kräherwald, Stresemannstraße und die Bundesstraße B295. Radfahrer nutzen bitte die parallel im Wald verlaufenden Wege.",
+        "DETAILS_STANDORT": "Bergheimer Steige",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Weilimdorf",
+        "ANFANG": "13.07.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Bergheimer Steige",
+        "STADTBEREICH": "Nördlicher Bereich",
+        "BAUABTEILUNG": "12",
+        "BAUSTELLENNUMMER": "7433/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "24.10.2026",
+        "KOORDINATE_X": "506599.647",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5404095.673",
+        "ART_ARBEIT": "Straßenbauarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Vollsperrung.Eine Umleitung ist ausgeschildert. Die Umleitungsstrecke verläuft über die Rotenwaldstraße, die Straße Am Kräherwald, Stresemannstraße und die Bundesstraße B295. Radfahrer nutzen bitte die parallel im Wald verlaufenden Wege.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.0899,
+        48.7898,
+        9.0899,
+        48.7898
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65531",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1895,
+          48.8046
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Halbseitige Sperrung, eine Umleitung ist ausgeschildert.",
+        "DETAILS_STANDORT": "zwischen Ehmannstraße und Sarweystraße",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stuttgart-Nord",
+        "ANFANG": "15.07.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Nordbahnhofstraße",
+        "STADTBEREICH": "Innenstadtbereich",
+        "BAUABTEILUNG": "12",
+        "BAUSTELLENNUMMER": "7448/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "11.11.2026",
+        "KOORDINATE_X": "513915.523",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5405749.719",
+        "ART_ARBEIT": "Arbeiten an Versorgungsleitungen (Gas)",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Halbseitige Sperrung, eine Umleitung ist ausgeschildert.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1895,
+        48.8046,
+        9.1895,
+        48.8046
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65532",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.2019,
+          48.7862
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Halbseitige Sperrung (werktags von 7 bis 16 Uhr), eine Umleitung ist ausgeschildert. Bushaltestelle wird verlegt.",
+        "DETAILS_STANDORT": "zwischen Rotenbergstraße und Neuffenstraße",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stuttgart-Ost",
+        "ANFANG": "15.07.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Schwarenbergstraße",
+        "STADTBEREICH": "Innenstadtbereich",
+        "BAUABTEILUNG": "11",
+        "BAUSTELLENNUMMER": "7453/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "15.12.2026",
+        "KOORDINATE_X": "514828.073",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5403705.809",
+        "ART_ARBEIT": "Arbeiten an Versorgungsleitungen (Strom)",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Halbseitige Sperrung (werktags von 7 bis 16 Uhr), eine Umleitung ist ausgeschildert. Bushaltestelle wird verlegt.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.2019,
+        48.7862,
+        9.2019,
+        48.7862
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65533",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1409,
+          48.8119
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Vollsperrung im jeweiligen Bauabschnitt.",
+        "DETAILS_STANDORT": "zwischen Hunsrückstraße und Teudeburger Straße",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Feuerbach",
+        "ANFANG": "20.07.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Kyffhäuserstraße",
+        "STADTBEREICH": "Nördlicher Bereich",
+        "BAUABTEILUNG": "12",
+        "BAUSTELLENNUMMER": "7502/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "30.10.2026",
+        "KOORDINATE_X": "510342.318",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5406557.362",
+        "ART_ARBEIT": "Arbeiten an Versorgungsleitungen",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Vollsperrung im jeweiligen Bauabschnitt.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1409,
+        48.8119,
+        9.1409,
+        48.8119
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65534",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1682,
+          48.8036
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Vollsperrung in mehreren Bauphasen.",
+        "DETAILS_STANDORT": "zwischen Adolf-Fremd-Weg und Haus auf dem Killesberg",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stuttgart-Nord",
+        "ANFANG": "21.07.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Lenbachstraße",
+        "STADTBEREICH": "Innenstadtbereich",
+        "BAUABTEILUNG": "11",
+        "BAUSTELLENNUMMER": "7503/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "Ende Dez. 2026",
+        "KOORDINATE_X": "512353.155",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5405639.256",
+        "ART_ARBEIT": "Arbeiten an Versorgungsleitungen (Wasser, Gas und Strom)",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Vollsperrung in mehreren Bauphasen.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1682,
+        48.8036,
+        9.1682,
+        48.8036
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65535",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.2256,
+          48.7817
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Ampelgeregelte Engstelle.",
+        "DETAILS_STANDORT": "zwischen Ulmer Straße und Nähterstraße",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stuttgart-Ost",
+        "ANFANG": "23.07.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Wangener Straße",
+        "STADTBEREICH": "Innenstadtbereich",
+        "BAUABTEILUNG": "11",
+        "BAUSTELLENNUMMER": "7454/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "20.10.2026",
+        "KOORDINATE_X": "516572.606",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5403216.990",
+        "ART_ARBEIT": "Arbeiten an Versorgungsleitungen (Gas)",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Ampelgeregelte Engstelle.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.2256,
+        48.7817,
+        9.2256,
+        48.7817
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65536",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.248,
+          48.7879
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Vollsperrung. Eine Umleitung ist ausgeschildert.",
+        "DETAILS_STANDORT": "zwischen Augsburger Straße und Wallmerstraße",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Untertürkheim",
+        "ANFANG": "27.07.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Biklenstraße",
+        "STADTBEREICH": "Neckarbereich",
+        "BAUABTEILUNG": "13",
+        "BAUSTELLENNUMMER": "7504/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": ".",
+        "ENDE": "30.06.2027",
+        "KOORDINATE_X": "518216,17",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5403907,08",
+        "ART_ARBEIT": "Kanalbauarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Vollsperrung. Eine Umleitung ist ausgeschildert..",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.248,
+        48.7879,
+        9.248,
+        48.7879
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65537",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.2009,
+          48.7789
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Halbseitige Sperrung (werktags 7 bis 16 Uhr), eine Umleitung ist ausgeschildert. Busverkehr wird umgeleitet.",
+        "DETAILS_STANDORT": "zwischen Ecklenstraße und Libanonstraße",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stuttgart-Ost",
+        "ANFANG": "03.08.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Bussenstraße",
+        "STADTBEREICH": "Innenstadtbereich",
+        "BAUABTEILUNG": "11",
+        "BAUSTELLENNUMMER": "7449/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "18.12.2026",
+        "KOORDINATE_X": "514758.222",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5402891.552",
+        "ART_ARBEIT": "Arbeiten an Versorgungsleitungen (Wasser und Strom)",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Halbseitige Sperrung (werktags 7 bis 16 Uhr), eine Umleitung ist ausgeschildert. Busverkehr wird umgeleitet.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.2009,
+        48.7789,
+        9.2009,
+        48.7789
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65538",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.2168,
+          48.8424
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Vollsperrung,je nach Bauphase. Eine Umleitung wird ausgeschildert.",
+        "DETAILS_STANDORT": "zwischen Kapfenstraße und Forellenweg",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Mönchfeld",
+        "ANFANG": "24.08.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Hechtstraße",
+        "STADTBEREICH": "Neckarbereich",
+        "BAUABTEILUNG": "13",
+        "BAUSTELLENNUMMER": "7463/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "27.11.2026",
+        "KOORDINATE_X": "515907.839",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5409955.941",
+        "ART_ARBEIT": "Straßenbauarbeiten und barrierefreier Umbau von 4 Bushaltestellen",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Vollsperrung,je nach Bauphase. Eine Umleitung wird ausgeschildert.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.2168,
+        48.8424,
+        9.2168,
+        48.8424
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65539",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1413,
+          48.7252
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Entfall von Parkplätzen in Lammackerweg und Andreas-Fauser-Straße. Vollsperrung Fuß- und Radweg entlang des Sindelbachs.",
+        "DETAILS_STANDORT": "Kreuzung Andreas-Fauser-Str.",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Möhringen",
+        "ANFANG": "24.08.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Lammackerweg",
+        "STADTBEREICH": "Filderbereich",
+        "BAUABTEILUNG": "14",
+        "BAUSTELLENNUMMER": "7518/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "Ende Dez. 2027",
+        "KOORDINATE_X": "510388.884",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5396913.015",
+        "ART_ARBEIT": "Sanierung Regenüberlaufbecken",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Entfall von Parkplätzen in Lammackerweg und Andreas-Fauser-Straße. Vollsperrung Fuß- und Radweg entlang des Sindelbachs.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1413,
+        48.7252,
+        9.1413,
+        48.7252
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65540",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1433,
+          48.8345
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Ampelgeregelte Engstelle.",
+        "DETAILS_STANDORT": "zwischen Schwieberdinger Straße und Zuffenhauser Straße",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Neuwirtshaus",
+        "ANFANG": "31.08.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Nordseestraße",
+        "STADTBEREICH": "Nördlicher Bereich",
+        "BAUABTEILUNG": "12",
+        "BAUSTELLENNUMMER": "7472/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "06.10.2026",
+        "KOORDINATE_X": "510516.282",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5409063.632",
+        "ART_ARBEIT": "Arbeiten an Versorgungsleitungen (Strom)",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Ampelgeregelte Engstelle.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1433,
+        48.8345,
+        9.1433,
+        48.8345
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65541",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.2228,
+          48.8292
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Vollsperrung. Eine Umleitung ist ausgeschildert.",
+        "DETAILS_STANDORT": "Zwischen Seeblickweg und Kolpingstraße",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Bad Cannstatt",
+        "ANFANG": "31.08.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Zuckerbergstraße",
+        "STADTBEREICH": "Neckarbereich",
+        "BAUABTEILUNG": "13",
+        "BAUSTELLENNUMMER": "7532/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "Anfang Juni 2027",
+        "KOORDINATE_X": "516349,42",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5408494,12",
+        "ART_ARBEIT": "Kanalbauarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Vollsperrung. Eine Umleitung ist ausgeschildert.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.2228,
+        48.8292,
+        9.2228,
+        48.8292
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65542",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.2022,
+          48.7115
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Teilsperrung. Einbahnstraßenregelung in Richtung Plieningen (stadteinwärts).Eine Umleitung ist ausgeschildert.",
+        "DETAILS_STANDORT": "zwischen Osumstrasse und Kreisverkehr Garbenstrasse",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Hohenheim",
+        "ANFANG": "07.09.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Filderhauptstrasse",
+        "STADTBEREICH": "Filderbereich",
+        "BAUABTEILUNG": "14",
+        "BAUSTELLENNUMMER": "7534/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "Ende Jan. 2027",
+        "KOORDINATE_X": "514875.750",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5395405.540",
+        "ART_ARBEIT": "Kanalbauarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Teilsperrung. Einbahnstraßenregelung in Richtung Plieningen (stadteinwärts).Eine Umleitung ist ausgeschildert.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.2022,
+        48.7115,
+        9.2022,
+        48.7115
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65543",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.153,
+          48.7697
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Fahrbahneinengung und Fahrbahnverschwenkung stadtauswärts, Verkehr stadteinwärts wird umgeleitet.",
+        "DETAILS_STANDORT": "zwischen Seyfferstrasseund Gutenbergstraße",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stuttgart-West",
+        "ANFANG": "14.09.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Rotenwaldstraße",
+        "STADTBEREICH": "Innenstadtbereich",
+        "BAUABTEILUNG": "11",
+        "BAUSTELLENNUMMER": "7313/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "Mitte Okt. 2026",
+        "KOORDINATE_X": "511241.241",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5401871.052",
+        "ART_ARBEIT": "Straßenbauarbeiten, barrierefreie Bushaltestelle",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Fahrbahneinengung und Fahrbahnverschwenkung stadtauswärts, Verkehr stadteinwärts wird umgeleitet.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.153,
+        48.7697,
+        9.153,
+        48.7697
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65544",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1796,
+          48.7334
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Fahrbahneinengung und Sperrung der Ausfahrt vom Südweg in die Nauener Straße in beide Richtungen",
+        "DETAILS_STANDORT": "Ecke Südweg",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Hoffeld",
+        "ANFANG": "14.09.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Nauener Straße",
+        "STADTBEREICH": "Filderbereich",
+        "BAUABTEILUNG": "14",
+        "BAUSTELLENNUMMER": "7525/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "Ende Okt. 2026",
+        "KOORDINATE_X": "513206.360",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5397832.160",
+        "ART_ARBEIT": "Straßenbauarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Fahrbahneinengung und Sperrung der Ausfahrt vom Südweg in die Nauener Straße in beide Richtungen",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1796,
+        48.7334,
+        9.1796,
+        48.7334
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65545",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1521,
+          48.7702
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Teilsperrung. Einbahnstraßenregelung in Richtung Westbahnhof. Die Busse der Linien 44 und X2 werden umgeleitet über die Reinsburgstraße bis zur Silberburgstraße. Haltestellen werden verlegt.",
+        "DETAILS_STANDORT": "zwischen Leipziger Platz und Rotebühlstraße",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stuttgart-West",
+        "ANFANG": "14.09.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Rotenwaldstraße",
+        "STADTBEREICH": "Innenstadtbereich",
+        "BAUABTEILUNG": "11",
+        "BAUSTELLENNUMMER": "7535/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "08.11.2026",
+        "KOORDINATE_X": "511173.111",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5401920.529",
+        "ART_ARBEIT": "Straßenbauarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Teilsperrung. Einbahnstraßenregelung in Richtung Westbahnhof. Die Busse der Linien 44 und X2 werden umgeleitet über die Reinsburgstraße bis zur Silberburgstraße. Haltestellen werden verlegt.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1521,
+        48.7702,
+        9.1521,
+        48.7702
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65546",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.2313,
+          48.8513
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Fahrbahneinengung stadtauswärts.",
+        "DETAILS_STANDORT": "Höhe Firma Selecta Klemm)",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Mühlhausen",
+        "ANFANG": "14.09.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Hanfäcker, Gewann",
+        "STADTBEREICH": "Neckarbereich",
+        "BAUABTEILUNG": "13",
+        "BAUSTELLENNUMMER": "7537/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "15.11.2026",
+        "KOORDINATE_X": "516968.050",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5410953.520",
+        "ART_ARBEIT": "Arbeiten an Versorgungsleitungen",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Fahrbahneinengung stadtauswärts.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.2313,
+        48.8513,
+        9.2313,
+        48.8513
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65547",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.231,
+          48.845
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Vollsperrung",
+        "DETAILS_STANDORT": "zwischen Veitstraße und Weidenbrunnen",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Mühlhausen",
+        "ANFANG": "15.09.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Palmstrasse",
+        "STADTBEREICH": "Neckarbereich",
+        "BAUABTEILUNG": "13",
+        "BAUSTELLENNUMMER": "7539/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "Mitte Okt. 2026",
+        "KOORDINATE_X": "516950.300",
+        "ZEITL_REGELUNG": "werktags",
+        "KOORDINATE_Y": "5410247.645",
+        "ART_ARBEIT": "Straßenbauarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Vollsperrung",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.231,
+        48.845,
+        9.231,
+        48.845
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65548",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1898,
+          48.7797
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Teilsperrung. Einbahnstraßenregelung stadtauswärts. Eine Umleitung ist ausgeschildert.",
+        "DETAILS_STANDORT": "zwischen Moserstraße und Kernerstraße",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stuttgart-Mitte",
+        "ANFANG": "28.09.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Werastraße",
+        "STADTBEREICH": "Innenstadtbereich",
+        "BAUABTEILUNG": "11",
+        "BAUSTELLENNUMMER": "7542/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "10.10.2026",
+        "KOORDINATE_X": "513941.285",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5402982.817",
+        "ART_ARBEIT": "Straßenbauarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Teilsperrung. Einbahnstraßenregelung stadtauswärts. Eine Umleitung ist ausgeschildert.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1898,
+        48.7797,
+        9.1898,
+        48.7797
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65549",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.158,
+          48.8129
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Vollsperrung. Eine Umleitung ist ausgeschildert.",
+        "DETAILS_STANDORT": "zwischen Kärntner Straße und Steiermärker Straße",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Feuerbach",
+        "ANFANG": "28.09.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Grazer Straße",
+        "STADTBEREICH": "Nördlicher Bereich",
+        "BAUABTEILUNG": "12",
+        "BAUSTELLENNUMMER": "7538/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "20.11.2026",
+        "KOORDINATE_X": "511599.753",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5406669.148",
+        "ART_ARBEIT": "Arbeiten an Versorgungsleitungen (Wasser, Gas)",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Vollsperrung. Eine Umleitung ist ausgeschildert.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.158,
+        48.8129,
+        9.158,
+        48.8129
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65550",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.2256,
+          48.7817
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Vollsperrung Stadtauswärts, Fahrbahnreduzierung stadteinwärts.",
+        "DETAILS_STANDORT": "zwischen Langwiesenweg und Nähterstraße",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stuttgart-Ost",
+        "ANFANG": "30.09.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Wangener Straße",
+        "STADTBEREICH": "Innenstadtbereich",
+        "BAUABTEILUNG": "11",
+        "BAUSTELLENNUMMER": "7551/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "14.12.2026",
+        "KOORDINATE_X": "516572.606",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5403216.990",
+        "ART_ARBEIT": "Arbeiten an Versorgungsleitungen.",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Vollsperrung Stadtauswärts, Fahrbahnreduzierung stadteinwärts.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.2256,
+        48.7817,
+        9.2256,
+        48.7817
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65561",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1867,
+          48.7814
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Während der gesamten Bauzeit ist mit Fahrbahnverschwenkungen und -einengungen in beiden Fahrtrichtungen zu rechnen. Fahrspursperrungen finden in der Regel außerhalb der Hauptverkehrszeit statt.",
+        "DETAILS_STANDORT": "Kreuzungsbereich Willy-Brandt-Straße / Konrad-Adenauer-Straße / Schillerstraße / Wagenburgtunnel",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stuttgart-Mitte",
+        "ANFANG": "03.11.2014",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Gebhard-Müller-Platz",
+        "STADTBEREICH": "Innenstadtbereich",
+        "BAUABTEILUNG": "11",
+        "BAUSTELLENNUMMER": "3921/2014",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "Ende Dez. 2029",
+        "KOORDINATE_X": "513712.674",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5403176.256",
+        "ART_ARBEIT": "Arbeiten für das Bauvorhaben S21 und für die neue Stadtbahnhaltestelle",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Während der gesamten Bauzeit ist mit Fahrbahnverschwenkungen und -einengungen in beiden Fahrtrichtungen zu rechnen. Fahrspursperrungen finden in der Regel außerhalb der Hauptverkehrszeit statt.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1867,
+        48.7814,
+        9.1867,
+        48.7814
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65562",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.185,
+          48.7819
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Fahrbahnverschwenkungen und -einengungen in beide Fahrtrichtungen. Fahrspursperrungen finden in der Regel außerhalb der Hauptverkehrszeit statt. Wechsel der Verkehrszustände während der Bauzeit.",
+        "DETAILS_STANDORT": "zwischen Hauptbahnhof und Gebhard-Müller-Platz",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stuttgart-Mitte",
+        "ANFANG": "08.07.2019",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Schillerstraße",
+        "STADTBEREICH": "Innenstadtbereich",
+        "BAUABTEILUNG": "11",
+        "BAUSTELLENNUMMER": "5361/2019",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "Ende Dez. 2026",
+        "KOORDINATE_X": "513592.2",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5403232.46",
+        "ART_ARBEIT": "Arbeiten für das Bauvorhaben S21",
+        "KARTENAUSSCHNITT": "5361_2019.jpg",
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Fahrbahnverschwenkungen und -einengungen in beide Fahrtrichtungen. Fahrspursperrungen finden in der Regel außerhalb der Hauptverkehrszeit statt. Wechsel der Verkehrszustände während der Bauzeit.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.185,
+        48.7819,
+        9.185,
+        48.7819
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65563",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1865,
+          48.7812
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Fahrbahnreduzierung auf jeweils eine Spur in beiden Fahrtrichtungen.",
+        "DETAILS_STANDORT": "B14 - Unterführung Gebhard-Müller-Platz",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stuttgart-Mitte",
+        "ANFANG": "27.07.2021",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Konrad-Adenauer-Straße",
+        "STADTBEREICH": "Innenstadtbereich",
+        "BAUABTEILUNG": "11",
+        "BAUSTELLENNUMMER": "6114/2021",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "Ende Nov. 2027",
+        "KOORDINATE_X": "513701.974",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5403145.628",
+        "ART_ARBEIT": "Arbeiten für das Bauvorhaben S21",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Fahrbahnreduzierung auf jeweils eine Spur in beiden Fahrtrichtungen.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1865,
+        48.7812,
+        9.1865,
+        48.7812
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65564",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1805,
+          48.7739
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Vollsperrung der Auffahrtsrampe von der B14 zum Charlottenplatz. Erschwerte Durchfahrt am Charlottenplatz. Keine Zufahrt vom Charlottenplatz in Richtung B27 Degerloch. Fahrtrichtung geradeaus und rechts am Charlottenplatz gesperrt. Weiterführung für Radverkehr und Bus eingerichtet.",
+        "DETAILS_STANDORT": "zwischen Leonhardsplatz und Charlottenplatz",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stuttgart-Mitte",
+        "ANFANG": "27.05.2024",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Hauptstätter Straße",
+        "STADTBEREICH": "Innenstadtbereich",
+        "BAUABTEILUNG": "11",
+        "BAUSTELLENNUMMER": "6785/2024",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "Ende Dez. 2026",
+        "KOORDINATE_X": "513264.715",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5402338.645",
+        "ART_ARBEIT": "Baustelle",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Vollsperrung der Auffahrtsrampe von der B14 zum Charlottenplatz. Erschwerte Durchfahrt am Charlottenplatz. Keine Zufahrt vom Charlottenplatz in Richtung B27 Degerloch. Fahrtrichtung geradeaus und rechts am Charlottenplatz gesperrt. Weiterführung für Radverkehr und Bus eingerichtet.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1805,
+        48.7739,
+        9.1805,
+        48.7739
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65565",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.2045,
+          48.8081
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Fahrbahneinengung und Fahrbahnverschwenkung in beide Richtungen.",
+        "DETAILS_STANDORT": " zwischen Wilhelmastraße und Haltestelle Rosensteinpark",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Bad Cannstatt",
+        "ANFANG": "17.03.2025",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Pragstraße",
+        "STADTBEREICH": "Neckarbereich",
+        "BAUABTEILUNG": "13",
+        "BAUSTELLENNUMMER": "7021/2025",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": "Der Verkehr wird in beide Richtungen auf Seite der Wilhelma geführt. Es ist keine Durchfahrt zur Pragstraße über die Haldenstraße möglich. Eine Umleitung für Anlieger ist ausgeschildert.",
+        "ENDE": "Anfang Juli 2028",
+        "KOORDINATE_X": "515017.948",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5406144.070",
+        "ART_ARBEIT": "Straßenbauarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Fahrbahneinengung und Fahrbahnverschwenkung in beide Richtungen.Der Verkehr wird in beide Richtungen auf Seite der Wilhelma geführt. Es ist keine Durchfahrt zur Pragstraße über die Haldenstraße möglich. Eine Umleitung für Anlieger ist ausgeschildert.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.2045,
+        48.8081,
+        9.2045,
+        48.8081
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65566",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1797,
+          48.7621
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Fahrbahneinengung und Fahrbahnverschwenkung in beide Richtungen ",
+        "DETAILS_STANDORT": "B27",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stuttgart-Süd",
+        "ANFANG": "11.07.2025",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Neue Weinsteige",
+        "STADTBEREICH": "Innenstadtbereich",
+        "BAUABTEILUNG": "11",
+        "BAUSTELLENNUMMER": "7195/2025",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "Ende Nov. 2026",
+        "KOORDINATE_X": "513203.288",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5401022.507",
+        "ART_ARBEIT": "Arbeiten an der Hangbrücke",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Fahrbahneinengung und Fahrbahnverschwenkung in beide Richtungen ",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1797,
+        48.7621,
+        9.1797,
+        48.7621
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65567",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1594,
+          48.7627
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Fahrbahnsperrung. Eine Umleitung ist jeweils ausgeschildert.",
+        "DETAILS_STANDORT": "Böblinger Straße",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stuttgart-Süd",
+        "ANFANG": "03.11.2025",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Erwin-Schoettle-Platz",
+        "STADTBEREICH": "Innenstadtbereich",
+        "BAUABTEILUNG": "11",
+        "BAUSTELLENNUMMER": "7035/2025",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": "Eine Umleitung ist ausgeschildert.",
+        "ENDE": "Ende Nov. 2026",
+        "KOORDINATE_X": "511710.878",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5401088.413",
+        "ART_ARBEIT": "Bahnsteigverlängerung, Leitungsbauarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Fahrbahnsperrung. Eine Umleitung ist jeweils ausgeschildert.Eine Umleitung ist ausgeschildert.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1594,
+        48.7627,
+        9.1594,
+        48.7627
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65568",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.2431,
+          48.7885
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Fahrbahneinengung und Verschwenkung sowie Reduzierung der Fahrspur in beiden Fahrtrichtungen.",
+        "DETAILS_STANDORT": "zwischen B14 Abfahrt (S-Untertürkheim S-Bad Cannstatt Daimler/ Mercedes-Benz) und  Inselstraße",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Untertürkheim",
+        "ANFANG": "10.11.2025",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Benzstraße",
+        "STADTBEREICH": "Neckarbereich",
+        "BAUABTEILUNG": "13",
+        "BAUSTELLENNUMMER": "7284/2025",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "Ende Dez. 2026",
+        "KOORDINATE_X": "517856.450088",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5403977.673802",
+        "ART_ARBEIT": "Kanalbauarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Fahrbahneinengung und Verschwenkung sowie Reduzierung der Fahrspur in beiden Fahrtrichtungen.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.2431,
+        48.7885,
+        9.2431,
+        48.7885
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65569",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.2529,
+          48.7852
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Vollsperrung. Eine Umleitung ist ausgeschildert.",
+        "DETAILS_STANDORT": " Kreuzungsbereich Fellbacher Straße",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Untertürkheim",
+        "ANFANG": "09.02.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Kappelbergstraße",
+        "STADTBEREICH": "Neckarbereich",
+        "BAUABTEILUNG": "13",
+        "BAUSTELLENNUMMER": "7306/2025",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "31.03.2027",
+        "KOORDINATE_X": "518573.521675",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5403603.28283",
+        "ART_ARBEIT": "Kanalbauarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Vollsperrung. Eine Umleitung ist ausgeschildert.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.2529,
+        48.7852,
+        9.2529,
+        48.7852
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65570",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1575,
+          48.8398
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Fahrbahneinengung und Fahrbahnreduzierung. Zeitweise Sperrung der Auffahrt.",
+        "DETAILS_STANDORT": "Einfahrt B10 von Adestraße in Richtung Stuttgart-Zuffenhausen",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stammheim",
+        "ANFANG": "20.02.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "B10/27",
+        "STADTBEREICH": "Nördlicher Bereich",
+        "BAUABTEILUNG": "12",
+        "BAUSTELLENNUMMER": "7328/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "31.10.2026",
+        "KOORDINATE_X": "511554.153",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5409659.740",
+        "ART_ARBEIT": "Bauwerksarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Fahrbahneinengung und Fahrbahnreduzierung. Zeitweise Sperrung der Auffahrt.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1575,
+        48.8398,
+        9.1575,
+        48.8398
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65571",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1679,
+          48.8418
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Fahrbahneinengung und Fahrbahnreduzierung",
+        "DETAILS_STANDORT": "Gabelung B10 nach Stuttgart-Stammheim",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stammheim",
+        "ANFANG": "20.02.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "B10/27",
+        "STADTBEREICH": "Nördlicher Bereich",
+        "BAUABTEILUNG": "12",
+        "BAUSTELLENNUMMER": "7426/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "31.10.2026",
+        "KOORDINATE_X": "512316.113",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5409885.827",
+        "ART_ARBEIT": "Bauwerksarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Fahrbahneinengung und Fahrbahnreduzierung",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1679,
+        48.8418,
+        9.1679,
+        48.8418
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65572",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1629,
+          48.841
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Fahrbahneinengung und Fahrbahnreduzierung in Fahrtrichtung Stammheim",
+        "DETAILS_STANDORT": "B10 zwischen Gabelung Zuffenhausen und Anschußstelle Stammheim",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stammheim",
+        "ANFANG": "20.02.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "B10/27",
+        "STADTBEREICH": "Nördlicher Bereich",
+        "BAUABTEILUNG": "12",
+        "BAUSTELLENNUMMER": "7431/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "30.11.2026",
+        "KOORDINATE_X": "511950.988",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5409793.222",
+        "ART_ARBEIT": "Bauwerksarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Fahrbahneinengung und Fahrbahnreduzierung in Fahrtrichtung Stammheim",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1629,
+        48.841,
+        9.1629,
+        48.841
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65573",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1389,
+          48.7745
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Ampelgeregelte Engstelle.",
+        "DETAILS_STANDORT": "zwischen Botnanger Sattel und Herderstraße",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stuttgart-West",
+        "ANFANG": "09.03.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Botnanger Straße",
+        "STADTBEREICH": "Innenstadtbereich",
+        "BAUABTEILUNG": "11",
+        "BAUSTELLENNUMMER": "7329/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "Anfang April 2027",
+        "KOORDINATE_X": "510207.421",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5402398.236",
+        "ART_ARBEIT": "Kanalbauarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Ampelgeregelte Engstelle.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1389,
+        48.7745,
+        9.1389,
+        48.7745
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65574",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.2533,
+          48.7863
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Halbseitige Sperrung / Vollsperrung je nach Bauphase. Eine Umleitung ist ausgeschildert.",
+        "DETAILS_STANDORT": "zwischen St. Johanneskirche und Margaretenstraße",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Untertürkheim",
+        "ANFANG": "30.03.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Kappelbergstraße",
+        "STADTBEREICH": "Neckarbereich",
+        "BAUABTEILUNG": "13",
+        "BAUSTELLENNUMMER": "7466/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "31.12.2026",
+        "KOORDINATE_X": "518607.918",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5403734.913",
+        "ART_ARBEIT": "Arbeiten an Versorgungsleitungen (Gas und Strom)",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Halbseitige Sperrung / Vollsperrung je nach Bauphase. Eine Umleitung ist ausgeschildert.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.2533,
+        48.7863,
+        9.2533,
+        48.7863
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65575",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1778,
+          48.765
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Ampelgeregelte Engstelle.",
+        "DETAILS_STANDORT": "zwischen Immenhofer Straße und Neue Weinsteige",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stuttgart-Mitte",
+        "ANFANG": "01.04.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Alexanderstraße",
+        "STADTBEREICH": "Innenstadtbereich",
+        "BAUABTEILUNG": "11",
+        "BAUSTELLENNUMMER": "7455/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "01.11.2026",
+        "KOORDINATE_X": "513066.209",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5401351.013",
+        "ART_ARBEIT": "Arbeiten an Versorgungsleitungen (Wasser, Gas und Strom)",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Ampelgeregelte Engstelle.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1778,
+        48.765,
+        9.1778,
+        48.765
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65576",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.2549,
+          48.7592
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Vollsperrung. Eine Umleitung ist ausgeschildert",
+        "DETAILS_STANDORT": "zwischen Rohrackerstraße und Ruiter Straße",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Hedelfingen",
+        "ANFANG": "07.04.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Amstetter Straße",
+        "STADTBEREICH": "Neckarbereich",
+        "BAUABTEILUNG": "13",
+        "BAUSTELLENNUMMER": "7354/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "Ende Nov. 2026",
+        "KOORDINATE_X": "518737.167",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5400716.805",
+        "ART_ARBEIT": "Arbeiten an Versorgungsleitungen (Wasser, Gas, Strom) in verschiedenen Bauabschnitten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Vollsperrung. Eine Umleitung ist ausgeschildert",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.2549,
+        48.7592,
+        9.2549,
+        48.7592
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65577",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1489,
+          48.8108
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Ampelgeregelte Engstelle.",
+        "DETAILS_STANDORT": "zwischen Stuttgarter Straße und Steigwaldstraße",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Feuerbach",
+        "ANFANG": "10.04.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Föhrichstraße",
+        "STADTBEREICH": "Nördlicher Bereich",
+        "BAUABTEILUNG": "12",
+        "BAUSTELLENNUMMER": "7356/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "Ende Dez. 2026",
+        "KOORDINATE_X": "510932.869",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5406430.494",
+        "ART_ARBEIT": "Bauarbeiten an Wohnblock",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Ampelgeregelte Engstelle.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1489,
+        48.8108,
+        9.1489,
+        48.8108
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65578",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.2308,
+          48.7587
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Vollsperrung",
+        "DETAILS_STANDORT": "zwischen Egerweg und Otto-Wahl-Staffel",
+        "VERKEHRSAUSWIRKUNG2": "in beide Richtungen",
+        "STADTTEIL": "Rohracker",
+        "ANFANG": "21.04.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Speidelweg",
+        "STADTBEREICH": "Neckarbereich",
+        "BAUABTEILUNG": "13",
+        "BAUSTELLENNUMMER": "7367/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "Ende Dez. 2026",
+        "KOORDINATE_X": "516965.116",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5400655.422",
+        "ART_ARBEIT": "Notmaßnahme Erdrutscharbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Vollsperrungin beide Richtungen",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.2308,
+        48.7587,
+        9.2308,
+        48.7587
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832.65579",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1547,
+          48.777
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Die Bauarbeiten werden in mehreren Bauphasen unter Vollsperrung der Straße durchgeführt. ",
+        "DETAILS_STANDORT": "Forststraße von Gutbrodstraße (Baubeginn)  bis Senefelder Straße",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stuttgart-West",
+        "ANFANG": "04.05.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Forststraße",
+        "STADTBEREICH": "Innenstadtbereich",
+        "BAUABTEILUNG": "11",
+        "BAUSTELLENNUMMER": "7375/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": "Eine Umleitung ist ausgeschildert.",
+        "ENDE": "Ende Dez. 2026",
+        "KOORDINATE_X": "511365.332",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5402675.655",
+        "ART_ARBEIT": "Straßenbauarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "im Bau",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Die Bauarbeiten werden in mehreren Bauphasen unter Vollsperrung der Straße durchgeführt. Eine Umleitung ist ausgeschildert.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1547,
+        48.777,
+        9.1547,
+        48.777
+      ]
+    }
+  ],
+  "totalFeatures": 47,
+  "numberMatched": 47,
+  "numberReturned": 47,
+  "timeStamp": "2026-10-02T11:32:38.291Z",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:EPSG::4326"
+    }
+  },
+  "bbox": [
+    9.0899,
+    48.7115,
+    9.2549,
+    48.8513
+  ]
+}

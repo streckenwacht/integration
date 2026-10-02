@@ -1,0 +1,4436 @@
+{
+  "closure": [
+    {
+      "identifier": "2026-003199--vi-fbm.2026-10-07_15-30-00-000.devi-zus.2026-08-01_20-00-00-000.de109",
+      "icon": "250",
+      "isBlocked": "false",
+      "future": true,
+      "extent": "48.027517660434995,11.657236726768836,48.02731324676022,11.64387383192579",
+      "point": "48.027517660434995,11.657236726768836",
+      "startLcPosition": "0",
+      "impact": {
+        "lower": "Sauerlach",
+        "upper": "München-Süd",
+        "symbols": [
+          "SEPARATE",
+          "CLOSED",
+          "CLOSED",
+          "BORDER_RIGHT",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE",
+      "subtitle": " Kreuz München-Süd -> München",
+      "title": "A8 | München-Süd - Sauerlach",
+      "coordinate": {
+        "lat": 48.027517660434995,
+        "long": 11.657236726768836
+      },
+      "description": [
+        "Die Baustelle ist zu folgenden Zeiträumen gültig:",
+        "07.10.26 15:30 bis zum 08.10.26 05:00 Uhr.",
+        "(Ende der Gesamtmaßnahme: 09.10.26)",
+        "",
+        "A995: Kreuz München-Süd -> München, zwischen AK München-Süd und 0.6 km vor AS Sauerlach",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A995 Erneuerung der Fahrbahn"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            11.657236727,
+            48.02751766
+          ],
+          [
+            11.6568462,
+            48.027412101
+          ],
+          [
+            11.6565248,
+            48.027327401
+          ],
+          [
+            11.6559756,
+            48.027210101
+          ],
+          [
+            11.655203,
+            48.027067001
+          ],
+          [
+            11.6546569,
+            48.026988201
+          ],
+          [
+            11.6539739,
+            48.026925301
+          ],
+          [
+            11.6537143,
+            48.026905001
+          ],
+          [
+            11.6532544,
+            48.026880101
+          ],
+          [
+            11.6527453,
+            48.026867601
+          ],
+          [
+            11.6521932,
+            48.026872401
+          ],
+          [
+            11.6514685,
+            48.026892201
+          ],
+          [
+            11.6508184,
+            48.026926501
+          ],
+          [
+            11.6499415,
+            48.027013901
+          ],
+          [
+            11.6489759,
+            48.027118901
+          ],
+          [
+            11.6478333,
+            48.027222901
+          ],
+          [
+            11.6470957,
+            48.027264201
+          ],
+          [
+            11.6460984,
+            48.027266301
+          ],
+          [
+            11.643873832,
+            48.027313247
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2026-003199--vi-fbm.2026-10-05_15-30-00-000.devi-zus.2026-08-01_20-00-00-000.de98",
+      "icon": "250",
+      "isBlocked": "false",
+      "future": true,
+      "extent": "48.027517660434995,11.657236726768836,48.02731324676022,11.64387383192579",
+      "point": "48.027517660434995,11.657236726768836",
+      "startLcPosition": "0",
+      "impact": {
+        "lower": "Sauerlach",
+        "upper": "München-Süd",
+        "symbols": [
+          "SEPARATE",
+          "CLOSED",
+          "CLOSED",
+          "BORDER_RIGHT",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE",
+      "subtitle": " Kreuz München-Süd -> München",
+      "title": "A8 | München-Süd - Sauerlach",
+      "coordinate": {
+        "lat": 48.027517660434995,
+        "long": 11.657236726768836
+      },
+      "description": [
+        "Die Baustelle ist zu folgenden Zeiträumen gültig:",
+        "05.10.26 15:30 bis zum 06.10.26 05:00 Uhr.",
+        "(Ende der Gesamtmaßnahme: 09.10.26)",
+        "",
+        "A995: Kreuz München-Süd -> München, zwischen AK München-Süd und 0.6 km vor AS Sauerlach",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A995 Erneuerung der Fahrbahn"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            11.657236727,
+            48.02751766
+          ],
+          [
+            11.6568462,
+            48.027412101
+          ],
+          [
+            11.6565248,
+            48.027327401
+          ],
+          [
+            11.6559756,
+            48.027210101
+          ],
+          [
+            11.655203,
+            48.027067001
+          ],
+          [
+            11.6546569,
+            48.026988201
+          ],
+          [
+            11.6539739,
+            48.026925301
+          ],
+          [
+            11.6537143,
+            48.026905001
+          ],
+          [
+            11.6532544,
+            48.026880101
+          ],
+          [
+            11.6527453,
+            48.026867601
+          ],
+          [
+            11.6521932,
+            48.026872401
+          ],
+          [
+            11.6514685,
+            48.026892201
+          ],
+          [
+            11.6508184,
+            48.026926501
+          ],
+          [
+            11.6499415,
+            48.027013901
+          ],
+          [
+            11.6489759,
+            48.027118901
+          ],
+          [
+            11.6478333,
+            48.027222901
+          ],
+          [
+            11.6470957,
+            48.027264201
+          ],
+          [
+            11.6460984,
+            48.027266301
+          ],
+          [
+            11.643873832,
+            48.027313247
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2026-003199--vi-fbm.2026-10-08_19-30-00-000.devi-zus.2026-08-01_20-00-00-000.de112",
+      "icon": "250",
+      "isBlocked": "false",
+      "future": true,
+      "extent": "48.02712817319406,11.640755392385772,48.02700096246947,11.644501969597558",
+      "point": "48.02712817319406,11.640755392385772",
+      "startLcPosition": "1",
+      "impact": {
+        "lower": "München-Süd",
+        "upper": "Sauerlach",
+        "symbols": [
+          "SEPARATE",
+          "CLOSED",
+          "CLOSED",
+          "BORDER_RIGHT",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE",
+      "subtitle": " München -> Kreuz München-Süd",
+      "title": "A8 | Sauerlach - München-Süd",
+      "coordinate": {
+        "lat": 48.02712817319406,
+        "long": 11.640755392385772
+      },
+      "description": [
+        "Die Baustelle ist zu folgenden Zeiträumen gültig:",
+        "08.10.26 19:30 bis zum 09.10.26 08:00 Uhr.",
+        "(Ende der Gesamtmaßnahme: 09.10.26)",
+        "",
+        "A995: München -> Kreuz München-Süd, zwischen 0.4 km hinter AS Sauerlach und 1.0 km vor AK München-Süd",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A995 Erneuerung der Fahrbahn"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            11.640755392,
+            48.027128173
+          ],
+          [
+            11.6408955,
+            48.027124601
+          ],
+          [
+            11.643045,
+            48.027047701
+          ],
+          [
+            11.6436537,
+            48.027034001
+          ],
+          [
+            11.6444935,
+            48.027001601
+          ],
+          [
+            11.64450197,
+            48.027000962
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2026-013403--vi-fbm.2026-09-30_21-00-00-000.devi-zus.2026-09-18_18-00-00-000.de1",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": false,
+      "extent": "48.769612636092646,9.029744866858325,48.77773432164195,9.020764143398514",
+      "point": "48.769612636092646,9.029744866858325",
+      "startLcPosition": "43",
+      "impact": {
+        "lower": "Leonberg",
+        "upper": "Sindelfinger Wald",
+        "symbols": [
+          "SEPARATE",
+          "CLOSED",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": " Stuttgart -> Heilbronn",
+      "title": "A8 | Sindelfinger Wald - Leonberg",
+      "coordinate": {
+        "lat": 48.769612636092646,
+        "long": 9.029744866858325
+      },
+      "description": [
+        "Die Baustelle ist zu folgenden Zeiträumen gültig:",
+        "02.10.26 00:00 bis zum 03.10.26 24:00 Uhr.",
+        "04.10.26 00:00 bis zum 05.10.26 24:00 Uhr.",
+        "06.10.26 00:00 bis zum 07.10.26 07:00 Uhr.",
+        "(Ende der Gesamtmaßnahme: 09.11.26)",
+        "",
+        "A81: Stuttgart -> Heilbronn, zwischen 3.1 km hinter Sindelfinger Wald und 0.6 km vor AD Leonberg",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A8-A81 Leonberg-Ost - Fahrbahninstandsetzung"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9.029744867,
+            48.769612636
+          ],
+          [
+            9.0295229,
+            48.770025601
+          ],
+          [
+            9.0292315,
+            48.770541701
+          ],
+          [
+            9.0289399,
+            48.771031201
+          ],
+          [
+            9.0288131,
+            48.771251401
+          ],
+          [
+            9.0286668,
+            48.771479101
+          ],
+          [
+            9.0285684,
+            48.771725701
+          ],
+          [
+            9.0284403,
+            48.771934201
+          ],
+          [
+            9.0283009,
+            48.772155301
+          ],
+          [
+            9.0281955,
+            48.772312501
+          ],
+          [
+            9.0280758,
+            48.772467301
+          ],
+          [
+            9.0279594,
+            48.772618001
+          ],
+          [
+            9.0278593,
+            48.772753601
+          ],
+          [
+            9.0277051,
+            48.772940801
+          ],
+          [
+            9.0276285,
+            48.773038501
+          ],
+          [
+            9.0274866,
+            48.773202301
+          ],
+          [
+            9.0273803,
+            48.773318901
+          ],
+          [
+            9.0273359,
+            48.773364101
+          ],
+          [
+            9.0270079,
+            48.773728601
+          ],
+          [
+            9.0267198,
+            48.774008401
+          ],
+          [
+            9.0264309,
+            48.774269401
+          ],
+          [
+            9.0260936,
+            48.774568601
+          ],
+          [
+            9.0255283,
+            48.774994401
+          ],
+          [
+            9.0251525,
+            48.775275201
+          ],
+          [
+            9.0247633,
+            48.775550201
+          ],
+          [
+            9.0246098,
+            48.775652901
+          ],
+          [
+            9.0242371,
+            48.775886301
+          ],
+          [
+            9.0238582,
+            48.776123401
+          ],
+          [
+            9.0236671,
+            48.776238701
+          ],
+          [
+            9.0234966,
+            48.776341501
+          ],
+          [
+            9.0231204,
+            48.776555301
+          ],
+          [
+            9.022753,
+            48.776770001
+          ],
+          [
+            9.0222435,
+            48.777040901
+          ],
+          [
+            9.0220674,
+            48.777130101
+          ],
+          [
+            9.0213107,
+            48.777473601
+          ],
+          [
+            9.020764143,
+            48.777734322
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2026-044319--vi-fbm.2026-10-12_20-00-00-000.devi-zus.2026-09-28_20-00-00-000_001.de1",
+      "icon": "250",
+      "isBlocked": "false",
+      "future": true,
+      "extent": "48.20507220638209,11.39649306277524,48.216920744084184,11.376584632989834",
+      "point": "48.20507220638209,11.39649306277524",
+      "startLcPosition": "125",
+      "impact": {
+        "lower": "Dachau/Fürstenfeldbruck",
+        "upper": "München-Langwied",
+        "symbols": [
+          "SEPARATE",
+          "CLOSED",
+          "CLOSED",
+          "BORDER_RIGHT",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE",
+      "subtitle": " München -> Stuttgart",
+      "title": "A8 | München-Langwied - Dachau/Fürstenfeldbruck",
+      "coordinate": {
+        "lat": 48.20507220638209,
+        "long": 11.39649306277524
+      },
+      "description": [
+        "Die Baustelle ist zu folgenden Zeiträumen gültig:",
+        "Jeden Montag und Montag zwischen dem 12.10.26 und dem 13.10.26 von 20:00 bis 00:00 Uhr.",
+        "Jeden Dienstag und Dienstag zwischen dem 13.10.26 und dem 13.10.26 von 00:00 bis 06:00 Uhr.",
+        "(Ende der Gesamtmaßnahme: 12.12.26)",
+        "",
+        "A8: München -> Stuttgart, zwischen 1.4 km hinter AS München-Langwied und 2.8 km vor AS Dachau/Fürstenfeldbruck",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "Aplus A8 West - Asphaltsanierung Fa. Richard Schulz 2026-2"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            11.396493063,
+            48.205072206
+          ],
+          [
+            11.393692,
+            48.206793401
+          ],
+          [
+            11.3935991,
+            48.206850501
+          ],
+          [
+            11.3920376,
+            48.207767901
+          ],
+          [
+            11.3917579,
+            48.207962001
+          ],
+          [
+            11.390119,
+            48.208924801
+          ],
+          [
+            11.3882258,
+            48.210043801
+          ],
+          [
+            11.3866516,
+            48.210959301
+          ],
+          [
+            11.3855279,
+            48.211642201
+          ],
+          [
+            11.3823915,
+            48.213479901
+          ],
+          [
+            11.3790696,
+            48.215446101
+          ],
+          [
+            11.3776132,
+            48.216315501
+          ],
+          [
+            11.376584633,
+            48.216920744
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2026-005163--vi-fbm.2026-10-01_20-00-00-000.devi-bs.2026-10-16_20-00-00-000.de9",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": false,
+      "extent": "48.70134015032941,9.179052313880106,48.6937181001089,9.19436676828122",
+      "point": "48.70134015032941,9.179052313880106",
+      "startLcPosition": "1000",
+      "impact": {
+        "symbols": [
+          "SEPARATE",
+          "CLOSED",
+          "CLOSED",
+          "CLOSED",
+          "BORDER_RIGHT",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": "",
+      "title": "A8 Vollsperrung AS Flughafen-Messe FR München - Sanierung Rampen",
+      "coordinate": {
+        "lat": 48.70134015032941,
+        "long": 9.179052313880106
+      },
+      "description": [
+        "Die Baustelle ist zu folgenden Zeiträumen gültig:",
+        "02.10.26 21:00 bis zum 03.10.26 24:00 Uhr.",
+        "04.10.26 00:00 bis zum 05.10.26 05:00 Uhr.",
+        "(Ende der Gesamtmaßnahme: 12.10.26)",
+        "",
+        "Auffahrt auf die K1272 (Flughafenentlastungsstraße)",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A8 Vollsperrung AS Flughafen-Messe FR München - Sanierung Rampen"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9.179052314,
+            48.70134015
+          ],
+          [
+            9.1792162,
+            48.701271201
+          ],
+          [
+            9.1797494,
+            48.701034901
+          ],
+          [
+            9.1801665,
+            48.700844801
+          ],
+          [
+            9.1808324,
+            48.700533401
+          ],
+          [
+            9.1813337,
+            48.700291701
+          ],
+          [
+            9.1818723,
+            48.700033201
+          ],
+          [
+            9.1823903,
+            48.699787601
+          ],
+          [
+            9.1835532,
+            48.699231701
+          ],
+          [
+            9.1839729,
+            48.699032101
+          ],
+          [
+            9.1842263,
+            48.698915601
+          ],
+          [
+            9.184495,
+            48.698795901
+          ],
+          [
+            9.1847796,
+            48.698674301
+          ],
+          [
+            9.1850496,
+            48.698563301
+          ],
+          [
+            9.1853162,
+            48.698456301
+          ],
+          [
+            9.1860299,
+            48.698186501
+          ],
+          [
+            9.1863281,
+            48.698069201
+          ],
+          [
+            9.1865834,
+            48.697963101
+          ],
+          [
+            9.1868858,
+            48.697834501
+          ],
+          [
+            9.1871355,
+            48.697721001
+          ],
+          [
+            9.1874051,
+            48.697599001
+          ],
+          [
+            9.1879173,
+            48.697359301
+          ],
+          [
+            9.188843,
+            48.696921401
+          ],
+          [
+            9.1889761,
+            48.696858501
+          ],
+          [
+            9.1900532,
+            48.696375301
+          ],
+          [
+            9.1910038,
+            48.695969101
+          ],
+          [
+            9.1916919,
+            48.695677801
+          ],
+          [
+            9.1926529,
+            48.695276001
+          ],
+          [
+            9.1928124,
+            48.695208901
+          ],
+          [
+            9.1934527,
+            48.694920601
+          ],
+          [
+            9.1937265,
+            48.694787901
+          ],
+          [
+            9.1938314,
+            48.694717101
+          ],
+          [
+            9.1939285,
+            48.694629701
+          ],
+          [
+            9.1939922,
+            48.694552001
+          ],
+          [
+            9.1941143,
+            48.694309501
+          ],
+          [
+            9.1942615,
+            48.693968501
+          ],
+          [
+            9.194366768,
+            48.6937181
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2025-056147--vi-fbm.2026-09-19_00-00-00-000.devi-zus.2026-08-03_00-00-00-000_002.de5",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": false,
+      "extent": "47.828071121667435,12.64857041849809,47.82771133807137,12.645636512759882",
+      "point": "47.828071121667435,12.64857041849809",
+      "startLcPosition": "1000",
+      "impact": {
+        "symbols": [
+          "SEPARATE",
+          "CLOSED",
+          "BORDER_RIGHT",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": " AS Traunstein/Siegsdorf-Ost (aus Richtung Hubbauer) nach A8",
+      "title": "A8 Ost BW 166 über die Weiße Traun Ersatzneubau ",
+      "startTimestamp": "2026-09-19T00:00:00+02:00",
+      "coordinate": {
+        "lat": 47.828071121667435,
+        "long": 12.64857041849809
+      },
+      "description": [
+        "Zeitraum dieser Bauphase:",
+        "Beginn: 19.09.26 um 00:00 Uhr",
+        "Ende: 02.08.27 um 00:00 Uhr",
+        "(Ende der Gesamtmaßnahme: 28.10.28)",
+        "",
+        "Von Auffahrt auf die A8: AS Traunstein/Siegsdorf-Ost (aus Richtung Hubbauer) nach A8: Salzburg -> München, zwischen AS Traunstein/Siegsdorf-Ost und 0.9 km vor AS Siegsdorf-West",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A8 Ost BW 166 über die Weiße Traun Ersatzneubau "
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            12.648570418,
+            47.828071122
+          ],
+          [
+            12.6485329,
+            47.828085501
+          ],
+          [
+            12.648328,
+            47.828106201
+          ],
+          [
+            12.6481627,
+            47.828068301
+          ],
+          [
+            12.6479563,
+            47.827971101
+          ],
+          [
+            12.6478212,
+            47.827836101
+          ],
+          [
+            12.6477599,
+            47.827699901
+          ],
+          [
+            12.6477438,
+            47.827632301
+          ],
+          [
+            12.6477324,
+            47.827503401
+          ],
+          [
+            12.6477113,
+            47.827437201
+          ],
+          [
+            12.6476752,
+            47.827379501
+          ],
+          [
+            12.6476156,
+            47.827336501
+          ],
+          [
+            12.6475074,
+            47.827298801
+          ],
+          [
+            12.6474077,
+            47.827281801
+          ],
+          [
+            12.6472956,
+            47.827278701
+          ],
+          [
+            12.6470483,
+            47.827287001
+          ],
+          [
+            12.646486,
+            47.827451701
+          ],
+          [
+            12.645636513,
+            47.827711338
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2024-046722--vi-fbm.2026-09-21_08-00-00-000.devi-zus.2025-09-15_06-00-00-000.f.de4",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": false,
+      "extent": "47.764862645224376,12.903336592658711,47.766215437297845,12.906238450386141",
+      "point": "47.764862645224376,12.903336592658711",
+      "startLcPosition": "1000",
+      "impact": {
+        "symbols": [
+          "SEPARATE",
+          "CLOSED",
+          "BORDER_RIGHT",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": " AS Bad Reichenhall (aus Richtung Bad Reichenhall) nach A8",
+      "title": "A8 Ost Sickerschacht bei Piding und Kabelhaus Bad Reichenhall",
+      "startTimestamp": "2026-09-21T08:00:00+02:00",
+      "coordinate": {
+        "lat": 47.764862645224376,
+        "long": 12.903336592658711
+      },
+      "description": [
+        "Zeitraum dieser Bauphase:",
+        "Beginn: 21.09.26 um 08:00 Uhr",
+        "Ende: 19.10.26 um 08:00 Uhr",
+        "(Ende der Gesamtmaßnahme: 19.10.26)",
+        "",
+        "Von Auffahrt auf die A8: AS Bad Reichenhall (aus Richtung Bad Reichenhall) nach A8: München -> Salzburg, zwischen AS Bad Reichenhall und 2.6 km vor Schwarzbach",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A8 Ost Sickerschacht bei Piding und Kabelhaus Bad Reichenhall"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            12.903336593,
+            47.764862645
+          ],
+          [
+            12.9032718,
+            47.764909201
+          ],
+          [
+            12.9032126,
+            47.764987101
+          ],
+          [
+            12.9031673,
+            47.765074201
+          ],
+          [
+            12.9031481,
+            47.765180401
+          ],
+          [
+            12.9031979,
+            47.765430701
+          ],
+          [
+            12.9031857,
+            47.765547601
+          ],
+          [
+            12.9031537,
+            47.765709501
+          ],
+          [
+            12.9029828,
+            47.766102401
+          ],
+          [
+            12.9030011,
+            47.766258501
+          ],
+          [
+            12.9030471,
+            47.766383401
+          ],
+          [
+            12.9031124,
+            47.766471601
+          ],
+          [
+            12.903184,
+            47.766538101
+          ],
+          [
+            12.9032911,
+            47.766608201
+          ],
+          [
+            12.9034077,
+            47.766655301
+          ],
+          [
+            12.9035377,
+            47.766681401
+          ],
+          [
+            12.9036926,
+            47.766696501
+          ],
+          [
+            12.9038777,
+            47.766688701
+          ],
+          [
+            12.9046274,
+            47.766509901
+          ],
+          [
+            12.9048485,
+            47.766471201
+          ],
+          [
+            12.90499,
+            47.766446501
+          ],
+          [
+            12.9050674,
+            47.766432101
+          ],
+          [
+            12.9053321,
+            47.766382901
+          ],
+          [
+            12.9055435,
+            47.766364101
+          ],
+          [
+            12.9058013,
+            47.766303101
+          ],
+          [
+            12.90623845,
+            47.766215437
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2026-005163--vi-fbm.2026-10-09_21-00-00-000.devi-bs.2026-10-16_20-00-00-000.de19",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": true,
+      "extent": "48.70550184988188,9.169217051601896,48.693709445147036,9.194370406799809",
+      "point": "48.70550184988188,9.169217051601896",
+      "startLcPosition": "1000",
+      "impact": {
+        "symbols": [
+          "SEPARATE",
+          "CLOSED",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": " Stuttgart -> München",
+      "title": "A8 Vollsperrung AS Flughafen-Messe FR München - Sanierung Rampen",
+      "coordinate": {
+        "lat": 48.70550184988188,
+        "long": 9.169217051601896
+      },
+      "description": [
+        "Die Baustelle ist zu folgenden Zeiträumen gültig:",
+        "09.10.26 21:00 bis zum 10.10.26 24:00 Uhr.",
+        "11.10.26 00:00 bis zum 12.10.26 05:00 Uhr.",
+        "(Ende der Gesamtmaßnahme: 12.10.26)",
+        "",
+        "Von A8: Stuttgart -> München, 1.6 km vor AS Stuttgart-Flughafen/Messe, aus Richtung Stuttgart-Degerloch; Abfahrt von der A8 in AS Stuttgart-Degerloch; nach Auffahrt auf die K1272 (Flughafenentlastungsstraße)",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A8 Vollsperrung AS Flughafen-Messe FR München - Sanierung Rampen"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9.169217052,
+            48.70550185
+          ],
+          [
+            9.1695358,
+            48.705428901
+          ],
+          [
+            9.1699157,
+            48.705338401
+          ],
+          [
+            9.170888,
+            48.705088401
+          ],
+          [
+            9.1715814,
+            48.704891601
+          ],
+          [
+            9.1721612,
+            48.704713001
+          ],
+          [
+            9.1727,
+            48.704537701
+          ],
+          [
+            9.1733814,
+            48.704304401
+          ],
+          [
+            9.1741207,
+            48.704029001
+          ],
+          [
+            9.1748677,
+            48.703734301
+          ],
+          [
+            9.1750497,
+            48.703559301
+          ],
+          [
+            9.1752966,
+            48.703429401
+          ],
+          [
+            9.175386,
+            48.703377901
+          ],
+          [
+            9.1755069,
+            48.703306201
+          ],
+          [
+            9.1756371,
+            48.703228001
+          ],
+          [
+            9.1757555,
+            48.703147101
+          ],
+          [
+            9.1758718,
+            48.703065401
+          ],
+          [
+            9.1759882,
+            48.702981701
+          ],
+          [
+            9.1761059,
+            48.702896301
+          ],
+          [
+            9.1761959,
+            48.702829101
+          ],
+          [
+            9.1764094,
+            48.702675801
+          ],
+          [
+            9.176744,
+            48.702450301
+          ],
+          [
+            9.1771573,
+            48.702177501
+          ],
+          [
+            9.1772926,
+            48.702105301
+          ],
+          [
+            9.1774193,
+            48.702040901
+          ],
+          [
+            9.1775613,
+            48.701968701
+          ],
+          [
+            9.1776901,
+            48.701907001
+          ],
+          [
+            9.177836,
+            48.701839801
+          ],
+          [
+            9.177977,
+            48.701779001
+          ],
+          [
+            9.1781092,
+            48.701725401
+          ],
+          [
+            9.1782469,
+            48.701669701
+          ],
+          [
+            9.178672,
+            48.701494201
+          ],
+          [
+            9.1789053,
+            48.701402001
+          ],
+          [
+            9.1792162,
+            48.701271201
+          ],
+          [
+            9.1797494,
+            48.701034901
+          ],
+          [
+            9.1801665,
+            48.700844801
+          ],
+          [
+            9.1808324,
+            48.700533401
+          ],
+          [
+            9.1813337,
+            48.700291701
+          ],
+          [
+            9.1818723,
+            48.700033201
+          ],
+          [
+            9.1823903,
+            48.699787601
+          ],
+          [
+            9.1835532,
+            48.699231701
+          ],
+          [
+            9.1839729,
+            48.699032101
+          ],
+          [
+            9.1842263,
+            48.698915601
+          ],
+          [
+            9.184495,
+            48.698795901
+          ],
+          [
+            9.1847796,
+            48.698674301
+          ],
+          [
+            9.1850496,
+            48.698563301
+          ],
+          [
+            9.1853162,
+            48.698456301
+          ],
+          [
+            9.1860299,
+            48.698186501
+          ],
+          [
+            9.1863281,
+            48.698069201
+          ],
+          [
+            9.1865834,
+            48.697963101
+          ],
+          [
+            9.1868858,
+            48.697834501
+          ],
+          [
+            9.1871355,
+            48.697721001
+          ],
+          [
+            9.1874051,
+            48.697599001
+          ],
+          [
+            9.1879173,
+            48.697359301
+          ],
+          [
+            9.188843,
+            48.696921401
+          ],
+          [
+            9.1889761,
+            48.696858501
+          ],
+          [
+            9.1900532,
+            48.696375301
+          ],
+          [
+            9.1910038,
+            48.695969101
+          ],
+          [
+            9.1916919,
+            48.695677801
+          ],
+          [
+            9.1926529,
+            48.695276001
+          ],
+          [
+            9.1928124,
+            48.695208901
+          ],
+          [
+            9.1934527,
+            48.694920601
+          ],
+          [
+            9.1937265,
+            48.694787901
+          ],
+          [
+            9.1938314,
+            48.694717101
+          ],
+          [
+            9.1939285,
+            48.694629701
+          ],
+          [
+            9.1939922,
+            48.694552001
+          ],
+          [
+            9.1941143,
+            48.694309501
+          ],
+          [
+            9.1942615,
+            48.693968501
+          ],
+          [
+            9.194370407,
+            48.693709445
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2026-005163--vi-fbm.2026-10-09_21-00-00-000.devi-bs.2026-10-16_20-00-00-000.de17",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": true,
+      "extent": "48.70486061261424,9.170996115348222,48.6994418320443,9.184008939310552",
+      "point": "48.70486061261424,9.170996115348222",
+      "startLcPosition": "1000",
+      "impact": {
+        "symbols": [
+          "SEPARATE",
+          "CLOSED",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": " AS Stuttgart-Flughafen/Messe (aus Richtung Stuttgart-Degerloch)",
+      "title": "A8 Vollsperrung AS Flughafen-Messe FR München - Sanierung Rampen",
+      "coordinate": {
+        "lat": 48.70486061261424,
+        "long": 9.170996115348222
+      },
+      "description": [
+        "Die Baustelle ist zu folgenden Zeiträumen gültig:",
+        "09.10.26 21:00 bis zum 10.10.26 24:00 Uhr.",
+        "11.10.26 00:00 bis zum 12.10.26 05:00 Uhr.",
+        "(Ende der Gesamtmaßnahme: 12.10.26)",
+        "",
+        "Auffahrt auf die A8: AS Stuttgart-Flughafen/Messe (aus Richtung Stuttgart-Degerloch)",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A8 Vollsperrung AS Flughafen-Messe FR München - Sanierung Rampen"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9.170996115,
+            48.704860613
+          ],
+          [
+            9.1712652,
+            48.704787101
+          ],
+          [
+            9.1716536,
+            48.704672601
+          ],
+          [
+            9.1722439,
+            48.704489901
+          ],
+          [
+            9.1728092,
+            48.704302401
+          ],
+          [
+            9.1733933,
+            48.704095601
+          ],
+          [
+            9.1736839,
+            48.703989501
+          ],
+          [
+            9.1739869,
+            48.703874201
+          ],
+          [
+            9.1742473,
+            48.703761301
+          ],
+          [
+            9.1744872,
+            48.703642901
+          ],
+          [
+            9.1747251,
+            48.703508501
+          ],
+          [
+            9.1749394,
+            48.703372701
+          ],
+          [
+            9.1751587,
+            48.703224301
+          ],
+          [
+            9.1753278,
+            48.703112301
+          ],
+          [
+            9.1755757,
+            48.702959901
+          ],
+          [
+            9.1758627,
+            48.702806401
+          ],
+          [
+            9.1761712,
+            48.702665701
+          ],
+          [
+            9.1764902,
+            48.702540101
+          ],
+          [
+            9.1768464,
+            48.702405301
+          ],
+          [
+            9.1771139,
+            48.702304701
+          ],
+          [
+            9.1773982,
+            48.702199101
+          ],
+          [
+            9.1777581,
+            48.702055101
+          ],
+          [
+            9.178411,
+            48.701816001
+          ],
+          [
+            9.1790794,
+            48.701567001
+          ],
+          [
+            9.1801643,
+            48.701134301
+          ],
+          [
+            9.1808454,
+            48.700849701
+          ],
+          [
+            9.1811244,
+            48.700811301
+          ],
+          [
+            9.1814697,
+            48.700651601
+          ],
+          [
+            9.1825217,
+            48.700150801
+          ],
+          [
+            9.1838286,
+            48.699527901
+          ],
+          [
+            9.184008939,
+            48.699441832
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2026-005163--vi-fbm.2026-10-09_21-00-00-000.devi-bs.2026-10-16_20-00-00-000.de15",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": true,
+      "extent": "48.70585235879734,9.163953682136686,48.70399954773465,9.173656382732343",
+      "point": "48.70585235879734,9.163953682136686",
+      "startLcPosition": "1000",
+      "impact": {
+        "symbols": [
+          "SEPARATE",
+          "CLOSED",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": " AS Stuttgart-Flughafen/Messe (aus Richtung Stuttgart-Degerloch)",
+      "title": "A8 Vollsperrung AS Flughafen-Messe FR München - Sanierung Rampen",
+      "coordinate": {
+        "lat": 48.70585235879734,
+        "long": 9.163953682136686
+      },
+      "description": [
+        "Die Baustelle ist zu folgenden Zeiträumen gültig:",
+        "09.10.26 21:00 bis zum 10.10.26 24:00 Uhr.",
+        "11.10.26 00:00 bis zum 12.10.26 05:00 Uhr.",
+        "(Ende der Gesamtmaßnahme: 12.10.26)",
+        "",
+        "Auffahrt auf die A8: AS Stuttgart-Flughafen/Messe (aus Richtung Stuttgart-Degerloch)",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A8 Vollsperrung AS Flughafen-Messe FR München - Sanierung Rampen"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9.163953682,
+            48.705852359
+          ],
+          [
+            9.165132,
+            48.705509101
+          ],
+          [
+            9.165536,
+            48.705405701
+          ],
+          [
+            9.1658664,
+            48.705307601
+          ],
+          [
+            9.1664718,
+            48.705133801
+          ],
+          [
+            9.1666254,
+            48.705097601
+          ],
+          [
+            9.1668203,
+            48.705065701
+          ],
+          [
+            9.1669914,
+            48.705051201
+          ],
+          [
+            9.1671569,
+            48.705044601
+          ],
+          [
+            9.167318,
+            48.705039501
+          ],
+          [
+            9.1674945,
+            48.705046101
+          ],
+          [
+            9.1676635,
+            48.705055801
+          ],
+          [
+            9.1678281,
+            48.705075901
+          ],
+          [
+            9.1679888,
+            48.705103701
+          ],
+          [
+            9.1682923,
+            48.705168601
+          ],
+          [
+            9.1684593,
+            48.705201001
+          ],
+          [
+            9.1685997,
+            48.705228801
+          ],
+          [
+            9.1687589,
+            48.705250901
+          ],
+          [
+            9.1689321,
+            48.705260701
+          ],
+          [
+            9.1691232,
+            48.705256101
+          ],
+          [
+            9.169382,
+            48.705227901
+          ],
+          [
+            9.1695513,
+            48.705197801
+          ],
+          [
+            9.1697989,
+            48.705150501
+          ],
+          [
+            9.1701238,
+            48.705073001
+          ],
+          [
+            9.170521,
+            48.704981401
+          ],
+          [
+            9.1709321,
+            48.704878101
+          ],
+          [
+            9.1712652,
+            48.704787101
+          ],
+          [
+            9.1716536,
+            48.704672601
+          ],
+          [
+            9.1722439,
+            48.704489901
+          ],
+          [
+            9.1728092,
+            48.704302401
+          ],
+          [
+            9.1733933,
+            48.704095601
+          ],
+          [
+            9.173656383,
+            48.703999548
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2026-005163--vi-fbm.2026-10-01_20-00-00-000.devi-bs.2026-10-16_20-00-00-000.de10",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": false,
+      "extent": "48.69907326629165,9.183743118093608,48.69759265492992,9.185730014180907",
+      "point": "48.69907326629165,9.183743118093608",
+      "startLcPosition": "1000",
+      "impact": {
+        "symbols": [
+          "SEPARATE",
+          "CLOSED",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": "",
+      "title": "A8 Vollsperrung AS Flughafen-Messe FR München - Sanierung Rampen",
+      "coordinate": {
+        "lat": 48.69907326629165,
+        "long": 9.183743118093608
+      },
+      "description": [
+        "Die Baustelle ist zu folgenden Zeiträumen gültig:",
+        "02.10.26 21:00 bis zum 03.10.26 24:00 Uhr.",
+        "04.10.26 00:00 bis zum 05.10.26 05:00 Uhr.",
+        "(Ende der Gesamtmaßnahme: 12.10.26)",
+        "",
+        "Abfahrt von der A8",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A8 Vollsperrung AS Flughafen-Messe FR München - Sanierung Rampen"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9.183743118,
+            48.699073266
+          ],
+          [
+            9.1838512,
+            48.698983101
+          ],
+          [
+            9.183965,
+            48.698908101
+          ],
+          [
+            9.1843522,
+            48.698654301
+          ],
+          [
+            9.1848641,
+            48.698303401
+          ],
+          [
+            9.1850499,
+            48.698180001
+          ],
+          [
+            9.185392,
+            48.697953001
+          ],
+          [
+            9.1856739,
+            48.697774301
+          ],
+          [
+            9.1857344,
+            48.697716501
+          ],
+          [
+            9.1857465,
+            48.697689901
+          ],
+          [
+            9.1857508,
+            48.697655801
+          ],
+          [
+            9.185730014,
+            48.697592655
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2026-005163--vi-fbm.2026-10-01_20-00-00-000.devi-bs.2026-10-16_20-00-00-000.de2",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": false,
+      "extent": "48.70550184988188,9.169217051601896,48.693709445147036,9.194370406799809",
+      "point": "48.70550184988188,9.169217051601896",
+      "startLcPosition": "1000",
+      "impact": {
+        "symbols": [
+          "SEPARATE",
+          "CLOSED",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": " Stuttgart -> München",
+      "title": "A8 Vollsperrung AS Flughafen-Messe FR München - Sanierung Rampen",
+      "coordinate": {
+        "lat": 48.70550184988188,
+        "long": 9.169217051601896
+      },
+      "description": [
+        "Die Baustelle ist zu folgenden Zeiträumen gültig:",
+        "02.10.26 21:00 bis zum 03.10.26 24:00 Uhr.",
+        "04.10.26 00:00 bis zum 05.10.26 05:00 Uhr.",
+        "(Ende der Gesamtmaßnahme: 12.10.26)",
+        "",
+        "Von A8: Stuttgart -> München, 1.6 km vor AS Stuttgart-Flughafen/Messe, aus Richtung Stuttgart-Degerloch; Abfahrt von der A8 in AS Stuttgart-Degerloch; nach Auffahrt auf die K1272 (Flughafenentlastungsstraße)",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A8 Vollsperrung AS Flughafen-Messe FR München - Sanierung Rampen"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9.169217052,
+            48.70550185
+          ],
+          [
+            9.1695358,
+            48.705428901
+          ],
+          [
+            9.1699157,
+            48.705338401
+          ],
+          [
+            9.170888,
+            48.705088401
+          ],
+          [
+            9.1715814,
+            48.704891601
+          ],
+          [
+            9.1721612,
+            48.704713001
+          ],
+          [
+            9.1727,
+            48.704537701
+          ],
+          [
+            9.1733814,
+            48.704304401
+          ],
+          [
+            9.1741207,
+            48.704029001
+          ],
+          [
+            9.1748677,
+            48.703734301
+          ],
+          [
+            9.1750497,
+            48.703559301
+          ],
+          [
+            9.1752966,
+            48.703429401
+          ],
+          [
+            9.175386,
+            48.703377901
+          ],
+          [
+            9.1755069,
+            48.703306201
+          ],
+          [
+            9.1756371,
+            48.703228001
+          ],
+          [
+            9.1757555,
+            48.703147101
+          ],
+          [
+            9.1758718,
+            48.703065401
+          ],
+          [
+            9.1759882,
+            48.702981701
+          ],
+          [
+            9.1761059,
+            48.702896301
+          ],
+          [
+            9.1761959,
+            48.702829101
+          ],
+          [
+            9.1764094,
+            48.702675801
+          ],
+          [
+            9.176744,
+            48.702450301
+          ],
+          [
+            9.1771573,
+            48.702177501
+          ],
+          [
+            9.1772926,
+            48.702105301
+          ],
+          [
+            9.1774193,
+            48.702040901
+          ],
+          [
+            9.1775613,
+            48.701968701
+          ],
+          [
+            9.1776901,
+            48.701907001
+          ],
+          [
+            9.177836,
+            48.701839801
+          ],
+          [
+            9.177977,
+            48.701779001
+          ],
+          [
+            9.1781092,
+            48.701725401
+          ],
+          [
+            9.1782469,
+            48.701669701
+          ],
+          [
+            9.178672,
+            48.701494201
+          ],
+          [
+            9.1789053,
+            48.701402001
+          ],
+          [
+            9.1792162,
+            48.701271201
+          ],
+          [
+            9.1797494,
+            48.701034901
+          ],
+          [
+            9.1801665,
+            48.700844801
+          ],
+          [
+            9.1808324,
+            48.700533401
+          ],
+          [
+            9.1813337,
+            48.700291701
+          ],
+          [
+            9.1818723,
+            48.700033201
+          ],
+          [
+            9.1823903,
+            48.699787601
+          ],
+          [
+            9.1835532,
+            48.699231701
+          ],
+          [
+            9.1839729,
+            48.699032101
+          ],
+          [
+            9.1842263,
+            48.698915601
+          ],
+          [
+            9.184495,
+            48.698795901
+          ],
+          [
+            9.1847796,
+            48.698674301
+          ],
+          [
+            9.1850496,
+            48.698563301
+          ],
+          [
+            9.1853162,
+            48.698456301
+          ],
+          [
+            9.1860299,
+            48.698186501
+          ],
+          [
+            9.1863281,
+            48.698069201
+          ],
+          [
+            9.1865834,
+            48.697963101
+          ],
+          [
+            9.1868858,
+            48.697834501
+          ],
+          [
+            9.1871355,
+            48.697721001
+          ],
+          [
+            9.1874051,
+            48.697599001
+          ],
+          [
+            9.1879173,
+            48.697359301
+          ],
+          [
+            9.188843,
+            48.696921401
+          ],
+          [
+            9.1889761,
+            48.696858501
+          ],
+          [
+            9.1900532,
+            48.696375301
+          ],
+          [
+            9.1910038,
+            48.695969101
+          ],
+          [
+            9.1916919,
+            48.695677801
+          ],
+          [
+            9.1926529,
+            48.695276001
+          ],
+          [
+            9.1928124,
+            48.695208901
+          ],
+          [
+            9.1934527,
+            48.694920601
+          ],
+          [
+            9.1937265,
+            48.694787901
+          ],
+          [
+            9.1938314,
+            48.694717101
+          ],
+          [
+            9.1939285,
+            48.694629701
+          ],
+          [
+            9.1939922,
+            48.694552001
+          ],
+          [
+            9.1941143,
+            48.694309501
+          ],
+          [
+            9.1942615,
+            48.693968501
+          ],
+          [
+            9.194370407,
+            48.693709445
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2026-013403--vi-fbm.2026-09-30_21-00-00-000.devi-zus.2026-09-18_18-00-00-000.de4",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": false,
+      "extent": "48.773438317386365,9.027269115838697,48.77685106430158,9.025096277816356",
+      "point": "48.773438317386365,9.027269115838697",
+      "startLcPosition": "1000",
+      "impact": {
+        "symbols": [
+          "SEPARATE",
+          "CLOSED",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": " Stuttgart -> Heilbronn",
+      "title": "A8-A81 Leonberg-Ost - Fahrbahninstandsetzung",
+      "coordinate": {
+        "lat": 48.773438317386365,
+        "long": 9.027269115838697
+      },
+      "description": [
+        "Die Baustelle ist zu folgenden Zeiträumen gültig:",
+        "02.10.26 00:00 bis zum 03.10.26 24:00 Uhr.",
+        "04.10.26 00:00 bis zum 05.10.26 24:00 Uhr.",
+        "06.10.26 00:00 bis zum 07.10.26 05:00 Uhr.",
+        "(Ende der Gesamtmaßnahme: 09.11.26)",
+        "",
+        "Von A81: Stuttgart -> Heilbronn, zwischen 3.6 km hinter Sindelfinger Wald und AS Leonberg-Ost nach Abfahrt von der A81: AS Leonberg-Ost (aus Richtung Sindelfinger Wald)",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A8-A81 Leonberg-Ost - Fahrbahninstandsetzung"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9.027269116,
+            48.773438317
+          ],
+          [
+            9.0270079,
+            48.773728601
+          ],
+          [
+            9.0267198,
+            48.774008401
+          ],
+          [
+            9.0264309,
+            48.774269401
+          ],
+          [
+            9.0260936,
+            48.774568601
+          ],
+          [
+            9.025869,
+            48.774811101
+          ],
+          [
+            9.0257303,
+            48.774958501
+          ],
+          [
+            9.0256476,
+            48.775046901
+          ],
+          [
+            9.0255559,
+            48.775145901
+          ],
+          [
+            9.0254581,
+            48.775251901
+          ],
+          [
+            9.0253696,
+            48.775354601
+          ],
+          [
+            9.0252307,
+            48.775510501
+          ],
+          [
+            9.0251622,
+            48.775600601
+          ],
+          [
+            9.0251174,
+            48.775682301
+          ],
+          [
+            9.0250724,
+            48.775764201
+          ],
+          [
+            9.0250455,
+            48.775831901
+          ],
+          [
+            9.0250191,
+            48.775909501
+          ],
+          [
+            9.0250094,
+            48.775958401
+          ],
+          [
+            9.0249921,
+            48.776069101
+          ],
+          [
+            9.0250048,
+            48.776209101
+          ],
+          [
+            9.0250189,
+            48.776399401
+          ],
+          [
+            9.0250434,
+            48.776564401
+          ],
+          [
+            9.0250786,
+            48.776727801
+          ],
+          [
+            9.025096278,
+            48.776851064
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2025-063400--vi-fbm.2026-01-16_05-00-00-000.devi-zus.2021-09-27_00-00-00-000_003.de47",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": false,
+      "extent": "48.91514241357339,8.765915569081914,48.91432614858024,8.76645272550354",
+      "point": "48.91514241357339,8.765915569081914",
+      "startLcPosition": "1000",
+      "impact": {
+        "symbols": [
+          "SEPARATE",
+          "CLOSED",
+          "BORDER_RIGHT",
+          "BREAKDOWN_LANE"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": "",
+      "title": "A8 Neubau Enztalquerung bei Pforzheim-Ost ",
+      "startTimestamp": "2026-01-16T05:00:00+01:00",
+      "coordinate": {
+        "lat": 48.91514241357339,
+        "long": 8.765915569081914
+      },
+      "description": [
+        "Zeitraum dieser Bauphase:",
+        "Beginn: 16.01.26 um 05:00 Uhr",
+        "Ende: 01.07.27 um 00:00 Uhr",
+        "(Ende der Gesamtmaßnahme: 07.03.28)",
+        "",
+        "Auffahrt auf die B10[PforzheimB294-Stuttgart]",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A8 Neubau Enztalquerung bei Pforzheim-Ost "
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            8.765915569,
+            48.915142414
+          ],
+          [
+            8.7659435,
+            48.915115701
+          ],
+          [
+            8.7660135,
+            48.915032401
+          ],
+          [
+            8.7662645,
+            48.914683401
+          ],
+          [
+            8.7664066,
+            48.914424001
+          ],
+          [
+            8.766452726,
+            48.914326149
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2026-003199--vi-fbm.2026-10-07_15-30-00-000.devi-zus.2026-08-01_20-00-00-000.de103",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": true,
+      "extent": "48.02900547821156,11.656260684434676,48.0269024157087,11.651274903418035",
+      "point": "48.02900547821156,11.656260684434676",
+      "startLcPosition": "1000",
+      "impact": {
+        "symbols": [
+          "SEPARATE",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": " AK München-Süd (in Richtung Sauerlach) nach A995",
+      "title": "A995 Erneuerung der Fahrbahn",
+      "coordinate": {
+        "lat": 48.02900547821156,
+        "long": 11.656260684434676
+      },
+      "description": [
+        "Die Baustelle ist zu folgenden Zeiträumen gültig:",
+        "07.10.26 15:30 bis zum 08.10.26 05:00 Uhr.",
+        "(Ende der Gesamtmaßnahme: 09.10.26)",
+        "",
+        "Von Auffahrt auf die A995: AK München-Süd (in Richtung Sauerlach) nach A995: Kreuz München-Süd -> München, zwischen AK München-Süd und 1.2 km vor AS Sauerlach",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A995 Erneuerung der Fahrbahn"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            11.656260684,
+            48.029005478
+          ],
+          [
+            11.6563158,
+            48.028748701
+          ],
+          [
+            11.6563274,
+            48.028619101
+          ],
+          [
+            11.6563311,
+            48.028518001
+          ],
+          [
+            11.656326,
+            48.028403001
+          ],
+          [
+            11.6563122,
+            48.028298001
+          ],
+          [
+            11.6562852,
+            48.028192101
+          ],
+          [
+            11.6562479,
+            48.028094201
+          ],
+          [
+            11.656196,
+            48.027995601
+          ],
+          [
+            11.6561458,
+            48.027911201
+          ],
+          [
+            11.656033,
+            48.027756901
+          ],
+          [
+            11.6559169,
+            48.027636001
+          ],
+          [
+            11.6557349,
+            48.027491801
+          ],
+          [
+            11.6555524,
+            48.027377001
+          ],
+          [
+            11.6552943,
+            48.027246401
+          ],
+          [
+            11.6549843,
+            48.027137401
+          ],
+          [
+            11.6546652,
+            48.027064501
+          ],
+          [
+            11.6539739,
+            48.026925301
+          ],
+          [
+            11.6537143,
+            48.026905001
+          ],
+          [
+            11.6532544,
+            48.026880101
+          ],
+          [
+            11.6527453,
+            48.026867601
+          ],
+          [
+            11.6521932,
+            48.026872401
+          ],
+          [
+            11.6514685,
+            48.026892201
+          ],
+          [
+            11.651274903,
+            48.026902416
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2026-003199--vi-fbm.2026-10-05_15-30-00-000.devi-zus.2026-08-01_20-00-00-000.de92",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": true,
+      "extent": "48.02900547821156,11.656260684434676,48.0269024157087,11.651274903418035",
+      "point": "48.02900547821156,11.656260684434676",
+      "startLcPosition": "1000",
+      "impact": {
+        "symbols": [
+          "SEPARATE",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": " AK München-Süd (in Richtung Sauerlach) nach A995",
+      "title": "A995 Erneuerung der Fahrbahn",
+      "coordinate": {
+        "lat": 48.02900547821156,
+        "long": 11.656260684434676
+      },
+      "description": [
+        "Die Baustelle ist zu folgenden Zeiträumen gültig:",
+        "05.10.26 15:30 bis zum 06.10.26 05:00 Uhr.",
+        "(Ende der Gesamtmaßnahme: 09.10.26)",
+        "",
+        "Von Auffahrt auf die A995: AK München-Süd (in Richtung Sauerlach) nach A995: Kreuz München-Süd -> München, zwischen AK München-Süd und 1.2 km vor AS Sauerlach",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A995 Erneuerung der Fahrbahn"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            11.656260684,
+            48.029005478
+          ],
+          [
+            11.6563158,
+            48.028748701
+          ],
+          [
+            11.6563274,
+            48.028619101
+          ],
+          [
+            11.6563311,
+            48.028518001
+          ],
+          [
+            11.656326,
+            48.028403001
+          ],
+          [
+            11.6563122,
+            48.028298001
+          ],
+          [
+            11.6562852,
+            48.028192101
+          ],
+          [
+            11.6562479,
+            48.028094201
+          ],
+          [
+            11.656196,
+            48.027995601
+          ],
+          [
+            11.6561458,
+            48.027911201
+          ],
+          [
+            11.656033,
+            48.027756901
+          ],
+          [
+            11.6559169,
+            48.027636001
+          ],
+          [
+            11.6557349,
+            48.027491801
+          ],
+          [
+            11.6555524,
+            48.027377001
+          ],
+          [
+            11.6552943,
+            48.027246401
+          ],
+          [
+            11.6549843,
+            48.027137401
+          ],
+          [
+            11.6546652,
+            48.027064501
+          ],
+          [
+            11.6539739,
+            48.026925301
+          ],
+          [
+            11.6537143,
+            48.026905001
+          ],
+          [
+            11.6532544,
+            48.026880101
+          ],
+          [
+            11.6527453,
+            48.026867601
+          ],
+          [
+            11.6521932,
+            48.026872401
+          ],
+          [
+            11.6514685,
+            48.026892201
+          ],
+          [
+            11.651274903,
+            48.026902416
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2026-044319--vi-fbm.2026-10-08_20-00-00-000.devi-zus.2026-09-28_20-00-00-000_001.de12",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": true,
+      "extent": "48.396090356598485,11.067944227776643,48.395541366396884,11.060498244626247",
+      "point": "48.396090356598485,11.067944227776643",
+      "startLcPosition": "1000",
+      "impact": {
+        "symbols": [
+          "SEPARATE",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": " AS Dasing (aus Richtung Adelzhausen) nach A8",
+      "title": "Aplus A8 West - Asphaltsanierung Fa. Richard Schulz 2026-2",
+      "coordinate": {
+        "lat": 48.396090356598485,
+        "long": 11.067944227776643
+      },
+      "description": [
+        "Die Baustelle ist zu folgenden Zeiträumen gültig:",
+        "08.10.26 20:00 bis zum 09.10.26 06:00 Uhr.",
+        "(Ende der Gesamtmaßnahme: 12.12.26)",
+        "",
+        "Von Auffahrt auf die A8: AS Dasing (aus Richtung Adelzhausen) nach A8: München -> Stuttgart, zwischen AS Dasing und 5.8 km vor Kirchholz",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "Aplus A8 West - Asphaltsanierung Fa. Richard Schulz 2026-2"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            11.067944228,
+            48.396090357
+          ],
+          [
+            11.0679105,
+            48.396076601
+          ],
+          [
+            11.067752,
+            48.396011101
+          ],
+          [
+            11.0676484,
+            48.395976101
+          ],
+          [
+            11.0675162,
+            48.395910101
+          ],
+          [
+            11.0667878,
+            48.395488501
+          ],
+          [
+            11.0664574,
+            48.395299601
+          ],
+          [
+            11.065941,
+            48.395004301
+          ],
+          [
+            11.065762,
+            48.394901901
+          ],
+          [
+            11.0653931,
+            48.394762801
+          ],
+          [
+            11.0652501,
+            48.394721701
+          ],
+          [
+            11.0650945,
+            48.394681301
+          ],
+          [
+            11.0649387,
+            48.394652801
+          ],
+          [
+            11.0647389,
+            48.394625701
+          ],
+          [
+            11.064569,
+            48.394615401
+          ],
+          [
+            11.0643681,
+            48.394611901
+          ],
+          [
+            11.0641563,
+            48.394617901
+          ],
+          [
+            11.0637412,
+            48.394667901
+          ],
+          [
+            11.0631545,
+            48.394757301
+          ],
+          [
+            11.0617028,
+            48.395219201
+          ],
+          [
+            11.0611119,
+            48.395383201
+          ],
+          [
+            11.0605205,
+            48.395536001
+          ],
+          [
+            11.060498245,
+            48.395541366
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2026-005163--vi-fbm.2026-10-09_21-00-00-000.devi-bs.2026-10-16_20-00-00-000.de18",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": true,
+      "extent": "48.70387594061651,9.173982328298305,48.70144096946133,9.178704338985195",
+      "point": "48.70387594061651,9.173982328298305",
+      "startLcPosition": "1000",
+      "impact": {
+        "symbols": [
+          "SEPARATE",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": "",
+      "title": "A8 Vollsperrung AS Flughafen-Messe FR München - Sanierung Rampen",
+      "coordinate": {
+        "lat": 48.70387594061651,
+        "long": 9.173982328298305
+      },
+      "description": [
+        "Die Baustelle ist zu folgenden Zeiträumen gültig:",
+        "09.10.26 21:00 bis zum 10.10.26 24:00 Uhr.",
+        "11.10.26 00:00 bis zum 12.10.26 05:00 Uhr.",
+        "(Ende der Gesamtmaßnahme: 12.10.26)",
+        "",
+        "Auffahrt auf die A8",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A8 Vollsperrung AS Flughafen-Messe FR München - Sanierung Rampen"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9.173982328,
+            48.703875941
+          ],
+          [
+            9.1739869,
+            48.703874201
+          ],
+          [
+            9.1742473,
+            48.703761301
+          ],
+          [
+            9.1744872,
+            48.703642901
+          ],
+          [
+            9.1747251,
+            48.703508501
+          ],
+          [
+            9.1749394,
+            48.703372701
+          ],
+          [
+            9.1750471,
+            48.703219301
+          ],
+          [
+            9.1752714,
+            48.703045901
+          ],
+          [
+            9.1756441,
+            48.702717001
+          ],
+          [
+            9.1757591,
+            48.702621901
+          ],
+          [
+            9.1758851,
+            48.702531401
+          ],
+          [
+            9.176036,
+            48.702420901
+          ],
+          [
+            9.1762077,
+            48.702314801
+          ],
+          [
+            9.1763324,
+            48.702239901
+          ],
+          [
+            9.1764418,
+            48.702180501
+          ],
+          [
+            9.1765733,
+            48.702119301
+          ],
+          [
+            9.1767132,
+            48.702056201
+          ],
+          [
+            9.1768738,
+            48.701985801
+          ],
+          [
+            9.1770843,
+            48.701909101
+          ],
+          [
+            9.177263,
+            48.701848701
+          ],
+          [
+            9.1774966,
+            48.701777901
+          ],
+          [
+            9.1778256,
+            48.701688701
+          ],
+          [
+            9.1782193,
+            48.701586601
+          ],
+          [
+            9.1785933,
+            48.701462501
+          ],
+          [
+            9.178704339,
+            48.701440969
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2026-005163--vi-fbm.2026-10-09_21-00-00-000.devi-bs.2026-10-16_20-00-00-000.de16",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": true,
+      "extent": "48.70876066858053,9.165285641891524,48.705258595142055,9.16620123229931",
+      "point": "48.70876066858053,9.165285641891524",
+      "startLcPosition": "1000",
+      "impact": {
+        "symbols": [
+          "SEPARATE",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": "",
+      "title": "A8 Vollsperrung AS Flughafen-Messe FR München - Sanierung Rampen",
+      "coordinate": {
+        "lat": 48.70876066858053,
+        "long": 9.165285641891524
+      },
+      "description": [
+        "Die Baustelle ist zu folgenden Zeiträumen gültig:",
+        "09.10.26 21:00 bis zum 10.10.26 24:00 Uhr.",
+        "11.10.26 00:00 bis zum 12.10.26 05:00 Uhr.",
+        "(Ende der Gesamtmaßnahme: 12.10.26)",
+        "",
+        "Auffahrt auf die A8",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A8 Vollsperrung AS Flughafen-Messe FR München - Sanierung Rampen"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9.165285642,
+            48.708760669
+          ],
+          [
+            9.1653052,
+            48.708660201
+          ],
+          [
+            9.1653333,
+            48.708494401
+          ],
+          [
+            9.1653613,
+            48.708277101
+          ],
+          [
+            9.1653902,
+            48.707870501
+          ],
+          [
+            9.1654056,
+            48.707584301
+          ],
+          [
+            9.1654855,
+            48.707013001
+          ],
+          [
+            9.1655532,
+            48.706653101
+          ],
+          [
+            9.1656252,
+            48.706411801
+          ],
+          [
+            9.1657442,
+            48.705826801
+          ],
+          [
+            9.1657759,
+            48.705701701
+          ],
+          [
+            9.1658212,
+            48.705594801
+          ],
+          [
+            9.1658754,
+            48.705506401
+          ],
+          [
+            9.1659432,
+            48.705431301
+          ],
+          [
+            9.1660119,
+            48.705371301
+          ],
+          [
+            9.1661058,
+            48.705311801
+          ],
+          [
+            9.1661994,
+            48.705259301
+          ],
+          [
+            9.166201232,
+            48.705258595
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2026-005163--vi-fbm.2026-10-01_20-00-00-000.devi-bs.2026-10-16_20-00-00-000.de1",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": false,
+      "extent": "48.70387594061651,9.173982328298305,48.70144096946133,9.178704338985195",
+      "point": "48.70387594061651,9.173982328298305",
+      "startLcPosition": "1000",
+      "impact": {
+        "symbols": [
+          "SEPARATE",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": "",
+      "title": "A8 Vollsperrung AS Flughafen-Messe FR München - Sanierung Rampen",
+      "coordinate": {
+        "lat": 48.70387594061651,
+        "long": 9.173982328298305
+      },
+      "description": [
+        "Die Baustelle ist zu folgenden Zeiträumen gültig:",
+        "02.10.26 21:00 bis zum 03.10.26 24:00 Uhr.",
+        "04.10.26 00:00 bis zum 05.10.26 05:00 Uhr.",
+        "(Ende der Gesamtmaßnahme: 12.10.26)",
+        "",
+        "Auffahrt auf die A8",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A8 Vollsperrung AS Flughafen-Messe FR München - Sanierung Rampen"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9.173982328,
+            48.703875941
+          ],
+          [
+            9.1739869,
+            48.703874201
+          ],
+          [
+            9.1742473,
+            48.703761301
+          ],
+          [
+            9.1744872,
+            48.703642901
+          ],
+          [
+            9.1747251,
+            48.703508501
+          ],
+          [
+            9.1749394,
+            48.703372701
+          ],
+          [
+            9.1750471,
+            48.703219301
+          ],
+          [
+            9.1752714,
+            48.703045901
+          ],
+          [
+            9.1756441,
+            48.702717001
+          ],
+          [
+            9.1757591,
+            48.702621901
+          ],
+          [
+            9.1758851,
+            48.702531401
+          ],
+          [
+            9.176036,
+            48.702420901
+          ],
+          [
+            9.1762077,
+            48.702314801
+          ],
+          [
+            9.1763324,
+            48.702239901
+          ],
+          [
+            9.1764418,
+            48.702180501
+          ],
+          [
+            9.1765733,
+            48.702119301
+          ],
+          [
+            9.1767132,
+            48.702056201
+          ],
+          [
+            9.1768738,
+            48.701985801
+          ],
+          [
+            9.1770843,
+            48.701909101
+          ],
+          [
+            9.177263,
+            48.701848701
+          ],
+          [
+            9.1774966,
+            48.701777901
+          ],
+          [
+            9.1778256,
+            48.701688701
+          ],
+          [
+            9.1782193,
+            48.701586601
+          ],
+          [
+            9.1785933,
+            48.701462501
+          ],
+          [
+            9.178704339,
+            48.701440969
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2026-013403--vi-fbm.2026-09-30_21-00-00-000.devi-zus.2026-09-18_18-00-00-000.de6",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": false,
+      "extent": "48.77689689727593,9.026734485554904,48.774561819091275,9.025323171691696",
+      "point": "48.77689689727593,9.026734485554904",
+      "startLcPosition": "1000",
+      "impact": {
+        "symbols": [
+          "SEPARATE",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": " AS Leonberg-Ost (aus Richtung Leonberg) nach A81",
+      "title": "A8-A81 Leonberg-Ost - Fahrbahninstandsetzung",
+      "coordinate": {
+        "lat": 48.77689689727593,
+        "long": 9.026734485554904
+      },
+      "description": [
+        "Die Baustelle ist zu folgenden Zeiträumen gültig:",
+        "02.10.26 00:00 bis zum 03.10.26 24:00 Uhr.",
+        "04.10.26 00:00 bis zum 05.10.26 24:00 Uhr.",
+        "06.10.26 00:00 bis zum 07.10.26 05:00 Uhr.",
+        "(Ende der Gesamtmaßnahme: 09.11.26)",
+        "",
+        "Von Auffahrt auf die A81: AS Leonberg-Ost (aus Richtung Leonberg) nach A81: Heilbronn -> Stuttgart, zwischen AD Leonberg und 3.7 km vor Sindelfinger Wald",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A8-A81 Leonberg-Ost - Fahrbahninstandsetzung"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9.026734486,
+            48.776896897
+          ],
+          [
+            9.0267297,
+            48.776884501
+          ],
+          [
+            9.026723,
+            48.776830801
+          ],
+          [
+            9.0267464,
+            48.776697701
+          ],
+          [
+            9.0267567,
+            48.776608401
+          ],
+          [
+            9.0267507,
+            48.776540001
+          ],
+          [
+            9.026731,
+            48.776474901
+          ],
+          [
+            9.0266992,
+            48.776417401
+          ],
+          [
+            9.026635,
+            48.776304801
+          ],
+          [
+            9.0266016,
+            48.776275301
+          ],
+          [
+            9.0265668,
+            48.776251901
+          ],
+          [
+            9.0264937,
+            48.776203501
+          ],
+          [
+            9.0264169,
+            48.776162801
+          ],
+          [
+            9.0263106,
+            48.776114301
+          ],
+          [
+            9.0261956,
+            48.776076901
+          ],
+          [
+            9.0260337,
+            48.776036901
+          ],
+          [
+            9.0258521,
+            48.775995801
+          ],
+          [
+            9.0256028,
+            48.775933201
+          ],
+          [
+            9.0253861,
+            48.775871501
+          ],
+          [
+            9.0251615,
+            48.775791401
+          ],
+          [
+            9.0249175,
+            48.775698301
+          ],
+          [
+            9.0238721,
+            48.775269301
+          ],
+          [
+            9.0236303,
+            48.775175601
+          ],
+          [
+            9.0234618,
+            48.775135901
+          ],
+          [
+            9.0233243,
+            48.775096901
+          ],
+          [
+            9.0231697,
+            48.775064401
+          ],
+          [
+            9.023097,
+            48.775056601
+          ],
+          [
+            9.0230179,
+            48.775053001
+          ],
+          [
+            9.0229344,
+            48.775053501
+          ],
+          [
+            9.0228654,
+            48.775059801
+          ],
+          [
+            9.0227845,
+            48.775072901
+          ],
+          [
+            9.0227116,
+            48.775093801
+          ],
+          [
+            9.0226417,
+            48.775122901
+          ],
+          [
+            9.0225825,
+            48.775150301
+          ],
+          [
+            9.0225126,
+            48.775195101
+          ],
+          [
+            9.0224597,
+            48.775239801
+          ],
+          [
+            9.0224247,
+            48.775278401
+          ],
+          [
+            9.0223937,
+            48.775322101
+          ],
+          [
+            9.0223691,
+            48.775373001
+          ],
+          [
+            9.0223531,
+            48.775423201
+          ],
+          [
+            9.0223456,
+            48.775468701
+          ],
+          [
+            9.0223497,
+            48.775527501
+          ],
+          [
+            9.0223577,
+            48.775569401
+          ],
+          [
+            9.0223829,
+            48.775626801
+          ],
+          [
+            9.0224133,
+            48.775673501
+          ],
+          [
+            9.0224515,
+            48.775718401
+          ],
+          [
+            9.0225315,
+            48.775783001
+          ],
+          [
+            9.0225753,
+            48.775813801
+          ],
+          [
+            9.0226215,
+            48.775837001
+          ],
+          [
+            9.0226789,
+            48.775859501
+          ],
+          [
+            9.022733,
+            48.775879601
+          ],
+          [
+            9.0227999,
+            48.775893801
+          ],
+          [
+            9.0228616,
+            48.775904901
+          ],
+          [
+            9.0229417,
+            48.775911401
+          ],
+          [
+            9.0230384,
+            48.775911901
+          ],
+          [
+            9.0231295,
+            48.775905201
+          ],
+          [
+            9.0231979,
+            48.775893301
+          ],
+          [
+            9.0232465,
+            48.775881301
+          ],
+          [
+            9.0233948,
+            48.775830101
+          ],
+          [
+            9.0236243,
+            48.775744701
+          ],
+          [
+            9.0237209,
+            48.775678601
+          ],
+          [
+            9.0240832,
+            48.775441401
+          ],
+          [
+            9.0242349,
+            48.775335301
+          ],
+          [
+            9.0243972,
+            48.775229601
+          ],
+          [
+            9.0248876,
+            48.774878601
+          ],
+          [
+            9.0251832,
+            48.774663801
+          ],
+          [
+            9.025323172,
+            48.774561819
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2026-013403--vi-fbm.2026-09-30_21-00-00-000.devi-zus.2026-09-18_18-00-00-000.de5",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": false,
+      "extent": "48.77749394737558,9.02009230087104,48.7769242368837,9.026892401440014",
+      "point": "48.77749394737558,9.02009230087104",
+      "startLcPosition": "1000",
+      "impact": {
+        "symbols": [
+          "SEPARATE",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": " Heilbronn -> Stuttgart",
+      "title": "A8-A81 Leonberg-Ost - Fahrbahninstandsetzung",
+      "coordinate": {
+        "lat": 48.77749394737558,
+        "long": 9.02009230087104
+      },
+      "description": [
+        "Die Baustelle ist zu folgenden Zeiträumen gültig:",
+        "02.10.26 00:00 bis zum 03.10.26 24:00 Uhr.",
+        "04.10.26 00:00 bis zum 05.10.26 24:00 Uhr.",
+        "06.10.26 00:00 bis zum 07.10.26 05:00 Uhr.",
+        "(Ende der Gesamtmaßnahme: 09.11.26)",
+        "",
+        "Von A81: Heilbronn -> Stuttgart, zwischen 0.6 km hinter AD Leonberg und AS Leonberg-Ost nach Abfahrt von der A81: AS Leonberg-Ost (aus Richtung Leonberg)",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A8-A81 Leonberg-Ost - Fahrbahninstandsetzung"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9.020092301,
+            48.777493947
+          ],
+          [
+            9.0204141,
+            48.777367001
+          ],
+          [
+            9.0207853,
+            48.777209701
+          ],
+          [
+            9.0210213,
+            48.777107601
+          ],
+          [
+            9.0212919,
+            48.776990401
+          ],
+          [
+            9.0215466,
+            48.776871601
+          ],
+          [
+            9.0218435,
+            48.776670001
+          ],
+          [
+            9.0219634,
+            48.776582201
+          ],
+          [
+            9.0220752,
+            48.776480801
+          ],
+          [
+            9.0221331,
+            48.776410601
+          ],
+          [
+            9.0221764,
+            48.776344501
+          ],
+          [
+            9.0222155,
+            48.776270001
+          ],
+          [
+            9.0222392,
+            48.776199501
+          ],
+          [
+            9.0222595,
+            48.776109201
+          ],
+          [
+            9.022267,
+            48.776027801
+          ],
+          [
+            9.0222682,
+            48.775923801
+          ],
+          [
+            9.0222596,
+            48.775823801
+          ],
+          [
+            9.0222474,
+            48.775730301
+          ],
+          [
+            9.0222354,
+            48.775629701
+          ],
+          [
+            9.0222229,
+            48.775552001
+          ],
+          [
+            9.022219,
+            48.775475801
+          ],
+          [
+            9.0222422,
+            48.775344301
+          ],
+          [
+            9.0222672,
+            48.775283901
+          ],
+          [
+            9.02231,
+            48.775221301
+          ],
+          [
+            9.0223496,
+            48.775178501
+          ],
+          [
+            9.0223947,
+            48.775138701
+          ],
+          [
+            9.0224553,
+            48.775094601
+          ],
+          [
+            9.0225154,
+            48.775060401
+          ],
+          [
+            9.0226001,
+            48.775024501
+          ],
+          [
+            9.0226933,
+            48.774995301
+          ],
+          [
+            9.0227865,
+            48.774975901
+          ],
+          [
+            9.0228691,
+            48.774966801
+          ],
+          [
+            9.0229682,
+            48.774963101
+          ],
+          [
+            9.0230538,
+            48.774968601
+          ],
+          [
+            9.0231352,
+            48.774979501
+          ],
+          [
+            9.0232087,
+            48.774994601
+          ],
+          [
+            9.0232871,
+            48.775017501
+          ],
+          [
+            9.0233561,
+            48.775042301
+          ],
+          [
+            9.0236303,
+            48.775175601
+          ],
+          [
+            9.0238721,
+            48.775269301
+          ],
+          [
+            9.0249175,
+            48.775698301
+          ],
+          [
+            9.0251615,
+            48.775791401
+          ],
+          [
+            9.0253861,
+            48.775871501
+          ],
+          [
+            9.0256028,
+            48.775933201
+          ],
+          [
+            9.0258521,
+            48.775995801
+          ],
+          [
+            9.0260337,
+            48.776036901
+          ],
+          [
+            9.0261956,
+            48.776076901
+          ],
+          [
+            9.0263106,
+            48.776114301
+          ],
+          [
+            9.0264169,
+            48.776162801
+          ],
+          [
+            9.0264937,
+            48.776203501
+          ],
+          [
+            9.0265668,
+            48.776251901
+          ],
+          [
+            9.0266016,
+            48.776275301
+          ],
+          [
+            9.026635,
+            48.776304801
+          ],
+          [
+            9.026728,
+            48.776362401
+          ],
+          [
+            9.0267924,
+            48.776421201
+          ],
+          [
+            9.026822,
+            48.776466901
+          ],
+          [
+            9.0268474,
+            48.776517301
+          ],
+          [
+            9.0268683,
+            48.776568701
+          ],
+          [
+            9.0268796,
+            48.776618701
+          ],
+          [
+            9.0268886,
+            48.776664701
+          ],
+          [
+            9.0268967,
+            48.776733101
+          ],
+          [
+            9.0268994,
+            48.776806501
+          ],
+          [
+            9.0268953,
+            48.776900801
+          ],
+          [
+            9.026892401,
+            48.776924237
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2026-013403--vi-fbm.2026-09-30_21-00-00-000.devi-zus.2026-09-18_18-00-00-000.de3",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": false,
+      "extent": "48.776835061389384,9.024960391115535,48.7777061780969,9.020823142089933",
+      "point": "48.776835061389384,9.024960391115535",
+      "startLcPosition": "1000",
+      "impact": {
+        "symbols": [
+          "SEPARATE",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": " AS Leonberg-Ost (aus Richtung Sindelfinger Wald) nach A81",
+      "title": "A8-A81 Leonberg-Ost - Fahrbahninstandsetzung",
+      "coordinate": {
+        "lat": 48.776835061389384,
+        "long": 9.024960391115535
+      },
+      "description": [
+        "Die Baustelle ist zu folgenden Zeiträumen gültig:",
+        "02.10.26 00:00 bis zum 03.10.26 24:00 Uhr.",
+        "04.10.26 00:00 bis zum 05.10.26 24:00 Uhr.",
+        "06.10.26 00:00 bis zum 07.10.26 07:00 Uhr.",
+        "(Ende der Gesamtmaßnahme: 09.11.26)",
+        "",
+        "Von Auffahrt auf die A81: AS Leonberg-Ost (aus Richtung Sindelfinger Wald) nach A81: Stuttgart -> Heilbronn, zwischen AS Leonberg-Ost und 0.6 km vor AD Leonberg",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A8-A81 Leonberg-Ost - Fahrbahninstandsetzung"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9.024960391,
+            48.776835061
+          ],
+          [
+            9.0249398,
+            48.776813201
+          ],
+          [
+            9.0249262,
+            48.776744401
+          ],
+          [
+            9.0249246,
+            48.776664101
+          ],
+          [
+            9.0249189,
+            48.776611401
+          ],
+          [
+            9.0249065,
+            48.776567301
+          ],
+          [
+            9.0248951,
+            48.776534301
+          ],
+          [
+            9.0248745,
+            48.776503101
+          ],
+          [
+            9.0248575,
+            48.776476201
+          ],
+          [
+            9.0248297,
+            48.776448301
+          ],
+          [
+            9.0247668,
+            48.776403001
+          ],
+          [
+            9.0247217,
+            48.776374301
+          ],
+          [
+            9.0246731,
+            48.776347901
+          ],
+          [
+            9.0245542,
+            48.776311301
+          ],
+          [
+            9.0244864,
+            48.776297001
+          ],
+          [
+            9.0244157,
+            48.776291001
+          ],
+          [
+            9.0243452,
+            48.776286201
+          ],
+          [
+            9.0242821,
+            48.776288101
+          ],
+          [
+            9.0242212,
+            48.776295701
+          ],
+          [
+            9.024157,
+            48.776306801
+          ],
+          [
+            9.0240823,
+            48.776323301
+          ],
+          [
+            9.0240143,
+            48.776343401
+          ],
+          [
+            9.0238091,
+            48.776415901
+          ],
+          [
+            9.0235721,
+            48.776504001
+          ],
+          [
+            9.0233473,
+            48.776592401
+          ],
+          [
+            9.022809,
+            48.776811601
+          ],
+          [
+            9.0222435,
+            48.777040901
+          ],
+          [
+            9.0220674,
+            48.777130101
+          ],
+          [
+            9.0213107,
+            48.777473601
+          ],
+          [
+            9.020823142,
+            48.777706178
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2026-013403--vi-fbm.2026-09-30_21-00-00-000.devi-zus.2026-09-18_18-00-00-000.de2",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": false,
+      "extent": "48.777841409278004,9.020539649159808,48.782704246976856,9.00862573533016",
+      "point": "48.777841409278004,9.020539649159808",
+      "startLcPosition": "1000",
+      "impact": {
+        "symbols": [
+          "SEPARATE",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": " Stuttgart -> Heilbronn",
+      "title": "A8-A81 Leonberg-Ost - Fahrbahninstandsetzung",
+      "coordinate": {
+        "lat": 48.777841409278004,
+        "long": 9.020539649159808
+      },
+      "description": [
+        "Die Baustelle ist zu folgenden Zeiträumen gültig:",
+        "02.10.26 00:00 bis zum 03.10.26 24:00 Uhr.",
+        "04.10.26 00:00 bis zum 05.10.26 24:00 Uhr.",
+        "06.10.26 00:00 bis zum 07.10.26 05:00 Uhr.",
+        "(Ende der Gesamtmaßnahme: 09.11.26)",
+        "",
+        "Von A81: Stuttgart -> Heilbronn, 0.5 km vor AD Leonberg, aus Richtung Leonberg-Ost; in A81: AD Leonberg auf die A8 in Richtung Karlsruhe; nach A8: Stuttgart -> Karlsruhe, 2.1 km vor AS Leonberg-West, aus Richtung Leonberg",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A8-A81 Leonberg-Ost - Fahrbahninstandsetzung"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9.020539649,
+            48.777841409
+          ],
+          [
+            9.0202946,
+            48.777958301
+          ],
+          [
+            9.020042,
+            48.778080301
+          ],
+          [
+            9.0196136,
+            48.778318201
+          ],
+          [
+            9.0191904,
+            48.778564601
+          ],
+          [
+            9.0187845,
+            48.778819601
+          ],
+          [
+            9.0185477,
+            48.779016601
+          ],
+          [
+            9.0182974,
+            48.779243101
+          ],
+          [
+            9.0181369,
+            48.779406601
+          ],
+          [
+            9.0179822,
+            48.779536401
+          ],
+          [
+            9.0177752,
+            48.779704901
+          ],
+          [
+            9.0175709,
+            48.779843101
+          ],
+          [
+            9.0173598,
+            48.779966101
+          ],
+          [
+            9.0171054,
+            48.780095401
+          ],
+          [
+            9.016962,
+            48.780158701
+          ],
+          [
+            9.0168511,
+            48.780209501
+          ],
+          [
+            9.0166901,
+            48.780270201
+          ],
+          [
+            9.0165642,
+            48.780312101
+          ],
+          [
+            9.0164059,
+            48.780362901
+          ],
+          [
+            9.0162679,
+            48.780400301
+          ],
+          [
+            9.0159662,
+            48.780469901
+          ],
+          [
+            9.0156645,
+            48.780532301
+          ],
+          [
+            9.015191,
+            48.780617901
+          ],
+          [
+            9.0148459,
+            48.780689201
+          ],
+          [
+            9.0145769,
+            48.780756001
+          ],
+          [
+            9.0124467,
+            48.781515801
+          ],
+          [
+            9.0120951,
+            48.781643501
+          ],
+          [
+            9.0117222,
+            48.781726001
+          ],
+          [
+            9.0110225,
+            48.781980601
+          ],
+          [
+            9.0104368,
+            48.782174101
+          ],
+          [
+            9.0100139,
+            48.782310301
+          ],
+          [
+            9.0095738,
+            48.782441401
+          ],
+          [
+            9.0091344,
+            48.782567901
+          ],
+          [
+            9.0086879,
+            48.782687301
+          ],
+          [
+            9.008625735,
+            48.782704247
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2026-026749--vi-fbm.2026-10-15_20-00-00-000.devi-zus.2026-06-10_20-00-00-000_003.de6",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": true,
+      "extent": "48.58266964103125,9.6615057256946,48.582777597040504,9.662081561584058",
+      "point": "48.58266964103125,9.6615057256946",
+      "startLcPosition": "1000",
+      "impact": {
+        "symbols": [
+          "SEPARATE",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": " AS Mühlhausen (aus Richtung Gruibingen)",
+      "title": "A8 Ausbau Gruibingen-Mühlhausen, Wirtschaftsweganbindung, Herstellung bzw. Rückbau Baustellenzufahrt",
+      "coordinate": {
+        "lat": 48.58266964103125,
+        "long": 9.6615057256946
+      },
+      "description": [
+        "Die Baustelle ist zu folgenden Zeiträumen gültig:",
+        "15.10.26 20:00 bis zum 16.10.26 05:00 Uhr.",
+        "(Ende der Gesamtmaßnahme: 16.10.26)",
+        "",
+        "Auffahrt auf die A8: AS Mühlhausen (aus Richtung Gruibingen)",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A8 Ausbau Gruibingen-Mühlhausen, Wirtschaftsweganbindung, Herstellung bzw. Rückbau Baustellenzufahrt"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9.661505726,
+            48.582669641
+          ],
+          [
+            9.6615854,
+            48.582696801
+          ],
+          [
+            9.6617662,
+            48.582743301
+          ],
+          [
+            9.6619431,
+            48.582765801
+          ],
+          [
+            9.662081562,
+            48.582777597
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2026-026749--vi-fbm.2026-10-15_20-00-00-000.devi-zus.2026-06-10_20-00-00-000_003.de5",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": true,
+      "extent": "48.5830049137079,9.661875338425155,48.58282193301582,9.662056826682718",
+      "point": "48.5830049137079,9.661875338425155",
+      "startLcPosition": "1000",
+      "impact": {
+        "symbols": [
+          "SEPARATE",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": " AS Mühlhausen (aus Richtung Gruibingen)",
+      "title": "A8 Ausbau Gruibingen-Mühlhausen, Wirtschaftsweganbindung, Herstellung bzw. Rückbau Baustellenzufahrt",
+      "coordinate": {
+        "lat": 48.5830049137079,
+        "long": 9.661875338425155
+      },
+      "description": [
+        "Die Baustelle ist zu folgenden Zeiträumen gültig:",
+        "15.10.26 20:00 bis zum 16.10.26 05:00 Uhr.",
+        "(Ende der Gesamtmaßnahme: 16.10.26)",
+        "",
+        "Abfahrt von der A8: AS Mühlhausen (aus Richtung Gruibingen)",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A8 Ausbau Gruibingen-Mühlhausen, Wirtschaftsweganbindung, Herstellung bzw. Rückbau Baustellenzufahrt"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9.661875338,
+            48.583004914
+          ],
+          [
+            9.6618755,
+            48.583003801
+          ],
+          [
+            9.6618962,
+            48.582937101
+          ],
+          [
+            9.661942,
+            48.582881501
+          ],
+          [
+            9.6620199,
+            48.582835001
+          ],
+          [
+            9.662056827,
+            48.582821933
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2023-001068--vi-fbm.2026-06-08_05-00-00-000.devi-zus.2023-02-10_20-00-00-000.f_001.de196",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": false,
+      "extent": "49.32981612372754,7.191783543426545,49.32880534086992,7.194618759152488",
+      "point": "49.32981612372754,7.191783543426545",
+      "startLcPosition": "1000",
+      "impact": {
+        "symbols": [
+          "SEPARATE",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": " AS Neunkirchen-Oberstadt (aus Richtung Neunkirchen/Spiesen)",
+      "title": "A8 Brückenneubau",
+      "startTimestamp": "2026-06-08T05:00:00+02:00",
+      "coordinate": {
+        "lat": 49.32981612372754,
+        "long": 7.191783543426545
+      },
+      "description": [
+        "Zeitraum dieser Bauphase:",
+        "Beginn: 08.06.26 um 05:00 Uhr",
+        "Ende: 24.12.26 um 05:00 Uhr",
+        "(Ende der Gesamtmaßnahme: 01.01.32)",
+        "",
+        "Auffahrt auf die A8: AS Neunkirchen-Oberstadt (aus Richtung Neunkirchen/Spiesen)",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A8 Brückenneubau"
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            7.191783543,
+            49.329816124
+          ],
+          [
+            7.1917515,
+            49.329659101
+          ],
+          [
+            7.1917515,
+            49.329541201
+          ],
+          [
+            7.1917658,
+            49.329444301
+          ],
+          [
+            7.191789,
+            49.329354501
+          ],
+          [
+            7.1918397,
+            49.329245301
+          ],
+          [
+            7.1919374,
+            49.329087401
+          ],
+          [
+            7.1920429,
+            49.328975101
+          ],
+          [
+            7.192166,
+            49.328862301
+          ],
+          [
+            7.1923313,
+            49.328752601
+          ],
+          [
+            7.1925323,
+            49.328651001
+          ],
+          [
+            7.1927755,
+            49.328556501
+          ],
+          [
+            7.1930203,
+            49.328491501
+          ],
+          [
+            7.1932915,
+            49.328452901
+          ],
+          [
+            7.1935222,
+            49.328450901
+          ],
+          [
+            7.1937498,
+            49.328473201
+          ],
+          [
+            7.1939649,
+            49.328511801
+          ],
+          [
+            7.1941879,
+            49.328576801
+          ],
+          [
+            7.1943624,
+            49.328654001
+          ],
+          [
+            7.194618759,
+            49.328805341
+          ]
+        ]
+      }
+    },
+    {
+      "identifier": "2025-063400--vi-fbm.2026-01-16_05-00-00-000.devi-zus.2021-09-27_00-00-00-000_003.de48",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": false,
+      "extent": "48.914363448806164,8.76769021010144,48.91437106634937,8.766508767177674",
+      "point": "48.914363448806164,8.76769021010144",
+      "startLcPosition": "1000",
+      "impact": {
+        "symbols": [
+          "SEPARATE",
+          "CLOSED"
+        ]
+      },
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": "",
+      "title": "A8 Neubau Enztalquerung bei Pforzheim-Ost ",
+      "startTimestamp": "2026-01-16T05:00:00+01:00",
+      "coordinate": {
+        "lat": 48.914363448806164,
+        "long": 8.76769021010144
+      },
+      "description": [
+        "Zeitraum dieser Bauphase:",
+        "Beginn: 16.01.26 um 05:00 Uhr",
+        "Ende: 01.07.27 um 00:00 Uhr",
+        "(Ende der Gesamtmaßnahme: 07.03.28)",
+        "",
+        "Von B10[PforzheimB294-Stuttgart] nach Abfahrt von der B10[PforzheimB294-Stuttgart]",
+        "",
+        "Länge: konnte nicht ermittelt werden",
+        "",
+        "A8 Neubau Enztalquerung bei Pforzheim-Ost "
+      ],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            8.76769021,
+            48.914363449
+          ],
+          [
+            8.7676096,
+            48.914338101
+          ],
+          [
+            8.7673225,
+            48.914250301
+          ],
+          [
+            8.7670791,
+            48.914240601
+          ],
+          [
+            8.7669748,
+            48.914220301
+          ],
+          [
+            8.766855,
+            48.914222001
+          ],
+          [
+            8.766734,
+            48.914246501
+          ],
+          [
+            8.7666219,
+            48.914283801
+          ],
+          [
+            8.7665126,
+            48.914363601
+          ],
+          [
+            8.766508767,
+            48.914371066
+          ]
+        ]
+      }
+    }
+  ]
+}

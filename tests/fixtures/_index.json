@@ -1,0 +1,76 @@
+{
+  "fetched_at": "2026-10-02T11:32:39.277469+00:00",
+  "user_agent": "Streckenwacht/0.1 (+https://github.com/streckenwacht/integration)",
+  "files": [
+    {
+      "file": "autobahn_roads.json",
+      "url": "https://verkehr.autobahn.de/o/autobahn/",
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "bytes": 1303
+    },
+    {
+      "file": "autobahn_A8_roadworks.json",
+      "url": "https://verkehr.autobahn.de/o/autobahn/A8/services/roadworks",
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "bytes": 710786
+    },
+    {
+      "file": "autobahn_A8_closure.json",
+      "url": "https://verkehr.autobahn.de/o/autobahn/A8/services/closure",
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "bytes": 100776
+    },
+    {
+      "file": "autobahn_A8_warning.json",
+      "url": "https://verkehr.autobahn.de/o/autobahn/A8/services/warning",
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "bytes": 149087
+    },
+    {
+      "file": "autobahn_A81_roadworks.json",
+      "url": "https://verkehr.autobahn.de/o/autobahn/A81/services/roadworks",
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "bytes": 733132
+    },
+    {
+      "file": "autobahn_A81_closure.json",
+      "url": "https://verkehr.autobahn.de/o/autobahn/A81/services/closure",
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "bytes": 121001
+    },
+    {
+      "file": "autobahn_A81_warning.json",
+      "url": "https://verkehr.autobahn.de/o/autobahn/A81/services/warning",
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "bytes": 61046
+    },
+    {
+      "file": "mobidata_bw_roadworks.geojson.json",
+      "url": "https://api.mobidata-bw.de/datasets/traffic/roadworks/roadworks_geojson.json",
+      "status": 200,
+      "content_type": "application/json",
+      "bytes": 2592769
+    },
+    {
+      "file": "stuttgart_geplant.geojson.json",
+      "url": "https://geoserver.stuttgart.de/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=GEOLINE_FLEX%3AA66_BAUM_BAUSTELLEN_DATE_geplant_EPSG25832&outputFormat=application%2Fjson&srsName=EPSG%3A4326",
+      "status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "bytes": 13885
+    },
+    {
+      "file": "stuttgart_im_bau.geojson.json",
+      "url": "https://geoserver.stuttgart.de/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=GEOLINE_FLEX%3AA66_BAUM_BAUSTELLEN_DATE_im_Bau_EPSG25832&outputFormat=application%2Fjson&srsName=EPSG%3A4326",
+      "status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "bytes": 65641
+    }
+  ]
+}

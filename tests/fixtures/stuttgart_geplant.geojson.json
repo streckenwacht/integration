@@ -1,0 +1,441 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_geplant_EPSG25832.65551",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.2002,
+          48.7618
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Einrichtung der Baustelle, in verschiedenen Abschnitten.",
+        "DETAILS_STANDORT": "und Pischekstraße zwischen Gänsheidestraße und Ruhbank",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stuttgart-Ost",
+        "ANFANG": "05.10.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Jahnstraße",
+        "STADTBEREICH": "Innenstadtbereich",
+        "BAUABTEILUNG": "11",
+        "BAUSTELLENNUMMER": "7552/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "05.10.2026",
+        "KOORDINATE_X": "514711.920",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5400998.455",
+        "ART_ARBEIT": "Straßenbauarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "geplant",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Einrichtung der Baustelle, in verschiedenen Abschnitten.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.2002,
+        48.7618,
+        9.2002,
+        48.7618
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_geplant_EPSG25832.65552",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.153,
+          48.8121
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Fahrbahnreduzierung in beide Richtungen.",
+        "DETAILS_STANDORT": "B295 Tunnel Feuerbach",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Feuerbach",
+        "ANFANG": "05.10.2026",
+        "ENDE_UHRZEIT": "05:00",
+        "STRASSENNAME": "Steiermärker Straße",
+        "STADTBEREICH": "Nördlicher Bereich",
+        "BAUABTEILUNG": "12",
+        "BAUSTELLENNUMMER": "7393/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "07.10.2026",
+        "KOORDINATE_X": "511229.997",
+        "ZEITL_REGELUNG": "werktags",
+        "KOORDINATE_Y": "5406574.560",
+        "ART_ARBEIT": "Wartungs- und Reinigungsarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": "22:30",
+        "STATUS": "geplant",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Fahrbahnreduzierung in beide Richtungen.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.153,
+        48.8121,
+        9.153,
+        48.8121
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_geplant_EPSG25832.65553",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1502,
+          48.8109
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Vollsperrung",
+        "DETAILS_STANDORT": "B295 Feuerbacher Tunnel",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Feuerbach",
+        "ANFANG": "05.10.2026",
+        "ENDE_UHRZEIT": "05:00",
+        "STRASSENNAME": "Steiermärker Straße",
+        "STADTBEREICH": "Nördlicher Bereich",
+        "BAUABTEILUNG": "12",
+        "BAUSTELLENNUMMER": "7550/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "07.10.2026",
+        "KOORDINATE_X": "511026.267",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5406448.882",
+        "ART_ARBEIT": "Wartungs- und Reinigungsarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": "22:30",
+        "STATUS": "geplant",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Vollsperrung",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1502,
+        48.8109,
+        9.1502,
+        48.8109
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_geplant_EPSG25832.65554",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.2078,
+          48.8407
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Fahrbahneinengungen in mehreren Bauabschnitten.",
+        "DETAILS_STANDORT": "zwischen Mix-Markt und Parkplatz von Gebäude 21",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Freiberg",
+        "ANFANG": "05.10.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Wallensteinstraße",
+        "STADTBEREICH": "Neckarbereich",
+        "BAUABTEILUNG": "13",
+        "BAUSTELLENNUMMER": "7540/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "20.11.2026",
+        "KOORDINATE_X": "515248.364",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5409766.102",
+        "ART_ARBEIT": "Arbeiten an Versorgungsleitungen",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "geplant",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Fahrbahneinengungen in mehreren Bauabschnitten.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.2078,
+        48.8407,
+        9.2078,
+        48.8407
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_geplant_EPSG25832.65555",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.2003,
+          48.7631
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Vollsperrung der stadtauswärts Richtung. Eine Umleitung ist ausgeschildert. Zufahrt Waldebene Ost und Frauenkopf nur aus Richtung Ruhbank/Degerloch möglich.",
+        "DETAILS_STANDORT": "und Pischekstraße zwischen Gänsheidestraße und Ruhbank",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stuttgart-Ost",
+        "ANFANG": "06.10.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Jahnstraße",
+        "STADTBEREICH": "außerhalb der Gemarkungsgrenze",
+        "BAUABTEILUNG": "11",
+        "BAUSTELLENNUMMER": "7553/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "07.10.2026",
+        "KOORDINATE_X": "514723.030",
+        "ZEITL_REGELUNG": "werktags",
+        "KOORDINATE_Y": "5401138.830",
+        "ART_ARBEIT": "Straßenbauarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "geplant",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Vollsperrung der stadtauswärts Richtung. Eine Umleitung ist ausgeschildert. Zufahrt Waldebene Ost und Frauenkopf nur aus Richtung Ruhbank/Degerloch möglich.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.2003,
+        48.7631,
+        9.2003,
+        48.7631
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_geplant_EPSG25832.65556",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1999,
+          48.7612
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Vollsperrung der stadteinwärtigen Richtung. Eine Umleitung ist ausgeschildert. Zufahrt Waldebene Ost und Frauenkopf nur aus Richtung Stuttgart-Ost/S-Zentrum möglich.",
+        "DETAILS_STANDORT": "und Pischekstraße zwischen Ruhbank und Gänsheidestraße",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stuttgart-Ost",
+        "ANFANG": "08.10.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Jahnstraße",
+        "STADTBEREICH": "außerhalb der Gemarkungsgrenze",
+        "BAUABTEILUNG": "11",
+        "BAUSTELLENNUMMER": "7549/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "09.10.2026",
+        "KOORDINATE_X": "514693.399",
+        "ZEITL_REGELUNG": "werktags",
+        "KOORDINATE_Y": "5400929.663",
+        "ART_ARBEIT": "Straßenbauarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "geplant",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Vollsperrung der stadteinwärtigen Richtung. Eine Umleitung ist ausgeschildert. Zufahrt Waldebene Ost und Frauenkopf nur aus Richtung Stuttgart-Ost/S-Zentrum möglich.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1999,
+        48.7612,
+        9.1999,
+        48.7612
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_geplant_EPSG25832.65557",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.2002,
+          48.7618
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Fahrbahnreduzierung in beide Richtungen. Es steht in jede Fahrtrichtung ein Streifen zur Verfügung.",
+        "DETAILS_STANDORT": "und Pischekstraße zwischen Gänsheidestraße und Ruhbank",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Stuttgart-Ost",
+        "ANFANG": "10.10.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Jahnstraße",
+        "STADTBEREICH": "außerhalb der Gemarkungsgrenze",
+        "BAUABTEILUNG": "11",
+        "BAUSTELLENNUMMER": "7546/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "Ende Dez. 2026",
+        "KOORDINATE_X": "514711.920",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5400998.455",
+        "ART_ARBEIT": "Straßenbauarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "geplant",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Fahrbahnreduzierung in beide Richtungen. Es steht in jede Fahrtrichtung ein Streifen zur Verfügung.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.2002,
+        48.7618,
+        9.2002,
+        48.7618
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_geplant_EPSG25832.65558",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.2128,
+          48.8005
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Fahrbahnreduzierungen Richtung Innenstadt.",
+        "DETAILS_STANDORT": "Kreuzung Mercedesstraße und Schönestraße",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Bad Cannstatt",
+        "ANFANG": "12.10.2026",
+        "ENDE_UHRZEIT": "05:00",
+        "STRASSENNAME": "König-Karl-Straße",
+        "STADTBEREICH": "Neckarbereich",
+        "BAUABTEILUNG": "13",
+        "BAUSTELLENNUMMER": "7547/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "16.10.2026",
+        "KOORDINATE_X": "515630.026",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5405300.588",
+        "ART_ARBEIT": "Arbeiten an Versorgungsleitungen (Lichtsignalanlage)",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": "22:00",
+        "STATUS": "geplant",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Fahrbahnreduzierungen Richtung Innenstadt.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.2128,
+        48.8005,
+        9.2128,
+        48.8005
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_geplant_EPSG25832.65559",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.2356,
+          48.7626
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Vollsperrung",
+        "DETAILS_STANDORT": "Dürrbach",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Rohracker",
+        "ANFANG": "12.10.2026",
+        "ENDE_UHRZEIT": null,
+        "STRASSENNAME": "Dürrbach, Gewann (Hed)",
+        "STADTBEREICH": "Neckarbereich",
+        "BAUABTEILUNG": "13",
+        "BAUSTELLENNUMMER": "7543/2026",
+        "UNBEKANNT1": "22.10.2026",
+        "ZUSAETZL_INFO": null,
+        "ENDE": "22.10.2026",
+        "KOORDINATE_X": "517314,43",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5401089,79",
+        "ART_ARBEIT": "Straßenbauarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": null,
+        "STATUS": "geplant",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Vollsperrung",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.2356,
+        48.7626,
+        9.2356,
+        48.7626
+      ]
+    },
+    {
+      "type": "Feature",
+      "id": "A66_BAUM_BAUSTELLEN_DATE_geplant_EPSG25832.65560",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1862,
+          48.81
+        ]
+      },
+      "geometry_name": "SHAPE",
+      "properties": {
+        "VERKEHRSAUSWIRKUNG": "Fahrbahneinengung und Parkverbot in der Hahnemannstraße wegen Bohrarbeiten.",
+        "DETAILS_STANDORT": "Höhe Polizeipräsidium",
+        "VERKEHRSAUSWIRKUNG2": null,
+        "STADTTEIL": "Bad Cannstatt",
+        "ANFANG": "13.10.2026",
+        "ENDE_UHRZEIT": "15:00",
+        "STRASSENNAME": "Hahnemannstraße",
+        "STADTBEREICH": "Neckarbereich",
+        "BAUABTEILUNG": "13",
+        "BAUSTELLENNUMMER": "7544/2026",
+        "UNBEKANNT1": null,
+        "ZUSAETZL_INFO": null,
+        "ENDE": "13.10.2026",
+        "KOORDINATE_X": "513673.429",
+        "ZEITL_REGELUNG": "durchgehend",
+        "KOORDINATE_Y": "5406350.325",
+        "ART_ARBEIT": "Straßenbauarbeiten",
+        "KARTENAUSSCHNITT": null,
+        "BEGINN_UHRZEIT": "08:00",
+        "STATUS": "geplant",
+        "VERKEHRSAUSWIRKUNG_GESAMT": "Fahrbahneinengung und Parkverbot in der Hahnemannstraße wegen Bohrarbeiten.",
+        "SE_ANNO_CAD_DATA": null
+      },
+      "bbox": [
+        9.1862,
+        48.81,
+        9.1862,
+        48.81
+      ]
+    }
+  ],
+  "totalFeatures": 10,
+  "numberMatched": 10,
+  "numberReturned": 10,
+  "timeStamp": "2026-10-02T11:32:38.079Z",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:EPSG::4326"
+    }
+  },
+  "bbox": [
+    9.1502,
+    48.7612,
+    9.2356,
+    48.8407
+  ]
+}
