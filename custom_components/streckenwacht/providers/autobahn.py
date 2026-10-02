@@ -13,11 +13,10 @@ import re
 from collections.abc import Iterable, Sequence
 from datetime import date, datetime, time, timedelta
 from typing import Any
-from zoneinfo import ZoneInfo
 
 import aiohttp
 
-from ..const import Source
+from ..const import LOCAL_TZ, Source
 from ..model import EventType, ObservationArea, Period, StreckenwachtEvent
 from . import Provider, ProviderError
 
@@ -28,8 +27,6 @@ SERVICES = ("roadworks", "closure", "warning")
 MAX_PARALLEL_REQUESTS = 4
 # Upper bound for expanding recurring windows ("Jeden Tag zwischen ...").
 MAX_RECURRING_DAYS = 400
-
-TZ = ZoneInfo("Europe/Berlin")
 
 _ACCIDENT = re.compile(r"\bUnf[aä]ll", re.IGNORECASE)
 
@@ -221,7 +218,7 @@ def parse_periods(lines: list[str], start_timestamp: Any = None) -> tuple[Period
 
 
 def _sort_key(period: Period) -> datetime:
-    return period.start or datetime.min.replace(tzinfo=TZ)
+    return period.start or datetime.min.replace(tzinfo=LOCAL_TZ)
 
 
 def _expand_recurring(match: re.Match[str]) -> Iterable[Period]:
@@ -253,8 +250,8 @@ def _day_window(
     stop_time = _time(stop)
     if start_time is None or stop_time is None:
         return None
-    begin = datetime.combine(day, start_time, TZ)
-    end = datetime.combine(day, stop_time, TZ)
+    begin = datetime.combine(day, start_time, LOCAL_TZ)
+    end = datetime.combine(day, stop_time, LOCAL_TZ)
     if end <= begin:
         end += timedelta(days=1)
     return Period(begin, end)
@@ -287,7 +284,7 @@ def _datetime(day: tuple[str, str, str], clock: tuple[str, str]) -> datetime | N
     parsed_time = _time(clock)
     if parsed_day is None or parsed_time is None:
         return None
-    return datetime.combine(parsed_day, parsed_time, TZ)
+    return datetime.combine(parsed_day, parsed_time, LOCAL_TZ)
 
 
 def _iso(value: Any) -> datetime | None:
@@ -297,7 +294,7 @@ def _iso(value: Any) -> datetime | None:
         parsed = datetime.fromisoformat(value)
     except ValueError:
         return None
-    return parsed if parsed.tzinfo else parsed.replace(tzinfo=TZ)
+    return parsed if parsed.tzinfo else parsed.replace(tzinfo=LOCAL_TZ)
 
 
 def _join_description(lines: list[str]) -> str | None:

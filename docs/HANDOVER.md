@@ -181,6 +181,7 @@ Fixtures mit `tools/fetch_fixtures.py` geladen (`tests/fixtures/`). Diese Befund
 - Stabile ID: `BAUSTELLENNUMMER` (z. B. `"7374/2026"`, eindeutig). Die GeoServer-Feature-ID (`…EPSG25832.65523`) ist vermutlich nicht stabil.
 - Datumsformate `ANFANG`/`ENDE`: überwiegend `dd.mm.yyyy`; daneben `"Ende Dez. 2026"`, `"Mitte Okt. 2026"`, `"Anfang April 2027"` (abgekürzte und ausgeschriebene Monatsnamen). Mapping-Vorschlag: Anfang = 1., Mitte = 15., Ende = Monatsletzter.
 - Zusätzliche Felder, die das Handover nicht nannte: `BEGINN_UHRZEIT`, `ENDE_UHRZEIT` (z. B. `"22:30"`/`"05:00"` bei Nachtbaustellen), `STADTTEIL`, `STADTBEREICH`, `BAUSTELLENNUMMER`, `VERKEHRSAUSWIRKUNG_GESAMT`, `ZUSAETZL_INFO`. `ZEITL_REGELUNG`: `durchgehend` / `werktags`.
+- Umsetzung (Schritt 4): `BEGINN_UHRZEIT` gehört zu `ANFANG`, `ENDE_UHRZEIT` zu `ENDE` → **ein** durchgehender Zeitraum; ohne Uhrzeit ganztägig bis Ende des letzten Tages. `werktags` wird **nicht** in Einzeltage zerlegt (unklar, ob „werktags 22:30–05:00“ jede Nacht meint), sondern als „Zeitliche Regelung: werktags“ in der Beschreibung genannt. Typ: „Vollsperrung“ im Auswirkungstext → `closure`, sonst `roadworks`. Gleiche `BAUSTELLENNUMMER` in beiden Layern → „im Bau“ gewinnt.
 
 ---
 

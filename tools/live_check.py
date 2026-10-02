@@ -29,6 +29,7 @@ from custom_components.streckenwacht.providers.autobahn import (
     AutobahnProvider,
 )
 from custom_components.streckenwacht.providers.mobidata_bw import MobiDataBWProvider
+from custom_components.streckenwacht.providers.stuttgart import StuttgartProvider
 
 
 def fmt(moment: datetime | None) -> str:
@@ -59,7 +60,12 @@ async def main(args: argparse.Namespace) -> int:
     connector = aiohttp.TCPConnector(resolver=aiohttp.ThreadedResolver())
     failed = False
     async with aiohttp.ClientSession(connector=connector) as session:
-        for provider in (AutobahnProvider(session), MobiDataBWProvider(session)):
+        providers = (
+            AutobahnProvider(session),
+            MobiDataBWProvider(session),
+            StuttgartProvider(session),
+        )
+        for provider in providers:
             print(f"{provider.source}:")
             try:
                 show(await provider.async_fetch([area]), area)

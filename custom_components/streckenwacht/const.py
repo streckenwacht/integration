@@ -5,6 +5,7 @@ from __future__ import annotations
 from datetime import timedelta
 from enum import StrEnum
 from typing import Final
+from zoneinfo import ZoneInfo
 
 DOMAIN: Final = "streckenwacht"
 
@@ -13,6 +14,9 @@ VERSION: Final = "0.1.0"
 USER_AGENT: Final = (
     f"Streckenwacht/{VERSION} (+https://github.com/streckenwacht/integration)"
 )
+
+# Times in the source texts are German local time.
+LOCAL_TZ: Final = ZoneInfo("Europe/Berlin")
 
 DEFAULT_SCAN_INTERVAL: Final = timedelta(minutes=15)
 REQUEST_TIMEOUT: Final = 30  # seconds

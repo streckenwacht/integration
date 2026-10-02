@@ -15,12 +15,12 @@ import pytest
 from aiohttp import web
 from aiohttp.test_utils import TestServer
 
+from custom_components.streckenwacht.const import LOCAL_TZ as TZ
 from custom_components.streckenwacht.const import Source
 from custom_components.streckenwacht.model import EventType, ObservationArea, Period
 from custom_components.streckenwacht.providers import ProviderError
 from custom_components.streckenwacht.providers.autobahn import (
     SERVICES,
-    TZ,
     AutobahnProvider,
     parse_item,
     parse_items,
