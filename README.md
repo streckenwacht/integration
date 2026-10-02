@@ -24,6 +24,8 @@ Streckenwacht wacht über deine Strecke – ob Autobahn, Bundesstraße oder dein
 - **Event bei neuen und beendeten Meldungen** – ideal für Push-Nachrichten.
 - Fällt eine Quelle aus, laufen die anderen weiter; nach wiederholten Fehlern erscheint ein Hinweis unter *Reparaturen*.
 
+<img src="https://raw.githubusercontent.com/streckenwacht/integration/main/assets/screenshots/geraet.png" alt="Gerät eines Beobachtungsbereichs mit Kalender, Ereignissen, Reisezeitverlust, Störung aktiv und Ereignisänderung" width="720">
+
 ## Datenquellen
 
 | Quelle | Abdeckung | Lizenz / Namensnennung |
@@ -82,6 +84,8 @@ Beim Hinzufügen wählst du die Datenquellen. Liegt dein Home-Assistant-Standort
 | Abrufintervall | 15 min | 10–60 Minuten |
 | Staumeldungen einbeziehen (INRIX) | an | Staus und Reisezeitverlust aus der Autobahn-API |
 
+<img src="https://raw.githubusercontent.com/streckenwacht/integration/main/assets/screenshots/optionen.png" alt="Optionen: Datenquellen, Abrufintervall, Staumeldungen" width="400">
+
 ### Beobachtungsbereiche
 
 Auf der Streckenwacht-Seite **Beobachtungsbereich hinzufügen**. Der Dialog führt in bis zu drei Schritten durch die Einrichtung:
@@ -89,6 +93,19 @@ Auf der Streckenwacht-Seite **Beobachtungsbereich hinzufügen**. Der Dialog füh
 1. **Bereich** – Name (wird Teil der Entity-IDs, z. B. „Arbeitsweg“), Kreis auf der Karte (max. 100 km) und die **Datenquellen** für diesen Bereich, z. B. nur Autobahn für den Arbeitsweg.
 2. **Autobahnen** – nur wenn „Autobahn GmbH“ gewählt ist. Angezeigt werden nur ihre Meldungen innerhalb des Kreises. Die Auswahl ist nötig, weil die Autobahn-API immer eine ganze Autobahn liefert und keine Umkreissuche kennt. Hier stellst du auch ein, **ab wie vielen Minuten Reisezeitverlust ein Stau als Störung zählt** (Standard 10, 0 = jeder Stau).
 3. **Fahrtrichtungen** – zur Auswahl stehen die Richtungen, die auf den gewählten Autobahnen aktuell vorkommen. Leer lassen für alle Richtungen. Meldungen an Anschlussstellen und ohne Richtung werden immer angezeigt.
+
+<table>
+  <tr>
+    <td valign="top"><img src="https://raw.githubusercontent.com/streckenwacht/integration/main/assets/screenshots/bereich_1_bereich.png" alt="Schritt 1: Name, Kreis auf der Karte, Datenquellen" width="260"></td>
+    <td valign="top"><img src="https://raw.githubusercontent.com/streckenwacht/integration/main/assets/screenshots/bereich_2_autobahnen.png" alt="Schritt 2: Autobahnen und Stau-Schwelle" width="260"></td>
+    <td valign="top"><img src="https://raw.githubusercontent.com/streckenwacht/integration/main/assets/screenshots/bereich_3_richtungen.png" alt="Schritt 3: Fahrtrichtungen" width="260"></td>
+  </tr>
+  <tr>
+    <td>1. Bereich und Quellen</td>
+    <td>2. Autobahnen</td>
+    <td>3. Fahrtrichtungen</td>
+  </tr>
+</table>
 
 > **Tipp für Arbeitswege über ein Autobahnkreuz:** Die Richtungsangabe wechselt am Kreuz. Wer z. B. auf der A81 von Böblingen nach Stuttgart-Feuerbach fährt, braucht „Singen -> Stuttgart“ **und** „Stuttgart -> Heilbronn“.
 
