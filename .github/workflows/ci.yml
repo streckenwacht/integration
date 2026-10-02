@@ -34,3 +34,17 @@ jobs:
       - uses: hacs/action@22.5.0
         with:
           category: integration
+
+  compat:
+    # Oldest Home Assistant version promised in hacs.json / README (2026.3).
+    # Not locked: installs that version's test harness into a separate venv.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.2.0
+      - name: Install Home Assistant 2026.3
+        run: |
+          uv venv --python 3.14 .venv-compat
+          uv pip install --python .venv-compat "pytest-homeassistant-custom-component==0.13.320"
+      - name: Test
+        run: .venv-compat/bin/python -m pytest

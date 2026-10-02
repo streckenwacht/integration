@@ -28,7 +28,7 @@ Dieses Dokument war die Ausgangsspezifikation. Die Integration ist inzwischen um
 
 **Arbeitsweise:** Entwicklung auf `dev`, `main` nur für Releases (die produktive HACS-Installation folgt `main`).
 
-**Offen vor v0.1.0:** Beta-Erfahrungen (Nachtsperrungen, Event-Häufigkeit bei INRIX-Staus).
+**Offen vor v0.1.0:** Beta-Erfahrungen (Nachtsperrungen, Verständlichkeit des Bereichsdialogs). **Später (auf Wunsch zurückgestellt):** messen, ob INRIX für denselben Stau zwischen Abrufen neue Kennungen vergibt (Skript: Warnungen A8/A81 ~1 h alle 5 min abrufen, Kennungen vergleichen) – falls ja, „neu/beendet“-Events für Staus glätten.
 
 **Zurückgestellt (Entscheidung des Projektinhabers, 2026-10-02):** Impressumsfrage und Anfrage bei der Autobahn GmbH zu INRIX – erst wieder aufgreifen, wenn das Projekt öffentlich beworben werden soll.
 

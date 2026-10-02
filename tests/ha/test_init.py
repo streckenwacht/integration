@@ -253,3 +253,15 @@ async def test_area_without_source_is_not_queried(
     coordinators = entry.runtime_data.coordinators
     assert coordinators[Source.AUTOBAHN].data.by_area[subentry_id] == ()
     assert len(coordinators[Source.MOBIDATA_BW].data.by_area[subentry_id]) == 1
+
+
+async def test_area_from_older_beta_keeps_working(
+    hass: HomeAssistant, autobahn: AsyncMock, mobidata: AsyncMock
+) -> None:
+    """Areas created with b1 have no "sources"/"directions" keys: all apply."""
+    entry = make_entry()  # AREA has only latitude, longitude, radius, roads
+    await setup(hass, entry)
+    (subentry_id,) = entry.subentries
+    coordinators = entry.runtime_data.coordinators
+    assert len(coordinators[Source.AUTOBAHN].data.by_area[subentry_id]) == 2
+    assert len(coordinators[Source.MOBIDATA_BW].data.by_area[subentry_id]) == 1

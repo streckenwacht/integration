@@ -1,0 +1,25 @@
+{
+  "entity": {
+    "binary_sensor": {
+      "disruption": {
+        "default": "mdi:road-variant",
+        "state": {
+          "on": "mdi:alert-octagon"
+        }
+      }
+    },
+    "event": {
+      "change": {
+        "default": "mdi:bell-ring-outline"
+      }
+    },
+    "sensor": {
+      "events": {
+        "default": "mdi:traffic-cone"
+      },
+      "travel_time_loss": {
+        "default": "mdi:car-clock"
+      }
+    }
+  }
+}

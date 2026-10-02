@@ -255,3 +255,31 @@ async def test_known_events_survive_reload(
         and c.data["old_state"] is not None
         and c.data["new_state"].state != c.data["old_state"].state
     ]
+
+
+async def test_known_events_from_older_version_are_relearned_silently(
+    hass: HomeAssistant, hass_storage: dict, fetch: AsyncMock
+) -> None:
+    """A stored state with an outdated fingerprint must not fire "new" events."""
+    entry = make_entry()
+    entry.add_to_hass(hass)
+    (subentry_id,) = entry.subentries
+    hass_storage[f"{DOMAIN}.{entry.entry_id}.known_events"] = {
+        "version": 1,
+        "data": {
+            subentry_id: {
+                "fingerprint": "48.78|9.18|10000|A8|True",  # b1 format
+                "events": {"autobahn": {"autobahn:old": "Alte Meldung"}},
+            }
+        },
+    }
+    changes = async_capture_events(hass, EVENT_STATE_CHANGED)
+    assert await hass.config_entries.async_setup(entry.entry_id)
+    await hass.async_block_till_done()
+    entity_id = f"event.{PREFIX}_event_change"
+    assert not [
+        c
+        for c in changes
+        if c.data["entity_id"] == entity_id
+        and c.data["new_state"].attributes.get("event_type")
+    ]
