@@ -47,4 +47,4 @@ jobs:
           uv venv --python 3.14 .venv-compat
           uv pip install --python .venv-compat "pytest-homeassistant-custom-component==0.13.320"
       - name: Test
-        run: .venv-compat/bin/python -m pytest
+        run: .venv-compat/bin/python -m pytest --durations=8
