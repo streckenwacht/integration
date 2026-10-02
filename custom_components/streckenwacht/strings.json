@@ -57,14 +57,12 @@
           "data": {
             "name": "Name",
             "location": "Area",
-            "sources": "Data sources",
-            "roads": "Motorways"
+            "sources": "Data sources"
           },
           "data_description": {
             "name": "For example “Commute”. Used in entity names.",
             "location": "Move the marker and drag the circle. Maximum radius: 100 km.",
-            "sources": "Which sources to show in this area, e.g. only the motorway for a commute.",
-            "roads": "Which motorways to consider in this area. Only their events within the circle are shown. (The Autobahn API always returns a whole motorway, hence this selection.) Only relevant if the Autobahn source is selected."
+            "sources": "Which sources to show in this area, e.g. only the motorway for a commute."
           }
         },
         "reconfigure": {
@@ -73,14 +71,22 @@
           "data": {
             "name": "Name",
             "location": "Area",
-            "sources": "Data sources",
-            "roads": "Motorways"
+            "sources": "Data sources"
           },
           "data_description": {
             "name": "For example “Commute”. Used in entity names.",
             "location": "Move the marker and drag the circle. Maximum radius: 100 km.",
-            "sources": "Which sources to show in this area, e.g. only the motorway for a commute.",
-            "roads": "Which motorways to consider in this area. Only their events within the circle are shown. (The Autobahn API always returns a whole motorway, hence this selection.) Only relevant if the Autobahn source is selected."
+            "sources": "Which sources to show in this area, e.g. only the motorway for a commute."
+          }
+        },
+        "roads": {
+          "title": "Motorways",
+          "description": "Which motorways to consider in this area. Only their events within the circle are shown.",
+          "data": {
+            "roads": "Motorways"
+          },
+          "data_description": {
+            "roads": "The Autobahn API always returns a whole motorway and cannot search by area – hence this selection."
           }
         },
         "directions": {
@@ -94,7 +100,8 @@
       "error": {
         "name_required": "Please enter a name.",
         "radius_too_large": "The radius must not exceed 100 km.",
-        "no_sources": "Select at least one data source."
+        "no_sources": "Select at least one data source.",
+        "no_roads": "Select at least one motorway, or deselect the “Autobahn GmbH” source in the previous step."
       },
       "abort": {
         "cannot_connect": "Could not load the list of motorways. Please try again later.",

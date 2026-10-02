@@ -57,14 +57,12 @@
           "data": {
             "name": "Name",
             "location": "Bereich",
-            "sources": "Datenquellen",
-            "roads": "Autobahnen"
+            "sources": "Datenquellen"
           },
           "data_description": {
             "name": "Zum Beispiel „Arbeitsweg“. Wird für die Entity-Namen verwendet.",
             "location": "Markierung verschieben und Kreis aufziehen. Maximaler Radius: 100 km.",
-            "sources": "Welche Quellen in diesem Bereich angezeigt werden, z. B. für einen Arbeitsweg nur die Autobahn.",
-            "roads": "Welche Autobahnen in diesem Bereich berücksichtigt werden. Angezeigt werden nur ihre Meldungen innerhalb des Kreises. (Die Autobahn-API liefert immer eine ganze Autobahn, deshalb die Auswahl.) Nur relevant, wenn die Autobahn als Datenquelle gewählt ist."
+            "sources": "Welche Quellen in diesem Bereich angezeigt werden, z. B. für einen Arbeitsweg nur die Autobahn."
           }
         },
         "reconfigure": {
@@ -73,14 +71,22 @@
           "data": {
             "name": "Name",
             "location": "Bereich",
-            "sources": "Datenquellen",
-            "roads": "Autobahnen"
+            "sources": "Datenquellen"
           },
           "data_description": {
             "name": "Zum Beispiel „Arbeitsweg“. Wird für die Entity-Namen verwendet.",
             "location": "Markierung verschieben und Kreis aufziehen. Maximaler Radius: 100 km.",
-            "sources": "Welche Quellen in diesem Bereich angezeigt werden, z. B. für einen Arbeitsweg nur die Autobahn.",
-            "roads": "Welche Autobahnen in diesem Bereich berücksichtigt werden. Angezeigt werden nur ihre Meldungen innerhalb des Kreises. (Die Autobahn-API liefert immer eine ganze Autobahn, deshalb die Auswahl.) Nur relevant, wenn die Autobahn als Datenquelle gewählt ist."
+            "sources": "Welche Quellen in diesem Bereich angezeigt werden, z. B. für einen Arbeitsweg nur die Autobahn."
+          }
+        },
+        "roads": {
+          "title": "Autobahnen",
+          "description": "Welche Autobahnen in diesem Bereich berücksichtigt werden. Angezeigt werden nur ihre Meldungen innerhalb des Kreises.",
+          "data": {
+            "roads": "Autobahnen"
+          },
+          "data_description": {
+            "roads": "Die Autobahn-API liefert immer eine ganze Autobahn und kennt keine Umkreissuche – deshalb die Auswahl."
           }
         },
         "directions": {
@@ -94,7 +100,8 @@
       "error": {
         "name_required": "Bitte einen Namen angeben.",
         "radius_too_large": "Der Radius darf höchstens 100 km betragen.",
-        "no_sources": "Wähle mindestens eine Datenquelle."
+        "no_sources": "Wähle mindestens eine Datenquelle.",
+        "no_roads": "Wähle mindestens eine Autobahn oder entferne im vorigen Schritt die Quelle „Autobahn GmbH“."
       },
       "abort": {
         "cannot_connect": "Die Autobahnliste konnte nicht geladen werden. Bitte später erneut versuchen.",
