@@ -80,13 +80,11 @@ Beim Hinzufügen wählst du die Datenquellen. Liegt dein Home-Assistant-Standort
 
 ### Beobachtungsbereiche
 
-Auf der Streckenwacht-Seite **Beobachtungsbereich hinzufügen**:
+Auf der Streckenwacht-Seite **Beobachtungsbereich hinzufügen**. Der Dialog führt in bis zu drei Schritten durch die Einrichtung:
 
-1. **Name** – wird Teil der Entity-IDs (z. B. „Arbeitsweg“).
-2. **Bereich** – Markierung verschieben und Kreis aufziehen (max. 100 km).
-3. **Datenquellen** für diesen Bereich – z. B. nur Autobahn für den Arbeitsweg.
-4. **Autobahnen** – welche Autobahnen im Bereich berücksichtigt werden. Angezeigt werden nur ihre Meldungen innerhalb des Kreises. Die Auswahl ist nötig, weil die Autobahn-API immer eine ganze Autobahn liefert und keine Umkreissuche kennt.
-5. **Fahrtrichtungen** (nur mit Autobahnen) – zur Auswahl stehen die Richtungen, die auf den gewählten Autobahnen aktuell vorkommen. Leer lassen für alle Richtungen. Meldungen an Anschlussstellen und ohne Richtung werden immer angezeigt.
+1. **Bereich** – Name (wird Teil der Entity-IDs, z. B. „Arbeitsweg“), Kreis auf der Karte (max. 100 km) und die **Datenquellen** für diesen Bereich, z. B. nur Autobahn für den Arbeitsweg.
+2. **Autobahnen** – nur wenn „Autobahn GmbH“ gewählt ist. Angezeigt werden nur ihre Meldungen innerhalb des Kreises. Die Auswahl ist nötig, weil die Autobahn-API immer eine ganze Autobahn liefert und keine Umkreissuche kennt.
+3. **Fahrtrichtungen** – zur Auswahl stehen die Richtungen, die auf den gewählten Autobahnen aktuell vorkommen. Leer lassen für alle Richtungen. Meldungen an Anschlussstellen und ohne Richtung werden immer angezeigt.
 
 > **Tipp für Arbeitswege über ein Autobahnkreuz:** Die Richtungsangabe wechselt am Kreuz. Wer z. B. auf der A81 von Böblingen nach Stuttgart-Feuerbach fährt, braucht „Singen -> Stuttgart“ **und** „Stuttgart -> Heilbronn“.
 
