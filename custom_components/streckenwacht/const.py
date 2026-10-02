@@ -9,7 +9,7 @@ from zoneinfo import ZoneInfo
 DOMAIN: Final = "streckenwacht"
 
 # Keep in sync with manifest.json (checked by tests/test_manifest.py).
-VERSION: Final = "0.1.0b1"
+VERSION: Final = "0.1.0b2"
 USER_AGENT: Final = (
     f"Streckenwacht/{VERSION} (+https://github.com/streckenwacht/integration)"
 )
