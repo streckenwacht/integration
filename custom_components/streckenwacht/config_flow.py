@@ -317,7 +317,8 @@ class AreaSubentryFlow(ConfigSubentryFlow):
         }
         # Traffic jams (and their threshold) only exist with INRIX data.
         if self._get_entry().options.get(CONF_INCLUDE_INRIX, DEFAULT_INCLUDE_INRIX):
-            fields[vol.Required(CONF_JAM_THRESHOLD)] = selector.NumberSelector(
+            # Optional: an emptied field falls back to the default.
+            fields[vol.Optional(CONF_JAM_THRESHOLD)] = selector.NumberSelector(
                 selector.NumberSelectorConfig(
                     min=0,
                     max=60,

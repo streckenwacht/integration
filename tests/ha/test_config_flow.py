@@ -204,9 +204,15 @@ async def configure(hass: HomeAssistant, result: dict, user_input: dict) -> dict
     )
 
 
-def options_of(result: dict) -> list[str]:
-    (key,) = result["data_schema"].schema
-    return result["data_schema"].schema[key].config["options"]
+def field(result: dict, name: str) -> tuple:
+    """The schema marker and selector of a form field."""
+    schema = result["data_schema"].schema
+    key = next(k for k in schema if k == name)
+    return key, schema[key]
+
+
+def options_of(result: dict, name: str) -> list[str]:
+    return field(result, name)[1].config["options"]
 
 
 async def test_add_area_wizard(
@@ -227,12 +233,15 @@ async def test_add_area_wizard(
     # step 2: motorways
     result = await configure(hass, result, AREA_INPUT)
     assert result["step_id"] == "roads"
-    assert options_of(result) == ROADS
+    assert options_of(result, CONF_ROADS) == ROADS
 
     # step 3: directions actually used on these motorways
     result = await configure(hass, result, {CONF_ROADS: ["A81", "A8"]})
     assert result["step_id"] == "directions"
-    assert options_of(result) == ["Singen -> Stuttgart", "Stuttgart -> Singen"]
+    assert options_of(result, CONF_DIRECTIONS) == [
+        "Singen -> Stuttgart",
+        "Stuttgart -> Singen",
+    ]
     (areas,) = directions.await_args.args
     assert areas[0].roads == frozenset({"A8", "A81"})
 
@@ -395,13 +404,13 @@ async def test_reconfigure_area(
     result = await configure(hass, result, AREA_INPUT)
     assert result["step_id"] == "roads"
     # stored motorways are preselected
-    (key,) = result["data_schema"].schema
+    key, _ = field(result, CONF_ROADS)
     assert key.description == {"suggested_value": ["A8"]}
 
     result = await configure(hass, result, {CONF_ROADS: ["A8", "A81"]})
     assert result["step_id"] == "directions"
     # the stored direction stays selectable even if it has no events right now
-    assert "Stuttgart -> Karlsruhe" in options_of(result)
+    assert "Stuttgart -> Karlsruhe" in options_of(result, CONF_DIRECTIONS)
 
     result = await configure(hass, result, {CONF_DIRECTIONS: []})
     assert result["type"] is FlowResultType.ABORT
