@@ -47,4 +47,8 @@ jobs:
           uv venv --python 3.14 .venv-compat
           uv pip install --python .venv-compat "pytest-homeassistant-custom-component==0.13.320"
       - name: Test
-        run: .venv-compat/bin/python -m pytest --durations=8
+        # test_diagnostics starts HA's http server via hass_client; with the 2026.3
+        # test harness that alone takes ~5 min. Covered by the main test job.
+        run: >-
+          .venv-compat/bin/python -m pytest --durations=5
+          --deselect tests/ha/test_diagnostics.py::test_diagnostics
