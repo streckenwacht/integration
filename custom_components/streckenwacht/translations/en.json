@@ -83,10 +83,12 @@
           "title": "Motorways",
           "description": "Which motorways to consider in this area. Only their events within the circle are shown.",
           "data": {
-            "roads": "Motorways"
+            "roads": "Motorways",
+            "jam_threshold": "Traffic jam counts as disruption from"
           },
           "data_description": {
-            "roads": "The Autobahn API always returns a whole motorway and cannot search by area – hence this selection."
+            "roads": "The Autobahn API always returns a whole motorway and cannot search by area – hence this selection.",
+            "jam_threshold": "For “Disruption active”: traffic jams with a smaller travel time loss are ignored (0 = every jam). Closures and accidents always count."
           }
         },
         "directions": {

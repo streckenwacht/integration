@@ -19,7 +19,7 @@ Streckenwacht wacht über deine Strecke – ob Autobahn, Bundesstraße oder dein
 - **Beobachtungsbereiche** frei festlegen: Kreis auf der Karte, z. B. „Zuhause“ oder „Arbeitsweg“.
 - Pro Bereich wählbar: **Datenquellen**, **Autobahnen** und **Fahrtrichtungen** – etwa nur die A81 Richtung Stuttgart.
 - Pro Bereich ein **Kalender** mit allen Baustellen und Sperrungen; Nachtbaustellen erscheinen als einzelne Termine pro Nacht.
-- **„Störung aktiv“**, sobald im Bereich eine Sperrung, ein Unfall oder ein Stau aktiv ist – normale Dauerbaustellen lösen ihn bewusst nicht aus.
+- **„Störung aktiv“**, sobald im Bereich eine Sperrung, ein Unfall oder ein nennenswerter Stau aktiv ist – normale Dauerbaustellen und kleine Verzögerungen lösen ihn bewusst nicht aus.
 - **Reisezeitverlust** in Minuten (größter aktueller Wert im Bereich).
 - **Event bei neuen und beendeten Meldungen** – ideal für Push-Nachrichten.
 - Fällt eine Quelle aus, laufen die anderen weiter; nach wiederholten Fehlern erscheint ein Hinweis unter *Reparaturen*.
@@ -87,7 +87,7 @@ Beim Hinzufügen wählst du die Datenquellen. Liegt dein Home-Assistant-Standort
 Auf der Streckenwacht-Seite **Beobachtungsbereich hinzufügen**. Der Dialog führt in bis zu drei Schritten durch die Einrichtung:
 
 1. **Bereich** – Name (wird Teil der Entity-IDs, z. B. „Arbeitsweg“), Kreis auf der Karte (max. 100 km) und die **Datenquellen** für diesen Bereich, z. B. nur Autobahn für den Arbeitsweg.
-2. **Autobahnen** – nur wenn „Autobahn GmbH“ gewählt ist. Angezeigt werden nur ihre Meldungen innerhalb des Kreises. Die Auswahl ist nötig, weil die Autobahn-API immer eine ganze Autobahn liefert und keine Umkreissuche kennt.
+2. **Autobahnen** – nur wenn „Autobahn GmbH“ gewählt ist. Angezeigt werden nur ihre Meldungen innerhalb des Kreises. Die Auswahl ist nötig, weil die Autobahn-API immer eine ganze Autobahn liefert und keine Umkreissuche kennt. Hier stellst du auch ein, **ab wie vielen Minuten Reisezeitverlust ein Stau als Störung zählt** (Standard 10, 0 = jeder Stau).
 3. **Fahrtrichtungen** – zur Auswahl stehen die Richtungen, die auf den gewählten Autobahnen aktuell vorkommen. Leer lassen für alle Richtungen. Meldungen an Anschlussstellen und ohne Richtung werden immer angezeigt.
 
 > **Tipp für Arbeitswege über ein Autobahnkreuz:** Die Richtungsangabe wechselt am Kreuz. Wer z. B. auf der A81 von Böblingen nach Stuttgart-Feuerbach fährt, braucht „Singen -> Stuttgart“ **und** „Stuttgart -> Heilbronn“.
@@ -101,7 +101,7 @@ Beispiel für den Bereich „Arbeitsweg“ (Gerät *Streckenwacht Arbeitsweg*). 
 | Entität | Anzeigename | Inhalt |
 |---|---|---|
 | `calendar.streckenwacht_arbeitsweg` | Streckenwacht Arbeitsweg | Alle Meldungen als Termine |
-| `binary_sensor.streckenwacht_arbeitsweg_disruption_active` | Störung aktiv | An bei aktiver Sperrung, Unfall oder Stau. Attribute: `count`, `disruptions` |
+| `binary_sensor.streckenwacht_arbeitsweg_disruption_active` | Störung aktiv | An bei aktiver Sperrung, Unfall oder Stau ab der eingestellten Schwelle. Attribute: `count`, `disruptions` |
 | `sensor.streckenwacht_arbeitsweg_events` | Ereignisse | Anzahl aktiver Meldungen. Attribute: Anzahl je Typ, `by_source`, `events` (bis zu 20, schwerste zuerst) |
 | `sensor.streckenwacht_arbeitsweg_travel_time_loss` | Reisezeitverlust | Größter aktueller Reisezeitverlust in Minuten (nur mit Staumeldungen) |
 | `event.streckenwacht_arbeitsweg_event_change` | Ereignisänderung | Event-Typ `new` oder `ended` |

@@ -42,10 +42,23 @@ def active(
 
 
 def disruptions(
-    events: Iterable[StreckenwachtEvent], now: datetime
+    events: Iterable[StreckenwachtEvent], now: datetime, jam_threshold: int = 0
 ) -> list[StreckenwachtEvent]:
-    """Active closures, accidents and traffic jams."""
-    return [e for e in active(events, now) if e.event_type in DISRUPTION_TYPES]
+    """Active closures, accidents and traffic jams.
+
+    Traffic jams only count from jam_threshold minutes of travel time loss on;
+    with a threshold above 0, jams without a known loss do not count.
+    """
+    return [
+        e
+        for e in active(events, now)
+        if e.event_type in DISRUPTION_TYPES
+        and (
+            e.event_type is not EventType.TRAFFIC_JAM
+            or jam_threshold <= 0
+            or (e.delay_minutes or 0) >= jam_threshold
+        )
+    ]
 
 
 def max_delay(

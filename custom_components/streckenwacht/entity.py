@@ -48,6 +48,7 @@ class StreckenwachtEntity(Entity):
     ) -> None:
         self._entry = entry
         self._subentry_id = subentry.subentry_id
+        self._subentry_data = subentry.data
         self._attr_unique_id = f"{subentry.subentry_id}_{key}"
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, subentry.subentry_id)},

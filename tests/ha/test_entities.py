@@ -63,7 +63,7 @@ PLANNED = ev("planned", EventType.CLOSURE, Period(NOW + 10 * H, NOW + 12 * H))
 EVENTS = [ROADWORKS, CLOSURE, JAM, PLANNED]
 
 
-def make_entry(**options: object) -> MockConfigEntry:
+def make_entry(area: dict | None = None, **options: object) -> MockConfigEntry:
     return MockConfigEntry(
         domain=DOMAIN,
         title="Streckenwacht",
@@ -80,7 +80,8 @@ def make_entry(**options: object) -> MockConfigEntry:
                     "longitude": 9.18,
                     CONF_RADIUS: 10000,
                     CONF_ROADS: ["A8"],
-                },
+                }
+                | (area or {}),
                 subentry_type=SUBENTRY_AREA,
                 title="Arbeitsweg",
                 unique_id=None,
@@ -314,3 +315,14 @@ async def test_ended_event_from_old_storage_without_type(
     assert state.attributes["event_type"] == "ended"
     assert state.attributes["title"] == "Alte Sperrung"
     assert state.attributes["type"] is None
+
+
+async def test_disruption_respects_jam_threshold(
+    hass: HomeAssistant, fetch: AsyncMock
+) -> None:
+    await setup(hass, make_entry(area={"jam_threshold": 30}))
+    state = hass.states.get(f"binary_sensor.{PREFIX}_disruption_active")
+    # the 25-minute jam is below 30 minutes: only the closure counts
+    assert state.state == STATE_ON
+    assert state.attributes["count"] == 1
+    assert "device_class" not in state.attributes  # reads On/Off, not Problem/OK

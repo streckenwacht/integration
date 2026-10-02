@@ -19,6 +19,7 @@ from custom_components.streckenwacht.const import (
     CONF_AREA_SOURCES,
     CONF_DIRECTIONS,
     CONF_INCLUDE_INRIX,
+    CONF_JAM_THRESHOLD,
     CONF_LOCATION,
     CONF_RADIUS,
     CONF_ROADS,
@@ -245,6 +246,7 @@ async def test_add_area_wizard(
         CONF_RADIUS: 15000.0,
         CONF_AREA_SOURCES: ["autobahn", "mobidata_bw"],
         CONF_ROADS: ["A8", "A81"],
+        CONF_JAM_THRESHOLD: 10,
         CONF_DIRECTIONS: ["Singen -> Stuttgart"],
     }
 
@@ -445,3 +447,29 @@ async def test_reconfigure_dropping_autobahn_clears_motorways(
     data = entry.subentries[subentry_id].data
     assert data[CONF_ROADS] == []
     assert data[CONF_DIRECTIONS] == []
+
+
+async def test_jam_threshold_in_motorway_step(
+    hass: HomeAssistant, roads: AsyncMock, directions: AsyncMock
+) -> None:
+    entry = entry_with(OPTIONS)
+    entry.add_to_hass(hass)
+    result = await start_area_flow(hass, entry)
+    result = await configure(hass, result, AREA_INPUT)
+    assert CONF_JAM_THRESHOLD in result["data_schema"].schema
+    result = await configure(
+        hass, result, {CONF_ROADS: ["A8"], CONF_JAM_THRESHOLD: 20.0}
+    )
+    result = await configure(hass, result, {CONF_DIRECTIONS: []})
+    (subentry,) = entry.subentries.values()
+    assert subentry.data[CONF_JAM_THRESHOLD] == 20
+
+
+async def test_no_jam_threshold_without_inrix(
+    hass: HomeAssistant, roads: AsyncMock, directions: AsyncMock
+) -> None:
+    entry = entry_with(OPTIONS | {CONF_INCLUDE_INRIX: False})
+    entry.add_to_hass(hass)
+    result = await start_area_flow(hass, entry)
+    result = await configure(hass, result, AREA_INPUT)
+    assert CONF_JAM_THRESHOLD not in result["data_schema"].schema

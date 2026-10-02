@@ -4,17 +4,16 @@ from __future__ import annotations
 
 from typing import Any
 
-from homeassistant.components.binary_sensor import (
-    BinarySensorDeviceClass,
-    BinarySensorEntity,
-)
+from homeassistant.components.binary_sensor import BinarySensorEntity
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.util import dt as dt_util
 
 from . import StreckenwachtConfigEntry
+from .const import CONF_JAM_THRESHOLD, DEFAULT_JAM_THRESHOLD
 from .coordinator import area_subentries
 from .entity import TimeDependentEntity
+from .model import StreckenwachtEvent
 from .summary import disruptions, listed
 
 
@@ -38,20 +37,25 @@ class DisruptionBinarySensor(TimeDependentEntity, BinarySensorEntity):
     calendar and the events sensor.
     """
 
+    # No device class "problem": HA would show "Problem/OK" instead of "On/Off";
+    # the warning icon comes from icons.json.
     _attr_translation_key = "disruption"
-    _attr_device_class = BinarySensorDeviceClass.PROBLEM
 
     @property
     def is_on(self) -> bool:
         """Return True if a disruption is active."""
-        return bool(disruptions(self.area_events, dt_util.utcnow()))
+        return bool(self._active())
 
     @property
     def extra_state_attributes(self) -> dict[str, Any]:
         """Active disruptions, most severe first."""
-        active = disruptions(self.area_events, dt_util.utcnow())
+        active = self._active()
         return {
             "count": len(active),
             "disruptions": listed(active),
             "unavailable_sources": self.unavailable_sources,
         }
+
+    def _active(self) -> list[StreckenwachtEvent]:
+        threshold = self._subentry_data.get(CONF_JAM_THRESHOLD, DEFAULT_JAM_THRESHOLD)
+        return disruptions(self.area_events, dt_util.utcnow(), int(threshold))

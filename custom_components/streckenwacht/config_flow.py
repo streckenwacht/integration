@@ -24,12 +24,14 @@ from .const import (
     CONF_AREA_SOURCES,
     CONF_DIRECTIONS,
     CONF_INCLUDE_INRIX,
+    CONF_JAM_THRESHOLD,
     CONF_LOCATION,
     CONF_RADIUS,
     CONF_ROADS,
     CONF_SCAN_INTERVAL,
     CONF_SOURCES,
     DEFAULT_INCLUDE_INRIX,
+    DEFAULT_JAM_THRESHOLD,
     DEFAULT_RADIUS,
     DEFAULT_SCAN_INTERVAL,
     DOMAIN,
@@ -291,6 +293,9 @@ class AreaSubentryFlow(ConfigSubentryFlow):
             roads = sorted(user_input.get(CONF_ROADS, []))
             if roads:
                 self._data[CONF_ROADS] = roads
+                self._data[CONF_JAM_THRESHOLD] = int(
+                    user_input.get(CONF_JAM_THRESHOLD, DEFAULT_JAM_THRESHOLD)
+                )
                 return await self.async_step_directions()
             errors[CONF_ROADS] = "no_roads"
 
@@ -300,22 +305,35 @@ class AreaSubentryFlow(ConfigSubentryFlow):
             ).async_fetch_roads()
         except ProviderError:
             return self.async_abort(reason="cannot_connect")
-        schema = vol.Schema(
-            {
-                vol.Required(CONF_ROADS): selector.SelectSelector(
-                    selector.SelectSelectorConfig(
-                        options=roads_available,
-                        multiple=True,
-                        mode=selector.SelectSelectorMode.DROPDOWN,
-                        sort=False,
-                    )
+        fields: dict[Any, Any] = {
+            vol.Required(CONF_ROADS): selector.SelectSelector(
+                selector.SelectSelectorConfig(
+                    options=roads_available,
+                    multiple=True,
+                    mode=selector.SelectSelectorMode.DROPDOWN,
+                    sort=False,
                 )
-            }
-        )
+            )
+        }
+        # Traffic jams (and their threshold) only exist with INRIX data.
+        if self._get_entry().options.get(CONF_INCLUDE_INRIX, DEFAULT_INCLUDE_INRIX):
+            fields[vol.Required(CONF_JAM_THRESHOLD)] = selector.NumberSelector(
+                selector.NumberSelectorConfig(
+                    min=0,
+                    max=60,
+                    step=1,
+                    unit_of_measurement="min",
+                    mode=selector.NumberSelectorMode.BOX,
+                )
+            )
+        defaults = {
+            CONF_ROADS: list(self._stored(CONF_ROADS, [])),
+            CONF_JAM_THRESHOLD: self._stored(CONF_JAM_THRESHOLD, DEFAULT_JAM_THRESHOLD),
+        }
         return self.async_show_form(
             step_id="roads",
             data_schema=self.add_suggested_values_to_schema(
-                schema, user_input or {CONF_ROADS: list(self._stored(CONF_ROADS, []))}
+                vol.Schema(fields), user_input or defaults
             ),
             errors=errors,
         )

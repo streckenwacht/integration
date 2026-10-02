@@ -36,10 +36,14 @@ CONF_RADIUS: Final = "radius"  # meters, as returned by the location selector
 CONF_ROADS: Final = "roads"
 CONF_AREA_SOURCES: Final = "sources"  # per area; None/missing means all
 CONF_DIRECTIONS: Final = "directions"
+CONF_JAM_THRESHOLD: Final = "jam_threshold"  # minutes
 
 DEFAULT_RADIUS: Final = 10_000
 # geo.py's flat-earth approximation is accurate up to roughly 100 km.
 MAX_RADIUS: Final = 100_000
+# Traffic jams count as a disruption from this travel time loss on, so that
+# minor slowdowns on long routes do not keep "disruption active" on.
+DEFAULT_JAM_THRESHOLD: Final = 10
 
 # Consecutive failed polls of a provider before a repair issue is raised
 # (3 x 15 min): a short API hiccup should not alarm anyone.

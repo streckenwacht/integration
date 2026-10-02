@@ -136,3 +136,15 @@ def test_current_or_next_open_end_gets_nominal_end() -> None:
 def test_current_or_next_nothing() -> None:
     assert current_or_next([OLD_JAM], NOW) is None
     assert current_or_next([], NOW) is None
+
+
+def test_jam_threshold() -> None:
+    unknown_delay = ev("unknown", EventType.TRAFFIC_JAM, (Period(NOW - H),))
+    events = [CLOSURE, ACCIDENT, JAM, SMALL_JAM, unknown_delay]
+    ids = lambda threshold: [e.id for e in disruptions(events, NOW, threshold)]  # noqa: E731
+    # 0: every jam, also without a known delay
+    assert ids(0) == ["accident", "closure", "jam", "small_jam", "unknown"]
+    # 10: the 25-minute jam counts, the 5-minute and unknown ones do not
+    assert ids(10) == ["accident", "closure", "jam"]
+    # closures and accidents always count
+    assert ids(60) == ["accident", "closure"]

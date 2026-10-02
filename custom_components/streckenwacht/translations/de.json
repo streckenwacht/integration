@@ -83,10 +83,12 @@
           "title": "Autobahnen",
           "description": "Welche Autobahnen in diesem Bereich berücksichtigt werden. Angezeigt werden nur ihre Meldungen innerhalb des Kreises.",
           "data": {
-            "roads": "Autobahnen"
+            "roads": "Autobahnen",
+            "jam_threshold": "Stau zählt als Störung ab"
           },
           "data_description": {
-            "roads": "Die Autobahn-API liefert immer eine ganze Autobahn und kennt keine Umkreissuche – deshalb die Auswahl."
+            "roads": "Die Autobahn-API liefert immer eine ganze Autobahn und kennt keine Umkreissuche – deshalb die Auswahl.",
+            "jam_threshold": "Für „Störung aktiv“: Staus mit geringerem Reisezeitverlust werden ignoriert (0 = jeder Stau). Sperrungen und Unfälle zählen immer."
           }
         },
         "directions": {
