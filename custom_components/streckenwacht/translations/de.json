@@ -104,5 +104,33 @@
       "title": "{source} ist nicht erreichbar",
       "description": "Streckenwacht konnte {source} {failures}-mal in Folge nicht abrufen. Die zuletzt geladenen Daten bleiben erhalten, die anderen Quellen laufen weiter. Die Meldung verschwindet automatisch, sobald der Abruf wieder klappt.\n\nFehler: {error}"
     }
+  },
+  "entity": {
+    "binary_sensor": {
+      "disruption": {
+        "name": "Störung aktiv"
+      }
+    },
+    "sensor": {
+      "events": {
+        "name": "Ereignisse"
+      },
+      "travel_time_loss": {
+        "name": "Reisezeitverlust"
+      }
+    },
+    "event": {
+      "change": {
+        "name": "Ereignisänderung",
+        "state_attributes": {
+          "event_type": {
+            "state": {
+              "new": "Neu",
+              "ended": "Beendet"
+            }
+          }
+        }
+      }
+    }
   }
 }

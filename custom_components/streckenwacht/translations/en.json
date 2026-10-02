@@ -104,5 +104,33 @@
       "title": "{source} is unreachable",
       "description": "Streckenwacht failed to fetch {source} {failures} times in a row. The last loaded data is kept and the other sources keep working. This message disappears automatically once fetching works again.\n\nError: {error}"
     }
+  },
+  "entity": {
+    "binary_sensor": {
+      "disruption": {
+        "name": "Disruption active"
+      }
+    },
+    "sensor": {
+      "events": {
+        "name": "Events"
+      },
+      "travel_time_loss": {
+        "name": "Travel time loss"
+      }
+    },
+    "event": {
+      "change": {
+        "name": "Event change",
+        "state_attributes": {
+          "event_type": {
+            "state": {
+              "new": "New",
+              "ended": "Ended"
+            }
+          }
+        }
+      }
+    }
   }
 }

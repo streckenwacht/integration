@@ -23,13 +23,18 @@ from .const import (
     Source,
 )
 from .coordinator import StreckenwachtCoordinator, area_from_subentry, issue_id
+from .known_events import KnownEvents
 from .providers import Provider
 from .providers.autobahn import AutobahnProvider
 from .providers.mobidata_bw import MobiDataBWProvider
 from .providers.stuttgart import StuttgartProvider
 
-# Entities follow in step 6.
-PLATFORMS: list[Platform] = []
+PLATFORMS: list[Platform] = [
+    Platform.BINARY_SENSOR,
+    Platform.CALENDAR,
+    Platform.EVENT,
+    Platform.SENSOR,
+]
 
 PROVIDERS: dict[Source, type[Provider]] = {
     Source.AUTOBAHN: AutobahnProvider,
@@ -43,6 +48,7 @@ class StreckenwachtRuntimeData:
     """Runtime data of a config entry."""
 
     coordinators: dict[Source, StreckenwachtCoordinator]
+    known_events: KnownEvents
 
 
 type StreckenwachtConfigEntry = ConfigEntry[StreckenwachtRuntimeData]
@@ -82,7 +88,12 @@ async def async_setup_entry(
     # must not keep the whole integration (and the other sources) from loading.
     await asyncio.gather(*(c.async_refresh() for c in coordinators.values()))
 
-    entry.runtime_data = StreckenwachtRuntimeData(coordinators=coordinators)
+    known_events = KnownEvents(hass, entry.entry_id)
+    await known_events.async_load(keep=areas)
+
+    entry.runtime_data = StreckenwachtRuntimeData(
+        coordinators=coordinators, known_events=known_events
+    )
     # Options and subentry (area) changes both trigger a reload.
     entry.async_on_unload(entry.add_update_listener(_async_update_listener))
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
@@ -99,9 +110,10 @@ async def async_unload_entry(
 async def async_remove_entry(
     hass: HomeAssistant, entry: StreckenwachtConfigEntry
 ) -> None:
-    """Remove leftover repair issues when the integration is deleted."""
+    """Remove repair issues and stored data when the integration is deleted."""
     for source in Source:
         ir.async_delete_issue(hass, DOMAIN, issue_id(source))
+    await KnownEvents.async_remove(hass, entry.entry_id)
 
 
 async def _async_update_listener(
