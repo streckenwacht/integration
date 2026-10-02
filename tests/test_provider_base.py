@@ -43,6 +43,17 @@ async def server_error(request: web.Request) -> web.Response:
     return web.Response(status=500)
 
 
+ETAG = '"v1"'
+ETAG_REQUESTS: list[str | None] = []
+
+
+async def with_etag(request: web.Request) -> web.Response:
+    ETAG_REQUESTS.append(request.headers.get("If-None-Match"))
+    if request.headers.get("If-None-Match") == ETAG:
+        return web.Response(status=304)
+    return web.json_response({"data": 1}, headers={"ETag": ETAG})
+
+
 async def slow(request: web.Request) -> web.Response:
     await asyncio.sleep(1)
     return web.json_response({})
@@ -56,6 +67,7 @@ async def server(socket_enabled: None) -> AsyncIterator[TestServer]:
     app.router.add_get("/html", not_json)
     app.router.add_get("/500", server_error)
     app.router.add_get("/slow", slow)
+    app.router.add_get("/etag", with_etag)
     async with TestServer(app) as test_server:
         yield test_server
 
@@ -100,3 +112,21 @@ async def test_connection_error_becomes_provider_error(
     # Port 1 on localhost is closed: connection refused.
     with pytest.raises(ProviderError):
         await provider.get("http://127.0.0.1:1/")
+
+
+async def test_not_modified_reuses_cached_data(
+    server: TestServer, provider: DummyProvider
+) -> None:
+    ETAG_REQUESTS.clear()
+    url = str(server.make_url("/etag"))
+    assert await provider.get(url) == {"data": 1}
+    assert await provider.get(url) == {"data": 1}  # served from the 304
+    assert ETAG_REQUESTS == [None, ETAG]
+
+
+async def test_without_etag_nothing_is_cached(
+    server: TestServer, provider: DummyProvider
+) -> None:
+    url = str(server.make_url("/text"))
+    await provider.get(url)
+    assert provider._etags == {}

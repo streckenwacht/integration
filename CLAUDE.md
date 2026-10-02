@@ -6,7 +6,7 @@ Home-Assistant-Custom-Integration (HACS), Domain `streckenwacht`. Zeigt Baustell
 
 **`docs/HANDOVER.md` ist die vollständige Spezifikation.** Vor jeder größeren Arbeit lesen. Wichtigste Abschnitte: 2 (Datenquellen) inkl. **2b (verifizierte Abweichungen)**, 3 (Datenmodell), 4 (Architektur), 5 (Reihenfolge + Sicherheitshinweis), 6 (Risiken), 7 (HA/HACS-Standards). Abschnitt 10 listet, was entschieden ist und was bewusst offen bleibt.
 
-Stand: Grundgerüst und alle drei Provider sind fertig und getestet (Schritte 1–4). Als Nächstes: Coordinator, Config-Flow mit Subentries, Repairs (Schritt 5), dann Entities.
+Stand: Schritte 1–6 fertig (Provider, Coordinator, Config-Flow mit Subentries, Repairs, Entities), CI grün. Als Nächstes: Schritt 7 – Installation auf der produktiven HA-Instanz per HACS, dann Politur (README, Diagnostics, Release).
 
 ## Verbindliche Entscheidungen (nicht neu diskutieren)
 
