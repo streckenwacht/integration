@@ -7,6 +7,7 @@ from datetime import UTC, datetime, timedelta
 from custom_components.streckenwacht.const import Source
 from custom_components.streckenwacht.model import EventType, Period, StreckenwachtEvent
 from custom_components.streckenwacht.summary import (
+    LIVE_SPAN,
     MAX_LISTED_EVENTS,
     active,
     calendar_items,
@@ -87,7 +88,7 @@ def test_calendar_one_item_per_window() -> None:
             Period(NOW + 58 * H, NOW + 65 * H),
         ),
     )
-    items = calendar_items([nights], NOW, NOW + 48 * H)
+    items = calendar_items([nights], NOW, NOW + 48 * H, NOW)
     assert [(i.start, i.end) for i in items] == [
         (NOW + 10 * H, NOW + 17 * H),
         (NOW + 34 * H, NOW + 41 * H),
@@ -97,14 +98,30 @@ def test_calendar_one_item_per_window() -> None:
 
 def test_calendar_open_ends_are_clipped_to_window() -> None:
     start, end = NOW - 24 * H, NOW + 24 * H
-    items = calendar_items([JAM, ev("no_times")], start, end)
+    open_roadworks = ev("open_roadworks", periods=(Period(NOW - 5 * H),))
+    items = calendar_items([open_roadworks, ev("no_times")], start, end, NOW)
     by_id = {i.event.id: i for i in items}
-    assert (by_id["jam"].start, by_id["jam"].end) == (NOW - H, end)
+    # roadworks "until further notice" fill the visible range
+    assert (by_id["open_roadworks"].start, by_id["open_roadworks"].end) == (
+        NOW - 5 * H,
+        end,
+    )
     assert (by_id["no_times"].start, by_id["no_times"].end) == (start, end)
 
 
+def test_calendar_live_events_end_shortly_after_now() -> None:
+    """A jam since 17:13 must not show up as "all day" for the rest of the month."""
+    start, end = NOW - 24 * H, NOW + 30 * 24 * H
+    no_start = ev("warning", EventType.WARNING)
+    items = {i.event.id: i for i in calendar_items([JAM, no_start], start, end, NOW)}
+    assert (items["jam"].start, items["jam"].end) == (NOW - H, NOW + LIVE_SPAN)
+    assert (items["warning"].start, items["warning"].end) == (NOW, NOW + LIVE_SPAN)
+    # a later window does not show the jam at all
+    assert calendar_items([JAM], NOW + 24 * H, NOW + 48 * H, NOW) == []
+
+
 def test_calendar_excludes_events_outside_window() -> None:
-    assert calendar_items([OLD_JAM, PLANNED], NOW, NOW + 5 * H) == []
+    assert calendar_items([OLD_JAM, PLANNED], NOW, NOW + 5 * H, NOW) == []
 
 
 def test_current_or_next_prefers_active_and_most_severe() -> None:
@@ -130,7 +147,7 @@ def test_current_or_next_open_end_gets_nominal_end() -> None:
     item = current_or_next([JAM], NOW)
     assert item is not None
     assert item.start == NOW - H
-    assert item.end > NOW
+    assert item.end == NOW + LIVE_SPAN
 
 
 def test_current_or_next_nothing() -> None:

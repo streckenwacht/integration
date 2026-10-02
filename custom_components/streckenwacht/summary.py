@@ -30,6 +30,12 @@ MAX_LISTED_EVENTS = 20
 # Nominal length for open-ended periods in the calendar's current event.
 _OPEN_END = timedelta(days=1)
 
+# Live events (jams, accidents, warnings) have no end in the data. In the
+# calendar they last until shortly after now instead of filling the whole
+# visible range; the entry moves along with the clock while the event lasts.
+LIVE_TYPES = frozenset({EventType.TRAFFIC_JAM, EventType.ACCIDENT, EventType.WARNING})
+LIVE_SPAN = timedelta(minutes=30)
+
 
 def active(
     events: Iterable[StreckenwachtEvent], now: datetime
@@ -108,19 +114,27 @@ class CalendarItem:
 
 
 def calendar_items(
-    events: Iterable[StreckenwachtEvent], start: datetime, end: datetime
+    events: Iterable[StreckenwachtEvent],
+    start: datetime,
+    end: datetime,
+    now: datetime,
 ) -> list[CalendarItem]:
     """Calendar entries overlapping [start, end), one per event period.
 
-    Open ends ("until further notice", unknown start) are clipped to the
-    window: such an event is shown across the whole visible range.
+    Open ends of roadworks and closures ("until further notice") are clipped
+    to the window. Live events without an end last until now + LIVE_SPAN.
     """
     items: list[CalendarItem] = []
     for event in events:
         periods = event.periods or (None,)
+        live = event.event_type in LIVE_TYPES
         for index, period in enumerate(periods):
-            item_start = period.start if period and period.start else start
-            item_end = period.end if period and period.end else end
+            if live and not (period and period.end):
+                item_start = period.start if period and period.start else now
+                item_end = max(item_start, now) + LIVE_SPAN
+            else:
+                item_start = period.start if period and period.start else start
+                item_end = period.end if period and period.end else end
             if item_start < end and item_end > start and item_start < item_end:
                 items.append(
                     CalendarItem(event, item_start, item_end, f"{event.id}#{index}")
@@ -143,7 +157,8 @@ def current_or_next(
         for index, period in enumerate(event.periods or (None,)):
             if period is None or period.contains(now):
                 start = period.start if period and period.start else now
-                end = period.end if period and period.end else now + _OPEN_END
+                open_end = LIVE_SPAN if event.event_type in LIVE_TYPES else _OPEN_END
+                end = period.end if period and period.end else now + open_end
                 return CalendarItem(event, start, end, f"{event.id}#{index}")
     best: CalendarItem | None = None
     for event in events:

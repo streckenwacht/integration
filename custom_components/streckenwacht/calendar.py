@@ -45,7 +45,9 @@ class AreaCalendar(StreckenwachtEntity, CalendarEntity):
         """Entries between start_date and end_date."""
         return [
             _to_calendar_event(item)
-            for item in calendar_items(self.area_events, start_date, end_date)
+            for item in calendar_items(
+                self.area_events, start_date, end_date, dt_util.utcnow()
+            )
         ]
 
 
