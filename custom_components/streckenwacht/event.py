@@ -17,9 +17,9 @@ from .const import (
     CONF_RADIUS,
     CONF_ROADS,
     DEFAULT_INCLUDE_INRIX,
-    SUBENTRY_AREA,
     Source,
 )
+from .coordinator import area_subentries
 from .entity import StreckenwachtEntity
 from .summary import event_attributes
 
@@ -37,7 +37,7 @@ async def async_setup_entry(
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
     """One event entity per observation area."""
-    for subentry in entry.get_subentries_of_type(SUBENTRY_AREA):
+    for subentry in area_subentries(entry):
         async_add_entities(
             [AreaChangeEvent(entry, subentry, "change")],
             config_subentry_id=subentry.subentry_id,

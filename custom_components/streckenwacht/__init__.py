@@ -19,10 +19,14 @@ from .const import (
     DEFAULT_INCLUDE_INRIX,
     DEFAULT_SCAN_INTERVAL,
     DOMAIN,
-    SUBENTRY_AREA,
     Source,
 )
-from .coordinator import StreckenwachtCoordinator, area_from_subentry, issue_id
+from .coordinator import (
+    StreckenwachtCoordinator,
+    area_from_subentry,
+    area_subentries,
+    issue_id,
+)
 from .known_events import KnownEvents
 from .providers import Provider
 from .providers.autobahn import AutobahnProvider
@@ -62,7 +66,7 @@ async def async_setup_entry(
     sources = [Source(s) for s in entry.options.get(CONF_SOURCES, [])]
     areas = {
         subentry.subentry_id: area_from_subentry(subentry)
-        for subentry in entry.get_subentries_of_type(SUBENTRY_AREA)
+        for subentry in area_subentries(entry)
     }
     scan_interval = timedelta(
         minutes=entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL)

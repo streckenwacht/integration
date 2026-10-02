@@ -16,7 +16,8 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.util import dt as dt_util
 
 from . import StreckenwachtConfigEntry
-from .const import CONF_INCLUDE_INRIX, DEFAULT_INCLUDE_INRIX, SUBENTRY_AREA, Source
+from .const import CONF_INCLUDE_INRIX, DEFAULT_INCLUDE_INRIX, Source
+from .coordinator import area_subentries
 from .entity import TimeDependentEntity
 from .model import EventType
 from .summary import active, listed, max_delay
@@ -32,7 +33,7 @@ async def async_setup_entry(
         Source.AUTOBAHN in entry.runtime_data.coordinators
         and entry.options.get(CONF_INCLUDE_INRIX, DEFAULT_INCLUDE_INRIX)
     )
-    for subentry in entry.get_subentries_of_type(SUBENTRY_AREA):
+    for subentry in area_subentries(entry):
         entities: list[SensorEntity] = [EventsSensor(entry, subentry, "events")]
         if with_delay:
             entities.append(TravelTimeLossSensor(entry, subentry, "travel_time_loss"))

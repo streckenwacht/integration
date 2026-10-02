@@ -133,9 +133,9 @@ async def test_entities_and_device(
     assert hass.states.get(f"event.{PREFIX}_event_change") is not None
 
     (subentry_id,) = entry.subentries
-    device = device_registry.async_get_device_by_identifier(
-        (DOMAIN, subentry_id), entry.entry_id
-    )
+    # async_get_device_by_identifier() is newer than HA 2026.3
+    (device,) = dr.async_entries_for_config_entry(device_registry, entry.entry_id)
+    assert device.identifiers == {(DOMAIN, subentry_id)}
     assert device.name == "Streckenwacht Arbeitsweg"
 
 

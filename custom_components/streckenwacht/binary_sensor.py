@@ -13,7 +13,7 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.util import dt as dt_util
 
 from . import StreckenwachtConfigEntry
-from .const import SUBENTRY_AREA
+from .coordinator import area_subentries
 from .entity import TimeDependentEntity
 from .summary import disruptions, listed
 
@@ -24,7 +24,7 @@ async def async_setup_entry(
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
     """One sensor per observation area."""
-    for subentry in entry.get_subentries_of_type(SUBENTRY_AREA):
+    for subentry in area_subentries(entry):
         async_add_entities(
             [DisruptionBinarySensor(entry, subentry, "disruption")],
             config_subentry_id=subentry.subentry_id,

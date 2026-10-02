@@ -10,7 +10,7 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.util import dt as dt_util
 
 from . import StreckenwachtConfigEntry
-from .const import SUBENTRY_AREA
+from .coordinator import area_subentries
 from .entity import StreckenwachtEntity
 from .summary import CalendarItem, calendar_items, current_or_next
 
@@ -21,7 +21,7 @@ async def async_setup_entry(
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
     """One calendar per observation area."""
-    for subentry in entry.get_subentries_of_type(SUBENTRY_AREA):
+    for subentry in area_subentries(entry):
         async_add_entities(
             [AreaCalendar(entry, subentry, "calendar")],
             config_subentry_id=subentry.subentry_id,

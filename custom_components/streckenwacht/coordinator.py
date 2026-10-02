@@ -22,6 +22,7 @@ from .const import (
     DOMAIN,
     FAILURES_BEFORE_ISSUE,
     SOURCE_NAMES,
+    SUBENTRY_AREA,
     UPSTREAM_INRIX,
     Source,
 )
@@ -38,6 +39,15 @@ class ProviderData:
     events: tuple[StreckenwachtEvent, ...] = ()
     # subentry_id -> events inside that area
     by_area: dict[str, tuple[StreckenwachtEvent, ...]] = field(default_factory=dict)
+
+
+def area_subentries(entry: ConfigEntry) -> list[ConfigSubentry]:
+    """The observation area subentries of an entry.
+
+    ConfigEntry.get_subentries_of_type() does not exist in HA 2026.3, the oldest
+    supported version, so filter by hand.
+    """
+    return [s for s in entry.subentries.values() if s.subentry_type == SUBENTRY_AREA]
 
 
 def area_from_subentry(subentry: ConfigSubentry) -> ObservationArea:
