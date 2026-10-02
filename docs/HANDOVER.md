@@ -4,6 +4,34 @@
 
 ---
 
+## 0. Umsetzungsstand (2026-10-02)
+
+Dieses Dokument war die Ausgangsspezifikation. Die Integration ist inzwischen umgesetzt; **maßgeblich ist der Code**, die Abschnitte unten sind dort korrigiert, wo die echten Daten anders waren.
+
+| Schritt | Stand |
+|---|---|
+| 1 Grundgerüst, 2 Autobahn, 3 MobiData BW, 4 Stuttgart | fertig, gegen Fixtures und Live-APIs getestet |
+| 5 Coordinator, Config-Flow mit Subentries, Repairs | fertig |
+| 6 Entities (Kalender, Binärsensor, Sensoren, Event) | fertig |
+| 7 Installation auf der produktiven Instanz per HACS | v0.1.0b1 und v0.1.0b2 laufen |
+| 8 Politur (README, Diagnose, Handover) | in Arbeit |
+
+**Wichtigste Abweichungen vom ursprünglichen Plan** (Details in den genannten Abschnitten):
+- Stuttgart als GeoJSON/WGS84 direkt vom GeoServer – kein GML, kein `pyproj` (2.3, 2b).
+- Autobahn-API ohne Endfeld und ohne Umkreissuche: Zeiten aus dem Freitext, Autobahnen werden pro Bereich gewählt (2b).
+- Datenmodell mit Zeitfenstern (`periods`) und `upstream`, ohne `raw` (3).
+- Bereiche als Config-Subentries mit eigener Quellenauswahl und optionalen Fahrtrichtungen; ein Coordinator pro Quelle (10).
+- „Störung aktiv“ zählt nur Sperrung/Unfall/Stau, nicht Dauerbaustellen; zusätzlicher Sensor „Reisezeitverlust“ (10).
+- INRIX-Daten über Option abschaltbar, Warnungs-Fixtures nur lokal (6).
+- Bedingte Abrufe per ETag (304) gegen unnötiges Datenvolumen.
+- Entity-IDs sind englisch (HA bildet sie aus den englischen Namen), z. B. `binary_sensor.streckenwacht_<bereich>_disruption_active`.
+
+**Arbeitsweise:** Entwicklung auf `dev`, `main` nur für Releases (die produktive HACS-Installation folgt `main`).
+
+**Offen vor v0.1.0 bzw. vor öffentlichem Bewerben:** Beta-Erfahrungen (Nachtsperrungen, Event-Häufigkeit bei INRIX-Staus), Impressumsfrage, kurze Anfrage bei der Autobahn GmbH zu INRIX.
+
+---
+
 ## 1. Projektüberblick
 
 | | |
@@ -433,4 +461,7 @@ Diese Ideen kamen im Planungsgespräch auf, sind aber bewusst kein Bestandteil d
 
 - **Lovelace-Kartenansicht:** Eine custom Lovelace-Karte, die die ohnehin im Datenmodell vorhandene Geometrie (`geometry`-Feld, GeoJSON LineStrings aus Autobahn-API und MobiData BW) visuell auf einer Karte darstellt – zeigt Baustellen/Sperrungen/Staus räumlich statt nur als Liste/Kalender. Die Rohdaten dafür fallen in v1 ohnehin schon an, es fehlt nur die Visualisierungsschicht.
 - **Deduplizierung zwischen Quellen** (bereits in Abschnitt 6 als Risiko erwähnt): eine spätere Heuristik (räumliche Nähe + zeitliche Überlappung + Titel-Ähnlichkeit), um doppelte Meldungen zwischen Autobahn-API und MobiData BW zusammenzuführen.
+- **Strecke statt Kreis:** Korridor entlang einer Route (Liste von Wegpunkten oder eine HA-Zone-Kette) statt eines Kreises – genauer für Pendelstrecken. Aus dem Beta-Test (2026-10-02).
+- **Autobahn-Abschnitte:** Filter „A81 zwischen AS X und AS Y“. Die Abschnittsnamen sind Freitext in `title`/`description` – aufwendig und fehleranfällig, daher zurückgestellt zugunsten der Fahrtrichtungen.
+- **Deduplizierung nur bei gleicher Straße:** siehe Messung in Abschnitt 6; reine Nähe-Heuristik würde echte Meldungen verstecken.
 - **Langzeitstatistik:** z. B. "durchschnittlicher Reisezeitverlust pro Monat" oder "Anzahl Ereignisse pro Beobachtungsbereich über Zeit" als Statistics-Sensor, nutzbar für Home-Assistant-Graphen/History.
