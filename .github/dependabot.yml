@@ -1,0 +1,11 @@
+version: 2
+updates:
+  # Keep CI actions current (e.g. setup-uv only publishes full version tags).
+  # Python packages are deliberately not managed here: homeassistant and
+  # pytest-homeassistant-custom-component must be bumped together by hand.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: "CI"
