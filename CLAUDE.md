@@ -28,8 +28,9 @@ Stand: Schritte 1–6 fertig (Provider, Coordinator, Config-Flow mit Subentries,
 5. Attribution pro Quelle mitführen (Stuttgart CC BY 4.0, MobiData BW DL-DE-BY-2.0, Autobahn GmbH).
 6. Code, Kommentare, Entity-IDs auf Englisch; UI-Texte über `strings.json` + `translations/de.json` und `en.json`.
 7. Tests mit `pytest-homeassistant-custom-component`, gegen Fixtures – nicht gegen Live-APIs.
-8. **Werkzeuge:** `uv run pytest`, `uv run ruff check .`, `uv run ruff format .`. Rechnerspezifisches (z. B. Pfad der virtuellen Umgebung) steht in `CLAUDE.local.md` (nicht im Repo). Die HA-Testbibliothek (`--group ha-tests`) läuft unter Windows nicht (`fcntl`), nur in GitHub Actions. Ihre Version muss dieselbe `homeassistant`-Version pinnen wie die `dev`-Gruppe.
-9. **Live-Check außerhalb von HA:** `uv run tools/live_check.py --lat 48.7758 --lon 9.1829 --radius 15 --roads A8 A81`. Unter Windows findet `aiodns` (kommt mit HA) keine DNS-Server – lokale Live-Skripte brauchen `aiohttp.ThreadedResolver()` (im Skript bereits drin). Auf HA OS kein Thema.
+8. **Branches:** Entwickelt wird auf `dev` (CI läuft dort auch). `main` erhält nur freigegebene Stände (Merge von `dev` + Versions-Bump + GitHub-Release). Grund: Die produktive HACS-Installation folgt `main`, jeder Commit dort erscheint als Update.
+9. **Werkzeuge:** `uv run pytest`, `uv run ruff check .`, `uv run ruff format .`. Rechnerspezifisches (z. B. Pfad der virtuellen Umgebung) steht in `CLAUDE.local.md` (nicht im Repo). Die HA-Testbibliothek (`--group ha-tests`) läuft unter Windows nicht (`fcntl`), nur in GitHub Actions. Ihre Version muss dieselbe `homeassistant`-Version pinnen wie die `dev`-Gruppe.
+10. **Live-Check außerhalb von HA:** `uv run tools/live_check.py --lat 48.7758 --lon 9.1829 --radius 15 --roads A8 A81`. Unter Windows findet `aiodns` (kommt mit HA) keine DNS-Server – lokale Live-Skripte brauchen `aiohttp.ThreadedResolver()` (im Skript bereits drin). Auf HA OS kein Thema.
 
 ## Brand-Bilder
 
