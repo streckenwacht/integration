@@ -64,7 +64,7 @@
             "name": "Zum Beispiel „Arbeitsweg“. Wird für die Entity-Namen verwendet.",
             "location": "Markierung verschieben und Kreis aufziehen. Maximaler Radius: 100 km.",
             "sources": "Welche Quellen in diesem Bereich angezeigt werden, z. B. für einen Arbeitsweg nur die Autobahn.",
-            "roads": "Die Autobahn-API kann nicht nach Umkreis suchen: Abgefragt werden nur die hier gewählten Autobahnen. Wird ignoriert, wenn die Autobahn-Quelle nicht gewählt ist."
+            "roads": "Welche Autobahnen in diesem Bereich berücksichtigt werden. Angezeigt werden nur ihre Meldungen innerhalb des Kreises. (Die Autobahn-API liefert immer eine ganze Autobahn, deshalb die Auswahl.) Nur relevant, wenn die Autobahn als Datenquelle gewählt ist."
           }
         },
         "reconfigure": {
@@ -80,7 +80,7 @@
             "name": "Zum Beispiel „Arbeitsweg“. Wird für die Entity-Namen verwendet.",
             "location": "Markierung verschieben und Kreis aufziehen. Maximaler Radius: 100 km.",
             "sources": "Welche Quellen in diesem Bereich angezeigt werden, z. B. für einen Arbeitsweg nur die Autobahn.",
-            "roads": "Die Autobahn-API kann nicht nach Umkreis suchen: Abgefragt werden nur die hier gewählten Autobahnen. Wird ignoriert, wenn die Autobahn-Quelle nicht gewählt ist."
+            "roads": "Welche Autobahnen in diesem Bereich berücksichtigt werden. Angezeigt werden nur ihre Meldungen innerhalb des Kreises. (Die Autobahn-API liefert immer eine ganze Autobahn, deshalb die Auswahl.) Nur relevant, wenn die Autobahn als Datenquelle gewählt ist."
           }
         },
         "directions": {

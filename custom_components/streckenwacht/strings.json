@@ -64,7 +64,7 @@
             "name": "For example “Commute”. Used in entity names.",
             "location": "Move the marker and drag the circle. Maximum radius: 100 km.",
             "sources": "Which sources to show in this area, e.g. only the motorway for a commute.",
-            "roads": "The Autobahn API cannot search by area: only the motorways selected here are queried. Ignored if the Autobahn source is not selected."
+            "roads": "Which motorways to consider in this area. Only their events within the circle are shown. (The Autobahn API always returns a whole motorway, hence this selection.) Only relevant if the Autobahn source is selected."
           }
         },
         "reconfigure": {
@@ -80,7 +80,7 @@
             "name": "For example “Commute”. Used in entity names.",
             "location": "Move the marker and drag the circle. Maximum radius: 100 km.",
             "sources": "Which sources to show in this area, e.g. only the motorway for a commute.",
-            "roads": "The Autobahn API cannot search by area: only the motorways selected here are queried. Ignored if the Autobahn source is not selected."
+            "roads": "Which motorways to consider in this area. Only their events within the circle are shown. (The Autobahn API always returns a whole motorway, hence this selection.) Only relevant if the Autobahn source is selected."
           }
         },
         "directions": {
