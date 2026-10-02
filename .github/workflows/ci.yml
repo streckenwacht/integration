@@ -19,3 +19,18 @@ jobs:
           uv run ruff format --check .
       - name: Test
         run: uv run pytest
+
+  hassfest:
+    # Home Assistant's own validation of manifest.json, strings and translations.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: home-assistant/actions/hassfest@master
+
+  hacs:
+    # HACS repository requirements (hacs.json, structure, description, topics).
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hacs/action@22.5.0
+        with:
+          category: integration

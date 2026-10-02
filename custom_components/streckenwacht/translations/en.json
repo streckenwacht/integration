@@ -1,0 +1,108 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Streckenwacht",
+        "description": "Choose the data sources. Add observation areas afterwards via “Add observation area”.",
+        "data": {
+          "sources": "Data sources",
+          "scan_interval": "Update interval",
+          "include_inrix": "Include traffic jams (INRIX)"
+        },
+        "data_description": {
+          "sources": "MobiData BW and Stuttgart only cover Baden-Württemberg and Stuttgart.",
+          "scan_interval": "How often the sources are polled. They do not change by the minute.",
+          "include_inrix": "Traffic jam data in the Autobahn API comes from the commercial provider INRIX."
+        }
+      }
+    },
+    "error": {
+      "no_sources": "Select at least one data source."
+    },
+    "abort": {
+      "single_instance_allowed": "Streckenwacht is already set up. Add more areas there."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Streckenwacht",
+        "data": {
+          "sources": "Data sources",
+          "scan_interval": "Update interval",
+          "include_inrix": "Include traffic jams (INRIX)"
+        },
+        "data_description": {
+          "sources": "MobiData BW and Stuttgart only cover Baden-Württemberg and Stuttgart.",
+          "scan_interval": "How often the sources are polled. They do not change by the minute.",
+          "include_inrix": "Traffic jam data in the Autobahn API comes from the commercial provider INRIX."
+        }
+      }
+    },
+    "error": {
+      "no_sources": "Select at least one data source."
+    }
+  },
+  "config_subentries": {
+    "area": {
+      "entry_type": "Observation area",
+      "initiate_flow": {
+        "user": "Add observation area",
+        "reconfigure": "Change observation area"
+      },
+      "step": {
+        "user": {
+          "title": "Add observation area",
+          "description": "Events within the circle are shown.",
+          "data": {
+            "name": "Name",
+            "location": "Area",
+            "roads": "Motorways"
+          },
+          "data_description": {
+            "name": "For example “Commute”. Used in entity names.",
+            "location": "Move the marker and drag the circle. Maximum radius: 100 km.",
+            "roads": "The Autobahn API cannot search by area: only the motorways selected here are queried."
+          }
+        },
+        "reconfigure": {
+          "title": "Change observation area",
+          "description": "Events within the circle are shown.",
+          "data": {
+            "name": "Name",
+            "location": "Area",
+            "roads": "Motorways"
+          },
+          "data_description": {
+            "name": "For example “Commute”. Used in entity names.",
+            "location": "Move the marker and drag the circle. Maximum radius: 100 km.",
+            "roads": "The Autobahn API cannot search by area: only the motorways selected here are queried."
+          }
+        }
+      },
+      "error": {
+        "name_required": "Please enter a name.",
+        "radius_too_large": "The radius must not exceed 100 km."
+      },
+      "abort": {
+        "cannot_connect": "Could not load the list of motorways. Please try again later.",
+        "reconfigure_successful": "The observation area was updated."
+      }
+    }
+  },
+  "selector": {
+    "sources": {
+      "options": {
+        "autobahn": "Autobahn GmbH (motorways, Germany-wide)",
+        "mobidata_bw": "MobiData BW (federal, state, district roads in BW)",
+        "stuttgart": "City of Stuttgart (main road network)"
+      }
+    }
+  },
+  "issues": {
+    "provider_failed": {
+      "title": "{source} is unreachable",
+      "description": "Streckenwacht failed to fetch {source} {failures} times in a row. The last loaded data is kept and the other sources keep working. This message disappears automatically once fetching works again.\n\nError: {error}"
+    }
+  }
+}

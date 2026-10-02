@@ -70,6 +70,12 @@ def test_attribution_per_source() -> None:
     assert "CC BY 4.0" in make_event(source=Source.STUTTGART).attribution
 
 
+def test_inrix_attribution() -> None:
+    event = make_event(source=Source.AUTOBAHN, upstream="inrix")
+    assert event.attribution == "Die Autobahn GmbH des Bundes; Verkehrslage: INRIX"
+    assert "INRIX" not in make_event(source=Source.AUTOBAHN).attribution
+
+
 def test_geometry_not_in_repr() -> None:
     event = make_event(geometry={"type": "Point", "coordinates": [9.0, 48.0]})
     assert "coordinates" not in repr(event)

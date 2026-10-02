@@ -1,0 +1,108 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Streckenwacht",
+        "description": "Wähle die Datenquellen. Beobachtungsbereiche fügst du danach über „Beobachtungsbereich hinzufügen“ hinzu.",
+        "data": {
+          "sources": "Datenquellen",
+          "scan_interval": "Abrufintervall",
+          "include_inrix": "Staumeldungen einbeziehen (INRIX)"
+        },
+        "data_description": {
+          "sources": "MobiData BW und Stuttgart decken nur Baden-Württemberg bzw. Stuttgart ab.",
+          "scan_interval": "Wie oft die Quellen abgefragt werden. Sie ändern sich nicht im Minutentakt.",
+          "include_inrix": "Staudaten der Autobahn-API stammen vom kommerziellen Anbieter INRIX."
+        }
+      }
+    },
+    "error": {
+      "no_sources": "Wähle mindestens eine Datenquelle."
+    },
+    "abort": {
+      "single_instance_allowed": "Streckenwacht ist bereits eingerichtet. Weitere Bereiche fügst du dort hinzu."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Streckenwacht",
+        "data": {
+          "sources": "Datenquellen",
+          "scan_interval": "Abrufintervall",
+          "include_inrix": "Staumeldungen einbeziehen (INRIX)"
+        },
+        "data_description": {
+          "sources": "MobiData BW und Stuttgart decken nur Baden-Württemberg bzw. Stuttgart ab.",
+          "scan_interval": "Wie oft die Quellen abgefragt werden. Sie ändern sich nicht im Minutentakt.",
+          "include_inrix": "Staudaten der Autobahn-API stammen vom kommerziellen Anbieter INRIX."
+        }
+      }
+    },
+    "error": {
+      "no_sources": "Wähle mindestens eine Datenquelle."
+    }
+  },
+  "config_subentries": {
+    "area": {
+      "entry_type": "Beobachtungsbereich",
+      "initiate_flow": {
+        "user": "Beobachtungsbereich hinzufügen",
+        "reconfigure": "Beobachtungsbereich ändern"
+      },
+      "step": {
+        "user": {
+          "title": "Beobachtungsbereich hinzufügen",
+          "description": "Ereignisse innerhalb des Kreises werden angezeigt.",
+          "data": {
+            "name": "Name",
+            "location": "Bereich",
+            "roads": "Autobahnen"
+          },
+          "data_description": {
+            "name": "Zum Beispiel „Arbeitsweg“. Wird für die Entity-Namen verwendet.",
+            "location": "Markierung verschieben und Kreis aufziehen. Maximaler Radius: 100 km.",
+            "roads": "Die Autobahn-API kann nicht nach Umkreis suchen: Abgefragt werden nur die hier gewählten Autobahnen."
+          }
+        },
+        "reconfigure": {
+          "title": "Beobachtungsbereich ändern",
+          "description": "Ereignisse innerhalb des Kreises werden angezeigt.",
+          "data": {
+            "name": "Name",
+            "location": "Bereich",
+            "roads": "Autobahnen"
+          },
+          "data_description": {
+            "name": "Zum Beispiel „Arbeitsweg“. Wird für die Entity-Namen verwendet.",
+            "location": "Markierung verschieben und Kreis aufziehen. Maximaler Radius: 100 km.",
+            "roads": "Die Autobahn-API kann nicht nach Umkreis suchen: Abgefragt werden nur die hier gewählten Autobahnen."
+          }
+        }
+      },
+      "error": {
+        "name_required": "Bitte einen Namen angeben.",
+        "radius_too_large": "Der Radius darf höchstens 100 km betragen."
+      },
+      "abort": {
+        "cannot_connect": "Die Autobahnliste konnte nicht geladen werden. Bitte später erneut versuchen.",
+        "reconfigure_successful": "Der Beobachtungsbereich wurde geändert."
+      }
+    }
+  },
+  "selector": {
+    "sources": {
+      "options": {
+        "autobahn": "Autobahn GmbH (Autobahnen, bundesweit)",
+        "mobidata_bw": "MobiData BW (Bundes-, Landes-, Kreisstraßen in BW)",
+        "stuttgart": "Stadt Stuttgart (Hauptstraßennetz)"
+      }
+    }
+  },
+  "issues": {
+    "provider_failed": {
+      "title": "{source} ist nicht erreichbar",
+      "description": "Streckenwacht konnte {source} {failures}-mal in Folge nicht abrufen. Die zuletzt geladenen Daten bleiben erhalten, die anderen Quellen laufen weiter. Die Meldung verschwindet automatisch, sobald der Abruf wieder klappt.\n\nFehler: {error}"
+    }
+  }
+}

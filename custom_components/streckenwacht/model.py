@@ -7,7 +7,7 @@ from datetime import datetime
 from enum import StrEnum
 from typing import Any
 
-from .const import ATTRIBUTION, Source
+from .const import ATTRIBUTION, UPSTREAM_ATTRIBUTION, Source
 from .geo import distance_to_geometry_km, haversine_km
 
 
@@ -68,6 +68,9 @@ class StreckenwachtEvent:
     @property
     def attribution(self) -> str:
         """Attribution text required by the source license."""
+        upstream = UPSTREAM_ATTRIBUTION.get(self.upstream or "")
+        if upstream:
+            return f"{ATTRIBUTION[self.source]}; {upstream}"
         return ATTRIBUTION[self.source]
 
     @property
