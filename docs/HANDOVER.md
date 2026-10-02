@@ -185,28 +185,14 @@ Fixtures mit `tools/fetch_fixtures.py` geladen (`tests/fixtures/`). Diese Befund
 
 ## 3. Datenmodell (gemeinsames Schema)
 
-Alle drei Quellen sollen auf ein einheitliches internes Event-Modell normalisiert werden (Vorschlag, in `model.py`):
+Alle drei Quellen werden auf ein einheitliches Modell normalisiert. **Umgesetzt in `custom_components/streckenwacht/model.py`** (Schritt 1, 2026-10-02) – der Code ist maßgeblich. Abweichungen vom ursprünglichen Vorschlag, begründet durch die verifizierten Daten (2b):
 
-```python
-@dataclass
-class StreckenwachtEvent:
-    id: str                      # provider-eindeutige ID, z. B. "autobahn:12345" oder "stuttgart:wfs-987"
-    source: str                  # "autobahn" | "mobidata_bw" | "stuttgart"
-    event_type: str              # "roadworks" | "closure" | "jam" | "accident" | "warning"
-    title: str
-    description: str | None
-    road: str | None             # z. B. "A8", "Werastraße"
-    direction: str | None        # z. B. "Richtung Karlsruhe"
-    latitude: float | None
-    longitude: float | None
-    geometry: dict | None        # GeoJSON, falls vorhanden (LineString/Polygon)
-    start: datetime | None
-    end: datetime | None
-    impact: str | None           # Schweregrad/Kategorie, quellenabhängig normalisiert
-    delay_minutes: int | None    # nur bei Stau-relevanten Meldungen (Autobahn-API "inrix")
-    attribution: str             # Pflichttext je nach Quelle/Lizenz
-    raw: dict                    # Original-Payload für Debugging/spätere Erweiterung
-```
+- `event_type` ist ein Enum `EventType`: `roadworks`, `closure`, `traffic_jam`, `accident`, `warning`. **Unfälle** werden per Stichwort „Unfall“ im Text von Autobahn-Warnungen erkannt (entschieden 2026-10-02), INRIX-Meldungen mit Stau-Typ werden `traffic_jam`.
+- `start`/`end` sind ersetzt durch `periods: tuple[Period, ...]` (Zeitfenster, `None` = offen). Tagesbaustellen haben mehrere Fenster, jedes wird ein Kalendereintrag. `start`/`end` gibt es weiter als abgeleitete Properties.
+- Neu: `upstream` (z. B. `"inrix"`) – damit lassen sich INRIX-Daten gezielt abschalten, falls die Lizenzfrage negativ ausgeht.
+- `attribution` ist eine Property (Text je Quelle in `const.ATTRIBUTION`), kein Feld.
+- `raw` entfällt (977 MobiData-Einträge × Geometrie kosten unnötig Speicher). `geometry` bleibt, darf aber nie als State-Attribut erscheinen.
+- Neu: `ObservationArea` (Name, Mittelpunkt, Radius, gewählte Autobahnen) mit `contains(event)`. Entfernung zu Linien wird zum Segment gemessen, nicht nur zu den Stützpunkten (`geo.py`).
 
 **Deduplizierung** (bekanntes offenes Problem, siehe Risiken): Für den ersten Wurf reicht es, Events pro Provider getrennt zu halten und nicht automatisch zusammenzuführen. Eine Dedup-Heuristik (räumliche Nähe + zeitliche Überlappung + ähnlicher Titel) ist ein sinnvolles späteres Feature, kein Blocker für v1.
 
@@ -219,12 +205,13 @@ custom_components/streckenwacht/
   __init__.py            # Setup, Config-Entry-Handling, Coordinator-Erzeugung pro Provider
   manifest.json           # domain, name, codeowners, requirements, iot_class, config_flow: true
   const.py                # DOMAIN, CONF_-Konstanten, Standard-Update-Intervalle
-  model.py                 # StreckenwachtEvent (siehe oben)
+  model.py                 # StreckenwachtEvent, Period, ObservationArea (siehe oben)
+  geo.py                   # Entfernung Punkt ↔ GeoJSON-Geometrie
   coordinator.py           # StreckenwachtDataUpdateCoordinator (generisch, pro Provider-Instanz)
   config_flow.py           # Multi-Step: Provider wählen → Beobachtungsbereiche definieren
   strings.json / translations/de.json, en.json
   providers/
-    __init__.py            # gemeinsames Provider-Interface (ABC): async def async_fetch_events(...)
+    __init__.py            # gemeinsames Provider-Interface (ABC): async_fetch(areas), ProviderError
     autobahn.py             # Autobahn GmbH API Client + Mapping auf StreckenwachtEvent
     mobidata_bw.py           # MobiData BW Client + Mapping
     stuttgart.py              # Stuttgart WFS Client (GeoJSON/WGS84 direkt vom Server, Freitext-Datumsparsing) + Mapping
@@ -234,14 +221,9 @@ custom_components/streckenwacht/
   event.py                   # HA-Event-Entity: feuert bei neuem/beendetem Ereignis
 ```
 
-### Provider-Interface (Konzept)
+### Provider-Interface
 
-```python
-class StreckenwachtProvider(ABC):
-    @abstractmethod
-    async def async_fetch_events(self, area: ObservationArea) -> list[StreckenwachtEvent]:
-        ...
-```
+**Umgesetzt in `custom_components/streckenwacht/providers/__init__.py`.** Abweichend vom ursprünglichen Konzept bekommt ein Provider **alle** Beobachtungsbereiche und lädt einmal pro Poll, was sie zusammen brauchen: `async_fetch(areas) -> list[StreckenwachtEvent]`. Das Filtern pro Bereich passiert danach über `ObservationArea.contains()`. Provider importieren nichts aus Home Assistant und bekommen nur eine `aiohttp`-Session; alle Fehler werden zu `ProviderError`.
 
 Jeder Provider bekommt die vom Nutzer konfigurierten Beobachtungsbereiche und liefert normalisierte Events zurück. Netzwerk-/Parsing-Fehler werden pro Provider gefangen und dürfen nicht die anderen Provider blockieren.
 

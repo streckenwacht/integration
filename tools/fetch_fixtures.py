@@ -11,14 +11,16 @@ Nur Python-Standardbibliothek, keine Abhängigkeiten.
 Endpoints und Layernamen sind gegen die Live-APIs verifiziert (Stand 2026-10-02,
 siehe docs/HANDOVER.md Abschnitt 2b).
 """
+
 from __future__ import annotations
 
+import contextlib
 import json
 import sys
 import urllib.error
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 USER_AGENT = "Streckenwacht/0.1 (+https://github.com/streckenwacht/integration)"
@@ -29,7 +31,9 @@ AUTOBAHN_BASE = "https://verkehr.autobahn.de/o/autobahn"
 AUTOBAHN_ROADS = ["A8", "A81"]  # Testfall laut Handover: A8/A81 im Raum Stuttgart
 AUTOBAHN_SERVICES = ["roadworks", "closure", "warning"]
 
-MOBIDATA_URL = "https://api.mobidata-bw.de/datasets/traffic/roadworks/roadworks_geojson.json"
+MOBIDATA_URL = (
+    "https://api.mobidata-bw.de/datasets/traffic/roadworks/roadworks_geojson.json"
+)
 
 # GeoServer liefert die Layer direkt als GeoJSON in WGS84 – kein GML-Parsing, keine Reprojektion.
 STUTTGART_WFS = "https://geoserver.stuttgart.de/geoserver/wfs"
@@ -42,13 +46,15 @@ index: list[dict] = []
 
 
 def get(url: str) -> tuple[int, bytes, str]:
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "*/*"})
+    req = urllib.request.Request(
+        url, headers={"User-Agent": USER_AGENT, "Accept": "*/*"}
+    )
     try:
         with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
             return r.status, r.read(), r.headers.get("Content-Type", "")
     except urllib.error.HTTPError as e:
         return e.code, e.read() if hasattr(e, "read") else b"", ""
-    except Exception as e:  # noqa: BLE001 – Netzfehler protokollieren, weitermachen
+    except Exception as e:
         print(f"  ! {url}: {e}")
         return 0, b"", ""
 
@@ -56,12 +62,18 @@ def get(url: str) -> tuple[int, bytes, str]:
 def save(name: str, url: str, status: int, body: bytes, ctype: str) -> None:
     path = OUT / name
     if "json" in ctype or name.endswith(".json"):
-        try:
+        with contextlib.suppress(ValueError):
             body = json.dumps(json.loads(body), ensure_ascii=False, indent=2).encode()
-        except ValueError:
-            pass
     path.write_bytes(body)
-    index.append({"file": name, "url": url, "status": status, "content_type": ctype, "bytes": len(body)})
+    index.append(
+        {
+            "file": name,
+            "url": url,
+            "status": status,
+            "content_type": ctype,
+            "bytes": len(body),
+        }
+    )
     print(f"  {status} {len(body):>9} B  {name}")
 
 
@@ -103,11 +115,18 @@ def main() -> int:
     autobahn()
     mobidata()
     stuttgart()
-    (OUT / "_index.json").write_text(json.dumps({
-        "fetched_at": datetime.now(timezone.utc).isoformat(),
-        "user_agent": USER_AGENT,
-        "files": index,
-    }, ensure_ascii=False, indent=2), encoding="utf-8")
+    (OUT / "_index.json").write_text(
+        json.dumps(
+            {
+                "fetched_at": datetime.now(UTC).isoformat(),
+                "user_agent": USER_AGENT,
+                "files": index,
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
     failed = [i for i in index if i["status"] != 200]
     print(f"\n{len(index) - len(failed)} ok, {len(failed)} fehlgeschlagen -> {OUT}")
     return 1 if failed else 0
