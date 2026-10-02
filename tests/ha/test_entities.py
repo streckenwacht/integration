@@ -132,7 +132,9 @@ async def test_entities_and_device(
     assert hass.states.get(f"event.{PREFIX}_event_change") is not None
 
     (subentry_id,) = entry.subentries
-    device = device_registry.async_get_device(identifiers={(DOMAIN, subentry_id)})
+    device = device_registry.async_get_device_by_identifier(
+        (DOMAIN, subentry_id), entry.entry_id
+    )
     assert device.name == "Streckenwacht Arbeitsweg"
 
 
