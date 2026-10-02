@@ -8,11 +8,11 @@
 [![CI](https://github.com/streckenwacht/integration/actions/workflows/ci.yml/badge.svg)](https://github.com/streckenwacht/integration/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-F5A623.svg)](LICENSE)
 
+🇩🇪 **Deutsch** · 🇬🇧 [English](https://github.com/streckenwacht/integration/blob/main/README.en.md)
+
 > ⚠️ **Testphase.** Es gibt bisher nur Vorabversionen (Beta). Rückmeldungen sind willkommen – siehe [Fehler melden](#fehler-melden).
 
 Streckenwacht wacht über deine Strecke – ob Autobahn, Bundesstraße oder dein täglicher Arbeitsweg. Baustellen, Sperrungen, Staus und Unfälle, direkt in deinem Home Assistant: als Kalender, Sensoren und Events für Automationen.
-
-*In English:* Streckenwacht is a Home Assistant integration for roads in Germany. It shows roadworks, closures, traffic jams and accidents within areas you define, using open data from Autobahn GmbH (motorways, nationwide), MobiData BW (Baden-Württemberg) and the City of Stuttgart. The UI is available in German and English.
 
 ## Was Streckenwacht kann
 
