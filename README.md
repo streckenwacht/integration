@@ -4,13 +4,13 @@
 </picture>
 
 [![HACS Custom](https://img.shields.io/badge/HACS-Custom-005B8C.svg)](https://hacs.xyz/)
-[![Release](https://img.shields.io/github/v/release/streckenwacht/integration?include_prereleases&color=005B8C)](https://github.com/streckenwacht/integration/releases)
+[![Release](https://img.shields.io/github/v/release/streckenwacht/integration?color=005B8C)](https://github.com/streckenwacht/integration/releases)
 [![CI](https://github.com/streckenwacht/integration/actions/workflows/ci.yml/badge.svg)](https://github.com/streckenwacht/integration/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-F5A623.svg)](LICENSE)
 
 🇩🇪 **Deutsch** · 🇬🇧 [English](https://github.com/streckenwacht/integration/blob/main/README.en.md)
 
-> ⚠️ **Testphase.** Es gibt bisher nur Vorabversionen (Beta). Rückmeldungen sind willkommen – siehe [Fehler melden](#fehler-melden).
+> ℹ️ **Junges Projekt.** Version 0.1 läuft stabil, ist aber noch frisch. Rückmeldungen sind sehr willkommen – siehe [Fehler melden](#fehler-melden).
 
 Streckenwacht wacht über deine Strecke – ob Autobahn, Bundesstraße oder dein täglicher Arbeitsweg. Baustellen, Sperrungen, Staus und Unfälle, direkt in deinem Home Assistant: als Kalender, Sensoren und Events für Automationen.
 
@@ -64,7 +64,7 @@ Oder von Hand:
 
 1. HACS öffnen → Menü (⋮) → **Benutzerdefinierte Repositories**.
 2. URL `https://github.com/streckenwacht/integration` eintragen, Typ **Integration**, hinzufügen.
-3. **Streckenwacht** in HACS öffnen → **Herunterladen**. Solange es nur Testversionen gibt, im Dialog die neueste Version wählen (ggf. Beta-Versionen anzeigen lassen).
+3. **Streckenwacht** in HACS öffnen → **Herunterladen**.
 4. Home Assistant neu starten.
 5. **Einstellungen → Geräte & Dienste → Integration hinzufügen → Streckenwacht**.
 

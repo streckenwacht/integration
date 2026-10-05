@@ -4,13 +4,13 @@
 </picture>
 
 [![HACS Custom](https://img.shields.io/badge/HACS-Custom-005B8C.svg)](https://hacs.xyz/)
-[![Release](https://img.shields.io/github/v/release/streckenwacht/integration?include_prereleases&color=005B8C)](https://github.com/streckenwacht/integration/releases)
+[![Release](https://img.shields.io/github/v/release/streckenwacht/integration?color=005B8C)](https://github.com/streckenwacht/integration/releases)
 [![CI](https://github.com/streckenwacht/integration/actions/workflows/ci.yml/badge.svg)](https://github.com/streckenwacht/integration/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-F5A623.svg)](LICENSE)
 
 🇩🇪 [Deutsch](https://github.com/streckenwacht/integration/blob/main/README.md) · 🇬🇧 **English**
 
-> ⚠️ **Testing phase.** Only pre-releases (beta) so far. Feedback is welcome – see [Reporting issues](#reporting-issues).
+> ℹ️ **Young project.** Version 0.1 runs stably but is still fresh. Feedback is very welcome – see [Reporting issues](#reporting-issues).
 
 Streckenwacht ("route watch") keeps an eye on your route – motorway, federal road or your daily commute. Roadworks, closures, traffic jams and accidents in Germany, right in your Home Assistant: as a calendar, sensors and events for automations.
 
@@ -66,7 +66,7 @@ Or manually:
 
 1. Open HACS → menu (⋮) → **Custom repositories**.
 2. Enter `https://github.com/streckenwacht/integration`, type **Integration**, add.
-3. Open **Streckenwacht** in HACS → **Download**. As long as there are only pre-releases, pick the newest version in the dialog (enable showing beta versions if needed).
+3. Open **Streckenwacht** in HACS → **Download**.
 4. Restart Home Assistant.
 5. **Settings → Devices & services → Add integration → Streckenwacht**.
 
