@@ -8,7 +8,7 @@ Home-Assistant-Custom-Integration (HACS), Domain `streckenwacht`. Zeigt Baustell
 - **`docs/DATENQUELLEN.md`** – Planungsgrundlage für neue Datenquellen (Länder, Städte, Endpunkte).
 - **`docs/BRAND.md`** – Bilder, Farben, Regenerierung.
 
-Stand (2026-10-05): **v0.1.0 veröffentlicht** (erstes stabiles Release). Vorgestellt in der simon42 Community (Kategorie Integrationen, 2026-10-05, [Thema 93623](https://community.simon42.com/t/streckenwacht-baustellen-sperrungen-und-staus-auf-der-eigenen-strecke-hacs-integration/93623)) – HA Community (englisch) frühestens ein, zwei Wochen danach. **Nächste Schritte:** Rückmeldungen aus dem Forum einarbeiten; danach Backlog (`docs/ENTWICKLUNG.md` Abschnitt 6), voraussichtlich generischer WFS-Provider.
+Stand (2026-10-05): **v0.1.0 veröffentlicht** (erstes stabiles Release). Vorgestellt in der simon42 Community (vom Moderator in den Showroom verschoben, 2026-10-05, [Thema 93623](https://community.simon42.com/t/streckenwacht-baustellen-sperrungen-und-staus-auf-der-eigenen-strecke-hacs-integration/93623)) – HA Community (englisch) frühestens ein, zwei Wochen danach. **Nächste Schritte:** Rückmeldungen aus dem Forum einarbeiten; danach Backlog (`docs/ENTWICKLUNG.md` Abschnitt 6), voraussichtlich generischer WFS-Provider.
 
 ## Verbindliche Entscheidungen (nicht neu diskutieren)
 
