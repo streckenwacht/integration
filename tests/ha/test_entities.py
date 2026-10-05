@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterator
+from dataclasses import replace
 from datetime import timedelta
 from unittest.mock import AsyncMock, patch
 
@@ -220,6 +221,35 @@ async def test_change_events(hass: HomeAssistant, fetch: AsyncMock) -> None:
     # "ended" carries the remembered title and type
     assert state.attributes["title"] == "jam"
     assert state.attributes["type"] == "traffic_jam"
+    assert state.attributes["source"] == "autobahn"
+
+
+async def test_change_events_smooth_traffic_jams(
+    hass: HomeAssistant, fetch: AsyncMock
+) -> None:
+    """A jam under a new identifier and minor jams fire nothing."""
+    entry = make_entry()
+    entity_id = f"event.{PREFIX}_event_change"
+    await setup(hass, entry)
+    changes = async_capture_events(hass, EVENT_STATE_CHANGED)
+    coordinator = entry.runtime_data.coordinators[Source.AUTOBAHN]
+
+    reissued = replace(JAM, id="autobahn:jam2", latitude=48.79)  # about 1 km away
+    minor = replace(JAM, id="autobahn:minor", direction="München", delay_minutes=3)
+    fetch.return_value = [ROADWORKS, CLOSURE, PLANNED, reissued, minor]
+    await coordinator.async_refresh()
+    await hass.async_block_till_done()
+    assert not [c for c in changes if c.data["entity_id"] == entity_id]
+
+    fetch.return_value = [ROADWORKS, CLOSURE, PLANNED]
+    await coordinator.async_refresh()
+    await hass.async_block_till_done()
+    fired = [
+        c.data["new_state"].attributes["id"]
+        for c in changes
+        if c.data["entity_id"] == entity_id
+    ]
+    assert fired == ["autobahn:jam2"]  # the minor jam ends silently
 
 
 async def test_failure_does_not_fire_ended(

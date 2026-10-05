@@ -21,7 +21,8 @@ def _key(entry_id: str) -> str:
 class KnownEvents:
     """Per area: a fingerprint of its settings and the seen events per source.
 
-    Layout: {subentry_id: {"fingerprint": str, "events": {source: {id: title}}}}
+    Layout: {subentry_id: {"fingerprint": str, "events": {source: {id: known}}}},
+    known as in changes.KnownEvent.to_stored (older versions: title or [title, type]).
     """
 
     def __init__(self, hass: HomeAssistant, entry_id: str) -> None:

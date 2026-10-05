@@ -28,7 +28,7 @@ Dieses Dokument war die Ausgangsspezifikation. Die Integration ist inzwischen um
 
 **Arbeitsweise:** Entwicklung auf `dev`, `main` nur für Releases (die produktive HACS-Installation folgt `main`).
 
-**Offen vor v0.1.0:** Beta-Erfahrungen (Nachtsperrungen, Verständlichkeit des Bereichsdialogs). **Später (auf Wunsch zurückgestellt):** messen, ob INRIX für denselben Stau zwischen Abrufen neue Kennungen vergibt (Skript: Warnungen A8/A81 ~1 h alle 5 min abrufen, Kennungen vergleichen) – falls ja, „neu/beendet“-Events für Staus glätten.
+**Offen vor v0.1.0:** Beta-Erfahrungen (Nachtsperrungen, Verständlichkeit des Bereichsdialogs). Stau-Kennungen sind vermessen und die „neu/beendet“-Events für Staus geglättet (2b, `changes.py`).
 
 **Zurückgestellt (Entscheidung des Projektinhabers, 2026-10-02):** Impressumsfrage und Anfrage bei der Autobahn GmbH zu INRIX – erst wieder aufgreifen, wenn das Projekt öffentlich beworben werden soll.
 
@@ -192,6 +192,8 @@ Fixtures mit `tools/fetch_fixtures.py` geladen (`tests/fixtures/`). Diese Befund
 - `impact` ist ein Objekt (`lower`, `upper`, `symbols[]` = Fahrstreifen-Symbolik), kein Schweregrad.
 - `source` existiert **nur bei `warning`** – und war dort in der Stichprobe (A8: 15, A81: 7) **zu 100 % `"inrix"`**. Ein `"eva"`-Eintrag kam nicht vor. `abnormalTrafficType`: `QUEUING_TRAFFIC`, `SLOW_TRAFFIC`, `HEAVY_TRAFFIC`, `UNSPECIFIED_ABNORMAL_TRAFFIC` (live gesehen) → Regel: jeder gesetzte Typ oder `delayTimeValue` > 0 = Stau.
   → **Stau-Daten stammen praktisch ausschließlich von INRIX.** Die Lizenzfrage (Abschnitt 6) betrifft damit nicht einen Randaspekt, sondern das komplette Feature „Staus".
+- **INRIX vergibt für denselben Stau neue Kennungen** (Messung 2026-10-05, 14 Autobahnen, 12 Abrufe im 5-Minuten-Takt, ~1 h): 282 Kennungen, 202 neu aufgetaucht, davon 75 (37 %) nur eine neue Kennung für einen Stau, der im selben Abruf auf derselben Straße und Richtung wenige Kilometer entfernt verschwand. Echtes Flackern (Kennung weg und wieder da) nur 2-mal. 115 Kennungen lebten nur einen Abruf. Im 15-Minuten-Takt nachgerechnet: 27–38 % der „neuen“ Staus sind Kennungswechsel (je nach Abstandsgrenze 2–10 km), bei Staus ab 10 min Verlust etwa die Hälfte.
+  → **Glättung in `changes.py`** (seit 0.1.0): Ein „neuer“ Stau auf derselben Straße und Richtung höchstens 5 km neben einem im selben Abruf verschwundenen gilt als Fortsetzung (kein „neu“, kein „beendet“). „Neu“ gibt es bei Staus erst ab der Stau-Schwelle des Bereichs, „beendet“ nur für gemeldete Staus. Gespeichert werden dafür zusätzlich Straße, Richtung, Position und ob gemeldet; ältere Speicherformate werden weiter gelesen.
 - Unfälle haben keine eigene Kategorie; sie würden als `warning` erscheinen (in der Stichprobe: keine).
 - Die Abfrage `A8` enthält auch Meldungen anderer Straßen (z. B. A995-Baustelle mit Titel „A8 | München-Süd – Sauerlach"). Identifier waren zwischen A8 und A81 überschneidungsfrei.
 - Datenmenge: A8 Baustellen ≈ 700 KB (überwiegend Geometrie), alle drei Dienste zweier Autobahnen ≈ 1,9 MB.

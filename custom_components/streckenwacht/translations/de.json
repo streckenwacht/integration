@@ -88,7 +88,7 @@
           },
           "data_description": {
             "roads": "Die Autobahn-API liefert immer eine ganze Autobahn und kennt keine Umkreissuche – deshalb die Auswahl.",
-            "jam_threshold": "Für „Störung aktiv“: Staus mit geringerem Reisezeitverlust werden ignoriert (0 = jeder Stau). Sperrungen und Unfälle zählen immer."
+            "jam_threshold": "Für „Störung aktiv“ und die Meldungen neu/beendet: Staus mit geringerem Reisezeitverlust werden ignoriert (0 = jeder Stau). Sperrungen und Unfälle zählen immer."
           }
         },
         "directions": {

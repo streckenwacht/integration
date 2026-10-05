@@ -131,7 +131,7 @@ Example for an area named "Commute" (device *Streckenwacht Commute*). Entity IDs
 
 All entities have the attribute `unavailable_sources`: if a source cannot be reached right now, it is listed there – the data shown is then the last known state.
 
-A `new` event contains `id`, `title`, `type`, `source`, `road`, `direction`, `start`, `end`, `delay_minutes`, `latitude`, `longitude`; an `ended` event `id`, `title`, `type` and `source`. After a restart or a change of the area, known reports are not announced as new again.
+A `new` event contains `id`, `title`, `type`, `source`, `road`, `direction`, `start`, `end`, `delay_minutes`, `latitude`, `longitude`; an `ended` event `id`, `title`, `type` and `source`. After a restart or a change of the area, known reports are not announced as new again. Traffic jams are only announced as new from the area's jam threshold on (and only then as ended); when the traffic data assigns a new identifier to a jam, it is not announced as a new jam.
 
 ## What you can build with it
 

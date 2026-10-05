@@ -6,7 +6,7 @@ Home-Assistant-Custom-Integration (HACS), Domain `streckenwacht`. Zeigt Baustell
 
 **`docs/HANDOVER.md` ist die vollständige Spezifikation.** Vor jeder größeren Arbeit lesen. Wichtigste Abschnitte: 2 (Datenquellen) inkl. **2b (verifizierte Abweichungen)**, 3 (Datenmodell), 4 (Architektur), 5 (Reihenfolge + Sicherheitshinweis), 6 (Risiken), 7 (HA/HACS-Standards). Abschnitt 10 listet, was entschieden ist und was bewusst offen bleibt.
 
-Stand (2026-10-02): v0.1.0b5 veröffentlicht und auf der produktiven Instanz installiert; README mit Screenshots (assets/screenshots/, Kalenderbild auf `dev`). **Nächste Schritte:** (1) Stau-Kennungs-Messung: Skript fragt Warnungen von A5/A6/A7/A8/A81 ~1 h alle 5 min ab und prüft, ob INRIX für denselben Stau (gleiche Straße/Richtung/Lage) neue Kennungen vergibt; falls ja, „neu/beendet“ für Staus glätten. (2) Release v0.1.0 (erstes stabiles, HACS zeigt dann Versionsnamen). (3) Entwurf Forenbeitrag. Danach Backlog (Handover Abschnitt 14); für neue Datenquellen ist **`docs/DATENQUELLEN.md`** die Planungsgrundlage.
+Stand (2026-10-02): v0.1.0b5 veröffentlicht und auf der produktiven Instanz installiert; README mit Screenshots (assets/screenshots/, Kalenderbild auf `dev`). Stau-Kennungen vermessen (2026-10-05, INRIX vergibt oft neue Kennungen) und „neu/beendet“ für Staus geglättet (`changes.py`, Handover 2b). **Nächste Schritte:** (1) Release v0.1.0 (erstes stabiles, HACS zeigt dann Versionsnamen). (2) Entwurf Forenbeitrag. Danach Backlog (Handover Abschnitt 14); für neue Datenquellen ist **`docs/DATENQUELLEN.md`** die Planungsgrundlage.
 
 ## Verbindliche Entscheidungen (nicht neu diskutieren)
 

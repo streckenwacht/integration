@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
 from homeassistant.components.event import EventEntity
 from homeassistant.config_entries import ConfigSubentry
@@ -10,25 +10,26 @@ from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import StreckenwachtConfigEntry
+from .changes import ENDED, NEW, KnownEvent, diff, learn
 from .const import (
     CONF_AREA_SOURCES,
     CONF_DIRECTIONS,
     CONF_INCLUDE_INRIX,
+    CONF_JAM_THRESHOLD,
     CONF_RADIUS,
     CONF_ROADS,
     DEFAULT_INCLUDE_INRIX,
+    DEFAULT_JAM_THRESHOLD,
     Source,
 )
 from .coordinator import area_subentries
 from .entity import StreckenwachtEntity
-from .model import StreckenwachtEvent
-from .summary import event_attributes
 
 if TYPE_CHECKING:
     from .known_events import KnownEvents
 
-EVENT_NEW = "new"
-EVENT_ENDED = "ended"
+EVENT_NEW = NEW
+EVENT_ENDED = ENDED
 _SOURCES = {source.value for source in Source}
 
 
@@ -46,7 +47,7 @@ async def async_setup_entry(
 
 
 def fingerprint(entry: StreckenwachtConfigEntry, subentry: ConfigSubentry) -> str:
-    """Settings that change which events an area contains.
+    """Settings that change which events an area contains or announces.
 
     If they differ from the stored ones, the known events are rebuilt silently
     instead of announcing dozens of "new" events after reconfiguring.
@@ -62,6 +63,7 @@ def fingerprint(entry: StreckenwachtConfigEntry, subentry: ConfigSubentry) -> st
             ",".join(sorted(data.get(CONF_AREA_SOURCES) or ())),
             ",".join(sorted(data.get(CONF_DIRECTIONS, ()))),
             entry.options.get(CONF_INCLUDE_INRIX, DEFAULT_INCLUDE_INRIX),
+            data.get(CONF_JAM_THRESHOLD, DEFAULT_JAM_THRESHOLD),
         )
     )
 
@@ -72,6 +74,7 @@ class AreaChangeEvent(StreckenwachtEntity, EventEntity):
     The first data of a source is learned silently, and so is everything after
     the area was changed. Sources that have not loaded yet (or failed at
     startup) keep their known events, so an outage never fires "ended".
+    Traffic jams are smoothed, see changes.py.
     """
 
     _attr_translation_key = "change"
@@ -82,8 +85,10 @@ class AreaChangeEvent(StreckenwachtEntity, EventEntity):
         super().__init__(entry, subentry, key)
         self._attr_event_types = [EVENT_NEW, EVENT_ENDED]
         self._fingerprint = fingerprint(entry, subentry)
-        # source -> {event id: [title, type]} (title and type for "ended" events)
-        self._known: dict[Source, dict[str, list[str]]] = {}
+        self._jam_threshold = int(
+            subentry.data.get(CONF_JAM_THRESHOLD, DEFAULT_JAM_THRESHOLD)
+        )
+        self._known: dict[Source, dict[str, KnownEvent]] = {}
 
     @property
     def _store(self) -> KnownEvents:
@@ -95,7 +100,9 @@ class AreaChangeEvent(StreckenwachtEntity, EventEntity):
         stored = self._store.get(self._subentry_id)
         if stored and stored.get("fingerprint") == self._fingerprint:
             self._known = {
-                Source(source): {i: _known_value(v) for i, v in events.items()}
+                Source(source): {
+                    i: KnownEvent.from_stored(v) for i, v in events.items()
+                }
                 for source, events in stored.get("events", {}).items()
                 if source in _SOURCES
             }
@@ -118,24 +125,19 @@ class AreaChangeEvent(StreckenwachtEntity, EventEntity):
             known = self._known.get(source)
             if known is None:
                 # First data of this source for this area: learn silently.
-                self._known[source] = _remember(current)
+                self._known[source] = learn(current, self._jam_threshold)
                 changed = True
                 continue
-            for event_id in sorted(current.keys() - known.keys()):
-                self._fire(EVENT_NEW, event_attributes(current[event_id]))
-            for event_id in sorted(known.keys() - current.keys()):
-                title, event_type = known[event_id]
-                self._fire(
-                    EVENT_ENDED,
-                    {
-                        "id": event_id,
-                        "title": title,
-                        "type": event_type or None,
-                        "source": source.value,
-                    },
-                )
-            if current.keys() != known.keys():
-                self._known[source] = _remember(current)
+            changes, new_known = diff(known, current, self._jam_threshold)
+            for change in changes:
+                attributes = change.attributes
+                if change.kind == ENDED:
+                    attributes = {**attributes, "source": source.value}
+                # One state write per event, so automations see each of them.
+                self._trigger_event(change.kind, attributes)
+                self.async_write_ha_state()
+            if new_known != known:
+                self._known[source] = new_known
                 changed = True
 
         # Sources that were switched off: forget them without announcements.
@@ -148,21 +150,9 @@ class AreaChangeEvent(StreckenwachtEntity, EventEntity):
                 self._subentry_id,
                 {
                     "fingerprint": self._fingerprint,
-                    "events": {s.value: e for s, e in self._known.items()},
+                    "events": {
+                        s.value: {i: k.to_stored() for i, k in e.items()}
+                        for s, e in self._known.items()
+                    },
                 },
             )
-
-    def _fire(self, event_type: str, attributes: dict[str, Any]) -> None:
-        self._trigger_event(event_type, attributes)
-        self.async_write_ha_state()
-
-
-def _remember(events: dict[str, StreckenwachtEvent]) -> dict[str, list[str]]:
-    return {i: [e.title, e.event_type.value] for i, e in events.items()}
-
-
-def _known_value(value: Any) -> list[str]:
-    """Stored [title, type]; versions up to 0.1.0b3 stored only the title."""
-    if isinstance(value, list) and len(value) == 2:
-        return [str(value[0]), str(value[1])]
-    return [str(value), ""]
