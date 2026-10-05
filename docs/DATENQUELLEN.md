@@ -1,55 +1,84 @@
-# Weitere Datenquellen – Recherche (Stand 2026-10-02)
+# Weitere Datenquellen – Recherche (Stand 2026-10-05)
 
 Planungsgrundlage für die Erweiterung **nach v0.1.0**. Ziel: mehr Abdeckung außerhalb von Baden-Württemberg.
 
-**„Geprüft“** heißt: am 2026-10-02 live ohne Anmeldung abgerufen, Format und Lizenz bestätigt. **Noch nicht** analysiert: Datenfelder, Datumsformate, tatsächlicher Aktualisierungsrhythmus. Vor jeder Zusage wie bei Stuttgart zuerst Fixtures ziehen (`tools/fetch_fixtures.py` erweitern) und gegen die Daten entwickeln (CLAUDE.md, Regel 1).
+**Legende:** ✅ geprüft = live ohne Anmeldung abgerufen, Format bestätigt · 🔎 Probe analysiert = zusätzlich Felder/Umfang ausgewertet · ⚠️ teilweise/ungeprüft · ❌ nicht nutzbar (nur Mobilithek mit Freigabe bzw. nur Webseite) · ❓ nichts gefunden (Suche nicht abschließend).
+
+Vor jeder Zusage wie bei Stuttgart zuerst Fixtures ziehen (`tools/fetch_fixtures.py` erweitern) und gegen die Daten entwickeln (CLAUDE.md, Regel 1). Rohproben liegen bisher nur lokal.
 
 ## Kernerkenntnisse
 
-1. **Bundesländer liefern fast nur über die Mobilithek (DATEX II).** Der Abruf dort erfordert meist Abonnement + **eigenes X.509-Client-Zertifikat je Datenabnehmer** ([Technische Schnittstellenbeschreibung](https://mobilithek.info/cms/assets/1e4c3f3d-e6c5-4844-a11d-7dd589bb9133?download=)). Für eine HACS-Integration nicht praktikabel: Jeder Nutzer müsste sich selbst registrieren; ein mitgeliefertes Zertifikat weiterzugeben wäre unzulässig. Ausnahme nur, wenn ein Angebot ausdrücklich ohne Registrierung abrufbar ist – pro Angebot prüfen.
-2. **Städte sind ergiebiger.** Viele veröffentlichen offen – oft wie Stuttgart über GeoServer/WFS mit GeoJSON-Ausgabe. Das spricht für einen **generischen Stadt-Provider** mit einer kleinen, deklarativen Feldzuordnung je Stadt statt eigenem Code pro Stadt (Felder für Titel, Straße, Start/Ende, Auswirkung, ID; Datums-Parser wiederverwenden aus `providers/stuttgart.py`).
+1. **Mobilithek ist für HACS nicht nutzbar.** Per Mobilithek-Metadaten-API (`https://mobilithek.info/mdp-api/mdp-msa-metadata/v2/offers/<id>`) geprüft: **alle 16** gefundenen Baustellen-Angebote (Bayern, Niedersachsen, Sachsen, Thüringen, Bremen, NRW/LVZ, Hessen C-ITS, Hamburg LSBG, Berlin, Köln, Leipzig, Hannover, Kreis Unna, Rüsselsheim …) haben `mdpBrokering=True`, `providerApprovalRequired=True` und **keine** direkte `accessUrl` – auch wenn die Lizenz „Open Data“ lautet. Abruf nur mit Abonnement, Freigabe durch den Anbieter und X.509-Client-Zertifikat je Datenabnehmer ([Schnittstellenbeschreibung](https://mobilithek.info/cms/assets/1e4c3f3d-e6c5-4844-a11d-7dd589bb9133?download=)).
+2. **Drei Bundesländer bieten offene, landesweite Schnittstellen:** Sachsen (GeoJSON-ZIP), **Brandenburg** (WFS) und **Sachsen-Anhalt** (WFS, inkl. Gemeindestraßen in Magdeburg/Halle).
+3. **Viele Städte veröffentlichen offen**, überwiegend per GeoServer-WFS mit GeoJSON-Ausgabe, einige per ArcGIS-REST. Für Streckenwacht naheliegend: **ein generischer WFS/GeoJSON-Provider** mit deklarativer Feldzuordnung je Quelle, später ein zweiter Adapter für ArcGIS-REST.
+4. **Fundstelle:** Die GovData-CKAN-API (`https://www.govdata.de/ckan/api/3/action/package_search?q=baustellen&rows=1000`) bündelt viele kommunale Portale – gut zum Wiederholen der Recherche.
 
 ## Bundesländer
 
-| Land | Offen ohne Anmeldung? | Details / Endpunkt |
+| Land | Stand | Details |
 |---|---|---|
 | Baden-Württemberg | ✅ umgesetzt | MobiData BW |
-| **Sachsen** | ✅ geprüft | Landesweit (Autobahn bis Kreisstraße), Vollsperrungen > 1 Tag, halbseitige Sperrungen, Einbahnregelungen. GeoJSON als ZIP: `http://www.list.smwa.sachsen.de/gdi/download/baustelleninfo/Baustelleninfo_Sachsen_geojson.zip`, WMS: `https://geodienste.sachsen.de/wms_list_baustellen/guest?` ([Datendienste](https://www.baustellen.sachsen.de/baustellendaten-dienste-3997.html), [LASuV](https://www.lasuv.sachsen.de/baustelleninfosys-7937.html)). Grenzgebiet inkl. Thüringer Daten. **Bester Kandidat für ein weiteres Land.** |
-| Berlin, Hamburg | ✅ geprüft | siehe Städte |
-| Bayern | ❌ Mobilithek | BayernInfo (VIZ-BY) führt Autobahn, Bundes-, Staats-, Kreis- und Gemeindestraßen zusammen – sehr gute Daten, aber DATEX II nur über Mobilithek ([BayernInfo](https://www.bayerninfo.de/en/about-bayerninfo-1/data-offer/private-transport-data), [GovData](https://www.govdata.de/suche/daten/baustellenmeldungen-in-bayern), [Mobilithek-Praxisbeispiel](https://mobilithek.info/blog/praxisbeispiel-verkehrsmanagement-bayern)) |
-| Hessen | ❌ Mobilithek | Hessen Mobil; keine offene Direktschnittstelle gefunden |
-| Rheinland-Pfalz | ❌ Mobilithek | SperrinfoSys → Mobilithek ([Mobilitätsatlas](https://lbm.rlp.de/themen/verkehrssteuerung/mobilitaetsatlas)) |
-| Niedersachsen | ❌ Mobilithek | NLStBV-Datensätze zu Langzeitbaustellen bei GovData gelistet – Zugang prüfen ([NLStBV](https://www.strassenbau.niedersachsen.de/startseite/service/downloads/), [GovData](https://data.gov.de/suche?publisher=Nieders%C3%A4chsische+Landesbeh%C3%B6rde+f%C3%BCr+Stra%C3%9Fenbau+und+Verkehr)) |
-| NRW (Landesstraßen) | ❌ / unklar | Straßen.NRW koordiniert über TIC Kommunal; offen sind vor allem Städte ([Open.NRW](https://ckan-open-nrw.nrw.de/en/dataset/baustellen-ms)) |
-| Brandenburg | ❌ Karte / Mobilithek | [Baustellen-Informationssystem](https://service.brandenburg.de/service/de/aktuelles/detail/~19-02-2025-baustellen-informationssystem) |
-| Schleswig-Holstein | ❌ Karte | DANord ([LBV.SH](https://www.schleswig-holstein.de/DE/landesregierung/ministerien-behoerden/LBVSH/Service/Baustellen)) |
-| Mecklenburg-Vorpommern | ❌ Mobilithek | [LS M-V Mobilitätsdaten](https://www.strassen-mv.de/de/verkehrsinfos/mobilit%C3%A4tsdaten/), [GeoPortal M-V](https://www.geoportal-mv.de/portal/Suche/Metadatenuebersicht/Details/Verkehrsinformationen%20Landesamt%20f%C3%BCr%20Stra%C3%9Fenbau%20und%20Verkehr%20M-V/351b7557-8f54-4989-aa72-f4727d0ed59e) |
-| Thüringen, Sachsen-Anhalt, Saarland, Bremen | ❌ nichts Offenes gefunden | Webseiten bzw. Mobilithek ([VMZ Bremen](https://vmz.bremen.de/baustellen/aktuell)) |
+| **Sachsen** | ✅ | Landesweit (Autobahn bis Kreisstraße), GeoJSON-ZIP `http://www.list.smwa.sachsen.de/gdi/download/baustelleninfo/Baustelleninfo_Sachsen_geojson.zip`, WMS `https://geodienste.sachsen.de/wms_list_baustellen/guest` ([Datendienste](https://www.baustellen.sachsen.de/baustellendaten-dienste-3997.html)). Grenzgebiet inkl. Thüringer Daten. |
+| **Brandenburg** | ✅ 🔎 | WFS `https://isk.geobasis-bb.de/ows/baustelleninfo_wfs`, Layer `app:baustelleninfo`, `OUTPUTFORMAT=application/geo+json`. Bundes-, Landes- und Kreisstraßen. Probe: 417 Abschnitte (LineString), 1,3 MB, ISO-Daten. |
+| **Sachsen-Anhalt** | ✅ 🔎 | WFS `https://service.ifak.eu/sperrinfo/wfs` (Sperrinfo LSA), Layer `ms:roadworks` (Flächen), `ms:roadwork_symbols` (Punkte), `ms:diversions` (Umleitungen); **`OUTPUTFORMAT=geojson`** (nicht `application/json`). Probe: 105 Baustellen inkl. Gemeindestraßen, ISO-Daten, Umleitungstext. |
+| Berlin, Hamburg | ✅ 🔎 | siehe Städte (Stadtstaaten) |
+| Bayern | ❌ | Nur Mobilithek, Lizenz „eingeschränkte Nutzung, kostenfrei“. Die BayernInfo-ZIP-Datei bei open.bydata ist nur eine Referenzdatei, kein aktueller Datenstand. |
+| Niedersachsen, Thüringen, Bremen | ❌ | nur Mobilithek mit Freigabe |
+| NRW (Landesstraßen) | ❌ | LVZ.NRW nur Mobilithek mit Freigabe; offen sind viele Städte |
+| Hessen | ❌ | Hessen Mobil nur C-ITS-Angebot in der Mobilithek; offen ist Frankfurt |
+| Rheinland-Pfalz | ❌ | SperrinfoSys → Mobilithek ([Mobilitätsatlas](https://lbm.rlp.de/themen/verkehrssteuerung/mobilitaetsatlas)) |
+| Schleswig-Holstein | ❓ | nur Kartenportal DANord; offen: Norderstedt (WFS) |
+| Mecklenburg-Vorpommern | ❓ | nur Mobilithek/Geoportal; offen: Rostock |
+| Saarland | ❓ | nichts gefunden |
 
-## Städte (die größten zuerst)
+## Die 50 größten Städte
 
-| Stadt | Stand | Lizenz | Endpunkt / Details |
+BW-Städte sind teilweise schon über MobiData BW abgedeckt (Gemeindestraßen nur vereinzelt).
+
+| # | Stadt | Stand | Quelle / Endpunkt |
 |---|---|---|---|
-| **Berlin** | ✅ geprüft (GeoJSON live) | DL-DE-BY 2.0 | `https://api.viz.berlin.de/geoserver/mdhwfs/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=baustellen_sperrungen&outputFormat=application/json&srsName=EPSG:4326` – nur Meldungen „von besonderem verkehrlichem Interesse“ (redaktionell, VIZ) ([GovData](https://www.govdata.de/suche/daten/baustellen-sperrungen-und-sonstige-storungen-von-besonderem-verkehrlichem-interesse)) |
-| **Hamburg** | ✅ geprüft (WFS) | prüfen | `https://geodienste.hamburg.de/hh_wfs_baustellen` – Baustellenprofile aus „Bauweiser“, GeoJSON-Ausgabe verfügbar ([Metaver](https://metaver.de/trefferanzeige?docuuid=F67E2668-DD51-4BE1-B176-7719FFB946CD)) |
-| **München** | ✅ geprüft | DL-DE-BY 2.0 | WFS `https://geoportal.muenchen.de/geoserver/mor_wfs/ows` (GeoJSON/CSV/GML), täglich, Vorschau 4 Wochen; Schwerpunkt Innenstadt + Hauptstraßen ([Open Data](https://opendata.muenchen.de/dataset/baustellen_4_weeks_opendata)) |
-| **Köln** | ✅ geprüft | DL-DE-Zero 2.0 | WFS `https://geoportal.stadt-koeln.de/wss/service/baustellen_wfs/guest`; zusätzlich „Verkehrsbeeinträchtigungen“ als JSON ([Offene Daten Köln](https://offenedaten-koeln.de/dataset/baustellen-koeln)) |
-| Frankfurt | ⚠️ ungeprüft | prüfen | „Verkehrsmeldungen“ (XML/API) im Portal; DATEX II über die Mobilitätsdatenplattform der Verkehrszentrale ([Offene Daten](https://www.offenedaten.frankfurt.de/dataset?tags=Verkehrsdaten), [Mainziel](https://mz.firmazwei.de/wir-fuer-sie/datenweitergabe)) |
-| Stuttgart | ✅ umgesetzt | CC BY 4.0 | |
-| Düsseldorf | ❓ | | nichts gefunden |
-| **Leipzig** | ✅ geprüft | prüfen | WFS `https://geodienste.leipzig.de/l3/OpenData/...` (GeoJSON/CSV), Verkehrsraumeinschränkungen als Punkte, laufend ([Open Data](https://opendata.leipzig.de/dataset/verkehrsraumeinschrankungen-punkte-stadt-leipzig)) |
-| Dortmund, Essen | ❓ | | nichts gefunden; Ruhr-Portal enthält nur Herne/Duisburg |
-| Dresden | ⚠️ ungeprüft | | Verkehrseinschränkungen im Themenstadtplan, WFS-Infrastruktur vorhanden ([Themenstadtplan](https://www.dresden.de/de/rathaus/dienstleistungen/TSP-Themenuebersicht.php)) |
-| Hannover, Nürnberg, Bremen | ❌ | | nur Webseiten/Karten |
-| Duisburg | ⚠️ ungeprüft | | [opendata.rvr.ruhr](https://opendata.rvr.ruhr/dataset/baustellen-in-duisburg) |
+| 1 | **Berlin** | ✅ 🔎 | VIZ: WFS `https://api.viz.berlin.de/geoserver/mdhwfs/wfs` (`baustellen_sperrungen`) oder direkt `https://api.viz.berlin.de/daten/baustellen_sperrungen_viz.json`; DL-DE-BY 2.0 |
+| 2 | **Hamburg** | ✅ 🔎 | WFS `https://geodienste.hamburg.de/hh_wfs_baustellen` (`de.hh.up:baustelle`) |
+| 3 | **München** | ✅ 🔎 | WFS `https://geoportal.muenchen.de/geoserver/mor_wfs/ows` (`mor_wfs:baustellen_opendata`); DL-DE-BY 2.0 |
+| 4 | **Köln** | ✅ | WFS `https://geoportal.stadt-koeln.de/wss/service/baustellen_wfs/guest` (DL-DE-Zero); zusätzlich ArcGIS „Verkehrskalender“ `https://geoportal.stadt-koeln.de/arcgis/rest/services/verkehr/verkehrskalender/MapServer/0/query?where=1%3D1&outFields=*&f=geojson` |
+| 5 | **Frankfurt** | ✅ 🔎 | WFS `https://geowebdienste.frankfurt.de/Baustellen`, Layer `opendata_verkehr:Baustellen` und `opendata_verkehr:Verkehrsmeldungen` |
+| 6 | Stuttgart | ✅ umgesetzt | |
+| 7 | Düsseldorf | ❓ | |
+| 8 | **Leipzig** | ✅ | WFS `https://geodienste.leipzig.de/l3/OpenData/wfs` (`OpenData:verkehrsraumeinschraenkungen`, `…_point`) |
+| 9 | **Dortmund** | ✅ 🔎 | `https://open-data.dortmund.de/api/v2/catalog/datasets/fb66-baustellen-tagesaktuell/exports/geojson` (+ `…-geplant`, Flächen-Varianten); DL-DE-Zero |
+| 10 | Essen | ❓ | |
+| 11 | Bremen | ❌ | nur Mobilithek / Webseite VMZ |
+| 12 | Dresden | ⚠️ | über Sachsen landesweit (Bundes- bis Kreisstraßen); städtische Daten nur im Themenstadtplan |
+| 13 | Hannover | ❌ | Verkehrsmeldungen nur Mobilithek |
+| 14 | Nürnberg | ❓ | nur Webseite |
+| 15 | **Duisburg** | ✅ | ArcGIS-REST `https://geoportal2.duisburg.de/arcgisserver/rest/services/Masterportal/MP_Verkehrsportal/MapServer/2/query` („nächste 7 Tage“) |
+| 16 | **Bochum** | ✅ | ArcGIS-REST `https://geoservicekkm.bochum.de/arcgis/rest/services/maponline/Baustellen/MapServer` |
+| 17 | Wuppertal | ❓ | |
+| 18 | Bielefeld | ⚠️ | „Verkehrsmeldungen“ (CSV/XML) bei open-data.bielefeld.de, ungeprüft |
+| 19 | **Bonn** | ⚠️ | GeoJSON tagesaktuell + Planung ([Open.NRW](https://ckan.open.nrw.de/dataset/baustellen-tagesaktuell-mit-ortsangabe-in-bonn-bn)), Endpunkt ungeprüft |
+| 20 | **Münster** | ✅ | GeoJSON ([Open Data](https://opendata.stadt-muenster.de/dataset/baustellen)) |
+| 21 | Mannheim | ⚠️ | nur über MobiData BW (teilweise) |
+| 22 | **Karlsruhe** | ✅ | WFS `https://mobil.trk.de/geoserver/TBA/ows` (aktuell + Vorschau), DATEX, GraphQL; CC BY 4.0 |
+| 23–26 | Augsburg, Wiesbaden, Mönchengladbach, Gelsenkirchen | ❓ | |
+| 27 | **Aachen** | ✅ | WFS `https://bsis.aachen.de/geoserver/ows` (`BSIS:PUNKTE_ALLE`, GeoJSON) |
+| 28 | Braunschweig | ❓ | |
+| 29 | Kiel | ❌ | nur Webseite |
+| 30 | Chemnitz | ⚠️ | über Sachsen landesweit |
+| 31 | **Halle (Saale)** | ✅ | über Sachsen-Anhalt landesweit (inkl. Gemeindestraßen) |
+| 32 | **Magdeburg** | ✅ | über Sachsen-Anhalt landesweit (inkl. Gemeindestraßen) |
+| 33 | Freiburg | ⚠️ | nur über MobiData BW (teilweise) |
+| 34–35 | Krefeld, Mainz | ❓ | |
+| 36 | Lübeck | ⚠️ | Datensatz „Baustellen/Maßnahmen“ erwähnt, maschinenlesbarer Zugang nicht bestätigt |
+| 37 | Erfurt | ❌ | Thüringen nur Mobilithek |
+| 38 | Oberhausen | ❓ | |
+| 39 | **Rostock** | ✅ | `https://geo.sv.rostock.de/download/opendata/baustellen/baustellen.json` (auch CSV/GML) |
+| 40–41 | Kassel, Hagen | ❓ | |
+| 42 | Potsdam | ⚠️ | über Brandenburg landesweit (nur Bundes-/Landes-/Kreisstraßen); Stadt nur Webseite |
+| 43 | Saarbrücken | ❓ | |
+| 44–49 | Hamm, Ludwigshafen, Oldenburg, Mülheim, Osnabrück, Leverkusen | ❓ | |
+| 50 | Heidelberg / Darmstadt | ⚠️ / ❓ | Heidelberg-JSON-Adresse aus dem Katalog liefert 404 |
 
-Kleinere Städte mit offenen GeoJSON-Daten:
-
-- **Karlsruhe** ✅ geprüft – CC BY 4.0; WFS `https://mobil.trk.de/geoserver/TBA/ows` (aktuell + Vorschau), DATEX II `https://mobil.trk.de/datex/datex.xml`, GraphQL `https://mobil.trk.de/graphiql` ([Transparenzportal](https://transparenz.karlsruhe.de/dataset/baustellen)). Liegt in BW – prüfen, ob schon in MobiData enthalten.
-- **Münster** – GeoJSON ([Open Data](https://opendata.stadt-muenster.de/dataset/baustellen))
-- **Bonn** – GeoJSON, tagesaktuell + Planung 30 Tage/1 Jahr ([Open.NRW](https://ckan.open.nrw.de/dataset/baustellen-tagesaktuell-mit-ortsangabe-in-bonn-bn))
-- **Herne** ✅ geprüft – WFS `https://geodaten.herne.de/geoserver/verkehr/baustellen` ([opendata.ruhr](https://opendata.ruhr/dataset/baustellen))
-- **Rostock** – GeoJSON ([OpenData.HRO](https://www.opendata-hro.de/dataset/baustellen))
+Weitere offene Quellen kleinerer Städte: **Ingolstadt** (GeoJSON, 14 Tage, **EPSG:25832** – Umrechnung nötig), **Herne** (WFS), **Soest** (GeoJSON), **Wesel** (CSV/Shape), **Norderstedt** (WFS `https://geoservice.norderstedt.de/geoserver/vms/ows`, `vms:stvkinfoweb`), Trebbin (WFS).
 
 ## Vorerkundung Berlin, Hamburg, München (2026-10-05)
 
@@ -73,10 +102,24 @@ Echte Antworten abgerufen (nur lokal im Scratchpad, noch keine Fixtures im Repo)
 - **Hamburg** ist gröber (Projektebene) und eher eine Ergänzung.
 - Ein **generischer Provider** ist realistisch: gleiche Technik (WFS/GeoJSON), Unterschiede nur in Feldzuordnung, Typ-/Schwere-Abbildung und optionalem Vorfilter.
 
+## Vorerkundung Brandenburg, Sachsen-Anhalt, Frankfurt, Dortmund (2026-10-05)
+
+| | Brandenburg | Sachsen-Anhalt | Frankfurt | Dortmund |
+|---|---|---|---|---|
+| Umfang | 417 Abschnitte, 1,3 MB | 105 Baustellen, 65 KB | 269 Baustellen (316 KB) + 5 Verkehrsmeldungen | 164 tagesaktuell, 12 KB |
+| Geometrie | `LineString` | `Point` (Flächen im Layer `ms:roadworks`) | `MultiPolygon` / `MultiLineString` | `Point` |
+| Art / Schwere | `Art` (Bauabschnitt/Sperrung), `Status_Fahrstreifen`, `Anzahl_Fahrstreifen_gesperrt` | `kind_description`: Vollsperrung, halbseitige Sperrung, Verkehrsraumeinschränkung …; `street_class` (L/K/G …) | `sperrung` 0/1, `meldung` (Baustelle/Wanderbaustelle), englische Texte vorhanden | Freitext im Titel („// Vollsperrung“) |
+| Zeiten | `Baustellen_Beginn`/`_Ende` (ISO) | `from_date`/`to_date` (ISO) | `startevent`/`endevent` (ISO mit Uhrzeit, UTC) | `von`/`bis` (ISO) |
+| ID | `ID` | `feature_id` | `baustellennummer` | – (prüfen) |
+| Extras | Straßennummer, Länge, Netzknoten | Ort, Ursache, **Umleitung** | Verkehrsmeldungen inkl. Veranstaltungen (z. B. Marathon) | Auftraggeber, Stadtbezirk |
+
+Alle vier sind sauber strukturiert und kommen ohne Freitext-Datumsparsing aus.
+
 ## Empfohlene Reihenfolge (nach v0.1.0)
 
-1. **Generischer Stadt-Provider** (WFS/GeoJSON + Feldzuordnung je Stadt) mit **Berlin, Hamburg, München** – größte Reichweite. Danach Köln, Leipzig, Münster, Bonn u. a. überwiegend per Konfiguration.
-2. **Sachsen** als zweites Bundesland (GeoJSON-ZIP; Download-Größe und Aktualisierungsrhythmus prüfen, ETag/Last-Modified nutzen).
-3. **Mobilithek-Länder** (Bayern, Hessen, …) erst, wenn ein Zugang ohne Zertifikat je Nutzer existiert – Anfrage beim Mobilithek-Betreiber bzw. den Ländern wäre der nächste Schritt.
+1. **Generischer WFS/GeoJSON-Provider** mit Feldzuordnung je Quelle und optionalem Vorfilter (CQL) bzw. Begrenzungsrechteck je Bereich. Erste Quellen nach Reichweite und Datenqualität: **Berlin, Brandenburg, Sachsen-Anhalt, Frankfurt** (alle sehr gut strukturiert), dann **München** (mit Relevanzfilter), **Hamburg**, Dortmund, Leipzig, Köln, Aachen, Karlsruhe, Münster, Rostock.
+2. **Sachsen** (GeoJSON-ZIP; Größe und Rhythmus prüfen, `Last-Modified` nutzen).
+3. **ArcGIS-REST-Adapter** für Duisburg, Bochum und Kölns Verkehrskalender.
+4. **Mobilithek-Länder** erst, wenn ein Zugang ohne Zertifikat und Freigabe je Nutzer existiert.
 
-Querschnittsthemen bei mehr Quellen: Deduplizierung nur bei gleicher Straße (Handover Abschnitt 6), Attribution je Quelle (`const.ATTRIBUTION`), Quellenauswahl im Config-Flow gruppieren (Länder/Städte), Standardauswahl nach HA-Standort.
+Querschnittsthemen bei mehr Quellen: Überschneidungen (Berlin enthält Autobahnmeldungen, MobiData einzelne A-Abschnitte) – Deduplizierung nur bei gleicher Straße (Handover Abschnitt 6); Attribution je Quelle (`const.ATTRIBUTION`); Quellenauswahl im Config-Flow gruppieren (Länder/Städte) und nach HA-Standort vorauswählen; keine der neuen Quellen liefert ETags – Abrufintervall bzw. Serverfilter beachten.
