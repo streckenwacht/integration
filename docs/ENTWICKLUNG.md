@@ -1,6 +1,6 @@
 # Streckenwacht – Entwicklerdokumentation
 
-Wie Streckenwacht gebaut ist, was man über die Datenquellen wissen muss und warum Dinge so entschieden wurden. **Maßgeblich ist der Code**; dieses Dokument erklärt, was dort nicht steht. Weitere Dokumente: [`DATENQUELLEN.md`](DATENQUELLEN.md) (Recherche zu neuen Quellen), [`BRAND.md`](BRAND.md) (Bilder, Farben). Die ursprüngliche Spezifikation (`docs/HANDOVER.md`) liegt in der Git-Historie bis Version 0.1.0.
+Wie Streckenwacht gebaut ist, was man über die Datenquellen wissen muss und warum Dinge so entschieden wurden. **Maßgeblich ist der Code**; dieses Dokument erklärt, was dort nicht steht. Weitere Dokumente: [`DATENQUELLEN.md`](DATENQUELLEN.md) (Recherche zu neuen Quellen), [`BRAND.md`](BRAND.md) (Bilder, Farben).
 
 ## 1. Architektur
 

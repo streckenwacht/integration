@@ -28,7 +28,7 @@ config/
 *.log
 
 # Real INRIX traffic data (Autobahn warnings): local only, not redistributed.
-# Tests use an inline example; see docs/HANDOVER.md, section 6.
+# Tests use an inline example; see docs/ENTWICKLUNG.md, section 4.
 tests/fixtures/autobahn_*_warning.json
 
 # Browser automation logs (Playwright MCP)
