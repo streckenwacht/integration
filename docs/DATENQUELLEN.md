@@ -51,6 +51,28 @@ Kleinere Städte mit offenen GeoJSON-Daten:
 - **Herne** ✅ geprüft – WFS `https://geodaten.herne.de/geoserver/verkehr/baustellen` ([opendata.ruhr](https://opendata.ruhr/dataset/baustellen))
 - **Rostock** – GeoJSON ([OpenData.HRO](https://www.opendata-hro.de/dataset/baustellen))
 
+## Vorerkundung Berlin, Hamburg, München (2026-10-05)
+
+Echte Antworten abgerufen (nur lokal im Scratchpad, noch keine Fixtures im Repo). Alle drei: GeoServer-WFS, GeoJSON in WGS84 per `srsName=EPSG:4326`, **keine ETags** (bedingte Abrufe wie bei Autobahn/MobiData nicht möglich), Datumsangaben überwiegend `dd.mm.yyyy`.
+
+| | Berlin (VIZ) | Hamburg (Bauweiser) | München |
+|---|---|---|---|
+| Abruf | `typename=baustellen_sperrungen`, `outputFormat=application/json` | `typeNames=de.hh.up:baustelle`, `outputFormat=application/geo+json` (WFS 2.0) | `typeName=mor_wfs:baustellen_opendata`, `outputFormat=application/json` |
+| Umfang | 387 Meldungen, ~90 KB gzip (500 KB roh) | 148 Maßnahmen, 355 KB (kein gzip) | 5542 Einträge, ~860 KB gzip (**5,3 MB roh**) |
+| Geometrie | `GeometryCollection` (Punkte/Linien) | `Point` | `Polygon` / `MultiPolygon` |
+| Art | `subtype`: Baustelle 207, Sperrung 124, Bauarbeiten 20, Gefahr 17, Störung 14, Unfall 3, Fahrstreifensperrung 2 | keine Typisierung; Flags `isthotspot`, `istoepnveingeschraenkt`, `istparkraumeingeschraenkt` | `art`: Baumaßnahme 3048, **Vorübergehendes Haltverbot 2494** |
+| Schwere | `severity`: Vollsperrung 54, Fahrtrichtungssperrung 44, keine Sperrung 227 | nur Freitext (`umfang`, `umleitungsbeschreibung`) | `betroffene_bereiche` (Gehweg/Fahrbahn/Radweg), `beeintraechtigung` (Freitext) |
+| Zeiten | `validity` = JSON-String `{"from": "dd.mm.yyyy HH:MM", "to": … \| null}` | `baubeginn`, `bauende` (`dd.mm.yyyy`) | `beginn_datum_kombiniert`, `ende_datum_kombiniert` (`dd.mm.yyyy`) |
+| Stabile ID | `id` (numerisch) | keine eigene – `titel` ist eindeutig, Feature-ID prüfen | `fachliche_id` nur bei 309 Einträgen; sonst Feature-ID prüfen |
+| Charakter | redaktionell kuratiert, verkehrsrelevant, inkl. Unfälle/Störungen; **enthält auch 75 Autobahn-Meldungen** (Berlin + Brandenburger Umland) → Überschneidung mit der Autobahn-API | Großprojekte mit langen Laufzeiten (ähnlich Stuttgart), viel Beschreibungstext | sehr feinkörnig inkl. Gehweg-Baustellen und Halteverbote; nur 1132 Baumaßnahmen betreffen die Fahrbahn |
+
+**Wichtige Befunde:**
+- **WFS kann serverseitig filtern** – anders als die Autobahn-API. München getestet: `CQL_FILTER=art='Baumaßnahme'` halbiert die Daten; `BBOX(shape, lon_min, lat_min, lon_max, lat_max, 'EPSG:4326')` liefert nur den Ausschnitt (Achsenreihenfolge **Länge, Breite**; Geometriefeld heißt je Server anders, z. B. `shape`, steht in `geometry_name`). Ein Stadt-Provider sollte pro Bereich nur dessen Begrenzungsrechteck abfragen.
+- **Berlin passt am besten** zum Streckenwacht-Modell: klare Arten und Sperrgrade, Zeitfenster mit Uhrzeit, kompakt. Erster Kandidat.
+- **München** braucht einen Relevanzfilter (nur `Baumaßnahme` mit `Fahrbahn`, Halteverbote weglassen), sonst überflutet es Bereiche mit Gehweg- und Parkmeldungen.
+- **Hamburg** ist gröber (Projektebene) und eher eine Ergänzung.
+- Ein **generischer Provider** ist realistisch: gleiche Technik (WFS/GeoJSON), Unterschiede nur in Feldzuordnung, Typ-/Schwere-Abbildung und optionalem Vorfilter.
+
 ## Empfohlene Reihenfolge (nach v0.1.0)
 
 1. **Generischer Stadt-Provider** (WFS/GeoJSON + Feldzuordnung je Stadt) mit **Berlin, Hamburg, München** – größte Reichweite. Danach Köln, Leipzig, Münster, Bonn u. a. überwiegend per Konfiguration.
