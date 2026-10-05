@@ -13,7 +13,7 @@ Dieses Dokument war die Ausgangsspezifikation. Die Integration ist inzwischen um
 | 1 Grundgerüst, 2 Autobahn, 3 MobiData BW, 4 Stuttgart | fertig, gegen Fixtures und Live-APIs getestet |
 | 5 Coordinator, Config-Flow mit Subentries, Repairs | fertig |
 | 6 Entities (Kalender, Binärsensor, Sensoren, Event) | fertig |
-| 7 Installation auf der produktiven Instanz per HACS | v0.1.0b1 und v0.1.0b2 laufen |
+| 7 Installation auf der produktiven Instanz per HACS | v0.1.0b1–b5 getestet, v0.1.0 veröffentlicht (2026-10-05) |
 | 8 Politur (README, Diagnose, Handover) | in Arbeit |
 
 **Wichtigste Abweichungen vom ursprünglichen Plan** (Details in den genannten Abschnitten):
