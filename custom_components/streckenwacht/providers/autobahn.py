@@ -2,7 +2,7 @@
 
 The API has no spatial query: data is fetched per motorway and service. It also
 has no end time field; start and end are parsed from the free-text description
-(all known patterns: docs/HANDOVER.md, section 2b).
+(all known patterns: docs/ENTWICKLUNG.md, section 2).
 """
 
 from __future__ import annotations

@@ -1,6 +1,6 @@
 """Which events appeared or ended since the last update. Pure Python, no HA imports.
 
-Traffic jams are smoothed (measured 2026-10-05, see docs/HANDOVER.md 2b):
+Traffic jams are smoothed (measured 2026-10-05, see docs/ENTWICKLUNG.md 2):
 - INRIX reissues the same jam under a new identifier: at a 15-minute poll
   interval about a third of all "new" jams, half of the significant ones. A new
   jam on the same road and direction within CONTINUATION_KM of a vanished one

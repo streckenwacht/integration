@@ -63,7 +63,7 @@ class StreckenwachtEvent:
     impact: str | None = None
     delay_minutes: int | None = None
     # Original data supplier if it differs from the source, e.g. "inrix" for
-    # traffic jams in the Autobahn API (licensing still unclear, see HANDOVER 6).
+    # traffic jams in the Autobahn API; can be switched off (docs/ENTWICKLUNG.md 4).
     upstream: str | None = None
 
     @property

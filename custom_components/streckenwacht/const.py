@@ -65,7 +65,7 @@ SOURCE_NAMES: Final[dict[Source, str]] = {
     Source.STUTTGART: "Stadt Stuttgart",
 }
 
-# Attribution required by the data licenses (see docs/HANDOVER.md, section 8).
+# Attribution required by the data licenses (see docs/ENTWICKLUNG.md, section 4).
 ATTRIBUTION: Final[dict[Source, str]] = {
     Source.AUTOBAHN: "Die Autobahn GmbH des Bundes",
     Source.MOBIDATA_BW: "MobiData BW, Datenlizenz Deutschland – Namensnennung 2.0",

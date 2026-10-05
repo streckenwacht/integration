@@ -9,7 +9,7 @@ Ergebnis: Dateien in tests/fixtures/ plus eine Übersicht tests/fixtures/_index.
 Nur Python-Standardbibliothek, keine Abhängigkeiten.
 
 Endpoints und Layernamen sind gegen die Live-APIs verifiziert (Stand 2026-10-02,
-siehe docs/HANDOVER.md Abschnitt 2b).
+siehe docs/ENTWICKLUNG.md Abschnitt 2).
 """
 
 from __future__ import annotations
@@ -28,7 +28,7 @@ OUT = Path(__file__).resolve().parent.parent / "tests" / "fixtures"
 TIMEOUT = 30
 
 AUTOBAHN_BASE = "https://verkehr.autobahn.de/o/autobahn"
-AUTOBAHN_ROADS = ["A8", "A81"]  # Testfall laut Handover: A8/A81 im Raum Stuttgart
+AUTOBAHN_ROADS = ["A8", "A81"]  # Testfall: A8/A81 im Raum Stuttgart
 AUTOBAHN_SERVICES = ["roadworks", "closure", "warning"]
 
 MOBIDATA_URL = (
