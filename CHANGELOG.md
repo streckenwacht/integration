@@ -4,6 +4,8 @@ Alle Änderungen an Streckenwacht, neueste zuerst. Die Einträge entsprechen den
 
 ## Unveröffentlicht
 
+## 0.9.0 – 2026-10-26
+
 ### Neu
 - **Reisezeitverlust je Fahrtrichtung:** Der Sensor „Reisezeitverlust“ bekommt das Attribut `by_direction` – der größte aktuelle Verlust je Fahrtrichtung („Start -> Ziel“), z. B. `{"Karlsruhe -> Heidelberg": 14, "Heidelberg -> Karlsruhe": 5}`. Ein Bereich enthält meist beide Richtungsfahrbahnen; der Zustand blieb bisher das Maximum über beide, und eine Automation konnte die eigene Richtung nicht herausgreifen. Angaben an Anschlussstellen und Staus ohne Richtung werden nicht aufgeführt (dieselbe Regel wie beim Richtungsfilter der Bereiche). Zustand und bisherige Attribute bleiben unverändert.
 - **Blueprint „Stau-Benachrichtigung“ mit Fahrtrichtung:** Optional zählt nur noch der Stau in der eigenen Richtung (über `by_direction`); das Fahrtziel genügt, z. B. „Heidelberg“. Ohne Angabe verhält sich der Blueprint wie bisher. Wer ihn schon nutzt, holt die neue Fassung über *Blueprint erneut importieren*.

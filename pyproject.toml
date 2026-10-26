@@ -1,6 +1,6 @@
 [project]
 name = "streckenwacht"
-version = "0.8.0"
+version = "0.9.0"
 description = "Home Assistant integration: roadworks, closures, traffic jams and accidents for your routes in Germany."
 readme = "README.md"
 license = "MIT"
