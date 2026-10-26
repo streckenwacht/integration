@@ -236,7 +236,11 @@ async def async_unload_entry(
     hass: HomeAssistant, entry: StreckenwachtConfigEntry
 ) -> bool:
     """Unload a config entry."""
-    return await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
+    unloaded = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
+    if unloaded:
+        # Saved at most hourly: write now, the reload reads the file again.
+        await entry.runtime_data.known_events.async_flush()
+    return unloaded
 
 
 async def async_remove_entry(

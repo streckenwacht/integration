@@ -40,6 +40,8 @@ class DisruptionBinarySensor(TimeDependentEntity, BinarySensorEntity):
     # No device class "problem": HA would show "Problem/OK" instead of "On/Off";
     # the warning icon comes from icons.json.
     _attr_translation_key = "disruption"
+    # The list of disruptions is large: not stored in the recorder database.
+    _unrecorded_attributes = frozenset({"disruptions"})
 
     @property
     def is_on(self) -> bool:

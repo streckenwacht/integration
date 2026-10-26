@@ -322,9 +322,7 @@ async def test_known_events_survive_reload(
     entry = make_entry()
     entity_id = f"event.{PREFIX}_event_change"
     await setup(hass, entry)
-    frozen_time.tick(timedelta(seconds=15))  # let the delayed save run
-    async_fire_time_changed(hass)
-    await hass.async_block_till_done()
+    # No waiting for the hourly save: unloading writes what is pending.
 
     changes = async_capture_events(hass, EVENT_STATE_CHANGED)
     assert await hass.config_entries.async_reload(entry.entry_id)
@@ -338,6 +336,53 @@ async def test_known_events_survive_reload(
         and c.data["old_state"] is not None
         and c.data["new_state"].state != c.data["old_state"].state
     ]
+
+
+async def test_known_events_are_written_at_most_hourly(
+    hass: HomeAssistant,
+    hass_storage: dict,
+    fetch: AsyncMock,
+    frozen_time: FrozenDateTimeFactory,
+) -> None:
+    """Many systems run on SD cards: the file is not rewritten with every poll."""
+    entry = make_entry()
+    key = f"{DOMAIN}.{entry.entry_id}.known_events"
+    await setup(hass, entry)
+    coordinator = entry.runtime_data.coordinators[Source.AUTOBAHN]
+
+    def stored_ids() -> set[str] | None:
+        if key not in hass_storage:
+            return None
+        (area,) = hass_storage[key]["data"].values()
+        return set(area["events"]["autobahn"])
+
+    async def later(minutes: int) -> None:
+        frozen_time.tick(timedelta(minutes=minutes))
+        async_fire_time_changed(hass)
+        await hass.async_block_till_done()
+
+    await later(30)
+    assert stored_ids() is None  # learned, but not yet written
+
+    # Changes within the hour do not postpone the write.
+    fetch.return_value = [ROADWORKS, CLOSURE, PLANNED]  # the jam is gone
+    await coordinator.async_refresh()
+    await hass.async_block_till_done()
+    await later(31)
+    assert stored_ids() == {
+        "autobahn:roadworks",
+        "autobahn:closure",
+        "autobahn:planned",
+    }
+
+    # The next change waits for the next hour again.
+    fetch.return_value = [ROADWORKS, PLANNED]
+    await coordinator.async_refresh()
+    await hass.async_block_till_done()
+    await later(10)
+    assert "autobahn:closure" in stored_ids()
+    await later(51)
+    assert "autobahn:closure" not in stored_ids()
 
 
 async def test_known_events_from_older_version_are_relearned_silently(

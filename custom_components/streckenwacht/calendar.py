@@ -32,6 +32,9 @@ class AreaCalendar(StreckenwachtEntity, CalendarEntity):
     """All events of an area; days with several windows get several entries."""
 
     _attr_name = None  # the device name: "Streckenwacht <area>"
+    # Long text (the source's description plus attribution) of the current
+    # event: not stored in the recorder database.
+    _unrecorded_attributes = frozenset({"description"})
 
     @property
     def event(self) -> CalendarEvent | None:

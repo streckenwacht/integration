@@ -49,6 +49,9 @@ class EventsSensor(TimeDependentEntity, SensorEntity):
 
     _attr_translation_key = "events"
     _attr_state_class = SensorStateClass.MEASUREMENT
+    # Up to 20 events (several KB) that change with nearly every poll: kept
+    # out of the recorder database, which often lives on an SD card.
+    _unrecorded_attributes = frozenset({"events"})
 
     @property
     def native_value(self) -> int:
