@@ -4,6 +4,9 @@ Alle Änderungen an Streckenwacht, neueste zuerst. Die Einträge entsprechen den
 
 ## Unveröffentlicht
 
+### Intern
+- Der wöchentliche Quellen-Check startet nicht mehr bei jedem Release-Tag mit (Pfadfilter gelten für Tags nicht).
+
 ## 0.9.0 – 2026-10-26
 
 ### Neu
