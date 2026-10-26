@@ -3,7 +3,8 @@ blueprint:
   description: >-
     Schickt eine Push-Nachricht an ein Handy mit der Home-Assistant-App, sobald
     der Reisezeitverlust in einem Streckenwacht-Bereich einen Schwellwert
-    überschreitet. Optional nur in einem Zeitfenster (z. B. vor der Fahrt zur
+    überschreitet. Optional nur für eine Fahrtrichtung (die Gegenrichtung
+    stört dann nicht) und nur in einem Zeitfenster (z. B. vor der Fahrt zur
     Arbeit). Voraussetzung: Staumeldungen (INRIX) sind in den Optionen aktiviert.
   domain: automation
   author: Streckenwacht
@@ -30,6 +31,15 @@ blueprint:
           max: 120
           unit_of_measurement: min
           mode: slider
+    direction:
+      name: Fahrtrichtung (optional)
+      description: >-
+        Nur Staus in dieser Richtung zählen. Das Fahrtziel genügt
+        („Heidelberg“), oder die ganze Angabe wie im Attribut „by_direction“
+        des Sensors („Karlsruhe -> Heidelberg“). Leer = alle Richtungen.
+      default: ""
+      selector:
+        text: {}
     notify_device:
       name: Handy
       description: Gerät mit der offiziellen Home-Assistant-App.
@@ -50,13 +60,40 @@ blueprint:
 
 mode: single
 
+trigger_variables:
+  delay_sensor: !input delay_sensor
+  threshold: !input threshold
+  wanted: !input direction
+
+# Without a direction: the sensor state (largest loss in the area). With one:
+# the largest loss among the matching entries of "by_direction" - the whole
+# "Start -> Destination" or just the destination, ignoring case.
 triggers:
-  - trigger: numeric_state
-    entity_id: !input delay_sensor
-    above: !input threshold
+  - trigger: template
+    value_template: >-
+      {%- set want = (wanted or '') | trim | lower %}
+      {%- set loss = namespace(v=0) %}
+      {%- if want %}
+        {%- for key, value in (state_attr(delay_sensor, 'by_direction') or {}).items() %}
+          {%- if key | lower == want or (key | lower).endswith('-> ' ~ want) %}
+            {%- set loss.v = [loss.v, value | int(0)] | max %}
+          {%- endif %}
+        {%- endfor %}
+      {%- else %}
+        {%- set loss.v = states(delay_sensor) | int(0) %}
+      {%- endif %}
+      {{ loss.v > threshold }}
 
 variables:
-  delay_sensor: !input delay_sensor
+  want: "{{ (wanted or '') | trim | lower }}"
+  matches: >-
+    {%- set found = namespace(rows=[]) %}
+    {%- for key, value in (state_attr(delay_sensor, 'by_direction') or {}).items() %}
+      {%- if want and (key | lower == want or (key | lower).endswith('-> ' ~ want)) %}
+        {%- set found.rows = found.rows + [[key, value | int(0)]] %}
+      {%- endif %}
+    {%- endfor %}
+    {{ found.rows | sort(attribute="1", reverse=true) }}
 
 conditions:
   - condition: time
@@ -68,8 +105,13 @@ actions:
     domain: mobile_app
     type: notify
     device_id: !input notify_device
-    title: "Stau: +{{ states(delay_sensor) }} min"
+    title: >-
+      Stau: +{{ matches[0][1] if matches else states(delay_sensor) }} min
     message: >-
-      {{ state_attr(delay_sensor, 'title') or 'Stau im Bereich' }}
-      {%- set direction = state_attr(delay_sensor, 'direction') %}
+      {%- set direction = matches[0][0] if matches else state_attr(delay_sensor, 'direction') %}
+      {%- if not matches or state_attr(delay_sensor, 'direction') == direction %}
+        {{- state_attr(delay_sensor, 'title') or 'Stau im Bereich' }}
+      {%- else %}
+        {{- 'Stau' }}
+      {%- endif %}
       {%- if direction %} ({{ direction }}){% endif %}

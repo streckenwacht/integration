@@ -153,6 +153,46 @@ async def test_traffic_jam_threshold(hass: HomeAssistant) -> None:
     )
 
 
+async def test_traffic_jam_in_one_direction(hass: HomeAssistant) -> None:
+    jam = {"title": "A5 | Bruchsal - Kronau", "direction": "Karlsruhe -> Heidelberg"}
+    hass.states.async_set(DELAY_SENSOR, "0", {"by_direction": {}})
+    calls = await setup_blueprint(
+        hass,
+        "stau_benachrichtigung.yaml",
+        {
+            "delay_sensor": DELAY_SENSOR,
+            "notify_device": "phone",
+            "threshold": 10,
+            "direction": "karlsruhe",  # the destination is enough, any case
+        },
+    )
+    # the other carriageway: no message, although the sensor is above 10
+    hass.states.async_set(
+        DELAY_SENSOR,
+        "25",
+        jam | {"by_direction": {"Karlsruhe -> Heidelberg": 25}},
+    )
+    await hass.async_block_till_done()
+    assert calls == []
+
+    hass.states.async_set(
+        DELAY_SENSOR,
+        "25",
+        jam
+        | {
+            "by_direction": {
+                "Karlsruhe -> Heidelberg": 25,
+                "Heidelberg -> Karlsruhe": 12,
+            }
+        },
+    )
+    await hass.async_block_till_done()
+    assert len(calls) == 1
+    # loss and direction of the chosen carriageway, not of the largest jam
+    assert calls[0].data["title"] == "Stau: +12 min"
+    assert calls[0].data["message"] == "Stau (Heidelberg -> Karlsruhe)"
+
+
 # The template trigger re-evaluates now() every minute: its timer outlives the test.
 @pytest.mark.parametrize("expected_lingering_timers", [True])
 async def test_closure_warning_within_the_lead_time(hass: HomeAssistant) -> None:
