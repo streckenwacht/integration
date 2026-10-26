@@ -59,7 +59,12 @@ def ev(id_: str, event_type: EventType, period: Period, **kwargs) -> Streckenwac
 ROADWORKS = ev("roadworks", EventType.ROADWORKS, Period(NOW - 1000 * H, NOW + 1000 * H))
 CLOSURE = ev("closure", EventType.CLOSURE, Period(NOW - H, NOW + 5 * H))
 JAM = ev(
-    "jam", EventType.TRAFFIC_JAM, Period(NOW - H), delay_minutes=25, upstream="inrix"
+    "jam",
+    EventType.TRAFFIC_JAM,
+    Period(NOW - H),
+    direction="Karlsruhe -> Stuttgart",
+    delay_minutes=25,
+    upstream="inrix",
 )
 PLANNED = ev("planned", EventType.CLOSURE, Period(NOW + 10 * H, NOW + 12 * H))
 EVENTS = [ROADWORKS, CLOSURE, JAM, PLANNED]
@@ -159,7 +164,10 @@ async def test_entities_and_device(
     assert events.attributes["by_source"] == {"autobahn": 3}
     assert events.attributes["unavailable_sources"] == []
 
-    assert hass.states.get(f"sensor.{PREFIX}_travel_time_loss").state == "25"
+    delay = hass.states.get(f"sensor.{PREFIX}_travel_time_loss")
+    assert delay.state == "25"
+    assert delay.attributes["direction"] == "Karlsruhe -> Stuttgart"
+    assert delay.attributes["by_direction"] == {"Karlsruhe -> Stuttgart": 25}
     assert hass.states.get(f"calendar.{PREFIX}").state == STATE_ON
     markers = {
         s.attributes["event_id"]: s

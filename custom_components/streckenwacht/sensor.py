@@ -21,7 +21,7 @@ from .const import CONF_INCLUDE_INRIX, DEFAULT_INCLUDE_INRIX, Source
 from .coordinator import area_subentries
 from .entity import TimeDependentEntity
 from .model import EventType
-from .summary import active, listed, max_delay, next_closure
+from .summary import active, delays_by_direction, listed, max_delay, next_closure
 
 
 async def async_setup_entry(
@@ -83,12 +83,14 @@ class TravelTimeLossSensor(TimeDependentEntity, SensorEntity):
 
     @property
     def extra_state_attributes(self) -> dict[str, Any]:
-        """The event causing the delay."""
-        _, event = max_delay(self.area_events, dt_util.utcnow())
+        """The event causing the delay, and the largest delay per direction."""
+        now = dt_util.utcnow()
+        _, event = max_delay(self.area_events, now)
         return {
             "title": event.title if event else None,
             "road": event.road if event else None,
             "direction": event.direction if event else None,
+            "by_direction": delays_by_direction(self.area_events, now),
             "unavailable_sources": self.unavailable_sources,
         }
 

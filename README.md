@@ -151,7 +151,7 @@ Beispiel für den Bereich „Arbeitsweg“ (Gerät *Streckenwacht Arbeitsweg*). 
 | `calendar.streckenwacht_arbeitsweg` | Streckenwacht Arbeitsweg | Alle Meldungen als Termine |
 | `binary_sensor.streckenwacht_arbeitsweg_disruption_active` | Störung aktiv | An bei aktiver Sperrung, Unfall oder Stau ab der eingestellten Schwelle. Sperrungen, deren aktuelles Zeitfenster länger als 30 Tage ist, zählen nur in ihrer ersten Woche (danach bleiben sie im Kalender und unter „Ereignisse“). Attribute: `count`, `disruptions` |
 | `sensor.streckenwacht_arbeitsweg_events` | Ereignisse | Anzahl aktiver Meldungen. Attribute: Anzahl je Typ, `by_source`, `events` (bis zu 20, schwerste zuerst) |
-| `sensor.streckenwacht_arbeitsweg_travel_time_loss` | Reisezeitverlust | Größter aktueller Reisezeitverlust in Minuten (nur mit Staumeldungen) |
+| `sensor.streckenwacht_arbeitsweg_travel_time_loss` | Reisezeitverlust | Größter aktueller Reisezeitverlust in Minuten (nur mit Staumeldungen). Attribute: `title`, `road`, `direction` der Meldung mit dem größten Verlust; `by_direction` = größter Verlust je Fahrtrichtung („Start -> Ziel“, ohne Anschlussstellen), z. B. `{"Karlsruhe -> Heidelberg": 14, "Heidelberg -> Karlsruhe": 5}` – so lässt sich die eigene Richtungsfahrbahn herausgreifen |
 | `sensor.streckenwacht_arbeitsweg_next_closure` | Nächste Sperrung | Beginn der nächsten geplanten Sperrung (innerhalb von 14 Tagen) als Zeitstempel. Attribute: `title`, `road`, `direction`, `end`, `source` |
 | `event.streckenwacht_arbeitsweg_event_change` | Ereignisänderung | Event-Typ `new` oder `ended` |
 
