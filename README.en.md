@@ -153,7 +153,7 @@ Example for an area named "Commute" (device *Streckenwacht Commute*). Entity IDs
 | `calendar.streckenwacht_commute` | Streckenwacht Commute | All reports as calendar entries |
 | `binary_sensor.streckenwacht_commute_disruption_active` | Disruption active | On while a closure, accident or traffic jam above the configured threshold is active. Closures whose current time window is longer than 30 days only count during their first week (they stay in the calendar and under "Events"). Attributes: `count`, `disruptions` |
 | `sensor.streckenwacht_commute_events` | Events | Number of active reports. Attributes: count per type, `by_source`, `events` (up to 20, most severe first) |
-| `sensor.streckenwacht_commute_travel_time_loss` | Travel time loss | Largest current travel time loss in minutes (only with traffic jam data). Attributes: `title`, `road`, `direction` of the report with the largest loss; `by_direction` = largest loss per route direction ("Start -> Destination", ramps excluded), e.g. `{"Karlsruhe -> Heidelberg": 14, "Heidelberg -> Karlsruhe": 5}`, so an automation can pick its own carriageway |
+| `sensor.streckenwacht_commute_travel_time_loss` | Travel time loss | Largest current travel time loss in minutes (only with traffic jam data) |
 | `sensor.streckenwacht_commute_next_closure` | Next closure | Start of the next planned closure (within 14 days) as a timestamp. Attributes: `title`, `road`, `direction`, `end`, `source` |
 | `event.streckenwacht_commute_event_change` | Event change | Event type `new` or `ended` |
 

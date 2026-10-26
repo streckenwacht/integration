@@ -19,7 +19,6 @@ from custom_components.streckenwacht.summary import (
     active,
     calendar_items,
     current_or_next,
-    delays_by_direction,
     disruptions,
     listed,
     map_events,
@@ -108,37 +107,6 @@ def test_long_running_closures_stay_active_events() -> None:
 def test_max_delay_is_the_largest_active() -> None:
     assert max_delay([SMALL_JAM, JAM, OLD_JAM], NOW) == (25, JAM)
     assert max_delay([ROADWORKS, OLD_JAM], NOW) == (0, None)
-
-
-def test_delays_by_direction() -> None:
-    def jam(id_: str, direction: str | None, minutes: int) -> StreckenwachtEvent:
-        return ev(
-            id_,
-            EventType.TRAFFIC_JAM,
-            (Period(NOW - H),),
-            direction=direction,
-            delay_minutes=minutes,
-        )
-
-    north = jam("north", "Karlsruhe -> Heidelberg", 14)
-    north_small = jam("north_small", "Karlsruhe -> Heidelberg", 3)
-    south = jam("south", "Heidelberg -> Karlsruhe", 5)
-    ramp = jam("ramp", "AK Walldorf (aus Richtung Bucheneck)", 7)
-    no_direction = jam("none", None, 30)
-    old = ev(
-        "old", EventType.TRAFFIC_JAM, (PAST,), direction="X -> Y", delay_minutes=90
-    )
-    assert delays_by_direction(
-        [south, no_direction, north_small, ramp, old, north, ROADWORKS], NOW
-    ) == {
-        "Karlsruhe -> Heidelberg": 14,
-        "Heidelberg -> Karlsruhe": 5,
-    }
-    # ramps and events without a direction are not listed, but the state
-    # (max_delay) may still come from them
-    assert max_delay([no_direction, north], NOW) == (30, no_direction)
-    assert max_delay([ramp, south], NOW) == (7, ramp)
-    assert delays_by_direction([ROADWORKS, OLD_JAM], NOW) == {}
 
 
 def test_listed_is_capped() -> None:

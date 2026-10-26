@@ -4,9 +4,6 @@ Alle Änderungen an Streckenwacht, neueste zuerst. Die Einträge entsprechen den
 
 ## Unveröffentlicht
 
-### Neu
-- **Reisezeitverlust je Fahrtrichtung:** Der Sensor „Reisezeitverlust“ bekommt das Attribut `by_direction` – der größte aktuelle Verlust je Fahrtrichtung („Start -> Ziel“), z. B. `{"Karlsruhe -> Heidelberg": 14, "Heidelberg -> Karlsruhe": 5}`. Ein Bereich enthält meist beide Richtungsfahrbahnen; der Zustand blieb bisher das Maximum über beide, und eine Automation konnte die eigene Richtung nicht herausgreifen. Angaben an Anschlussstellen und Staus ohne Richtung werden nicht aufgeführt (dieselbe Regel wie beim Richtungsfilter der Bereiche). Zustand und bisherige Attribute bleiben unverändert.
-
 ### Intern
 - Entwicklungs- und Testumgebung auf Home Assistant 2026.10.4 angehoben (Testbibliothek 0.13.375), Abhängigkeiten in `uv.lock` aktualisiert – behebt 28 der 69 Dependabot-Warnungen der Entwicklungsumgebung; die übrigen 41 betreffen Pillow, das Home Assistant 2026.10.4 selbst auf 12.3.0 festlegt. Die Integration selbst bringt keine Abhängigkeiten mit.
 

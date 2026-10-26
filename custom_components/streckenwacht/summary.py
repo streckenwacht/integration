@@ -8,12 +8,7 @@ from datetime import datetime, timedelta
 from typing import Any
 
 from .geo import haversine_km
-from .model import (
-    EventType,
-    ObservationArea,
-    StreckenwachtEvent,
-    is_route_direction,
-)
+from .model import EventType, ObservationArea, StreckenwachtEvent
 
 # Types that turn "disruption active" on. Plain roadworks do not: many run for
 # years (S21 in Stuttgart: 2014-2029) and would keep the sensor on permanently.
@@ -139,26 +134,6 @@ def max_delay(
         if event.delay_minutes and event.delay_minutes > best[0]:
             best = (event.delay_minutes, event)
     return best
-
-
-def delays_by_direction(
-    events: Iterable[StreckenwachtEvent], now: datetime
-) -> dict[str, int]:
-    """Largest current travel time loss per route direction, largest first.
-
-    An area usually contains both carriageways; this lets an automation pick
-    the one it drives on ("Karlsruhe -> Heidelberg"). Only route directions
-    count, as in the direction filter of an area: ramps and events without a
-    direction cannot be assigned to a carriageway and are not listed.
-    """
-    delays: dict[str, int] = {}
-    for event in active(events, now):
-        if not is_route_direction(event.direction):
-            continue
-        if event.delay_minutes and event.delay_minutes > 0:
-            known = delays.get(event.direction, 0)
-            delays[event.direction] = max(known, event.delay_minutes)
-    return dict(sorted(delays.items(), key=lambda item: (-item[1], item[0])))
 
 
 def event_attributes(event: StreckenwachtEvent) -> dict[str, Any]:
