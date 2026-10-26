@@ -4,6 +4,8 @@ Alle Änderungen an Streckenwacht, neueste zuerst. Die Einträge entsprechen den
 
 ## Unveröffentlicht
 
+## 0.9.1 – 2026-10-26
+
 ### Verbessert
 - **Weniger Schreiblast, z. B. für SD-Karten im Raspberry Pi:** Streckenwacht merkt sich, welche Meldungen schon angekündigt wurden. Diese Datei (bei einem großen Stadtbereich mehrere hundert KB) wurde bisher mit fast jedem Abruf neu geschrieben, mit Staus etwa alle 15 Minuten – jetzt höchstens einmal pro Stunde. Beim Herunterfahren und beim Neuladen wird sofort gespeichert; nur nach einem Stromausfall kann eine Meldung der letzten Stunde ein zweites Mal angekündigt werden.
 - Die großen Listen-Attribute `events` (Sensor „Ereignisse“), `disruptions` („Störung aktiv“) und die Beschreibung des Kalender-Termins landen nicht mehr in der Verlaufsdatenbank. Für Automationen, Vorlagen und Karten sind sie unverändert da.
