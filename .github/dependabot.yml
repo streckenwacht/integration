@@ -5,6 +5,9 @@ updates:
   # pytest-homeassistant-custom-component must be bumped together by hand.
   - package-ecosystem: github-actions
     directory: /
+    # main only takes fast-forwards from dev (git push origin dev:main);
+    # a PR merged into main would make the branches diverge.
+    target-branch: dev
     schedule:
       interval: monthly
     commit-message:

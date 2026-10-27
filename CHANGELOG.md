@@ -4,6 +4,9 @@ Alle Änderungen an Streckenwacht, neueste zuerst. Die Einträge entsprechen den
 
 ## Unveröffentlicht
 
+### Intern
+- `astral-sh/setup-uv` 10.3.2; Dependabot schlägt Aktualisierungen jetzt für `dev` vor statt für `main`.
+
 ## 0.9.1 – 2026-10-26
 
 ### Verbessert
