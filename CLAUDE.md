@@ -8,8 +8,9 @@ Home-Assistant-Custom-Integration (HACS), Domain `streckenwacht`. Zeigt Baustell
 - **`docs/DATENQUELLEN.md`** – Planungsgrundlage für neue Datenquellen (Länder, Städte, Endpunkte).
 - **`docs/BRAND.md`** – Bilder, Farben, Regenerierung.
 - **`CHANGELOG.md`** – Versionsgeschichte und was auf `dev` unveröffentlicht liegt (Abschnitt „Unveröffentlicht“).
+- **`NOTES.md`** (lokal, nicht im Repo) – aktueller Arbeitsstand und offene Punkte (wird jede Sitzung fortgeschrieben).
 
-Stand (2026-10-26): **v0.9.1 veröffentlicht** (Versionen und Unveröffentlichtes in `CHANGELOG.md`). Bekanntgemacht in der simon42 Community ([Thema 93623](https://community.simon42.com/t/streckenwacht-baustellen-sperrungen-und-staus-auf-der-eigenen-strecke-hacs-integration/93623)) und der HA Community ([Thema 1029615](https://community.home-assistant.io/t/streckenwacht-roadworks-closures-and-traffic-jams-on-your-own-route-germany-hacs/1029615)); **Seit 2026-10-24 in der HACS-Standardliste** ([hacs/default#12314](https://github.com/hacs/default/pull/12314)) – Installation ohne benutzerdefiniertes Repository. Wöchentlicher Quellen-Check per GitHub Actions aktiv. **Nächste Schritte:** Rückmeldungen aus den Foren einarbeiten; danach Backlog (`docs/ENTWICKLUNG.md` Abschnitt 6). „Strecke statt Kreis“ nur bei Nachfrage; Herne auf Wunsch zurückgestellt (Lizenz, siehe `docs/DATENQUELLEN.md`).
+Stand: **`NOTES.md`** (lokal, nicht im Repo: Arbeitsstand, offene Punkte, Beobachtungen) und `CHANGELOG.md` (Versionen, „Unveröffentlicht“). Nach jeder Sitzung `NOTES.md` aktualisieren, nicht diesen Absatz. Interna (Zahlen, Vorlieben, Einschätzungen zu Personen) gehören nur dorthin, nie in eingecheckte Dateien – das Repo ist öffentlich.
 
 ## Verbindliche Entscheidungen (nicht neu diskutieren)
 
@@ -32,6 +33,15 @@ Stand (2026-10-26): **v0.9.1 veröffentlicht** (Versionen und Unveröffentlichte
 8. **Werkzeuge:** `uv run pytest`, `uv run ruff check .`, `uv run ruff format .`. Rechnerspezifisches (z. B. Pfad der virtuellen Umgebung) steht in `CLAUDE.local.md`; `UV_PROJECT_ENVIRONMENT` setzt `.claude/settings.local.json` (beide nicht im Repo). Die HA-Testbibliothek (`--group ha-tests`) läuft unter Windows nicht (`fcntl`). Ihre Version muss dieselbe `homeassistant`-Version pinnen wie die `dev`-Gruppe.
 9. **Live-Check außerhalb von HA:** `uv run tools/live_check.py --lat 48.7758 --lon 9.1829 --radius 15 --roads A8 A81`; alle Quellen auf einmal: `uv run tools/source_check.py`. Unter Windows findet `aiodns` (kommt mit HA) keine DNS-Server – lokale Live-Skripte brauchen `aiohttp.ThreadedResolver()` (im Skript bereits drin).
 10. **Warnungs-Fixtures (echte INRIX-Daten) nur lokal, nie committen.**
+
+## Fallstricke und Konventionen (dauerhaft)
+
+- **Schreiblast klein halten** (viele laufen HA auf SD-Karten): `.storage` nur gedrosselt schreiben (`known_events.py`: höchstens stündlich, erste Änderung plant, `async_flush()` beim Entladen – nie `async_delay_save()` bei jeder Änderung neu aufrufen, das verschiebt den Schreibvorgang endlos). Große oder oft wechselnde Attribute gehören in `_unrecorded_attributes`.
+- **Kartenkarte** wird als Dashboard-Ressource angemeldet (`frontend_resource.py`), nicht per `add_extra_js_url` (nur Rückfall bei YAML-Ressourcen) – sonst „Custom element not found“ nach HA-Neustarts. Das JS definiert das Element nur einmal.
+- **Releases:** HACS installiert `streckenwacht.zip` (`zip_release`); der Workflow „Release-ZIP“ hängt es an. Nach jedem Release prüfen, dass das ZIP dranhängt – sonst scheitern HACS-Installationen.
+- **Fremde Pull Requests** gehen gegen `dev`: CI-Läufe aus Forks muss der Inhaber im PR freigeben („Approve and run workflows“), Mergen und Issue-Schließen ebenfalls im Browser (der Auto-Modus von Claude Code blockiert das). „Schließt #N“ greift nur bei `main` – Issue nach dem Release von Hand schließen. Durchsicht mit Befund-Tabelle, dann Dank im PR.
+- **GitHub Actions:** Pfadfilter gelten nicht für Tags (Push-Trigger deshalb auf `branches`); zeitgesteuerte Läufe können sich um Stunden verspäten. Dependabot-Warnungen stammen aus `uv.lock` (Entwicklungsumgebung): `homeassistant` und `pytest-homeassistant-custom-component` gemeinsam anheben.
+- **Öffentliche Texte** (Forum, Release-Notes, Issues) auf Deutsch, Release-Notes nutzerorientiert mit „Neu/Verbessert/Behoben/Intern“; Posten in Foren macht der Inhaber selbst.
 
 ## Brand-Bilder
 
