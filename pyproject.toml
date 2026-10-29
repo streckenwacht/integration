@@ -23,6 +23,9 @@ ha-tests = [
 [tool.uv]
 package = false
 default-groups = ["dev"]
+# homeassistant 2026.10.4 pins Pillow==12.3.0 (Dependabot alerts, fixed in 13.0.0).
+# Dev environment only; drop once the pinned homeassistant requires Pillow>=13.
+override-dependencies = ["pillow>=13.0.0"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
