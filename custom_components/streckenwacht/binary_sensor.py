@@ -7,7 +7,6 @@ from typing import Any
 from homeassistant.components.binary_sensor import BinarySensorEntity
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
-from homeassistant.util import dt as dt_util
 
 from . import StreckenwachtConfigEntry
 from .const import CONF_JAM_THRESHOLD, DEFAULT_JAM_THRESHOLD
@@ -60,4 +59,7 @@ class DisruptionBinarySensor(TimeDependentEntity, BinarySensorEntity):
 
     def _active(self) -> list[StreckenwachtEvent]:
         threshold = self._subentry_data.get(CONF_JAM_THRESHOLD, DEFAULT_JAM_THRESHOLD)
-        return disruptions(self.area_events, dt_util.utcnow(), int(threshold))
+        return self._per_write(
+            "disruptions",
+            lambda: disruptions(self.area_events, self.now, int(threshold)),
+        )

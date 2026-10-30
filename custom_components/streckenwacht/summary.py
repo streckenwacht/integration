@@ -128,31 +128,32 @@ def next_closure(
 
 
 def max_delay(
-    events: Iterable[StreckenwachtEvent], now: datetime
+    active_events: Iterable[StreckenwachtEvent],
 ) -> tuple[int, StreckenwachtEvent | None]:
     """Largest current travel time loss in minutes (0 if none) and its event.
 
-    The maximum, not the sum: an area usually contains both directions.
+    Takes the active events (see active()). The maximum, not the sum: an area
+    usually contains both directions.
     """
     best: tuple[int, StreckenwachtEvent | None] = (0, None)
-    for event in active(events, now):
+    for event in active_events:
         if event.delay_minutes and event.delay_minutes > best[0]:
             best = (event.delay_minutes, event)
     return best
 
 
 def delays_by_direction(
-    events: Iterable[StreckenwachtEvent], now: datetime
+    active_events: Iterable[StreckenwachtEvent],
 ) -> dict[str, int]:
     """Largest current travel time loss per route direction, largest first.
 
-    An area usually contains both carriageways; this lets an automation pick
+    Takes the active events (see active()). An area usually contains both carriageways; this lets an automation pick
     the one it drives on ("Karlsruhe -> Heidelberg"). Only route directions
     count, as in the direction filter of an area: ramps and events without a
     direction cannot be assigned to a carriageway and are not listed.
     """
     delays: dict[str, int] = {}
-    for event in active(events, now):
+    for event in active_events:
         if not is_route_direction(event.direction):
             continue
         if event.delay_minutes and event.delay_minutes > 0:

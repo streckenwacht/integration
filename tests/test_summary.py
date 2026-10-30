@@ -106,8 +106,8 @@ def test_long_running_closures_stay_active_events() -> None:
 
 
 def test_max_delay_is_the_largest_active() -> None:
-    assert max_delay([SMALL_JAM, JAM, OLD_JAM], NOW) == (25, JAM)
-    assert max_delay([ROADWORKS, OLD_JAM], NOW) == (0, None)
+    assert max_delay(active([SMALL_JAM, JAM, OLD_JAM], NOW)) == (25, JAM)
+    assert max_delay(active([ROADWORKS, OLD_JAM], NOW)) == (0, None)
 
 
 def test_delays_by_direction() -> None:
@@ -129,16 +129,16 @@ def test_delays_by_direction() -> None:
         "old", EventType.TRAFFIC_JAM, (PAST,), direction="X -> Y", delay_minutes=90
     )
     assert delays_by_direction(
-        [south, no_direction, north_small, ramp, old, north, ROADWORKS], NOW
+        active([south, no_direction, north_small, ramp, old, north, ROADWORKS], NOW)
     ) == {
         "Karlsruhe -> Heidelberg": 14,
         "Heidelberg -> Karlsruhe": 5,
     }
     # ramps and events without a direction are not listed, but the state
     # (max_delay) may still come from them
-    assert max_delay([no_direction, north], NOW) == (30, no_direction)
-    assert max_delay([ramp, south], NOW) == (7, ramp)
-    assert delays_by_direction([ROADWORKS, OLD_JAM], NOW) == {}
+    assert max_delay(active([no_direction, north], NOW)) == (30, no_direction)
+    assert max_delay(active([ramp, south], NOW)) == (7, ramp)
+    assert delays_by_direction(active([ROADWORKS, OLD_JAM], NOW)) == {}
 
 
 def test_listed_is_capped() -> None:

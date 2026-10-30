@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import traceback
 from collections.abc import Iterator
 from dataclasses import replace
 from datetime import timedelta
@@ -20,6 +21,7 @@ from pytest_homeassistant_custom_component.common import (
     async_fire_time_changed,
 )
 
+from custom_components.streckenwacht import summary
 from custom_components.streckenwacht.const import (
     CONF_AREA_SOURCES,
     CONF_INCLUDE_INRIX,
@@ -31,6 +33,7 @@ from custom_components.streckenwacht.const import (
     SUBENTRY_AREA,
     Source,
 )
+from custom_components.streckenwacht.dedup import merge_duplicates
 from custom_components.streckenwacht.model import EventType, Period, StreckenwachtEvent
 from custom_components.streckenwacht.providers import ProviderError
 
@@ -451,3 +454,65 @@ async def test_disruption_respects_jam_threshold(
     assert state.state == STATE_ON
     assert state.attributes["count"] == 1
     assert "device_class" not in state.attributes  # reads On/Off, not Problem/OK
+
+
+async def test_state_write_computes_each_view_once(
+    hass: HomeAssistant, fetch: AsyncMock, frozen_time: FrozenDateTimeFactory
+) -> None:
+    """State and attributes of one write share their views (no double work)."""
+    await setup(hass, make_entry())
+    sensor = "custom_components.streckenwacht.sensor"
+    with (
+        patch(f"{sensor}.active", wraps=summary.active) as active,
+        patch(f"{sensor}.max_delay", wraps=summary.max_delay) as max_delay,
+        patch(f"{sensor}.next_closure", wraps=summary.next_closure) as next_closure,
+        patch(
+            "custom_components.streckenwacht.binary_sensor.disruptions",
+            wraps=summary.disruptions,
+        ) as disruptions,
+    ):
+        frozen_time.tick(timedelta(minutes=1))
+        async_fire_time_changed(hass)
+        await hass.async_block_till_done()
+
+    assert active.call_count == 2  # events sensor and travel time loss, once each
+    assert max_delay.call_count == 1
+    assert next_closure.call_count == 1
+    assert disruptions.call_count == 1
+    assert hass.states.get(f"sensor.{PREFIX}_events").state == "3"
+    loss = hass.states.get(f"sensor.{PREFIX}_travel_time_loss")
+    assert loss.state == "25"
+    assert loss.attributes["title"] == "jam"
+    assert loss.attributes["by_direction"] == {"Karlsruhe -> Stuttgart": 25}
+    assert hass.states.get(f"sensor.{PREFIX}_next_closure").attributes["title"] == (
+        "planned"
+    )
+
+
+async def test_duplicates_are_merged_after_a_poll_not_in_state_writes(
+    hass: HomeAssistant, fetch: AsyncMock, frozen_time: FrozenDateTimeFactory
+) -> None:
+    """The merge runs once per area after new data, ahead of the entities."""
+    entry = make_entry(**{CONF_MERGE_DUPLICATES: True})
+    await setup(hass, entry)
+    coordinator = entry.runtime_data.coordinators[Source.AUTOBAHN]
+    callers: list[bool] = []
+
+    def spy(events: list[StreckenwachtEvent]) -> list[StreckenwachtEvent]:
+        callers.append(
+            any(f.name == "refresh_area_events" for f in traceback.extract_stack())
+        )
+        return merge_duplicates(events)
+
+    with patch("custom_components.streckenwacht.merge_duplicates", side_effect=spy):
+        frozen_time.tick(timedelta(minutes=1))
+        async_fire_time_changed(hass)
+        await hass.async_block_till_done()
+        assert callers == []  # same data: no merge in the minute tick
+
+        fetch.return_value = [ROADWORKS, CLOSURE]
+        await coordinator.async_refresh()
+        await hass.async_block_till_done()
+
+    assert callers == [True]  # one area, merged by the listener
+    assert hass.states.get(f"sensor.{PREFIX}_events").state == "2"

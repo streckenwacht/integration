@@ -9,7 +9,7 @@ from datetime import timedelta
 from homeassistant.components.http import StaticPathConfig
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
-from homeassistant.core import HomeAssistant
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers import issue_registry as ir
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
@@ -111,6 +111,7 @@ class StreckenwachtRuntimeData:
     coordinators: dict[Source, StreckenwachtCoordinator]
     known_events: KnownEvents
     merge_duplicates: bool = DEFAULT_MERGE_DUPLICATES
+    area_ids: tuple[str, ...] = ()
     # Per area: the coordinator data the events were built from, and the events.
     _area_events: dict[str, tuple[tuple[object, ...], list[StreckenwachtEvent]]] = (
         field(default_factory=dict, repr=False)
@@ -119,7 +120,8 @@ class StreckenwachtRuntimeData:
     def area_events(self, subentry_id: str) -> list[StreckenwachtEvent]:
         """All known events of an area from every source, duplicates merged.
 
-        Entities ask every minute; the merge only reruns after new data.
+        Entities ask every minute; the merge only reruns after new data
+        (normally ahead of them, see refresh_area_events).
         """
         token = tuple(c.data for c in self.coordinators.values())
         cached = self._area_events.get(subentry_id)
@@ -137,6 +139,16 @@ class StreckenwachtRuntimeData:
             events = merge_duplicates(events)
         self._area_events[subentry_id] = (token, events)
         return events
+
+    @callback
+    def refresh_area_events(self) -> None:
+        """Merge the events of every area after new data, before entities read.
+
+        Keeps the merge out of the entities' state writes: HA times those and
+        warns about slow entities (0.4 s).
+        """
+        for subentry_id in self.area_ids:
+            self.area_events(subentry_id)
 
 
 type StreckenwachtConfigEntry = ConfigEntry[StreckenwachtRuntimeData]
@@ -197,7 +209,15 @@ async def async_setup_entry(
         merge_duplicates=entry.options.get(
             CONF_MERGE_DUPLICATES, DEFAULT_MERGE_DUPLICATES
         ),
+        area_ids=tuple(areas),
     )
+    # Registered before the entities' listeners, so it runs first after a poll.
+    runtime = entry.runtime_data
+    runtime.refresh_area_events()
+    for coordinator in coordinators.values():
+        entry.async_on_unload(
+            coordinator.async_add_listener(runtime.refresh_area_events)
+        )
     # Options and subentry (area) changes both trigger a reload.
     entry.async_on_unload(entry.add_update_listener(_async_update_listener))
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)

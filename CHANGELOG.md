@@ -4,6 +4,10 @@ Alle Änderungen an Streckenwacht, neueste zuerst. Die Einträge entsprechen den
 
 ## Unveröffentlicht
 
+### Verbessert
+- **Weniger Rechenarbeit im Minutentakt:** Zustand und Attribute eines Sensors werden aus denselben Daten berechnet statt zweimal (beim Sensor „Reisezeitverlust“ bisher dreimal), und das Zusammenführen doppelter Meldungen läuft direkt nach dem Abruf statt beim Aktualisieren des ersten Sensors. Anlass war eine einmalige Warnung von Home Assistant („Updating state … took 0.668 seconds“). Zustand und Attribute beziehen sich jetzt außerdem garantiert auf denselben Zeitpunkt.
+- HACS zeigt Streckenwacht auch Nutzern, die in HACS Luxemburg als Land eingestellt haben (Quelle Ponts et Chaussées).
+
 ### Intern
 - `astral-sh/setup-uv` 10.3.2; Dependabot schlägt Aktualisierungen jetzt für `dev` vor statt für `main`.
 

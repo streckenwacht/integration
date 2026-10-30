@@ -14,14 +14,20 @@ from homeassistant.components.sensor import (
 from homeassistant.const import UnitOfTime
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
-from homeassistant.util import dt as dt_util
 
 from . import StreckenwachtConfigEntry
 from .const import CONF_INCLUDE_INRIX, DEFAULT_INCLUDE_INRIX, Source
 from .coordinator import area_subentries
 from .entity import TimeDependentEntity
-from .model import EventType
-from .summary import active, delays_by_direction, listed, max_delay, next_closure
+from .model import EventType, StreckenwachtEvent
+from .summary import (
+    Upcoming,
+    active,
+    delays_by_direction,
+    listed,
+    max_delay,
+    next_closure,
+)
 
 
 async def async_setup_entry(
@@ -56,12 +62,12 @@ class EventsSensor(TimeDependentEntity, SensorEntity):
     @property
     def native_value(self) -> int:
         """Return the number of active events."""
-        return len(active(self.area_events, dt_util.utcnow()))
+        return len(self._active())
 
     @property
     def extra_state_attributes(self) -> dict[str, Any]:
         """Counts per type and the active events, most severe first."""
-        events = active(self.area_events, dt_util.utcnow())
+        events = self._active()
         counts = Counter(e.event_type for e in events)
         return {
             **{event_type.value: counts[event_type] for event_type in EventType},
@@ -69,6 +75,9 @@ class EventsSensor(TimeDependentEntity, SensorEntity):
             "events": listed(events),
             "unavailable_sources": self.unavailable_sources,
         }
+
+    def _active(self) -> list[StreckenwachtEvent]:
+        return self._per_write("active", lambda: active(self.area_events, self.now))
 
 
 class TravelTimeLossSensor(TimeDependentEntity, SensorEntity):
@@ -82,20 +91,25 @@ class TravelTimeLossSensor(TimeDependentEntity, SensorEntity):
     @property
     def native_value(self) -> int:
         """Return the largest delay in minutes."""
-        return max_delay(self.area_events, dt_util.utcnow())[0]
+        return self._max_delay()[0]
 
     @property
     def extra_state_attributes(self) -> dict[str, Any]:
         """The event causing the delay, and the largest delay per direction."""
-        now = dt_util.utcnow()
-        _, event = max_delay(self.area_events, now)
+        _, event = self._max_delay()
         return {
             "title": event.title if event else None,
             "road": event.road if event else None,
             "direction": event.direction if event else None,
-            "by_direction": delays_by_direction(self.area_events, now),
+            "by_direction": delays_by_direction(self._active()),
             "unavailable_sources": self.unavailable_sources,
         }
+
+    def _active(self) -> list[StreckenwachtEvent]:
+        return self._per_write("active", lambda: active(self.area_events, self.now))
+
+    def _max_delay(self) -> tuple[int, StreckenwachtEvent | None]:
+        return self._per_write("max_delay", lambda: max_delay(self._active()))
 
 
 class NextClosureSensor(TimeDependentEntity, SensorEntity):
@@ -111,13 +125,13 @@ class NextClosureSensor(TimeDependentEntity, SensorEntity):
     @property
     def native_value(self) -> datetime | None:
         """Return the start of the next closure, if any."""
-        upcoming = next_closure(self.area_events, dt_util.utcnow())
+        upcoming = self._upcoming()
         return upcoming.start if upcoming else None
 
     @property
     def extra_state_attributes(self) -> dict[str, Any]:
         """What closes, and until when."""
-        upcoming = next_closure(self.area_events, dt_util.utcnow())
+        upcoming = self._upcoming()
         event = upcoming.event if upcoming else None
         return {
             "title": event.title if event else None,
@@ -128,3 +142,8 @@ class NextClosureSensor(TimeDependentEntity, SensorEntity):
             "id": event.id if event else None,
             "unavailable_sources": self.unavailable_sources,
         }
+
+    def _upcoming(self) -> Upcoming | None:
+        return self._per_write(
+            "next_closure", lambda: next_closure(self.area_events, self.now)
+        )
