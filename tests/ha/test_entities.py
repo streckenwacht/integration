@@ -14,6 +14,7 @@ from homeassistant.config_entries import ConfigSubentryData
 from homeassistant.const import EVENT_STATE_CHANGED, STATE_ON
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr
+from homeassistant.helpers.entity_platform import async_get_platforms
 from homeassistant.util import dt as dt_util
 from pytest_homeassistant_custom_component.common import (
     MockConfigEntry,
@@ -461,6 +462,11 @@ async def test_state_write_computes_each_view_once(
 ) -> None:
     """State and attributes of one write share their views (no double work)."""
     await setup(hass, make_entry())
+    entities = {
+        entity_id: entity
+        for platform in async_get_platforms(hass, DOMAIN)
+        for entity_id, entity in platform.entities.items()
+    }
     sensor = "custom_components.streckenwacht.sensor"
     with (
         patch(f"{sensor}.active", wraps=summary.active) as active,
@@ -472,8 +478,9 @@ async def test_state_write_computes_each_view_once(
         ) as disruptions,
     ):
         frozen_time.tick(timedelta(minutes=1))
-        async_fire_time_changed(hass)
-        await hass.async_block_till_done()
+        for key in ("events", "travel_time_loss", "next_closure"):
+            entities[f"sensor.{PREFIX}_{key}"].async_write_ha_state()
+        entities[f"binary_sensor.{PREFIX}_disruption_active"].async_write_ha_state()
 
     assert active.call_count == 2  # events sensor and travel time loss, once each
     assert max_delay.call_count == 1
