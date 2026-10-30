@@ -517,6 +517,13 @@ async def test_duplicates_are_merged_after_a_poll_not_in_state_writes(
         await hass.async_block_till_done()
         assert callers == []  # same data: no merge in the minute tick
 
+        await coordinator.async_refresh()  # a poll with unchanged events
+        await hass.async_block_till_done()
+        frozen_time.tick(timedelta(minutes=1))
+        async_fire_time_changed(hass)
+        await hass.async_block_till_done()
+        assert callers == []  # still the cached merge
+
         fetch.return_value = [ROADWORKS, CLOSURE]
         await coordinator.async_refresh()
         await hass.async_block_till_done()

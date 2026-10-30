@@ -2870,7 +2870,7 @@ wheels = [
 
 [[package]]
 name = "streckenwacht"
-version = "0.9.1"
+version = "0.9.2"
 source = { virtual = "." }
 
 [package.dev-dependencies]

@@ -147,10 +147,11 @@ def delays_by_direction(
 ) -> dict[str, int]:
     """Largest current travel time loss per route direction, largest first.
 
-    Takes the active events (see active()). An area usually contains both carriageways; this lets an automation pick
-    the one it drives on ("Karlsruhe -> Heidelberg"). Only route directions
-    count, as in the direction filter of an area: ramps and events without a
-    direction cannot be assigned to a carriageway and are not listed.
+    Takes the active events (see active()). An area usually contains both
+    carriageways; this lets an automation pick the one it drives on
+    ("Karlsruhe -> Heidelberg"). Only route directions count, as in the
+    direction filter of an area: ramps and events without a direction cannot be
+    assigned to a carriageway and are not listed.
     """
     delays: dict[str, int] = {}
     for event in active_events:

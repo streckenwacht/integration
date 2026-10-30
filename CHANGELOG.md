@@ -2,7 +2,7 @@
 
 Alle Änderungen an Streckenwacht, neueste zuerst. Die Einträge entsprechen den Release-Texten auf GitHub; was auf `dev` liegt und noch nicht veröffentlicht ist, steht unter „Unveröffentlicht“.
 
-## Unveröffentlicht
+## 0.9.2 – 2026-10-30
 
 ### Verbessert
 - **Weniger Rechenarbeit im Minutentakt:** Zustand und Attribute eines Sensors werden aus denselben Daten berechnet statt zweimal (beim Sensor „Reisezeitverlust“ bisher dreimal), und das Zusammenführen doppelter Meldungen läuft direkt nach dem Abruf statt beim Aktualisieren des ersten Sensors. Anlass war eine einmalige Warnung von Home Assistant („Updating state … took 0.668 seconds“). Zustand und Attribute beziehen sich jetzt außerdem garantiert auf denselben Zeitpunkt.
@@ -10,6 +10,8 @@ Alle Änderungen an Streckenwacht, neueste zuerst. Die Einträge entsprechen den
 
 ### Intern
 - `astral-sh/setup-uv` 10.3.2; Dependabot schlägt Aktualisierungen jetzt für `dev` vor statt für `main`.
+- Entwicklungsumgebung: Pillow 13.0.0 per uv-Override (Dependabot-Warnungen aus dem HA-Pin).
+- Entwicklerdoku: einheitlicher Release-Ablauf, GitHub-Einstellungen.
 
 ## 0.9.1 – 2026-10-26
 

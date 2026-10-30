@@ -137,13 +137,17 @@ class StreckenwachtCoordinator(DataUpdateCoordinator[ProviderData]):
 
         if not self.include_inrix:
             events = [e for e in events if e.upstream != UPSTREAM_INRIX]
-        return ProviderData(
+        data = ProviderData(
             events=tuple(events),
             by_area={
                 subentry_id: tuple(e for e in events if area.contains(e))
                 for subentry_id, area in self.areas.items()
             },
         )
+        # Unchanged data keeps the previous object: HA then skips the listeners
+        # (always_update=False), and the merged area events cached for that
+        # object (StreckenwachtRuntimeData.area_events) stay valid.
+        return self.data if data == self.data else data
 
     def _record_failure(self, error: str) -> None:
         self.failures += 1
