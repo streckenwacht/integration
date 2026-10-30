@@ -377,6 +377,18 @@ With `label_mode: icon` each marker shows the icon of its type (roadworks, closu
 
 Please report bugs and ideas as a [GitHub issue](https://github.com/streckenwacht/integration/issues), ideally with the diagnostics file and your Home Assistant version. Issues in English are welcome.
 
+## Sister integrations
+
+By the same author and built the same way: set up in the UI, in German and English, gentle on SD cards.
+
+- **Energy**
+  - [Einspeisewacht](https://github.com/einspeisewacht/integration) – what negative electricity prices cost your PV feed-in (German EEG § 51)
+  - [Tarifwacht](https://github.com/tarifwacht/integration) – what your grid consumption would have cost with other tariffs, including dynamic ones and Modul 3
+  - [Speicherwacht](https://github.com/speicherwacht/integration) – efficiency, cycles and capacity of your home battery
+  - [Wärmewacht](https://github.com/waermewacht/integration) – performance factors and health check for your heat pump
+- **Everyday**
+  - [Eilwacht](https://github.com/eilwacht/integration) – Tagesschau breaking news and regional news as automation triggers (German)
+
 ## License
 
 Code: [MIT](LICENSE). The data shown is subject to the licenses of the respective sources (see [Data sources](#data-sources)).
