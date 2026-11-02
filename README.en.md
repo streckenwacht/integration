@@ -382,7 +382,9 @@ With `label_mode: icon` each marker shows the icon of its type (roadworks, closu
 
 ## Reporting issues
 
-Please report bugs and ideas as a [GitHub issue](https://github.com/streckenwacht/integration/issues), ideally with the diagnostics file and your Home Assistant version. Issues in English are welcome.
+Please report bugs and ideas as a [GitHub issue](https://github.com/streckenwacht/integration/issues), ideally with the diagnostics file and your Home Assistant version. Issues in English are welcome. Please report security issues privately, see [SECURITY.md](https://github.com/streckenwacht/integration/blob/main/SECURITY.md).
+
+Pull requests are welcome, see [CONTRIBUTING.md](https://github.com/streckenwacht/integration/blob/main/CONTRIBUTING.md) (with an English summary at the end).
 
 ## Sister integrations
 

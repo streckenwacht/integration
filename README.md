@@ -380,7 +380,9 @@ Mit `label_mode: icon` zeigt jeder Punkt das Symbol seiner Art (Baustelle, Sperr
 
 ## Fehler melden
 
-Fehler und Ideen bitte als [GitHub-Issue](https://github.com/streckenwacht/integration/issues), möglichst mit Diagnose-Datei und Home-Assistant-Version.
+Fehler und Ideen bitte als [GitHub-Issue](https://github.com/streckenwacht/integration/issues), möglichst mit Diagnose-Datei und Home-Assistant-Version. Sicherheitslücken bitte vertraulich, siehe [SECURITY.md](https://github.com/streckenwacht/integration/blob/main/SECURITY.md).
+
+Pull Requests sind willkommen. Wie, steht in [CONTRIBUTING.md](https://github.com/streckenwacht/integration/blob/main/CONTRIBUTING.md).
 
 ## Weitere Wachten
 
