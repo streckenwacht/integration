@@ -16,6 +16,13 @@ Streckenwacht ("route watch") keeps an eye on your route – motorway, federal r
 
 The integration's UI is available in German and English and follows your Home Assistant language. The screenshots below show the German UI.
 
+## Contents
+
+- [What Streckenwacht does](#what-streckenwacht-does) · [Data sources](#data-sources) · [What Streckenwacht cannot do](#what-streckenwacht-cannot-do)
+- **Getting started:** [Installation](#installation-hacs) · [Setup](#setup) · [Observation areas](#observation-areas) · [Entities](#entities-per-observation-area)
+- **[What you can build with it](#what-you-can-build-with-it):** [Blueprints](#ready-made-blueprints) · [Push on travel time loss](#push-notification-on-travel-time-loss) · [New closure or accident](#notification-on-a-new-closure-or-accident) · [Announcement when leaving](#announcement-when-leaving-home) · [Dashboard](#dashboard-with-travel-time-loss) · [In the long run](#travel-time-loss-in-the-long-run) · [Calendar](#calendar-on-the-dashboard) · [Map card](#streckenwacht-map-card) · [Built-in map](#map-in-the-dashboard-built-in-map-card)
+- **More:** [Privacy](#privacy) · [Troubleshooting](#troubleshooting) · [Reporting issues](#reporting-issues) · [Sister integrations](#sister-integrations)
+
 ## What Streckenwacht does
 
 - Define **observation areas** freely: a circle on the map, e.g. "Home" or "Commute".

@@ -14,6 +14,13 @@
 
 Streckenwacht wacht über deine Strecke – ob Autobahn, Bundesstraße oder dein täglicher Arbeitsweg. Baustellen, Sperrungen, Staus und Unfälle, direkt in deinem Home Assistant: als Kalender, Sensoren und Events für Automationen.
 
+## Inhalt
+
+- [Was Streckenwacht kann](#was-streckenwacht-kann) · [Datenquellen](#datenquellen) · [Was Streckenwacht nicht kann](#was-streckenwacht-nicht-kann)
+- **Loslegen:** [Installation](#installation-hacs) · [Einrichtung](#einrichtung) · [Beobachtungsbereiche](#beobachtungsbereiche) · [Entitäten](#entitäten-pro-beobachtungsbereich)
+- **[Was du damit bauen kannst](#was-du-damit-bauen-kannst):** [Blueprints](#fertige-blueprints) · [Push bei Reisezeitverlust](#push-nachricht-bei-reisezeitverlust) · [Neue Sperrung oder Unfall](#benachrichtigung-bei-neuer-sperrung-oder-neuem-unfall) · [Ansage beim Verlassen](#ansage-beim-verlassen-des-hauses) · [Dashboard](#dashboard-mit-reisezeitverlust) · [Auf lange Sicht](#reisezeitverlust-auf-lange-sicht) · [Kalender](#kalender-im-dashboard) · [Kartenkarte](#streckenwacht-kartenkarte) · [Eingebaute Karte](#karte-im-dashboard-eingebaute-kartenkarte)
+- **Mehr:** [Datenschutz](#datenschutz) · [Fehlerbehebung](#fehlerbehebung) · [Fehler melden](#fehler-melden) · [Weitere Wachten](#weitere-wachten)
+
 ## Was Streckenwacht kann
 
 - **Beobachtungsbereiche** frei festlegen: Kreis auf der Karte, z. B. „Zuhause“ oder „Arbeitsweg“.
