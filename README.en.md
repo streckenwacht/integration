@@ -392,8 +392,8 @@ Pull requests are welcome, see [CONTRIBUTING.md](https://github.com/streckenwach
 By the same author and built the same way: set up in the UI, in German and English, gentle on SD cards.
 
 - **Energy**
-  - [Einspeisewacht](https://github.com/einspeisewacht/integration) – what negative electricity prices cost your PV feed-in (German EEG § 51)
-  - [Tarifwacht](https://github.com/tarifwacht/integration) – what your grid consumption would have cost with other tariffs, including dynamic ones and Modul 3
+  - [Einspeisewacht](https://github.com/einspeisewacht/integration) – what negative electricity prices cost your PV feed-in (German EEG § 51) · [live demo](https://einspeisewacht.github.io/integration/?lang=en)
+  - [Tarifwacht](https://github.com/tarifwacht/integration) – what your grid consumption would have cost with other tariffs, including dynamic ones and Modul 3 · [live demo](https://tarifwacht.github.io/integration/?lang=en)
   - [Speicherwacht](https://github.com/speicherwacht/integration) – efficiency, cycles and capacity of your home battery
   - [Wärmewacht](https://github.com/waermewacht/integration) – performance factors and health check for your heat pump
 - **Everyday**
