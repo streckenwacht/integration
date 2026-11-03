@@ -1,0 +1,49 @@
+name: Live-Demo
+
+# Publishes docs/demo/ to GitHub Pages (https://streckenwacht.github.io/integration/)
+# with the map card from custom_components/streckenwacht/frontend. Runs for
+# main, so the demo shows the card that HACS installs. The page references the
+# card as ../../custom_components/…; on Pages everything sits at the root.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - docs/demo/**
+      - custom_components/streckenwacht/frontend/**
+      - custom_components/streckenwacht/brand/icon.png
+      - .github/workflows/pages.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Seite zusammenstellen
+        run: |
+          mkdir -p _site/brand
+          cp -r docs/demo/. _site/
+          cp -r custom_components/streckenwacht/frontend _site/frontend
+          cp custom_components/streckenwacht/brand/icon.png _site/brand/
+          # "./", not "": import() takes "frontend/…" for a package name
+          sed -i 's#\.\./\.\./custom_components/streckenwacht/#./#g' _site/index.html
+          if grep -n '\.\./' _site/index.html; then
+            echo "::error::index.html verweist noch auf Pfade außerhalb der Seite"
+            exit 1
+          fi
+      - uses: actions/upload-pages-artifact@v5
+      - id: deployment
+        uses: actions/deploy-pages@v5

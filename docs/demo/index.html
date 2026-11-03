@@ -1,0 +1,1095 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Streckenwacht – Live-Demo</title>
+    <meta
+      name="description"
+      content="Streckenwacht zum Ausprobieren: Kartenkarte, Statuskacheln, Meldungen, Verlauf und Kalender eines Beobachtungsbereichs."
+    />
+    <link rel="icon" href="../../custom_components/streckenwacht/brand/icon.png" />
+    <link rel="stylesheet" href="../../custom_components/streckenwacht/frontend/leaflet.css" />
+    <style>
+      /* Page chrome in the Streckenwacht colours (docs/BRAND.md), the dashboard
+         with Home Assistant's default theme variables. */
+      :root {
+        color-scheme: light;
+        --page-bg: #faf7f2;
+        --page-text: #1f1c18;
+        --page-muted: #6b6357;
+        --page-line: #e4ddd1;
+        --brand: #005b8c;
+        --accent: #f5a623;
+        --control-bg: #ffffff;
+        --primary-color: #03a9f4;
+        --card-background-color: #ffffff;
+        --primary-text-color: #212121;
+        --secondary-text-color: #727272;
+        --secondary-background-color: #f2f2f2;
+        --divider-color: rgba(0, 0, 0, 0.12);
+        --state-icon-color: #44739e;
+        --warning-color: #ffa600;
+        --green: #4caf50;
+        --orange: #ff9800;
+        --red: #f44336;
+        --series-1: #2196f3;
+        --series-2: #ff9800;
+      }
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+        --page-bg: #14181d;
+        --page-text: #ece8e1;
+        --page-muted: #b9b2a6;
+        --page-line: #2a3038;
+        --brand: #4fa3d1;
+        --control-bg: #1d232a;
+        --card-background-color: #1c1c1c;
+        --primary-text-color: #e1e1e1;
+        --secondary-text-color: #9b9b9b;
+        --secondary-background-color: #282828;
+        --divider-color: rgba(225, 225, 225, 0.12);
+        --state-icon-color: #6aa7d8;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--page-bg);
+        color: var(--page-text);
+        font: 15px/1.5 Roboto, system-ui, -apple-system, "Segoe UI", sans-serif;
+      }
+      .page { max-width: 1280px; margin: 0 auto; padding: 24px 16px 48px; }
+      header { display: flex; gap: 14px; align-items: center; margin-bottom: 20px; }
+      header img { width: 52px; height: 52px; border-radius: 12px; }
+      h1 { margin: 0; font-size: 24px; line-height: 1.2; }
+      h1 span { color: var(--page-muted); font-weight: 400; }
+      .tagline { margin: 2px 0 0; color: var(--page-muted); }
+      header a.repo { margin-left: auto; color: var(--brand); text-decoration: none;
+        font-weight: 600; white-space: nowrap; }
+      .controls { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: end;
+        margin-bottom: 20px; }
+      .group { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+      .group > span { font-size: 12px; color: var(--page-muted); text-transform: uppercase;
+        letter-spacing: .04em; }
+      .seg { display: inline-flex; flex-wrap: wrap; max-width: 100%; overflow: hidden;
+        border: 1px solid var(--page-line); border-radius: 8px; background: var(--control-bg); }
+      .seg button { border: 0; border-right: 1px solid var(--page-line); background: none;
+        color: inherit; font: inherit; padding: 6px 12px; cursor: pointer; }
+      .seg button:last-child { border-right: 0; }
+      .seg button[aria-pressed="true"] { background: var(--brand); color: #fff; }
+      .seg button:focus-visible, .check input:focus-visible, .event:focus-visible {
+        outline: 2px solid var(--accent); outline-offset: -2px; }
+      .check { display: inline-flex; gap: 6px; align-items: center; cursor: pointer;
+        padding: 6px 12px 6px 0; }
+
+      svg.mdi { width: 1em; height: 1em; fill: currentColor; flex: none; vertical-align: -0.125em; }
+      .banner { display: flex; gap: 10px; align-items: center; margin-bottom: 20px; padding: 10px 14px;
+        border-radius: 10px; border: 1px solid color-mix(in srgb, var(--accent) 60%, transparent);
+        background: color-mix(in srgb, var(--accent) 14%, var(--page-bg)); font-size: 14px; }
+      .banner svg.mdi { font-size: 22px; color: var(--accent); }
+
+      /* Dashboard: Home Assistant's sections view. */
+      .sections { display: grid; gap: 24px 16px;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); }
+      .section { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+      .section.wide { grid-column: 1 / -1; }
+      .heading { display: flex; align-items: center; gap: 8px; min-height: 36px;
+        font-size: 16px; font-weight: 500; color: var(--primary-text-color); }
+      .heading .mdi { font-size: 20px; color: var(--secondary-text-color); }
+      .heading .badge { margin-left: auto; display: inline-flex; gap: 4px; align-items: center;
+        font-size: 14px; font-weight: 400; color: var(--secondary-text-color); }
+      .heading .badge .mdi { font-size: 18px; }
+      .card { background: var(--card-background-color); color: var(--primary-text-color);
+        border: 1px solid var(--divider-color); border-radius: 12px; overflow: hidden; }
+      .card-title { padding: 12px 16px 0; font-size: 16px; font-weight: 500; }
+      .muted { color: var(--secondary-text-color); }
+
+      /* Mushroom template card */
+      .status { display: flex; gap: 12px; align-items: center; padding: 12px; }
+      .status .shape { flex: none; width: 42px; height: 42px; border-radius: 50%;
+        display: grid; place-items: center; font-size: 22px; }
+      .status b { display: block; font-size: 14px; font-weight: 600; }
+      .status small { display: block; font-size: 12px; color: var(--secondary-text-color); }
+      .green { color: var(--green); background: color-mix(in srgb, var(--green) 20%, transparent); }
+      .orange { color: var(--orange); background: color-mix(in srgb, var(--orange) 20%, transparent); }
+      .red { color: var(--red); background: color-mix(in srgb, var(--red) 20%, transparent); }
+
+      /* Entities card */
+      .rows { padding: 4px 0; }
+      .row { display: flex; align-items: center; gap: 16px; padding: 7px 16px; font-size: 14px; }
+      .row .mdi { font-size: 24px; width: 24px; color: var(--state-icon-color); }
+      .row .mdi.on { color: var(--warning-color); }
+      .row .value { margin-left: auto; text-align: right; color: var(--primary-text-color); }
+
+      /* Markdown card with the event list */
+      .events { max-height: 380px; overflow-y: auto; padding: 8px 0; }
+      .event { display: block; width: 100%; text-align: left; border: 0; background: none;
+        color: inherit; font: inherit; padding: 6px 16px; cursor: pointer; }
+      .event:hover { background: var(--secondary-background-color); }
+      .event .mdi { font-size: 18px; margin-right: 4px; vertical-align: -2px; }
+      .event b { font-size: 14px; }
+      .event small { display: block; font-size: 12px; color: var(--secondary-text-color);
+        padding-left: 26px; }
+      .empty { padding: 12px 16px; }
+
+      /* History */
+      .now { display: flex; justify-content: space-between; gap: 16px; padding: 8px 16px 0; }
+      .now div { line-height: 1.1; }
+      .now strong { font-size: 30px; font-weight: 400; }
+      .now span { font-size: 13px; }
+      .now small { display: block; font-size: 12px; color: var(--secondary-text-color);
+        margin-top: 4px; }
+      .now div:last-child { text-align: right; }
+      svg.chart { display: block; width: 100%; height: auto; }
+      svg.chart text { fill: var(--secondary-text-color); font-size: 11px; }
+      svg.chart .grid { stroke: var(--divider-color); }
+      .legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px;
+        padding: 0 12px 4px; font-size: 12px; }
+      .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+        margin-right: 5px; }
+      .footnote { padding: 0 16px 10px; font-size: 11px; color: var(--secondary-text-color);
+        text-align: center; }
+
+      /* Calendar (list view) */
+      .cal-head { display: flex; align-items: center; gap: 12px; padding: 12px 16px; }
+      .cal-head .today { border-radius: 16px; padding: 3px 12px; font-size: 13px; font-weight: 500;
+        color: var(--primary-color); background: color-mix(in srgb, var(--primary-color) 15%, transparent); }
+      .cal-head .range { margin: 0 auto; font-size: 18px; }
+      .cal { max-height: 520px; overflow-y: auto; border-top: 1px solid var(--divider-color); }
+      .cal .day { display: flex; justify-content: space-between; padding: 8px 12px; font-size: 14px;
+        background: var(--secondary-background-color); position: sticky; top: 0; }
+      .cal .item { display: grid; grid-template-columns: 104px 14px 1fr; align-items: baseline;
+        padding: 6px 12px; font-size: 13px; border-bottom: 1px solid var(--divider-color); }
+      .cal .item i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+
+      /* Push notifications (phone lock screen) */
+      .phone { padding: 14px 12px; display: flex; flex-direction: column; gap: 8px;
+        background: linear-gradient(160deg, #1d3b53, #3a5f7d 55%, #6b8fa8); }
+      .push { background: rgba(255, 255, 255, 0.86); color: #1b1b1b; border-radius: 16px;
+        padding: 9px 12px; font-size: 13px; line-height: 1.35; backdrop-filter: blur(6px); }
+      :root[data-theme="dark"] .push { background: rgba(30, 30, 30, 0.86); color: #eee; }
+      .push .app { display: flex; gap: 6px; align-items: center; font-size: 11px; opacity: 0.75; }
+      .push .app svg.mdi { font-size: 14px; }
+      .push .app span:last-child { margin-left: auto; }
+      .push b { display: block; font-size: 13px; }
+      .phone .quiet { color: #fff; opacity: 0.8; text-align: center; font-size: 13px; padding: 12px; }
+      .blueprints { padding: 10px 16px 12px; font-size: 13px; }
+      .blueprints p { margin: 0 0 6px; color: var(--secondary-text-color); }
+      .blueprints a { display: block; padding: 2px 0; }
+
+      /* Does it work where I live? */
+      .coverage { margin-top: 24px; }
+      .cov { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+      .cov-map { min-height: 440px; }
+      .cov-side { padding: 14px 16px; font-size: 14px; display: flex; flex-direction: column; gap: 10px; }
+      .cov-side p { margin: 0; color: var(--secondary-text-color); }
+      .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+      .chips button { border: 1px solid var(--divider-color); border-radius: 14px; padding: 2px 10px;
+        background: none; color: inherit; font: inherit; font-size: 13px; cursor: pointer; }
+      .chips button:hover { background: var(--secondary-background-color); }
+      .cov-side label { display: flex; gap: 10px; align-items: center; }
+      .cov-side input[type="range"] { flex: 1; accent-color: var(--brand); }
+      .cov-list { margin: 0; padding: 0; list-style: none; }
+      .cov-list li { display: flex; gap: 10px; align-items: baseline; padding: 6px 0;
+        border-bottom: 1px solid var(--divider-color); }
+      .cov-list li small { display: block; color: var(--secondary-text-color); }
+      .cov-list i { flex: none; width: 10px; height: 10px; border-radius: 2px; transform: translateY(1px); }
+      :root[data-theme="dark"] .cov-map .leaflet-tile-pane {
+        filter: invert(1) hue-rotate(180deg) brightness(.9) contrast(.9); }
+      .cov-map .leaflet-container { background: var(--secondary-background-color); }
+      @media (max-width: 720px) {
+        .cov { grid-template-columns: minmax(0, 1fr); }
+        .cov-map { min-height: 340px; }
+      }
+
+      .below { margin-top: 28px; display: grid; gap: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); }
+      .box { border: 1px solid var(--page-line); border-radius: 10px; padding: 12px 14px;
+        background: var(--control-bg); }
+      .box h2 { margin: 0 0 6px; font-size: 14px; }
+      .box p { margin: 0 0 6px; color: var(--page-muted); font-size: 14px; }
+      a { color: var(--brand); }
+      @media (max-width: 720px) { header a.repo { display: none; } }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <img src="../../custom_components/streckenwacht/brand/icon.png" alt="" />
+        <div>
+          <h1>Streckenwacht <span data-t="demo"></span></h1>
+          <p class="tagline" data-t="tagline"></p>
+        </div>
+        <a class="repo" href="https://github.com/streckenwacht/integration">GitHub →</a>
+      </header>
+
+      <div class="controls">
+        <div class="group"><span data-t="setup"></span><div class="seg" id="setup"></div></div>
+        <div class="group"><span data-t="time"></span><div class="seg" id="time"></div></div>
+        <div class="group"><span data-t="lang"></span><div class="seg" id="lang"></div></div>
+        <div class="group"><span data-t="theme"></span><div class="seg" id="dark"></div></div>
+        <div class="group">
+          <span data-t="options"></span>
+          <div>
+            <label class="check"><input type="checkbox" id="planned" /> <span data-t="planned"></span></label>
+            <label class="check"><input type="checkbox" id="cluster" /> <span data-t="cluster"></span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="banner" id="banner"></div>
+
+      <main class="sections" id="dashboard"></main>
+
+      <section class="section coverage">
+        <div class="heading"><span id="cov-icon"></span><span data-t="covTitle"></span></div>
+        <div class="card cov">
+          <div class="cov-map" id="cov-map"></div>
+          <div class="cov-side">
+            <p data-t="covHelp"></p>
+            <div class="chips" id="cov-cities"></div>
+            <label><span data-t="radius"></span><input type="range" id="cov-radius" min="5" max="100" step="5" value="15" /><span id="cov-r"></span></label>
+            <ul class="cov-list" id="cov-list"></ul>
+            <p data-t="covNote"></p>
+          </div>
+        </div>
+      </section>
+
+      <div class="below">
+        <div class="box">
+          <h2 data-t="about"></h2>
+          <p data-t="data"></p>
+          <p data-t="tiles"></p>
+          <p data-t="credits"></p>
+        </div>
+        <div class="box">
+          <h2 data-t="build"></h2>
+          <p data-t="cards"></p>
+          <p><a href="https://github.com/streckenwacht/integration#was-du-damit-bauen-kannst" data-t="readme"></a></p>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { PATHS } from "./icons.js";
+
+      const CARD = "../../custom_components/streckenwacht/frontend/streckenwacht-map-card.js";
+      const DAY = 24 * 60 * 60 * 1000;
+      const SETUPS = {
+        both: ["arbeitsweg", "stuttgart"],
+        arbeitsweg: ["arbeitsweg"],
+        stuttgart: ["stuttgart"],
+      };
+      const MOMENTS = ["morning", "evening", "night", "weekend"];
+      const FRONTEND = "../../custom_components/streckenwacht/frontend/";
+      const SERIES = ["var(--series-1)", "var(--series-2)"];
+      const BLUEPRINT_URL =
+        "https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=" +
+        "https%3A%2F%2Fgithub.com%2Fstreckenwacht%2Fintegration%2Fblob%2Fmain%2Fblueprints%2F" +
+        "automation%2Fstreckenwacht%2F";
+      const TYPES = ["accident", "traffic_jam", "closure", "warning", "roadworks"];
+      const ICONS = {
+        accident: "car-emergency",
+        traffic_jam: "car-multiple",
+        closure: "road-variant",
+        warning: "alert-outline",
+        roadworks: "sign-caution",
+      };
+      // As in the map card.
+      const COLORS = {
+        closure: "#d32f2f",
+        roadworks: "#f57c00",
+        traffic_jam: "#8e0000",
+        accident: "#7b1fa2",
+        warning: "#fbc02d",
+      };
+
+      const TEXT = {
+        de: {
+          demo: "Live-Demo",
+          tagline: "So sieht Streckenwacht in Home Assistant aus – zum Ausprobieren.",
+          setup: "Beobachtungsbereich",
+          lang: "Sprache",
+          theme: "Darstellung",
+          options: "Karte",
+          planned: "Geplante zeigen",
+          cluster: "Gruppieren",
+          both: "Arbeitsweg + Stadt",
+          arbeitsweg: "Arbeitsweg (A81)",
+          stuttgart: "Stuttgart",
+          auto: "Auto",
+          light: "Hell",
+          dark: "Dunkel",
+          banner: (time) => `Alle Meldungen sind erfunden – nur zur Vorführung. Demo-Zeit: ${time} Uhr.`,
+          time: "Zeitpunkt",
+          moments: { morning: "Morgens", evening: "Abends", night: "Nachts", weekend: "Samstagabend" },
+          notifications: "Benachrichtigungen",
+          quiet: "Keine Benachrichtigungen in den letzten 24 Stunden.",
+          pushNote:
+            "Das hätten die drei Blueprints mit ihren Standardeinstellungen in den letzten 24 Stunden " +
+            "geschickt. Importieren:",
+          blueprints: {
+            stau_benachrichtigung: "Stau-Benachrichtigung",
+            vorwarnung_sperrung: "Vorwarnung vor geplanter Sperrung",
+            neue_meldung: "Neue oder beendete Meldung",
+          },
+          covTitle: "Gilt das für meinen Ort?",
+          covHelp:
+            "Klick auf die Karte oder wähl eine Stadt: Diese Quellen bietet Streckenwacht für einen " +
+            "Beobachtungsbereich dort an.",
+          radius: "Radius",
+          autobahn: "alle Autobahnen in Deutschland – du wählst sie im Bereich aus",
+          region: "regionale Quelle",
+          onlyAutobahn:
+            "Hier gibt es (noch) keine regionale Quelle – Streckenwacht zeigt dann die Meldungen der Autobahnen.",
+          covNote:
+            "Die Gebiete sind grobe Rechtecke, wie im Einrichtungsdialog. Ob eine Quelle gerade liefert, " +
+            "zeigt die Integration selbst an.",
+          map: "Karte",
+          history: "Verlauf",
+          calendar: "Kalender",
+          loss24: "Reisezeitverlust (24 h)",
+          sampleHistory: "Erfundener Verlauf.",
+          free: "Freie Fahrt",
+          delay: (d) => `+${d} min Verzögerung`,
+          none: "Keine Meldungen",
+          noneList: "Keine Meldungen – freie Fahrt.",
+          types: {
+            accident: ["Unfall", "Unfälle"],
+            traffic_jam: ["Stau", "Staus"],
+            closure: ["Sperrung", "Sperrungen"],
+            warning: ["Warnung", "Warnungen"],
+            roadworks: ["Baustelle", "Baustellen"],
+          },
+          until: "bis",
+          open: "Ende offen",
+          entities: {
+            calendar: "Kalender",
+            events: "Ereignisse",
+            next_closure: "Nächste Sperrung",
+            travel_time_loss: "Reisezeitverlust",
+            disruption_active: "Störung aktiv",
+          },
+          on: "Ein",
+          off: "Aus",
+          unknown: "Keine",
+          today: "Heute",
+          allDay: "Ganztägig",
+          about: "Erfunden, aber echt gerechnet",
+          data:
+            "Alle Meldungen, Zeiten und der Verlauf sind erfunden; nur ihre Lage folgt echten Straßen. " +
+            "Gefiltert, zusammengeführt und ausgewertet werden sie vom selben Code wie in Home Assistant – " +
+            "Sensorwerte, Listen und Kalender sehen bei dir genauso aus, nur mit echten Meldungen.",
+          tiles:
+            "In Home Assistant lädt die Karte den Hintergrund über den Kachel-Proxy von Home Assistant, " +
+            "der Browser spricht nur mit deinem Server. Hier kommt er direkt von OpenStreetMap.",
+          credits:
+            "Karte und Straßenverläufe © OpenStreetMap-Mitwirkende (ODbL). Symbole: Material Design Icons " +
+            "(Pictogrammers Free License).",
+          build: "Selbst bauen",
+          cards:
+            "Die Kartenkarte bringt Streckenwacht mit. Statuskachel (Mushroom), Meldungsliste (Markdown), " +
+            "Verlauf und Kalender sind normale Dashboard-Karten; die README hat die fertigen Beispiele. " +
+            "Ein Klick auf eine Meldung zeigt sie auf der Karte.",
+          readme: "Beispiele in der README →",
+        },
+        en: {
+          demo: "live demo",
+          tagline: "What Streckenwacht looks like in Home Assistant – try it.",
+          setup: "Observation area",
+          lang: "Language",
+          theme: "Theme",
+          options: "Map",
+          planned: "Show planned",
+          cluster: "Group",
+          both: "Commute + city",
+          arbeitsweg: "Commute (A81)",
+          stuttgart: "Stuttgart",
+          auto: "Auto",
+          light: "Light",
+          dark: "Dark",
+          banner: (time) => `All reports are made up – for demonstration only. Demo time: ${time}.`,
+          time: "Moment",
+          moments: { morning: "Morning", evening: "Evening", night: "Night", weekend: "Saturday night" },
+          notifications: "Notifications",
+          quiet: "No notifications in the last 24 hours.",
+          pushNote:
+            "What the three blueprints would have sent in the last 24 hours with their default settings " +
+            "(they write German texts). Import:",
+          blueprints: {
+            stau_benachrichtigung: "Traffic jam notification",
+            vorwarnung_sperrung: "Warning ahead of a planned closure",
+            neue_meldung: "New or ended report",
+          },
+          covTitle: "Does it work where I live?",
+          covHelp: "Click the map or pick a city: these sources Streckenwacht offers for an area there.",
+          radius: "Radius",
+          autobahn: "all motorways in Germany – you pick them for the area",
+          region: "regional source",
+          onlyAutobahn: "No regional source here (yet) – Streckenwacht then shows the motorway reports.",
+          covNote:
+            "The regions are rough rectangles, as in the setup dialog. Whether a source is currently " +
+            "delivering, the integration shows itself.",
+          map: "Map",
+          history: "History",
+          calendar: "Calendar",
+          loss24: "Travel time loss (24 h)",
+          sampleHistory: "Made-up history.",
+          free: "Free flow",
+          delay: (d) => `+${d} min delay`,
+          none: "No reports",
+          noneList: "No reports – free flow.",
+          types: {
+            accident: ["accident", "accidents"],
+            traffic_jam: ["traffic jam", "traffic jams"],
+            closure: ["closure", "closures"],
+            warning: ["warning", "warnings"],
+            roadworks: ["roadworks", "roadworks"],
+          },
+          until: "until",
+          open: "open end",
+          entities: {
+            calendar: "Calendar",
+            events: "Events",
+            next_closure: "Next closure",
+            travel_time_loss: "Travel time loss",
+            disruption_active: "Disruption active",
+          },
+          on: "On",
+          off: "Off",
+          unknown: "None",
+          today: "Today",
+          allDay: "all-day",
+          about: "Made up, but computed for real",
+          data:
+            "All reports, times and the history are made up; only their positions follow real roads. " +
+            "They are filtered, merged and evaluated by the same code as in Home Assistant – sensor " +
+            "values, lists and calendar look just like this in yours, only with real reports.",
+          tiles:
+            "In Home Assistant the card loads its background through Home Assistant's tile proxy, " +
+            "so the browser only talks to your server. Here it comes straight from OpenStreetMap.",
+          credits:
+            "Map and road geometry © OpenStreetMap contributors (ODbL). Icons: Material Design Icons " +
+            "(Pictogrammers Free License).",
+          build: "Build it yourself",
+          cards:
+            "Streckenwacht brings the map card. Status tile (Mushroom), event list (Markdown), history " +
+            "and calendar are standard dashboard cards; the README has ready-made examples. Click a " +
+            "report to show it on the map.",
+          readme: "Examples in the README →",
+        },
+      };
+
+      // State, kept in the URL so a setup can be linked.
+      const params = new URLSearchParams(location.search);
+      const pick = (value, allowed, fallback) => (allowed.includes(value) ? value : fallback);
+      const state = {
+        setup: pick(params.get("setup"), Object.keys(SETUPS), "both"),
+        time: pick(params.get("time"), MOMENTS, "morning"),
+        lang: pick(params.get("lang"), ["de", "en"], navigator.language?.startsWith("de") ? "de" : "en"),
+        dark: pick(params.get("dark"), ["auto", "0", "1"], "auto"),
+        planned: params.get("planned") !== "0",
+        cluster: params.get("cluster") !== "0",
+      };
+      const t = () => TEXT[state.lang];
+
+      function saveState() {
+        const query = new URLSearchParams({
+          setup: state.setup,
+          time: state.time,
+          lang: state.lang,
+          dark: state.dark,
+          planned: state.planned ? "1" : "0",
+          cluster: state.cluster ? "1" : "0",
+        });
+        history.replaceState(null, "", `?${query}`);
+      }
+
+      const systemDark = matchMedia("(prefers-color-scheme: dark)");
+      const isDark = () => (state.dark === "auto" ? systemDark.matches : state.dark === "1");
+
+      const escapeHtml = (value) =>
+        String(value ?? "").replace(
+          /[&<>"']/g,
+          (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c],
+        );
+      const icon = (name, cls = "") =>
+        `<svg class="mdi ${cls}" viewBox="0 0 24 24" aria-hidden="true"><path d="${PATHS[name]}" /></svg>`;
+
+      // A stand-in for Home Assistant's card frame around the map card.
+      customElements.define(
+        "ha-card",
+        class extends HTMLElement {
+          static observedAttributes = ["header"];
+          constructor() {
+            super();
+            this.attachShadow({ mode: "open" }).innerHTML = `
+              <style>
+                :host { display: block; background: var(--card-background-color);
+                  color: var(--primary-text-color); border: 1px solid var(--divider-color);
+                  border-radius: 12px; overflow: hidden; }
+                .header { font-size: 24px; padding: 20px 16px 12px; }
+                .header[hidden] { display: none; }
+              </style>
+              <div class="header" hidden></div><slot></slot>`;
+          }
+          attributeChangedCallback() {
+            const header = this.shadowRoot.querySelector(".header");
+            header.textContent = this.getAttribute("header") || "";
+            header.hidden = !header.textContent;
+          }
+        },
+      );
+
+      // Leaflet first, for the coverage map; the card then finds it loaded.
+      await new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = `${FRONTEND}leaflet.js?v=1.9.4`;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
+      await import(CARD);
+      // The demo has no Home Assistant tile proxy; the sample areas are public,
+      // so the tiles come from OpenStreetMap directly.
+      customElements.get("streckenwacht-map-card").prototype._refreshToken = async function () {
+        this._tiles.setUrl("https://tile.openstreetmap.org/{z}/{x}/{y}.png");
+      };
+
+      // The made-up data, moved by whole weeks into the present week (so the
+      // demo Wednesday and Saturday keep their weekdays). The demo plays at the
+      // chosen moment, so lists, sensors, calendar and notifications agree.
+      const midnight = (ms) => new Date(ms).setHours(0, 0, 0, 0);
+      let demoNow = Date.now();
+      const cache = {};
+      async function load(key) {
+        if (!cache[key]) {
+          const data = await (await fetch(`data/${key}.json`)).json();
+          const base = Date.parse(data.moments.morning.now);
+          const weeks = Math.round((midnight(Date.now()) - midnight(base)) / (7 * DAY));
+          const move = (iso) => iso && new Date(Date.parse(iso) + weeks * 7 * DAY).toISOString();
+          for (const view of Object.values(data.moments)) {
+            const ent = view.entities;
+            for (const item of [
+              ...view.features.map((f) => f.properties),
+              ...ent.events.attributes.events,
+              ...view.calendar,
+            ]) {
+              item.start = move(item.start);
+              item.end = move(item.end);
+            }
+            for (const note of view.notifications) {
+              note.at = move(note.at);
+              note.when = move(note.when);
+            }
+            ent.next_closure.state = move(ent.next_closure.state);
+            ent.next_closure.attributes.end = move(ent.next_closure.attributes.end);
+            view.now = move(view.now);
+          }
+          cache[key] = data;
+        }
+        return cache[key];
+      }
+
+      // One area at the chosen moment.
+      async function area(key) {
+        const data = await load(key);
+        return { key, slug: data.slug, area: data.area, ...data.moments[state.time] };
+      }
+
+      const loadedAt = new Date().toISOString();
+      const entityId = (data, name) =>
+        name === "calendar"
+          ? `calendar.streckenwacht_${data.slug}`
+          : name === "disruption_active"
+            ? `binary_sensor.streckenwacht_${data.slug}_disruption_active`
+            : `sensor.streckenwacht_${data.slug}_${name}`;
+
+      function fakeHass(areas) {
+        return {
+          language: state.lang,
+          locale: { language: state.lang },
+          themes: { darkMode: isDark() },
+          states: Object.fromEntries(
+            areas.map((data) => {
+              const id = entityId(data, "events");
+              const updated = `${loadedAt}/${state.time}`;
+              return [id, { entity_id: id, state: String(data.entities.events.state), attributes: {}, last_updated: updated }];
+            }),
+          ),
+          async callWS(msg) {
+            const data = areas.find((d) => entityId(d, "events") === msg.entity_id);
+            if (msg.type === "streckenwacht/map" && data) {
+              return structuredClone({ area: data.area, features: data.features });
+            }
+            throw { code: "not_found", message: `Not supported in the demo: ${msg.type}` };
+          },
+        };
+      }
+
+      // ---- Cards ---------------------------------------------------------------
+
+      function delayOf(data) {
+        return data.entities.travel_time_loss.state || 0;
+      }
+
+      function statusCard(data) {
+        const tx = t();
+        const d = delayOf(data);
+        const attrs = data.entities.events.attributes;
+        const parts = TYPES.filter((type) => attrs[type] > 0).map(
+          (type) => `${attrs[type]} ${tx.types[type][attrs[type] === 1 ? 0 : 1]}`,
+        );
+        const color =
+          data.entities.disruption_active.state === "on" || d >= 15 ? "red" : d > 0 ? "orange" : "green";
+        return `
+          <div class="card status">
+            <div class="shape ${color}">${icon("car-clock")}</div>
+            <div><b>${d ? tx.delay(d) : tx.free}</b><small>${parts.join(" · ") || tx.none}</small></div>
+          </div>`;
+      }
+
+      function fmtDate(iso) {
+        return new Date(iso).toLocaleDateString(state.lang, { day: "2-digit", month: "2-digit", year: "numeric" });
+      }
+
+      function relative(iso) {
+        const minutes = (Date.parse(iso) - demoNow) / 60000;
+        const rtf = new Intl.RelativeTimeFormat(state.lang, { numeric: "auto" });
+        const [value, unit] =
+          Math.abs(minutes) < 60
+            ? [Math.round(minutes), "minute"]
+            : Math.abs(minutes) < 48 * 60
+              ? [Math.round(minutes / 60), "hour"]
+              : [Math.round(minutes / 1440), "day"];
+        const text = rtf.format(value, unit);
+        return text.charAt(0).toUpperCase() + text.slice(1);
+      }
+
+      function entitiesCard(data) {
+        const tx = t();
+        const e = data.entities;
+        const rows = [
+          ["calendar", "calendar-check", e.calendar.state === "on" ? tx.on : tx.off],
+          ["events", "traffic-cone", e.events.state],
+          ["next_closure", "calendar-alert", e.next_closure.state ? relative(e.next_closure.state) : tx.unknown],
+          ["travel_time_loss", "car-clock", `${delayOf(data)} min`],
+          [
+            "disruption_active",
+            e.disruption_active.state === "on" ? "alert-octagon" : "road-variant",
+            e.disruption_active.state === "on" ? tx.on : tx.off,
+          ],
+        ];
+        return `
+          <div class="card rows">
+            ${rows
+              .map(
+                ([name, mdi, value]) => `
+              <div class="row" title="${entityId(data, name)}">
+                ${icon(mdi, name === "disruption_active" && e.disruption_active.state === "on" ? "on" : "")}
+                <span>${tx.entities[name]}</span><span class="value">${escapeHtml(value)}</span>
+              </div>`,
+              )
+              .join("")}
+          </div>`;
+      }
+
+      function eventsCard(data) {
+        const tx = t();
+        const events = data.entities.events.attributes.events;
+        if (!events.length) return `<div class="card empty">${icon("check-circle-outline")} ${tx.noneList}</div>`;
+        return `
+          <div class="card events">
+            ${events
+              .map(
+                (e) => `
+              <button class="event" data-area="${data.key}" data-lat="${e.latitude ?? ""}" data-lon="${e.longitude ?? ""}">
+                <span style="color:${COLORS[e.type]}">${icon(ICONS[e.type])}</span><b>${escapeHtml(e.title)}${
+                  e.delay_minutes ? ` · +${e.delay_minutes} min` : ""
+                }</b>
+                <small>${tx.types[e.type][0].replace(/^./, (c) => c.toUpperCase())}${
+                  e.direction ? ` · ${escapeHtml(e.direction)}` : ""
+                } · ${e.end ? `${tx.until} ${fmtDate(e.end)}` : tx.open}</small>
+              </button>`,
+              )
+              .join("")}
+          </div>`;
+      }
+
+      // A made-up but plausible day: rush hours, quiet nights, ending at the
+      // current value of the sensor. Seeded, so it stays the same on reload.
+      function sampleHistory(data, end) {
+        let seed = [...data.key].reduce((s, c) => s * 31 + c.charCodeAt(0), 7) >>> 0;
+        const random = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 2 ** 32);
+        const scale = data.key === "arbeitsweg" ? 1 : 0.45;
+        const step = 10 * 60 * 1000;
+        const points = [];
+        for (let time = end - DAY; time <= end; time += step) {
+          const h = new Date(time).getHours() + new Date(time).getMinutes() / 60;
+          const rush = Math.exp(-((h - 7.8) ** 2) / 0.8) * 34 + Math.exp(-((h - 17.2) ** 2) / 1.2) * 26;
+          const weekend = [0, 6].includes(new Date(time).getDay()) ? 0.25 : 1;
+          const value = rush * scale * weekend * (0.6 + random() * 0.8);
+          points.push([time, value < 2 ? 0 : Math.round(value)]);
+        }
+        // Lead into the current value over the last hour.
+        const now = delayOf(data);
+        for (let i = 1; i <= 6; i++) {
+          const point = points[points.length - 1 - (6 - i)];
+          point[1] = Math.round(point[1] * (1 - i / 6) + now * (i / 6));
+        }
+        return points;
+      }
+
+      function historyCard(areas) {
+        const tx = t();
+        const end = demoNow;
+        const series = areas.map((data) => sampleHistory(data, end));
+        const max = Math.max(10, ...series.flat().map((p) => p[1]));
+        const top = Math.ceil(max / 20) * 20;
+        const W = 380, H = 220, L = 30, R = 8, T = 10, B = 24;
+        const x = (time) => L + ((time - (end - DAY)) / DAY) * (W - L - R);
+        const y = (v) => T + (1 - v / top) * (H - T - B);
+        const grid = [0, 0.25, 0.5, 0.75, 1]
+          .map((f) => {
+            const v = Math.round(top * f);
+            return `<line class="grid" x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" />
+              <text x="${L - 6}" y="${y(v) + 4}" text-anchor="end">${v}</text>`;
+          })
+          .join("");
+        const hours = [];
+        for (let h = Math.ceil((end - DAY) / (4 * 3600e3)) * 4 * 3600e3; h <= end; h += 4 * 3600e3) {
+          const label = new Date(h).toLocaleTimeString(state.lang, { hour: "2-digit", minute: "2-digit" });
+          hours.push(`<text x="${x(h)}" y="${H - 6}" text-anchor="middle">${label}</text>`);
+        }
+        const paths = series
+          .map((points, i) => {
+            let d = `M${x(points[0][0])},${y(points[0][1])}`;
+            for (let k = 1; k < points.length; k++) {
+              d += `H${x(points[k][0])}V${y(points[k][1])}`;
+            }
+            const area = `${d}V${y(0)}H${x(points[0][0])}Z`;
+            return `<path d="${area}" fill="${SERIES[i]}" opacity=".18" />
+              <path d="${d}" fill="none" stroke="${SERIES[i]}" stroke-width="2" />`;
+          })
+          .reverse()
+          .join("");
+        const now = areas
+          .map(
+            (data, i) => `
+            <div><strong style="color:${SERIES[i]}">${delayOf(data)}</strong><span>min</span>
+              <small>${escapeHtml(data.area.name)}</small></div>`,
+          )
+          .join("");
+        const legend = areas
+          .map((data, i) => `<span><i style="background:${SERIES[i]}"></i>${escapeHtml(data.area.name)}: <b>${delayOf(data)} min</b></span>`)
+          .join("");
+        return `
+          <div class="card">
+            <div class="card-title">${tx.loss24}</div>
+            <div class="now">${now}</div>
+            <svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${tx.loss24}">${grid}${hours.join("")}${paths}</svg>
+            <div class="legend">${legend}</div>
+            <div class="footnote">${tx.sampleHistory}</div>
+          </div>`;
+      }
+
+      function calendarCard(areas) {
+        const tx = t();
+        const first = midnight(demoNow);
+        const days = Array.from({ length: 7 }, (_, i) => {
+          const d = new Date(first);
+          d.setDate(d.getDate() + i);
+          return d.getTime();
+        });
+        const time = (ms) => new Date(ms).toLocaleTimeString(state.lang, { hour: "2-digit", minute: "2-digit" });
+        const fmt = (ms, opts) => new Date(ms).toLocaleDateString(state.lang, opts);
+        const lastDay = days[6];
+        const range = `${fmt(first, { day: "numeric", month: "short" })} – ${fmt(lastDay, { day: "numeric", month: "short", year: "numeric" })}`;
+        const body = days
+          .map((dayStart) => {
+            const next = new Date(dayStart);
+            next.setDate(next.getDate() + 1);
+            const dayEnd = next.getTime();
+            const items = areas
+              .flatMap((data, i) =>
+                data.calendar.map((item) => ({ ...item, color: SERIES[i] })),
+              )
+              .map((item) => ({ ...item, s: Date.parse(item.start), e: Date.parse(item.end) }))
+              .filter((item) => item.s < dayEnd && item.e > dayStart)
+              .map((item) => ({ ...item, s: Math.max(item.s, dayStart), e: Math.min(item.e, dayEnd) }))
+              .sort((a, b) => a.s - b.s || a.summary.localeCompare(b.summary));
+            if (!items.length) return "";
+            const rows = items
+              .map((item) => {
+                const when = item.s === dayStart && item.e === dayEnd ? tx.allDay : `${time(item.s)} - ${time(item.e)}`;
+                return `<div class="item"><span>${when}</span><i style="background:${item.color}"></i><span>${escapeHtml(item.summary)}</span></div>`;
+              })
+              .join("");
+            return `<div class="day"><span>${fmt(dayStart, { weekday: "long" })}</span><span>${fmt(dayStart, { day: "numeric", month: "long", year: "numeric" })}</span></div>${rows}`;
+          })
+          .join("");
+        return `
+          <div class="card">
+            <div class="cal-head"><span class="today">${tx.today}</span><span class="range">${range}</span></div>
+            <div class="cal">${body}</div>
+          </div>`;
+      }
+
+      // The pushes the blueprints sent: texts as in their templates (German).
+      function notificationsCard(areas) {
+        const tx = t();
+        const pad = (n) => String(n).padStart(2, "0");
+        // strftime('%d.%m. %H:%M') of the blueprint
+        const when = (iso) => {
+          const d = new Date(iso);
+          return `${pad(d.getDate())}.${pad(d.getMonth() + 1)}. ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+        };
+        const notes = areas
+          .flatMap((data) => data.notifications.map((n) => ({ ...n, area: data.area.name })))
+          .sort((a, b) => Date.parse(b.at) - Date.parse(a.at));
+        const pushes = notes.length
+          ? notes
+              .map(
+                (n) => `
+              <div class="push">
+                <div class="app">${icon("bell-ring-outline")}<span>Home Assistant · ${escapeHtml(n.area)}</span><span>${relative(n.at)}</span></div>
+                <b>${escapeHtml(n.title || `Sperrung ab ${when(n.when)}`)}</b>${escapeHtml(n.message)}
+              </div>`,
+              )
+              .join("")
+          : `<div class="quiet">${tx.quiet}</div>`;
+        const links = Object.entries(tx.blueprints)
+          .map(([file, name]) => `<a href="${BLUEPRINT_URL}${file}.yaml" target="_blank" rel="noopener">${escapeHtml(name)} →</a>`)
+          .join("");
+        return `
+          <div class="card">
+            <div class="phone">${pushes}</div>
+            <div class="blueprints"><p>${tx.pushNote}</p>${links}</div>
+          </div>`;
+      }
+
+      // ---- Page ----------------------------------------------------------------
+
+      let card;
+      let areas = [];
+
+      function mapConfig() {
+        return {
+          type: "custom:streckenwacht-map-card",
+          entities: areas.map((data) => entityId(data, "events")),
+          height: innerWidth < 600 ? 380 : 460,
+          show_planned: state.planned,
+          cluster: state.cluster,
+        };
+      }
+
+      async function render() {
+        const tx = t();
+        areas = await Promise.all(SETUPS[state.setup].map(area));
+        demoNow = Date.parse(areas[0].now);
+        const clock = new Date(demoNow).toLocaleString(state.lang, {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+        document.getElementById("banner").innerHTML = `${icon("information-outline")}<span>${tx.banner(clock)}</span>`;
+        const board = document.getElementById("dashboard");
+        const heading = (mdi, text, badge = "") =>
+          `<div class="heading">${icon(mdi)}<span>${escapeHtml(text)}</span>${badge}</div>`;
+        board.innerHTML = `
+          <section class="section wide">${heading("map", tx.map)}<div id="map-slot"></div></section>
+          ${areas
+            .map(
+              (data) => `
+            <section class="section">
+              ${heading("highway", data.area.name, `<span class="badge">${icon("car-clock")}${delayOf(data)} min</span>`)}
+              ${statusCard(data)}
+              ${entitiesCard(data)}
+              ${eventsCard(data)}
+            </section>`,
+            )
+            .join("")}
+          <section class="section">
+            ${heading("bell-ring-outline", tx.notifications)}${notificationsCard(areas)}
+            ${heading("chart-line", tx.history)}${historyCard(areas)}
+            ${heading("calendar", tx.calendar)}${calendarCard(areas)}
+          </section>`;
+
+        card = document.createElement("streckenwacht-map-card");
+        card.setConfig(mapConfig());
+        card.hass = fakeHass(areas);
+        document.getElementById("map-slot").replaceChildren(card);
+      }
+
+      // A click on a report shows it on the map (the card's Leaflet map).
+      document.getElementById("dashboard").addEventListener("click", (event) => {
+        const button = event.target.closest(".event");
+        if (!button || !button.dataset.lat || !card?._map) return;
+        card.scrollIntoView({ behavior: "smooth", block: "center" });
+        card._map.flyTo([Number(button.dataset.lat), Number(button.dataset.lon)], 15);
+      });
+
+      function applyTheme() {
+        document.documentElement.dataset.theme = isDark() ? "dark" : "light";
+        if (card) card.hass = fakeHass(areas);
+      }
+
+      function applyText() {
+        const tx = t();
+        document.documentElement.lang = state.lang;
+        for (const el of document.querySelectorAll("[data-t]")) el.textContent = tx[el.dataset.t];
+        segment("setup", Object.keys(SETUPS), (v) => tx[v], render);
+        segment("time", MOMENTS, (v) => tx.moments[v], render);
+        segment("lang", ["de", "en"], (v) => v.toUpperCase(), () => (applyText(), render(), coverage.update()));
+        segment("dark", ["auto", "0", "1"], (v) => tx[{ auto: "auto", 0: "light", 1: "dark" }[v]], applyTheme);
+      }
+
+      function segment(id, values, label, onChange) {
+        const box = document.getElementById(id);
+        box.replaceChildren(
+          ...values.map((value) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.textContent = label(value);
+            button.setAttribute("aria-pressed", String(state[id] === value));
+            button.addEventListener("click", () => {
+              if (state[id] === value) return;
+              state[id] = value;
+              for (const b of box.children) b.setAttribute("aria-pressed", String(b === button));
+              saveState();
+              onChange();
+            });
+            return button;
+          }),
+        );
+      }
+
+      for (const id of ["planned", "cluster"]) {
+        const input = document.getElementById(id);
+        input.checked = state[id];
+        input.addEventListener("change", () => {
+          state[id] = input.checked;
+          saveState();
+          card?.setConfig(mapConfig());
+        });
+      }
+      systemDark.addEventListener("change", () => state.dark === "auto" && applyTheme());
+
+      // ---- Does it work where I live? ------------------------------------------
+      // Repeats model.sources_for_circle with the regions from coverage.json:
+      // the circle's bounding box must overlap a region of the source.
+      const CITIES = [
+        ["Hamburg", 53.55, 10.0],
+        ["Berlin", 52.52, 13.405],
+        ["Hannover", 52.375, 9.735],
+        ["Köln", 50.94, 6.96],
+        ["Dortmund", 51.514, 7.465],
+        ["Leipzig", 51.34, 12.37],
+        ["Dresden", 51.05, 13.74],
+        ["Frankfurt", 50.11, 8.68],
+        ["Stuttgart", 48.7758, 9.1829],
+        ["München", 48.137, 11.575],
+        ["Freiburg", 47.99, 7.85],
+        ["Luxemburg", 49.61, 6.13],
+      ];
+      const REGION_COLORS = ["#7b1fa2", "#00897b", "#f57c00", "#3949ab", "#c2185b", "#558b2f"];
+
+      const coverage = await (async () => {
+        const data = await (await fetch("data/coverage.json")).json();
+        const K = data.km_per_degree;
+        const box = (lat, lon, r) => {
+          const dlat = r / K;
+          const dlon = r / (K * Math.max(Math.cos((lat * Math.PI) / 180), 0.1));
+          return [lat - dlat, lon - dlon, lat + dlat, lon + dlon];
+        };
+        const overlap = (a, b) => a[0] < b[2] && b[0] < a[2] && a[1] < b[3] && b[1] < a[3];
+        const offered = (lat, lon, r) => {
+          const b = box(lat, lon, r);
+          return data.sources.filter((s) => !s.regions || s.regions.some((region) => overlap(b, region)));
+        };
+        if (params.has("selftest")) {
+          const wrong = data.examples.filter(
+            ([lat, lon, r, ids]) => offered(lat, lon, r).map((s) => s.id).join() !== ids.join(),
+          );
+          document.title = wrong.length ? `selftest FAIL ${JSON.stringify(wrong)}` : "selftest ok";
+        }
+
+        const L = window.L;
+        const map = L.map("cov-map", { zoomSnap: 0.5 }).setView([51.1, 10.4], 5.5);
+        map.attributionControl.setPrefix("");
+        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          maxZoom: 18,
+          attribution:
+            '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>',
+        }).addTo(map);
+        const layer = L.featureGroup().addTo(map);
+        const radius = document.getElementById("cov-radius");
+        let place = { lat: 48.7758, lon: 9.1829 };
+
+        function update(fit) {
+          const tx = t();
+          const r = Number(radius.value);
+          document.getElementById("cov-r").textContent = `${r} km`;
+          const found = offered(place.lat, place.lon, r);
+          const regional = found.filter((s) => s.regions);
+          const brand = getComputedStyle(document.documentElement).getPropertyValue("--brand").trim();
+          layer.clearLayers();
+          regional.forEach((source, i) => {
+            source.color = REGION_COLORS[i % REGION_COLORS.length];
+            for (const [south, west, north, east] of source.regions) {
+              L.rectangle(
+                [
+                  [south, west],
+                  [north, east],
+                ],
+                { color: source.color, weight: 1.5, dashArray: "4 4", fillOpacity: 0.05, interactive: false },
+              ).addTo(layer);
+            }
+          });
+          const circle = L.circle([place.lat, place.lon], {
+            radius: r * 1000,
+            color: brand,
+            weight: 2,
+            fillOpacity: 0.15,
+            interactive: false,
+          }).addTo(layer);
+          if (fit) map.fitBounds(circle.getBounds(), { padding: [60, 60], maxZoom: 10, animate: false });
+          const item = (color, name, note) =>
+            `<li><i style="background:${color}"></i><span>${escapeHtml(name)}<small>${note}</small></span></li>`;
+          document.getElementById("cov-list").innerHTML =
+            found.map((s) => (s.regions ? item(s.color, s.name, tx.region) : item(brand, s.name, tx.autobahn))).join("") +
+            (regional.length ? "" : `<li><small>${tx.onlyAutobahn}</small></li>`);
+        }
+
+        document.getElementById("cov-icon").innerHTML = icon("map-marker-radius");
+        document.getElementById("cov-cities").replaceChildren(
+          ...CITIES.map(([name, lat, lon]) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.textContent = name;
+            button.addEventListener("click", () => {
+              place = { lat, lon };
+              update(true);
+            });
+            return button;
+          }),
+        );
+        map.on("click", (event) => {
+          place = { lat: event.latlng.lat, lon: event.latlng.lng };
+          update(false);
+        });
+        radius.addEventListener("input", () => update(true));
+        new ResizeObserver(() => map.invalidateSize()).observe(document.getElementById("cov-map"));
+        update(true);
+        return { update: () => update(false) };
+      })();
+
+      applyText();
+      applyTheme();
+      saveState();
+      await render();
+    </script>
+  </body>
+</html>

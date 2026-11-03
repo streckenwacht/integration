@@ -7,12 +7,15 @@
 [![Release](https://img.shields.io/github/v/release/streckenwacht/integration?color=005B8C)](https://github.com/streckenwacht/integration/releases)
 [![CI](https://github.com/streckenwacht/integration/actions/workflows/ci.yml/badge.svg)](https://github.com/streckenwacht/integration/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-F5A623.svg)](LICENSE)
+[![Live demo](https://img.shields.io/badge/Live_demo-try_it-F5A623.svg)](https://streckenwacht.github.io/integration/?lang=en)
 
 🇩🇪 [Deutsch](https://github.com/streckenwacht/integration/blob/main/README.md) · 🇬🇧 **English**
 
 > ℹ️ **Young project.** Version 0.7 – the core runs stably, new data sources and features were just added. Feedback is very welcome – see [Reporting issues](#reporting-issues).
 
 Streckenwacht ("route watch") keeps an eye on your route – motorway, federal road or your daily commute. Roadworks, closures, traffic jams and accidents in Germany, right in your Home Assistant: as a calendar, sensors and events for automations.
+
+**Try it without installing:** the [live demo](https://streckenwacht.github.io/integration/?lang=en) shows the map card, dashboard, calendar and push notifications at different times of day – with made-up reports, but computed by the integration's own code. Plus: which data sources are there where you live?
 
 The integration's UI is available in German and English and follows your Home Assistant language. The screenshots below show the German UI.
 
