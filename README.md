@@ -392,10 +392,10 @@ Vom selben Autor und nach demselben Muster gebaut: Einrichtung über die Oberfl�
 - **Energie**
   - [Einspeisewacht](https://github.com/einspeisewacht/integration) – was negative Strompreise bei der PV-Einspeisung kosten (§ 51 EEG) · [Live-Demo](https://einspeisewacht.github.io/integration/?lang=de)
   - [Tarifwacht](https://github.com/tarifwacht/integration) – was der eigene Strombezug mit anderen Tarifen gekostet hätte, auch dynamisch und mit Modul 3 · [Live-Demo](https://tarifwacht.github.io/integration/?lang=de)
-  - [Speicherwacht](https://github.com/speicherwacht/integration) – Wirkungsgrad, Zyklen und Kapazität des Batteriespeichers
+  - [Speicherwacht](https://github.com/speicherwacht/integration) – Wirkungsgrad, Zyklen und Kapazität des Batteriespeichers · [Live-Demo](https://speicherwacht.github.io/integration/?lang=de)
   - [Wärmewacht](https://github.com/waermewacht/integration) – Arbeitszahlen und Gesundheits-Check der Wärmepumpe
 - **Alltag**
-  - [Eilwacht](https://github.com/eilwacht/integration) – Tagesschau-Eilmeldungen und Regionalnachrichten als Auslöser für Automationen
+  - [Eilwacht](https://github.com/eilwacht/integration) – Tagesschau-Eilmeldungen und Regionalnachrichten als Auslöser für Automationen · [Live-Demo](https://eilwacht.github.io/integration/?lang=de)
 
 ## Lizenz
 
