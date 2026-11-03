@@ -241,6 +241,7 @@ Nicht aus dem Code ablesbar, deshalb hier festgehalten. Gleich in allen Schweste
 - **Repo:** Secret Scanning mit Push-Schutz, Dependabot-Warnungen und -Sicherheitsupdates, CodeQL (Standard-Setup: Python, JavaScript, Actions), vertrauliche Meldung von Sicherheitslücken (`SECURITY.md`). Branches nach dem Mergen löschen; kein Wiki, keine Projekte.
 - **Rulesets:** „main schützen“ (kein Löschen, kein Force-Push, Pflicht-Checks `test`, `hassfest`, `compat`) und „Release-Tags schützen“ (`v*`: nicht löschen, nicht verschieben).
 - **Actions:** nur GitHub-eigene Actions plus `astral-sh/setup-uv@*`, `home-assistant/actions/*`, `hacs/action@*`; Workflow-Token standardmäßig nur lesend. Eine neue Action im Workflow muss dort erst erlaubt werden (*Settings → Actions → General*).
+- **Pages** (seit 2026-11-03): Quelle „GitHub Actions“ (`build_type=workflow`), Umgebung `github-pages` nur für `main`; veröffentlicht die Live-Demo (Workflow „Live-Demo“, siehe Abschnitt 2).
 - **Bewusst aus:** „Unveränderliche Releases“ – der Workflow „Release-ZIP“ hängt die ZIP erst nach dem Veröffentlichen an.
 - **Organisation:** Zwei-Faktor-Pflicht für alle Mitglieder.
 
