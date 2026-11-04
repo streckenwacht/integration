@@ -5,10 +5,10 @@ Alle Änderungen an Streckenwacht, neueste zuerst. Die Einträge entsprechen den
 ## Unveröffentlicht
 
 ### Neu
-- **Live-Demo zum Ausprobieren ohne Installation:** [streckenwacht.github.io/integration](https://streckenwacht.github.io/integration/) zeigt die Kartenkarte, ein Dashboard (Statuskachel, Sensoren, Meldungsliste, Verlauf, Kalender) und die Push-Nachrichten der Blueprints – morgens, abends, nachts und am Samstagabend. Alle Meldungen sind erfunden und so gekennzeichnet; gefiltert, zusammengeführt und ausgewertet werden sie vom Code der Integration. Dazu „Gilt das für meinen Ort?“: welche Datenquellen Streckenwacht für einen Bereich anbietet.
+- **Demo zum Ausprobieren ohne Installation:** [streckenwacht.github.io/integration](https://streckenwacht.github.io/integration/) zeigt die Kartenkarte, ein Dashboard (Statuskachel, Sensoren, Meldungsliste, Verlauf, Kalender) und die Push-Nachrichten der Blueprints – morgens, abends, nachts und am Samstagabend. Alle Meldungen sind erfunden und so gekennzeichnet; gefiltert, zusammengeführt und ausgewertet werden sie vom Code der Integration. Dazu „Gilt das für meinen Ort?“: welche Datenquellen Streckenwacht für einen Bereich anbietet.
 
 ### Intern
-- `tools/make_demo.py` erzeugt die Daten der Demo, der Workflow „Live-Demo“ veröffentlicht sie über GitHub Pages.
+- `tools/make_demo.py` erzeugt die Daten der Demo, der Workflow „Demo“ veröffentlicht sie über GitHub Pages.
 
 ## 0.9.2 – 2026-10-30
 

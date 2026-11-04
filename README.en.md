@@ -7,13 +7,13 @@
 [![Release](https://img.shields.io/github/v/release/streckenwacht/integration?color=005B8C)](https://github.com/streckenwacht/integration/releases)
 [![CI](https://github.com/streckenwacht/integration/actions/workflows/ci.yml/badge.svg)](https://github.com/streckenwacht/integration/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-F5A623.svg)](LICENSE)
-[![Live demo](https://img.shields.io/badge/Live_demo-try_it-F5A623.svg)](https://streckenwacht.github.io/integration/?lang=en)
+[![Demo](https://img.shields.io/badge/Demo-sample_data-F5A623.svg)](https://streckenwacht.github.io/integration/?lang=en)
 
 🇩🇪 [Deutsch](https://github.com/streckenwacht/integration/blob/main/README.md) · 🇬🇧 **English**
 
 Streckenwacht ("route watch") keeps an eye on your route – motorway, federal road or your daily commute. Roadworks, closures, traffic jams and accidents in Germany, right in your Home Assistant: as a calendar, sensors and events for automations.
 
-**Try it without installing:** the [live demo](https://streckenwacht.github.io/integration/?lang=en) shows the map card, dashboard, calendar and push notifications at different times of day – with made-up reports, but computed by the integration's own code. Plus: which data sources are there where you live?
+**Try it without installing:** the [demo](https://streckenwacht.github.io/integration/?lang=en) shows the map card, dashboard, calendar and push notifications at different times of day – with made-up reports, but computed by the integration's own code. Plus: which data sources are there where you live?
 
 The integration's UI is available in German and English and follows your Home Assistant language. The screenshots below show the German UI.
 
@@ -392,12 +392,12 @@ Pull requests are welcome, see [CONTRIBUTING.md](https://github.com/streckenwach
 By the same author and built the same way: set up in the UI, in German and English, gentle on SD cards.
 
 - **Energy**
-  - [Einspeisewacht](https://github.com/einspeisewacht/integration) – what negative electricity prices cost your PV feed-in (German EEG § 51) · [live demo](https://einspeisewacht.github.io/integration/?lang=en)
-  - [Tarifwacht](https://github.com/tarifwacht/integration) – what your grid consumption would have cost with other tariffs, including dynamic ones and Modul 3 · [live demo](https://tarifwacht.github.io/integration/?lang=en)
-  - [Speicherwacht](https://github.com/speicherwacht/integration) – efficiency, cycles and capacity of your home battery · [live demo](https://speicherwacht.github.io/integration/?lang=en)
+  - [Einspeisewacht](https://github.com/einspeisewacht/integration) – what negative electricity prices cost your PV feed-in (German EEG § 51) · [demo](https://einspeisewacht.github.io/integration/?lang=en)
+  - [Tarifwacht](https://github.com/tarifwacht/integration) – what your grid consumption would have cost with other tariffs, including dynamic ones and Modul 3 · [demo](https://tarifwacht.github.io/integration/?lang=en)
+  - [Speicherwacht](https://github.com/speicherwacht/integration) – efficiency, cycles and capacity of your home battery · [demo](https://speicherwacht.github.io/integration/?lang=en)
   - [Wärmewacht](https://github.com/waermewacht/integration) – performance factors and health check for your heat pump
 - **Everyday**
-  - [Eilwacht](https://github.com/eilwacht/integration) – Tagesschau breaking news and regional news as automation triggers (German) · [live demo](https://eilwacht.github.io/integration/?lang=en)
+  - [Eilwacht](https://github.com/eilwacht/integration) – Tagesschau breaking news and regional news as automation triggers (German) · [demo](https://eilwacht.github.io/integration/?lang=en)
 
 ## License
 

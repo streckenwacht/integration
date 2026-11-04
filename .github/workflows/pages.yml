@@ -1,4 +1,4 @@
-name: Live-Demo
+name: Demo
 
 # Publishes docs/demo/ to GitHub Pages (https://streckenwacht.github.io/integration/)
 # with the map card from custom_components/streckenwacht/frontend. Runs for
