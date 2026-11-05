@@ -6,6 +6,10 @@
     "http",
     "lovelace"
   ],
+  "categories": [
+    "vehicles_transport",
+    "local_services"
+  ],
   "codeowners": [
     "@n42net"
   ],
