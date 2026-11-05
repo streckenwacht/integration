@@ -20,7 +20,7 @@ The integration's UI is available in German and English and follows your Home As
 ## Contents
 
 - [What Streckenwacht does](#what-streckenwacht-does) · [Data sources](#data-sources) · [What Streckenwacht cannot do](#what-streckenwacht-cannot-do)
-- **Getting started:** [Installation](#installation-hacs) · [Setup](#setup) · [Observation areas](#observation-areas) · [Entities](#entities-per-observation-area)
+- **Getting started:** [Installation](#installation) · [Setup](#setup) · [Observation areas](#observation-areas) · [Entities](#entities-per-observation-area)
 - **[What you can build with it](#what-you-can-build-with-it):** [Blueprints](#ready-made-blueprints) · [Push on travel time loss](#push-notification-on-travel-time-loss) · [New closure or accident](#notification-on-a-new-closure-or-accident) · [Announcement when leaving](#announcement-when-leaving-home) · [Dashboard](#dashboard-with-travel-time-loss) · [In the long run](#travel-time-loss-in-the-long-run) · [Calendar](#calendar-on-the-dashboard) · [Map card](#streckenwacht-map-card) · [Built-in map](#map-in-the-dashboard-built-in-map-card)
 - **More:** [Privacy](#privacy) · [Troubleshooting](#troubleshooting) · [Reporting issues](#reporting-issues) · [Sister integrations](#sister-integrations)
 
@@ -94,19 +94,19 @@ The exception are large state sources without ETag (northern Germany, Brandenbur
 
 The requests contain no personal data, only an identifier of the integration (user agent). The Streckenwacht map card loads its base map through Home Assistant itself, not directly from OpenStreetMap.
 
-## Installation (HACS)
+## Installation
 
-Requires Home Assistant **2026.3** or newer and [HACS](https://hacs.xyz/).
+Requires Home Assistant **2026.3** or newer; before 2026.11 also [HACS](https://hacs.xyz/).
 
-**One click:** [![Open in HACS](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=streckenwacht&repository=integration&category=integration) → download, restart Home Assistant → [![Add integration](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=streckenwacht)
+**One click:** [![Open in the Marketplace](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=streckenwacht&repository=integration&category=integration) → install, restart Home Assistant → [![Add integration](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=streckenwacht)
 
-Or manually – Streckenwacht has been in the HACS default list since October 2026, no custom repository needed:
+Or manually:
 
-1. Open HACS, search for **Streckenwacht** → **Download**.
+1. *Settings → Marketplace → Browse*, search for **Streckenwacht** → **Install** (before Home Assistant 2026.11: in HACS → **Download**).
 2. Restart Home Assistant.
 3. **Settings → Devices & services → Add integration → Streckenwacht**.
 
-Note: the icon is currently missing in the HACS dashboard ([HACS issue #5171](https://github.com/hacs/integration/issues/5171)); it is shown in the Home Assistant settings.
+Note: the old HACS dashboard (before Home Assistant 2026.11) does not show the icon ([HACS issue #5171](https://github.com/hacs/integration/issues/5171)); the Marketplace and the settings do.
 
 ## Setup
 
@@ -254,12 +254,12 @@ One status card per route (green, orange, red) with the current delay, the repor
 <img src="https://raw.githubusercontent.com/streckenwacht/integration/main/assets/screenshots/dashboard_strecken.png" alt="Two routes with status card and list of reports" width="720">
 <img src="https://raw.githubusercontent.com/streckenwacht/integration/main/assets/screenshots/dashboard_verlauf.png" alt="Travel time loss over 24 hours" width="360">
 
-The list of reports is a standard Markdown card. The status card uses [Mushroom](https://github.com/piitaya/lovelace-mushroom), the history in the picture [ApexCharts](https://github.com/RomRider/apexcharts-card) (both via HACS); without extra cards, the built-in history graph (`history-graph`) does the job. Example for an area named "Commute":
+The list of reports is a standard Markdown card. The status card uses [Mushroom](https://github.com/piitaya/lovelace-mushroom), the history in the picture [ApexCharts](https://github.com/RomRider/apexcharts-card) (both from the Marketplace, before Home Assistant 2026.11 via HACS); without extra cards, the built-in history graph (`history-graph`) does the job. Example for an area named "Commute":
 
 ```yaml
 type: vertical-stack
 cards:
-  - type: custom:mushroom-template-card  # Mushroom (HACS)
+  - type: custom:mushroom-template-card  # Mushroom (Marketplace)
     entity: sensor.streckenwacht_commute_events
     icon: mdi:car-clock
     primary: >-
@@ -395,7 +395,7 @@ By the same author and built the same way: set up in the UI, in German and Engli
   - [Einspeisewacht](https://github.com/einspeisewacht/integration) – what negative electricity prices cost your PV feed-in (German EEG § 51) · [demo](https://einspeisewacht.github.io/integration/?lang=en)
   - [Tarifwacht](https://github.com/tarifwacht/integration) – what your grid consumption would have cost with other tariffs, including dynamic ones and Modul 3 · [demo](https://tarifwacht.github.io/integration/?lang=en)
   - [Speicherwacht](https://github.com/speicherwacht/integration) – efficiency, cycles and capacity of your home battery · [demo](https://speicherwacht.github.io/integration/?lang=en)
-  - [Wärmewacht](https://github.com/waermewacht/integration) – performance factors and health check for your heat pump
+  - [Wärmewacht](https://github.com/waermewacht/integration) – performance factors and health check for your heat pump · [demo](https://waermewacht.github.io/integration/?lang=en)
 - **Everyday**
   - [Eilwacht](https://github.com/eilwacht/integration) – Tagesschau breaking news and regional news as automation triggers (German) · [demo](https://eilwacht.github.io/integration/?lang=en)
 
