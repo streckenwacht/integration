@@ -98,13 +98,13 @@ class IssueReport(StreckenwachtEntity, ButtonEntity):
             entry,
             extra=self._entry_lines(),
             more=[("areas", self._area_lines())],
-            source_lines=[
+            endpoints=[
                 (source.value, coordinator_line(coordinator, dt_util.utcnow()))
                 for source, coordinator in entry.runtime_data.coordinators.items()
             ],
-            settings_lines=settings_lines(entry.options),
+            setting_lines=settings_lines(entry.options),
             # A single entry: every issue of the domain is its own.
-            entry_issues_only=False,
+            all_domain_issues=True,
         )
         show(self.hass, DOMAIN, NAME, entry, report, intro=INTRO)
 
