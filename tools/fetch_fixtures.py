@@ -86,16 +86,12 @@ RLP_URL = (
 RLP_EXCERPT = (49.9, 7.4, 50.5, 8.4)  # Süd, West, Nord, Ost
 
 # Großstädte: München (nur Fahrbahn-Baustellen, Ausschnitt Innenstadt),
-# Köln (Verkehrskalender), Frankfurt (Ausschnitt Innenstadt), Dortmund.
+# Frankfurt (Ausschnitt Innenstadt), Dortmund.
 MUENCHEN_URL = (
     "https://geoportal.muenchen.de/geoserver/mor_wfs/ows?service=WFS&version=2.0.0"
     "&request=GetFeature&typeNames=mor_wfs:baustellen_opendata"
     "&outputFormat=application/json&srsName=EPSG:4326&CQL_FILTER="
     + urllib.parse.quote("art='Baumaßnahme' AND betroffene_bereiche LIKE '%Fahrbahn%'")
-)
-KOELN_URL = (
-    "https://geoportal.stadt-koeln.de/arcgis/rest/services/verkehr/verkehrskalender"
-    "/MapServer/0/query?where=anzeige%3D1&outFields=*&f=geojson"
 )
 FRANKFURT_URL = (
     "https://geowebdienste.frankfurt.de/Baustellen?SERVICE=WFS&VERSION=2.0.0"
@@ -323,8 +319,6 @@ def staedte() -> None:
     if s == 200:
         b = _excerpt(b, CITY_EXCERPTS["muenchen"])
     save("muenchen_innenstadt.geojson.json", MUENCHEN_URL, s, b, c)
-    s, b, c = get(KOELN_URL)
-    save("koeln_verkehrskalender.geojson.json", KOELN_URL, s, b, c)
     for layer in ("Baustellen", "Verkehrsmeldungen"):
         url = FRANKFURT_URL.format(layer)
         s, b, c = get(url)

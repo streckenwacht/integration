@@ -239,7 +239,7 @@ async def test_only_sources_used_by_an_area_are_polled(
         title="Streckenwacht",
         options={CONF_SCAN_INTERVAL: 15, CONF_INCLUDE_INRIX: True},
         subentries_data=[],
-        minor_version=2,
+        minor_version=3,
     )
     await setup(hass, entry)
     assert entry.runtime_data.coordinators == {}
@@ -267,13 +267,59 @@ async def test_migration_moves_sources_into_the_areas(
         subentries_data=[AREA, own],
     )
     await setup(hass, entry)
-    assert entry.minor_version == 2
+    assert entry.minor_version == 3
     assert CONF_SOURCES not in entry.options
     sources = {s.title: s.data["sources"] for s in entry.subentries.values()}
     assert sources == {
         "Arbeitsweg": ["autobahn", "mobidata_bw"],
         "Eigene Auswahl": ["mobidata_bw"],
     }
+
+
+async def test_migration_drops_removed_sources(
+    hass: HomeAssistant,
+    autobahn: AsyncMock,
+    mobidata: AsyncMock,
+    issue_registry: ir.IssueRegistry,
+) -> None:
+    """Köln was removed (its service was shut down): areas lose it, an area
+    left without a source shows the Autobahn, its repair issue goes away."""
+    mixed = ConfigSubentryData(
+        data=dict(AREA["data"]) | {"sources": ["koeln", "mobidata_bw"]},
+        subentry_type=SUBENTRY_AREA,
+        title="Gemischt",
+        unique_id=None,
+    )
+    only_koeln = ConfigSubentryData(
+        data=dict(AREA["data"]) | {"sources": ["koeln"]},
+        subentry_type=SUBENTRY_AREA,
+        title="Nur Köln",
+        unique_id=None,
+    )
+    ir.async_create_issue(
+        hass,
+        DOMAIN,
+        "provider_failed_koeln",
+        is_fixable=False,
+        severity=ir.IssueSeverity.WARNING,
+        translation_key="provider_failed",
+    )
+    entry = MockConfigEntry(
+        domain=DOMAIN,
+        title="Streckenwacht",
+        options={CONF_SCAN_INTERVAL: 15, CONF_INCLUDE_INRIX: True},
+        subentries_data=[mixed, only_koeln],
+        minor_version=2,
+    )
+    await setup(hass, entry)
+    assert entry.state is ConfigEntryState.LOADED
+    assert entry.minor_version == 3
+    sources = {s.title: s.data["sources"] for s in entry.subentries.values()}
+    assert sources == {
+        "Gemischt": ["mobidata_bw"],
+        "Nur Köln": ["autobahn"],
+    }
+    assert issue_registry.async_get_issue(DOMAIN, "provider_failed_koeln") is None
 
 
 async def test_area_without_source_is_not_queried(

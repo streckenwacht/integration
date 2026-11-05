@@ -1,4 +1,4 @@
-"""Tests for the city providers: München, Köln, Frankfurt, Dortmund."""
+"""Tests for the city providers: München, Frankfurt, Dortmund."""
 
 from __future__ import annotations
 
@@ -15,11 +15,9 @@ from custom_components.streckenwacht.model import EventType, ObservationArea, Pe
 from custom_components.streckenwacht.providers import (
     dortmund,
     frankfurt,
-    koeln,
     muenchen,
 )
 from custom_components.streckenwacht.providers.dortmund import DortmundProvider
-from custom_components.streckenwacht.providers.koeln import KoelnProvider
 from custom_components.streckenwacht.providers.muenchen import MuenchenProvider
 from custom_components.streckenwacht.providers.wfs import parse_layer
 
@@ -108,75 +106,6 @@ def test_muenchen_fixture() -> None:
     assert events
     assert len({e.id for e in events}) == len(events)
     assert all(48.1 < e.latitude < 48.2 for e in events)
-
-
-# --- Köln -------------------------------------------------------------------
-
-POINT_CGN = {"type": "Point", "coordinates": [6.9476, 50.9368]}
-
-
-def cgn(**props: object) -> dict:
-    return feature(
-        POINT_CGN,
-        fid=388424,
-        **{
-            "objectid": 388424,
-            "name": "Richmodstraße (Altstadt/Nord)",
-            "datum_von": 1791676800000,  # 2026-10-11 00:00 UTC: a date
-            "datum_bis": 1791763200000,  # 2026-10-12 00:00 UTC
-            "link": "/leben-in-koeln/verkehr/verkehrskalender/stoerungen/20052/index.html",
-            "typ": 3,
-            "anzeige": 1,
-            "beschreibung": "Die Richmodstraße ist in beide Fahrtrichtungen gesperrt.",
-        }
-        | props,
-    )
-
-
-def test_koeln_closure_from_description() -> None:
-    event = koeln.parse_feature(cgn())
-    assert event.id == "koeln:388424"
-    assert event.event_type is EventType.CLOSURE
-    assert event.title == "Richmodstraße (Altstadt/Nord): Sperrung"
-    # Midnight UTC stands for whole local days; the end day is included.
-    assert event.periods == (Period(local(2026, 10, 11), local(2026, 10, 13)),)
-
-
-@pytest.mark.parametrize(
-    ("typ", "description", "expected", "label"),
-    [
-        (3, "Die Straße ist eingeengt.", EventType.ROADWORKS, "Baustelle"),
-        (2, "Einfahrt verboten.", EventType.CLOSURE, "Sperrung"),
-        (5, "Stau.", EventType.TRAFFIC_JAM, "Stau"),
-        (8, "Mehr Verkehr.", EventType.WARNING, "Veranstaltung in der LANXESS arena"),
-    ],
-)
-def test_koeln_types(
-    typ: int, description: str, expected: EventType, label: str
-) -> None:
-    event = koeln.parse_feature(cgn(typ=typ, beschreibung=description))
-    assert event.event_type is expected
-    assert event.title.endswith(f": {label}")
-
-
-def test_koeln_exact_times_stay_utc() -> None:
-    event = koeln.parse_feature(cgn(datum_von=1798038000000, datum_bis=1798045200000))
-    assert event.periods == (
-        Period(
-            datetime(2026, 12, 23, 15, 0, tzinfo=UTC),
-            datetime(2026, 12, 23, 17, 0, tzinfo=UTC),
-        ),
-    )
-
-
-def test_koeln_fixture() -> None:
-    events = list(
-        koeln.parse_features(
-            load_fixture("koeln_verkehrskalender.geojson.json")["features"]
-        )
-    )
-    assert events
-    assert len({e.id for e in events}) == len(events)
 
 
 # --- Frankfurt --------------------------------------------------------------
@@ -325,29 +254,15 @@ async def session(socket_enabled: None) -> AsyncIterator[aiohttp.ClientSession]:
 async def server(socket_enabled: None) -> AsyncIterator[TestServer]:
     seen: list[str] = []
 
-    async def koeln_query(request: web.Request) -> web.Response:
-        seen.append(request.query_string)
-        return web.json_response({"type": "FeatureCollection", "features": [cgn()]})
-
     async def dortmund_export(request: web.Request) -> web.Response:
         seen.append(request.match_info["name"])
         return web.json_response({"type": "FeatureCollection", "features": [do()]})
 
     app = web.Application()
-    app.router.add_get("/koeln", koeln_query)
     app.router.add_get("/do/{name}", dortmund_export)
     async with TestServer(app) as test_server:
         test_server.seen = seen  # type: ignore[attr-defined]
         yield test_server
-
-
-async def test_fetch_koeln(server: TestServer, session) -> None:
-    provider = KoelnProvider(session, str(server.make_url("/koeln")))
-    events = await provider.async_fetch([ObservationArea("Köln", 50.94, 6.96, 5)])
-    assert [e.id for e in events] == ["koeln:388424"]
-    assert "anzeige%3D1" in server.seen[0] or "anzeige=1" in server.seen[0]
-    elsewhere = ObservationArea("Stuttgart", 48.78, 9.18, 10)
-    assert await provider.async_fetch([elsewhere]) == []
 
 
 async def test_fetch_dortmund_both_files(server: TestServer, session) -> None:

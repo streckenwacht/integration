@@ -39,7 +39,6 @@ from custom_components.streckenwacht.providers.cities import (
 )
 from custom_components.streckenwacht.providers.dortmund import DortmundProvider
 from custom_components.streckenwacht.providers.frankfurt import FrankfurtProvider
-from custom_components.streckenwacht.providers.koeln import KoelnProvider
 from custom_components.streckenwacht.providers.lms_bw import LmsBwProvider
 from custom_components.streckenwacht.providers.luxemburg import LuxemburgProvider
 from custom_components.streckenwacht.providers.mobidata_bw import MobiDataBWProvider
@@ -101,7 +100,6 @@ async def main(args: argparse.Namespace) -> int:
             SachsenProvider(session),
             RheinlandPfalzProvider(session),
             MuenchenProvider(session),
-            KoelnProvider(session),
             FrankfurtProvider(session),
             DortmundProvider(session),
             AachenProvider(session),

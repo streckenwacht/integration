@@ -51,7 +51,6 @@ Streckenwacht wacht über deine Strecke – ob Autobahn, Bundesstraße oder dein
 | [Baustelleninformationssystem Sachsen](https://www.baustellen.sachsen.de/baustellendaten-dienste-3997.html) | Alle Straßenklassen in Sachsen inkl. Gemeindestraßen (Autobahnen kommen über die Autobahn GmbH) | Baustelleninformationssystem Sachsen, CC BY 4.0 |
 | [Mobilitätsatlas Rheinland-Pfalz](https://verkehr.rlp.de) | Alle Straßenklassen in Rheinland-Pfalz (Meldungen der Landes- und Kommunalbehörden) | Landesbetrieb Mobilität Rheinland-Pfalz; öffentlich bereitgestellt, ohne erklärte Lizenz |
 | [Landeshauptstadt München](https://opendata.muenchen.de/dataset/baustellen_4_weeks_opendata) | Baustellen auf der Fahrbahn in München (nächste vier Wochen; reine Park- und Gehwegeinschränkungen ausgelassen) | dl-de/by-2-0: Landeshauptstadt München – opendata.muenchen.de |
-| [Stadt Köln – Verkehrskalender](https://www.stadt-koeln.de/leben-in-koeln/verkehr/verkehrskalender/) | Verkehrsrelevante Baustellen, Sperrungen und Veranstaltungen im Kölner Hauptstraßennetz | Stadt Köln, dl-de/zero-2-0 |
 | [Stadt Frankfurt am Main](https://geowebdienste.frankfurt.de/Baustellen?SERVICE=WFS&REQUEST=GetCapabilities) | Baustellen und Verkehrsmeldungen in Frankfurt | Stadt Frankfurt am Main; öffentlich bereitgestellt, ohne erklärte Lizenz |
 | [Stadt Dortmund](https://open-data.dortmund.de/explore/dataset/fb66-baustellen-tagesaktuell/) | Baustellen in Dortmund (aktuell und geplant) | Stadt Dortmund, dl-de/zero-2-0 |
 | [Stadt Aachen](https://bsis.aachen.de) | Baustellen in Aachen (ohne reine Gehweg- und Parkeinschränkungen) | Stadt Aachen, dl-de/by-2-0 |
@@ -78,7 +77,7 @@ Die Quellen sind nicht vollständig:
 - MobiData BW deckt Bundes-, Landes- und Kreisstraßen in Baden-Württemberg ab, kommunale Straßen nur vereinzelt.
 - Der Stuttgarter Baustellenkalender deckt nur das „Vorbehaltsstraßennetz“ ab – Wohnstraßen, Notreparaturen und nicht verkehrsrelevante Arbeiten von Versorgern fehlen bewusst.
 - Die norddeutschen Daten sind je Land unterschiedlich ausführlich: In Niedersachsen sind es nur Bundesstraßen, in Mecklenburg-Vorpommern fehlen oft Straßennamen.
-- In Bayern, Hessen und Nordrhein-Westfalen gibt es bisher nur einzelne Städte (München, Frankfurt, Köln, Dortmund, Aachen, Duisburg, Münster); in Thüringen, Bremen und dem Saarland nur die Autobahnen.
+- In Bayern, Hessen und Nordrhein-Westfalen gibt es bisher nur einzelne Städte (München, Frankfurt, Dortmund, Aachen, Duisburg, Münster; Kölns Verkehrskalender ist seit Ende Oktober 2026 abgeschaltet); in Thüringen, Bremen und dem Saarland nur die Autobahnen.
 - Unfälle haben in keiner Quelle eine eigene Kategorie; Streckenwacht erkennt sie am Wort „Unfall“ in den Warnungen und Verkehrsstörungen.
 - Keine der Quellen garantiert Vollständigkeit oder eine feste Aktualisierungsfrequenz; alle Angaben stammen ungefiltert von den jeweiligen Behörden und Betreibern.
 

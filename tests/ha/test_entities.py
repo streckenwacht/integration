@@ -94,7 +94,7 @@ def make_entry(area: dict | None = None, **options: object) -> MockConfigEntry:
                 unique_id=None,
             )
         ],
-        minor_version=2,  # current format: no migration in between
+        minor_version=3,  # current format: no migration in between
     )
 
 

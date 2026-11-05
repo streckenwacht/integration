@@ -4,6 +4,9 @@ Alle Änderungen an Streckenwacht, neueste zuerst. Die Einträge entsprechen den
 
 ## Unveröffentlicht
 
+### Entfernt
+- **Quelle Köln (Verkehrskalender).** Die Stadt Köln hat die Schnittstelle Ende Oktober 2026 abgeschaltet; sie leitet seither auf die Startseite um, eine neue Adresse gibt es nicht. Seitdem kamen aus Köln keine Meldungen mehr, und es stand der Reparaturhinweis „Datenquelle nicht erreichbar“. Bereiche verlieren die Quelle beim Update von selbst, der Hinweis verschwindet. Ein Bereich, der nur Köln nutzte, zeigt jetzt die Autobahnen. Den Baustellen-Dienst der Stadt nimmt Streckenwacht nicht als Ersatz: Er führt nur Aufbruchgenehmigungen als Punkte, ohne Sperrungen und mit Genehmigungszeiträumen über Jahre.
+
 ### Neu
 - **Schaltfläche „Bericht für Fehlermeldung“** am Gerät jedes Bereichs (unter *Diagnose*). Sie zeigt einen kurzen Bericht als Benachrichtigung zum Kopieren in ein Issue, für alle Bereiche zusammen: Versionen, je Datenquelle den letzten Abruf (ok oder Art des Fehlers, wie lange her, Anzahl Meldungen), die Optionen, je Bereich nur Form und Zahlen (Radius in ganzen Kilometern, Anzahl der Quellen, Autobahnen und Fahrtrichtungen, Meldungsarten, Stau-Schwelle), Entitäten ohne Wert, offene Reparaturhinweise und ob die Kartenkarte als Ressource angemeldet ist. Koordinaten, Namen der Bereiche, Autobahnen, Fahrtrichtungen, Meldungstexte, Fehlertexte mit Adressen und Entity-IDs stehen nicht darin. Viele wollen die Diagnose-Datei nicht öffentlich teilen, weil Home Assistant ihr unter anderem die Liste aller installierten Integrationen voranstellt.
 

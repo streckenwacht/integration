@@ -52,6 +52,11 @@ def area_subentries(entry: ConfigEntry) -> list[ConfigSubentry]:
     return [s for s in entry.subentries.values() if s.subentry_type == SUBENTRY_AREA]
 
 
+# Stored sources that no longer exist are skipped (removed sources, see
+# const.REMOVED_SOURCES).
+_KNOWN = frozenset(source.value for source in Source)
+
+
 def area_from_subentry(subentry: ConfigSubentry) -> ObservationArea:
     """Build the observation area stored in an "area" subentry."""
     data = subentry.data
@@ -62,7 +67,7 @@ def area_from_subentry(subentry: ConfigSubentry) -> ObservationArea:
         radius_km=float(data.get(CONF_RADIUS, DEFAULT_RADIUS)) / 1000,
         roads=frozenset(data.get(CONF_ROADS, ())),
         sources=(
-            frozenset(Source(s) for s in data[CONF_AREA_SOURCES])
+            frozenset(Source(s) for s in data[CONF_AREA_SOURCES] if s in _KNOWN)
             if data.get(CONF_AREA_SOURCES) is not None
             else None
         ),

@@ -1,7 +1,8 @@
 """City sources in North Rhine-Westphalia: Aachen, Duisburg, Münster.
 
 NRW has no open statewide roadworks data; these cities publish their own
-(Köln and Dortmund have modules of their own). Bochum's data is not under an
+(Dortmund has a module of its own; Köln's traffic calendar was removed
+in 2026-11 after its service was shut down). Bochum's data is not under an
 open licence and is left out. See docs/ENTWICKLUNG.md, section 2.
 """
 

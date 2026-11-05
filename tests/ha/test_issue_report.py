@@ -115,7 +115,7 @@ def make_entry() -> MockConfigEntry:
                 unique_id=None,
             ),
         ],
-        minor_version=2,
+        minor_version=3,
     )
 
 

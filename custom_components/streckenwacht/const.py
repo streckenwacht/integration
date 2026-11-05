@@ -66,7 +66,6 @@ class Source(StrEnum):
     SACHSEN = "sachsen"
     RHEINLAND_PFALZ = "rheinland_pfalz"
     MUENCHEN = "muenchen"
-    KOELN = "koeln"
     FRANKFURT = "frankfurt"
     DORTMUND = "dortmund"
     AACHEN = "aachen"
@@ -81,6 +80,11 @@ class Source(StrEnum):
     LMS_BW = "lms_bw"
 
 
+# Sources that were removed: still dropped from stored areas and repair issues
+# (migration to minor version 3). Köln: the ArcGIS service of the traffic
+# calendar redirects to the city's home page since 2026-10-27.
+REMOVED_SOURCES: Final = ("koeln",)
+
 # Proper names, used as translation placeholders (not translatable).
 SOURCE_NAMES: Final[dict[Source, str]] = {
     Source.AUTOBAHN: "Autobahn GmbH",
@@ -93,7 +97,6 @@ SOURCE_NAMES: Final[dict[Source, str]] = {
     Source.SACHSEN: "Baustelleninformationssystem Sachsen",
     Source.RHEINLAND_PFALZ: "Mobilitätsatlas Rheinland-Pfalz",
     Source.MUENCHEN: "Landeshauptstadt München",
-    Source.KOELN: "Stadt Köln",
     Source.FRANKFURT: "Stadt Frankfurt am Main",
     Source.DORTMUND: "Stadt Dortmund",
     Source.AACHEN: "Stadt Aachen",
@@ -128,7 +131,6 @@ ATTRIBUTION: Final[dict[Source, str]] = {
     # Published without a license on the Mobilithek (rights: NO_LICENSE).
     Source.RHEINLAND_PFALZ: "Landesbetrieb Mobilität Rheinland-Pfalz (Mobilitätsatlas)",
     Source.MUENCHEN: "dl-de/by-2-0: Landeshauptstadt München – opendata.muenchen.de",
-    Source.KOELN: "Stadt Köln, Verkehrskalender, dl-de/zero-2-0",
     # The WFS states no license (GeoServer default "AccessConstraints: YES").
     Source.FRANKFURT: "Stadt Frankfurt am Main (geowebdienste.frankfurt.de)",
     Source.DORTMUND: "Stadt Dortmund, dl-de/zero-2-0",
@@ -186,7 +188,6 @@ SACHSEN_ANHALT: Final[Bounds] = (50.93, 10.56, 53.05, 13.19)
 SACHSEN: Final[Bounds] = (50.17, 11.87, 51.69, 15.04)
 RHEINLAND_PFALZ: Final[Bounds] = (48.96, 6.11, 50.95, 8.51)
 MUENCHEN: Final[Bounds] = (48.06, 11.36, 48.25, 11.72)
-KOELN: Final[Bounds] = (50.83, 6.77, 51.09, 7.17)
 FRANKFURT: Final[Bounds] = (50.01, 8.47, 50.23, 8.80)
 DORTMUND: Final[Bounds] = (51.41, 7.30, 51.60, 7.64)
 AACHEN: Final[Bounds] = (50.68, 5.97, 50.86, 6.22)
@@ -216,7 +217,6 @@ SOURCE_REGIONS: Final[dict[Source, tuple[Bounds, ...]]] = {
     Source.SACHSEN: (SACHSEN,),
     Source.RHEINLAND_PFALZ: _RHEINLAND_PFALZ_PARTS,
     Source.MUENCHEN: (MUENCHEN,),
-    Source.KOELN: (KOELN,),
     Source.FRANKFURT: (FRANKFURT,),
     Source.DORTMUND: (DORTMUND,),
     Source.AACHEN: (AACHEN,),

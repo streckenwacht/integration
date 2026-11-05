@@ -25,6 +25,7 @@ from .const import (
     DEFAULT_MERGE_DUPLICATES,
     DEFAULT_SCAN_INTERVAL,
     DOMAIN,
+    REMOVED_SOURCES,
     Source,
 )
 from .coordinator import (
@@ -50,7 +51,6 @@ from .providers.cities import (
 )
 from .providers.dortmund import DortmundProvider
 from .providers.frankfurt import FrankfurtProvider
-from .providers.koeln import KoelnProvider
 from .providers.lms_bw import LmsBwProvider
 from .providers.luxemburg import LuxemburgProvider
 from .providers.mobidata_bw import MobiDataBWProvider
@@ -89,7 +89,6 @@ PROVIDERS: dict[Source, type[Provider]] = {
     Source.SACHSEN: SachsenProvider,
     Source.RHEINLAND_PFALZ: RheinlandPfalzProvider,
     Source.MUENCHEN: MuenchenProvider,
-    Source.KOELN: KoelnProvider,
     Source.FRANKFURT: FrankfurtProvider,
     Source.DORTMUND: DortmundProvider,
     Source.AACHEN: AachenProvider,
@@ -232,10 +231,13 @@ async def async_setup_entry(
 async def async_migrate_entry(
     hass: HomeAssistant, entry: StreckenwachtConfigEntry
 ) -> bool:
-    """Move the entry's source list into the areas (minor version 1 -> 2).
+    """Migrate the entry.
 
-    Up to 0.2.0 the entry held the enabled sources and an area without its own
-    list showed all of them. Now every area lists its sources.
+    1 -> 2: up to 0.2.0 the entry held the enabled sources and an area without
+    its own list showed all of them. Now every area lists its sources.
+    2 -> 3: sources that were removed (Köln, its service shut down in
+    October 2026) are dropped from the areas; an area left without any shows
+    the Autobahn, which covers all of Germany.
     """
     if entry.version > 1:
         return False  # downgrade from a future version
@@ -250,6 +252,19 @@ async def async_migrate_entry(
                 )
         options = {k: v for k, v in entry.options.items() if k != CONF_SOURCES}
         hass.config_entries.async_update_entry(entry, options=options, minor_version=2)
+    if entry.minor_version < 3:
+        known = {source.value for source in Source}
+        for subentry in area_subentries(entry):
+            stored = subentry.data.get(CONF_AREA_SOURCES)
+            if stored is None or set(stored) <= known:
+                continue
+            kept = sorted(s for s in stored if s in known) or [Source.AUTOBAHN.value]
+            hass.config_entries.async_update_subentry(
+                entry, subentry, data={**subentry.data, CONF_AREA_SOURCES: kept}
+            )
+        for removed in REMOVED_SOURCES:
+            ir.async_delete_issue(hass, DOMAIN, f"provider_failed_{removed}")
+        hass.config_entries.async_update_entry(entry, minor_version=3)
     return True
 
 
