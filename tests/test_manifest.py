@@ -48,3 +48,28 @@ def test_brand_images_present() -> None:
 def test_hacs_json() -> None:
     hacs = json.loads((ROOT / "hacs.json").read_text(encoding="utf-8"))
     assert hacs["name"] == manifest()["name"]
+
+
+def _json(name: str) -> dict:
+    return json.loads((INTEGRATION / name).read_text(encoding="utf-8"))
+
+
+def _keys(data: object, prefix: str = "") -> set[str]:
+    if not isinstance(data, dict):
+        return {prefix}
+    return {k for key, value in data.items() for k in _keys(value, f"{prefix}/{key}")}
+
+
+def test_translations_complete() -> None:
+    strings = _json("strings.json")
+    assert _json("translations/en.json") == strings
+    assert _keys(_json("translations/de.json")) == _keys(strings)
+
+
+def test_every_entity_translated_and_has_an_icon() -> None:
+    entities = _json("strings.json")["entity"]
+    icons = _json("icons.json")["entity"]
+    assert {p: set(keys) for p, keys in entities.items()} == {
+        p: set(keys) for p, keys in icons.items()
+    }
+    assert set(entities["button"]) == {"issue_report"}

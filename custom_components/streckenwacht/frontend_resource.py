@@ -81,6 +81,21 @@ async def _async_update_resources(resources: ResourceStorageCollection) -> None:
         await resources.async_delete_item(item["id"])
 
 
+def card_status(hass: HomeAssistant) -> str:
+    """How the card reaches the frontend, for the bug report (button.py)."""
+    resources = _storage_resources(hass)
+    if resources is not None:
+        found = _ours(resources)
+        if not found:
+            return "no dashboard resource"
+        if any(item.get("url") == CARD_URL for item in found):
+            return "dashboard resource"
+        return "dashboard resource of another version"
+    if "frontend" in hass.config.components:
+        return "extra module URL (resources in YAML or no dashboards)"
+    return "no frontend"
+
+
 async def async_unregister_card(hass: HomeAssistant) -> None:
     """Remove the card resource (or extra module URL) again."""
     if "frontend" in hass.config.components:

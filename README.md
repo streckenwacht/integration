@@ -162,6 +162,7 @@ Beispiel für den Bereich „Arbeitsweg“ (Gerät *Streckenwacht Arbeitsweg*). 
 | `sensor.streckenwacht_arbeitsweg_travel_time_loss` | Reisezeitverlust | Größter aktueller Reisezeitverlust in Minuten (nur mit Staumeldungen). Attribute: `title`, `road`, `direction` der Meldung mit dem größten Verlust; `by_direction` = größter Verlust je Fahrtrichtung („Start -> Ziel“, ohne Anschlussstellen), z. B. `{"Karlsruhe -> Heidelberg": 14, "Heidelberg -> Karlsruhe": 5}` – so lässt sich die eigene Richtungsfahrbahn herausgreifen |
 | `sensor.streckenwacht_arbeitsweg_next_closure` | Nächste Sperrung | Beginn der nächsten geplanten Sperrung (innerhalb von 14 Tagen) als Zeitstempel. Attribute: `title`, `road`, `direction`, `end`, `source` |
 | `event.streckenwacht_arbeitsweg_event_change` | Ereignisänderung | Event-Typ `new` oder `ended` |
+| `button.streckenwacht_arbeitsweg_report_for_a_bug_report` | Bericht für Fehlermeldung | Unter *Diagnose*: zeigt einen Bericht zum Kopieren in ein Issue, siehe [Fehler melden](#fehler-melden) |
 
 <img src="https://raw.githubusercontent.com/streckenwacht/integration/main/assets/screenshots/kalender.png" alt="Kalender in der Listenansicht: Nachtsperrungen als einzelne Termine, aktueller Stau" width="600">
 
@@ -369,7 +370,7 @@ Mit `label_mode: icon` zeigt jeder Punkt das Symbol seiner Art (Baustelle, Sperr
 ## Fehlerbehebung
 
 - **Reparaturen:** Ist eine Quelle dreimal in Folge nicht erreichbar, erscheint unter *Einstellungen → System → Reparaturen* ein Hinweis. Er verschwindet von selbst, sobald der Abruf wieder klappt.
-- **Diagnose:** *Geräte & Dienste → Streckenwacht → ⋮ → Diagnose herunterladen*. Die Koordinaten deiner Bereiche sind darin geschwärzt.
+- **Bericht für Fehlermeldung:** Schaltfläche am Gerät eines Bereichs unter *Diagnose*, siehe [Fehler melden](#fehler-melden). **Diagnose:** *Geräte & Dienste → Streckenwacht → ⋮ → Diagnose herunterladen*. Die Koordinaten deiner Bereiche sind darin geschwärzt, Namen, Autobahnen und Meldungstexte nicht (siehe [Was steht in der Diagnose-Datei?](#was-steht-in-der-diagnose-datei)).
 - **Kartenkarte zeigt „Custom element not found“:** Seite neu laden (in der Companion App: *Einstellungen → Companion App → Fehlerbehebung → Frontend-Cache zurücksetzen*). Das kann direkt nach einem Update passieren, wenn die Seite geöffnet wurde, während Home Assistant noch startete. Bleibt es, prüfen, ob unter *Einstellungen → Dashboards → ⋮ → Ressourcen* der Eintrag `/streckenwacht/frontend/streckenwacht-map-card.js` steht (wird beim Start von Streckenwacht angelegt).
 - **Ausführliches Protokoll:**
 
@@ -381,7 +382,25 @@ Mit `label_mode: icon` zeigt jeder Punkt das Symbol seiner Art (Baustelle, Sperr
 
 ## Fehler melden
 
-Fehler und Ideen bitte als [GitHub-Issue](https://github.com/streckenwacht/integration/issues), möglichst mit Diagnose-Datei und Home-Assistant-Version. Sicherheitslücken bitte vertraulich, siehe [SECURITY.md](https://github.com/streckenwacht/integration/blob/main/SECURITY.md).
+Fehler und Ideen bitte als [GitHub-Issue](https://github.com/streckenwacht/integration/issues), bei Fehlern mit dem **Bericht für Fehlermeldung**: *Geräte & Dienste → Streckenwacht → Gerät eines Bereichs → Diagnose → Bericht für Fehlermeldung* drücken. Der Bericht erscheint als Benachrichtigung (Glocke unten links) zum Kopieren und gilt für alle Bereiche, egal an welchem du drückst. Er enthält:
+
+- die Versionen von Streckenwacht und Home Assistant;
+- je Datenquelle den letzten Abruf: ok oder die Art des Fehlers (z. B. `timeout`, `HTTP 503`), wie lange er her ist und wie viele Meldungen kamen;
+- je Bereich nur Form und Zahlen: Radius in ganzen Kilometern, Anzahl der Quellen, Autobahnen und Fahrtrichtungen, Meldungsarten, Stau-Schwelle, Anzahl der Meldungen;
+- die Optionen (Abrufintervall, Verkehrslage, doppelte Meldungen zusammenfassen), welche Entitäten keinen Wert haben, offene Reparaturhinweise und ob die Kartenkarte als Ressource angemeldet ist.
+
+Koordinaten, Namen der Bereiche, Autobahnen, Fahrtrichtungen, Meldungstexte, Fehlertexte mit Adressen und Entity-IDs stehen nicht darin. Welche Datenquellen genutzt werden, verrät aber die grobe Region, bei einer Stadtquelle die Stadt. Lies den Bericht vor dem Teilen und lösche, was du nicht zeigen willst.
+
+Sicherheitslücken bitte vertraulich, siehe [SECURITY.md](https://github.com/streckenwacht/integration/blob/main/SECURITY.md).
+
+### Was steht in der Diagnose-Datei?
+
+Reicht der Bericht nicht, kommt im Issue die Bitte um die Diagnose-Datei (*Geräte & Dienste → Streckenwacht → ⋮ → Diagnose herunterladen*). Sie ist ausführlicher, und nicht alles darin kommt von Streckenwacht:
+
+- **Von Home Assistant** (jede Integration hat diesen Kopf, Streckenwacht kann ihn nicht ändern): Version und Installationsart, Betriebssystem, Zeitzone und unter `custom_components` die Liste **aller** installierten benutzerdefinierten Integrationen mit Versionen. Diese Blöcke darfst du vor dem Hochladen löschen, sie werden nicht gebraucht.
+- **Von Streckenwacht** (unter `data`): die Optionen; je Bereich Name, Radius, Quellen, Autobahnen, Fahrtrichtungen, Meldungsarten und Stau-Schwelle; je Datenquelle der letzte Abruf mit dem vollständigen Fehlertext (er nennt die abgefragte Adresse, bei der Autobahn mit der Autobahnnummer), die Zahl der Meldungen insgesamt und je Bereich sowie bis zu fünf Beispielmeldungen mit Titel, Straße, Fahrtrichtung und Zeitraum. Die Koordinaten der Bereiche und der Meldungen sind geschwärzt.
+
+Name, Autobahnen, Fahrtrichtungen und Beispielmeldungen eines Bereichs lassen zusammen oft auf Wohnort oder Arbeitsweg schließen. Den Namen darfst du vor dem Hochladen durch einen Platzhalter wie „Bereich 1“ ersetzen. Willst du die Datei nicht öffentlich teilen, ist das in Ordnung: Dann reichen meist der Bericht und gezielte Angaben, nach denen im Issue gefragt wird.
 
 Pull Requests sind willkommen. Wie, steht in [CONTRIBUTING.md](https://github.com/streckenwacht/integration/blob/main/CONTRIBUTING.md).
 

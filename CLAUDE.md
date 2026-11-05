@@ -17,7 +17,7 @@ Stand: **`NOTES.md`** (lokal, nicht im Repo: Arbeitsstand, offene Punkte, Beobac
 - **Eine** Integration mit Provider-Muster (`providers/autobahn.py`, `mobidata_bw.py`, `stuttgart.py`, `norddeutschland.py` auf Basis von `wfs.py`), gemeinsames Datenmodell `StreckenwachtEvent`.
 - Ein Config-Entry + **Config-Subentries** je Beobachtungsbereich; **ein Coordinator pro Provider**, Bereiche filtern lokal. Autobahnen wählt der Nutzer aus (die API kann keine Umkreissuche).
 - Nur UI-Config-Flow, kein YAML. `DataUpdateCoordinator`, durchgängig async, `async_get_clientsession(hass)`.
-- Plattformen: `calendar`, `binary_sensor`, `sensor`, `event`, `geo_location` (Kartenpunkte, seit 0.3.0, auf Wunsch des Projektinhabers). **Keine Webcams.** Deduplizierung zwischen Quellen seit 0.6.0 nur nach den engen Regeln in `docs/ENTWICKLUNG.md` Abschnitt 3 (gleiche Hauptstraße, ≤ 300 m, passender Zeitraum, nur Baustelle/Sperrung; abschaltbar).
+- Plattformen: `calendar`, `binary_sensor`, `sensor`, `event`, `geo_location` (Kartenpunkte, seit 0.3.0, auf Wunsch des Projektinhabers), `button` (nur „Bericht für Fehlermeldung“, seit 2026-11-05, in allen Wachten gleich). **Keine Webcams.** Deduplizierung zwischen Quellen seit 0.6.0 nur nach den engen Regeln in `docs/ENTWICKLUNG.md` Abschnitt 3 (gleiche Hauptstraße, ≤ 300 m, passender Zeitraum, nur Baustelle/Sperrung; abschaltbar).
 - Lizenz MIT. Repo: `github.com/streckenwacht/integration`. `codeowners`: `@n42net`.
 - Deployment auf die produktive HA-OS-Instanz über HACS aus GitHub.
 

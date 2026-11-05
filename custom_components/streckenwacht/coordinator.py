@@ -5,13 +5,14 @@ from __future__ import annotations
 import logging
 from collections.abc import Mapping
 from dataclasses import dataclass, field
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 from homeassistant.config_entries import ConfigEntry, ConfigSubentry
 from homeassistant.const import CONF_LATITUDE, CONF_LONGITUDE
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import issue_registry as ir
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+from homeassistant.util import dt as dt_util
 
 from .const import (
     CONF_AREA_SOURCES,
@@ -28,7 +29,7 @@ from .const import (
     Source,
 )
 from .model import EventType, ObservationArea, StreckenwachtEvent
-from .providers import Provider, ProviderError
+from .providers import Provider, ProviderError, failure_kind
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -109,6 +110,10 @@ class StreckenwachtCoordinator(DataUpdateCoordinator[ProviderData]):
         self.areas = dict(areas)
         self.include_inrix = include_inrix
         self.failures = 0
+        # For the bug report (button.py): when the last poll succeeded, and
+        # the kind of the last failure (failure_kind), None after a success.
+        self.last_success: datetime | None = None
+        self.last_failure: str | None = None
 
     @property
     def source(self) -> Source:
@@ -122,17 +127,21 @@ class StreckenwachtCoordinator(DataUpdateCoordinator[ProviderData]):
                 [area for area in self.areas.values() if area.uses(self.source)]
             )
         except ProviderError as err:
+            self.last_failure = failure_kind(err)
             self._record_failure(str(err))
             raise UpdateFailed(f"{SOURCE_NAMES[self.source]}: {err}") from err
         except Exception as err:
             # A bug or an unexpected API change must not break anything else.
             _LOGGER.exception("Unexpected error polling %s", self.source)
+            self.last_failure = failure_kind(err)
             self._record_failure(repr(err))
             raise UpdateFailed(f"{SOURCE_NAMES[self.source]}: {err!r}") from err
 
         if self.failures:
             _LOGGER.info("%s is reachable again", SOURCE_NAMES[self.source])
         self.failures = 0
+        self.last_success = dt_util.utcnow()
+        self.last_failure = None
         ir.async_delete_issue(self.hass, DOMAIN, issue_id(self.source))
 
         if not self.include_inrix:

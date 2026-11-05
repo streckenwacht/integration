@@ -5,8 +5,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        Danke fürs Melden! Mit Diagnose-Datei und Versionen lässt sich das meist schnell eingrenzen.
-        **Bitte keine Koordinaten oder Adressen posten** – die Diagnose-Datei schwärzt sie automatisch.
+        Danke fürs Melden! Mit dem „Bericht für Fehlermeldung“ (Schaltfläche am Gerät eines Bereichs) lässt sich das meist schnell eingrenzen.
+        **Bitte keine Koordinaten, Adressen oder Namen deiner Bereiche posten** – der Bericht enthält sie nicht.
   - type: textarea
     id: description
     attributes:
@@ -50,10 +50,14 @@ body:
   - type: textarea
     id: diagnostics
     attributes:
-      label: Diagnose-Datei
+      label: Bericht für Fehlermeldung
       description: >-
-        Geräte & Dienste → Streckenwacht → ⋮ → „Diagnose herunterladen“ und die
-        Datei hier hineinziehen.
+        Gerät eines Streckenwacht-Bereichs → Diagnose → „Bericht für Fehlermeldung“
+        drücken und den Text aus der Benachrichtigung hier einfügen. Er enthält keine
+        Koordinaten, Namen der Bereiche, Autobahnen, Meldungstexte oder Entity-IDs.
+        Die ausführlichere Diagnose-Datei nur, wenn im Issue danach gefragt wird –
+        was darin steht, erklärt die README unter „Fehler melden“.
+      render: text
   - type: textarea
     id: logs
     attributes:

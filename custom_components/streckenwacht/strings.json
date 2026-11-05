@@ -166,6 +166,11 @@
         "name": "Disruption active"
       }
     },
+    "button": {
+      "issue_report": {
+        "name": "Report for a bug report"
+      }
+    },
     "sensor": {
       "events": {
         "name": "Events"

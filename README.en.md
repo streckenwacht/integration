@@ -164,6 +164,7 @@ Example for an area named "Commute" (device *Streckenwacht Commute*). Entity IDs
 | `sensor.streckenwacht_commute_travel_time_loss` | Travel time loss | Largest current travel time loss in minutes (only with traffic jam data). Attributes: `title`, `road`, `direction` of the report with the largest loss; `by_direction` = largest loss per route direction ("Start -> Destination", ramps excluded), e.g. `{"Karlsruhe -> Heidelberg": 14, "Heidelberg -> Karlsruhe": 5}`, so an automation can pick its own carriageway |
 | `sensor.streckenwacht_commute_next_closure` | Next closure | Start of the next planned closure (within 14 days) as a timestamp. Attributes: `title`, `road`, `direction`, `end`, `source` |
 | `event.streckenwacht_commute_event_change` | Event change | Event type `new` or `ended` |
+| `button.streckenwacht_commute_report_for_a_bug_report` | Report for a bug report | Under *Diagnostic*: shows a report to copy into an issue, see [Reporting issues](#reporting-issues) |
 
 <img src="https://raw.githubusercontent.com/streckenwacht/integration/main/assets/screenshots/kalender.png" alt="Calendar in list view: night closures as single entries, current traffic jam" width="600">
 
@@ -371,7 +372,7 @@ With `label_mode: icon` each marker shows the icon of its type (roadworks, closu
 ## Troubleshooting
 
 - **Repairs:** if a source cannot be reached three times in a row, a notice appears under *Settings → System → Repairs*. It disappears by itself as soon as fetching works again.
-- **Diagnostics:** *Devices & services → Streckenwacht → ⋮ → Download diagnostics*. The coordinates of your areas are redacted.
+- **Report for a bug report:** button on the device of an area under *Diagnostic*, see [Reporting issues](#reporting-issues). **Diagnostics:** *Devices & services → Streckenwacht → ⋮ → Download diagnostics*. The coordinates of your areas are redacted, names, motorways and report texts are not (see [What is in the diagnostics file?](#what-is-in-the-diagnostics-file)).
 - **Map card shows "Custom element not found":** reload the page (in the Companion app: *Settings → Companion app → Troubleshooting → Reset frontend cache*). This can happen right after an update if the page was opened while Home Assistant was still starting. If it persists, check that *Settings → Dashboards → ⋮ → Resources* lists `/streckenwacht/frontend/streckenwacht-map-card.js` (added when Streckenwacht starts).
 - **Detailed log:**
 
@@ -383,7 +384,25 @@ With `label_mode: icon` each marker shows the icon of its type (roadworks, closu
 
 ## Reporting issues
 
-Please report bugs and ideas as a [GitHub issue](https://github.com/streckenwacht/integration/issues), ideally with the diagnostics file and your Home Assistant version. Issues in English are welcome. Please report security issues privately, see [SECURITY.md](https://github.com/streckenwacht/integration/blob/main/SECURITY.md).
+Please report bugs and ideas as a [GitHub issue](https://github.com/streckenwacht/integration/issues), for bugs with the **report for a bug report**: press *Devices & services → Streckenwacht → device of an area → Diagnostic → Report for a bug report*. The report shows up as a notification (bell at the bottom left) to copy and covers all areas, whichever one you press it on. It holds:
+
+- the versions of Streckenwacht and Home Assistant;
+- per data source the last poll: ok or the kind of error (e.g. `timeout`, `HTTP 503`), how long ago, and how many reports came;
+- per area only its shape and numbers: radius in whole kilometres, number of sources, motorways and directions, report types, jam threshold, number of reports;
+- the options (poll interval, traffic data, merge duplicate reports), which entities have no value, open repair issues and whether the map card is registered as a resource.
+
+Coordinates, area names, motorways, directions, report texts, error texts with addresses and entity ids are not in it. The data sources in use do give away the rough region, the city for a city source. Read the report before sharing it and delete what you would rather not show. Issues in English are welcome.
+
+Please report security issues privately, see [SECURITY.md](https://github.com/streckenwacht/integration/blob/main/SECURITY.md).
+
+### What is in the diagnostics file?
+
+If the report is not enough, the issue will ask for the diagnostics file (*Devices & services → Streckenwacht → ⋮ → Download diagnostics*). It is more detailed, and not all of it comes from Streckenwacht:
+
+- **From Home Assistant** (every integration gets this header, Streckenwacht cannot change it): version and installation type, operating system, time zone and under `custom_components` the list of **all** installed custom integrations with versions. You may delete these blocks before uploading; they are not needed.
+- **From Streckenwacht** (under `data`): the options; per area its name, radius, sources, motorways, directions, report types and jam threshold; per data source the last poll with the full error text (it names the requested address, for the Autobahn including the motorway number), the number of reports in total and per area, and up to five sample reports with title, road, direction and period. The coordinates of the areas and of the reports are redacted.
+
+Taken together, an area's name, motorways, directions and sample reports often point to where you live or commute. You may replace the name with a placeholder such as "Area 1" before uploading. If you would rather not share the file publicly, that is fine: the report and the specific details asked for in the issue are usually enough.
 
 Pull requests are welcome, see [CONTRIBUTING.md](https://github.com/streckenwacht/integration/blob/main/CONTRIBUTING.md) (with an English summary at the end).
 

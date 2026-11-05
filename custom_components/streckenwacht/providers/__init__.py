@@ -23,6 +23,24 @@ class ProviderError(Exception):
     """A provider could not fetch or parse its data."""
 
 
+def failure_kind(err: BaseException) -> str:
+    """What kind of failure a poll had, without its message.
+
+    The messages name URLs, and those of the Autobahn name the chosen roads:
+    the bug report shows only this.
+    """
+    if not isinstance(err, ProviderError):
+        return f"unexpected error ({type(err).__name__})"
+    cause = err.__cause__
+    if isinstance(cause, TimeoutError):
+        return "timeout"
+    if isinstance(cause, aiohttp.ClientResponseError):
+        return f"HTTP {cause.status}"
+    if isinstance(cause, aiohttp.ClientError):
+        return f"connection error ({type(cause).__name__})"
+    return "unexpected data"
+
+
 class Provider(ABC):
     """Base class for a data source."""
 

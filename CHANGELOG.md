@@ -2,6 +2,14 @@
 
 Alle Änderungen an Streckenwacht, neueste zuerst. Die Einträge entsprechen den Release-Texten auf GitHub; was auf `dev` liegt und noch nicht veröffentlicht ist, steht unter „Unveröffentlicht“.
 
+## Unveröffentlicht
+
+### Neu
+- **Schaltfläche „Bericht für Fehlermeldung“** am Gerät jedes Bereichs (unter *Diagnose*). Sie zeigt einen kurzen Bericht als Benachrichtigung zum Kopieren in ein Issue, für alle Bereiche zusammen: Versionen, je Datenquelle den letzten Abruf (ok oder Art des Fehlers, wie lange her, Anzahl Meldungen), die Optionen, je Bereich nur Form und Zahlen (Radius in ganzen Kilometern, Anzahl der Quellen, Autobahnen und Fahrtrichtungen, Meldungsarten, Stau-Schwelle), Entitäten ohne Wert, offene Reparaturhinweise und ob die Kartenkarte als Ressource angemeldet ist. Koordinaten, Namen der Bereiche, Autobahnen, Fahrtrichtungen, Meldungstexte, Fehlertexte mit Adressen und Entity-IDs stehen nicht darin. Viele wollen die Diagnose-Datei nicht öffentlich teilen, weil Home Assistant ihr unter anderem die Liste aller installierten Integrationen voranstellt.
+
+### Doku
+- README: „Fehler melden“ erklärt den Bericht und unter „Was steht in der Diagnose-Datei?“, was in der Diagnose-Datei steht und was man vor dem Teilen löschen oder ersetzen darf. Die Issue-Vorlage fragt nach dem Bericht statt nach der Diagnose-Datei.
+
 ## 0.9.3 – 2026-11-05
 
 ### Neu
