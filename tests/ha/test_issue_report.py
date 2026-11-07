@@ -164,8 +164,8 @@ async def test_report_for_a_bug_report(
         "autobahn: ok, 0 min ago, 3 fetched, 3 in the areas\n",
         "mobidata_bw: failed 3x (timeout), last success never, no data",
         "scan_interval: 15 min",
-        "include_inrix: True",
-        "merge_duplicates: True",
+        "include_inrix: yes",
+        "merge_duplicates: yes",
         "with a value: ",
         "open: provider_failed_mobidata_bw",
     ):

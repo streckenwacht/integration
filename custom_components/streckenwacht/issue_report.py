@@ -11,7 +11,8 @@ before sharing it, shown as a notification by a button:
   is a number, not the number, e.g. a meter reading); integrations polling a
   web service add the status of each endpoint (`endpoints`);
 - the settings: the entry's options, or `setting_lines` given instead (a
-  whitelist where the settings hold entity ids, names, places or free text);
+  whitelist where the settings hold entity ids, names, places or free text),
+  written as plain text (`text`: yes/no, none, lists joined, times by `utc`);
 - which own entities have no value, with their `reason`;
 - open repair issues of the entry: ids with the entry id in front or at the
   end, every issue of the domain when it has only this entry or the caller
@@ -23,13 +24,15 @@ before sharing it, shown as a notification by a button:
 
 The same file in all six sister projects (Eilwacht, Einspeisewacht,
 Speicherwacht, Streckenwacht, Tarifwacht, Wärmewacht); change it in all of
-them. `render` and `issue_key` are pure; the rest reads Home Assistant.
+them. `render`, `issue_key`, `text` and `utc` are pure; the rest reads Home
+Assistant.
 """
 
 from __future__ import annotations
 
 from collections import Counter
 from collections.abc import Collection, Iterable, Mapping, Sequence
+from datetime import UTC, date, datetime
 from typing import Any
 
 from homeassistant.components import persistent_notification
@@ -142,8 +145,33 @@ def sources(
     ]
 
 
+def utc(value: datetime | None) -> str:
+    """A point in time to the minute: `2026-11-07 12:39 UTC`, `-` for none."""
+    if value is None:
+        return "-"
+    return f"{value.astimezone(UTC):%Y-%m-%d %H:%M} UTC"
+
+
+def text(value: Any) -> str:
+    """A setting as plain text instead of Python's spelling: yes/no, none,
+    lists joined by commas, times by `utc`, dates as YYYY-MM-DD."""
+    if value is None:
+        return "none"
+    if isinstance(value, bool):
+        return "yes" if value else "no"
+    if isinstance(value, datetime):
+        return utc(value)
+    if isinstance(value, date):
+        return value.isoformat()
+    if isinstance(value, Mapping):
+        return ", ".join(f"{key} {text(item)}" for key, item in value.items()) or "none"
+    if isinstance(value, (list, tuple, set, frozenset)):
+        return ", ".join(text(item) for item in value) or "none"
+    return str(value)
+
+
 def settings(options: Mapping[str, Any]) -> Lines:
-    return [(key, str(value)) for key, value in sorted(options.items())]
+    return [(key, text(value)) for key, value in sorted(options.items())]
 
 
 def own_entities(hass: HomeAssistant, entry: ConfigEntry) -> Lines:

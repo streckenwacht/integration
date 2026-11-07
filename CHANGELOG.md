@@ -2,6 +2,10 @@
 
 Alle Änderungen an Streckenwacht, neueste zuerst. Die Einträge entsprechen den Release-Texten auf GitHub; was auf `dev` liegt und noch nicht veröffentlicht ist, steht unter „Unveröffentlicht“.
 
+## Unveröffentlicht
+
+- **Bericht für Fehlermeldung lesbarer:** Einstellungen (INRIX, Duplikate) ohne Python-Schreibweise – `yes`/`no` statt `True`/`False`, `none` statt `None`, Listen ohne Klammern, Zeitpunkte als `2026-11-07 12:39 UTC`.
+
 ## 0.9.4 – 2026-11-07
 
 ### Entfernt

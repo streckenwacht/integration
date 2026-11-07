@@ -43,7 +43,7 @@ from .const import (
 from .coordinator import StreckenwachtCoordinator, area_subentries
 from .entity import StreckenwachtEntity
 from .frontend_resource import card_status
-from .issue_report import Lines, build, show
+from .issue_report import Lines, build, show, text
 
 NAME = "Streckenwacht"
 
@@ -153,11 +153,11 @@ def settings_lines(options: Mapping[str, Any]) -> Lines:
         ),
         (
             CONF_INCLUDE_INRIX,
-            str(options.get(CONF_INCLUDE_INRIX, DEFAULT_INCLUDE_INRIX)),
+            text(options.get(CONF_INCLUDE_INRIX, DEFAULT_INCLUDE_INRIX)),
         ),
         (
             CONF_MERGE_DUPLICATES,
-            str(options.get(CONF_MERGE_DUPLICATES, DEFAULT_MERGE_DUPLICATES)),
+            text(options.get(CONF_MERGE_DUPLICATES, DEFAULT_MERGE_DUPLICATES)),
         ),
     ]
 
