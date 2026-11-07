@@ -2,7 +2,7 @@
 
 Alle Änderungen an Streckenwacht, neueste zuerst. Die Einträge entsprechen den Release-Texten auf GitHub; was auf `dev` liegt und noch nicht veröffentlicht ist, steht unter „Unveröffentlicht“.
 
-## Unveröffentlicht
+## 0.9.4 – 2026-11-07
 
 ### Entfernt
 - **Quelle Köln (Verkehrskalender).** Die Stadt Köln hat die Schnittstelle Ende Oktober 2026 abgeschaltet; sie leitet seither auf die Startseite um, eine neue Adresse gibt es nicht. Seitdem kamen aus Köln keine Meldungen mehr, und es stand der Reparaturhinweis „Datenquelle nicht erreichbar“. Bereiche verlieren die Quelle beim Update von selbst, der Hinweis verschwindet. Ein Bereich, der nur Köln nutzte, zeigt jetzt die Autobahnen. Den Baustellen-Dienst der Stadt nimmt Streckenwacht nicht als Ersatz: Er führt nur Aufbruchgenehmigungen als Punkte, ohne Sperrungen und mit Genehmigungszeiträumen über Jahre.
