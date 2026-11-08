@@ -155,6 +155,9 @@ UPSTREAM_ATTRIBUTION: Final[dict[str, str]] = {
 # Bounding box as (south, west, north, east) in degrees.
 type Bounds = tuple[float, float, float, float]
 
+# Rough box around Germany (reaching into its neighbours): where the Autobahn
+# API can have anything (used for the area overview, not for offering sources).
+GERMANY: Final[Bounds] = (47.27, 5.87, 55.06, 15.04)
 BADEN_WUERTTEMBERG: Final[Bounds] = (47.5, 7.5, 49.8, 10.5)
 STUTTGART: Final[Bounds] = (48.69, 9.03, 48.87, 9.32)
 SCHLESWIG_HOLSTEIN_HAMBURG: Final[Bounds] = (53.35, 7.8, 55.1, 11.4)

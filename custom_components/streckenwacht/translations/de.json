@@ -3,16 +3,12 @@
     "step": {
       "user": {
         "title": "Streckenwacht",
-        "description": "Die Datenquellen wählst du pro Beobachtungsbereich. Bereiche fügst du anschließend über „Beobachtungsbereich hinzufügen“ hinzu.",
+        "description": "Die Datenquellen wählst du pro Beobachtungsbereich. Bereiche fügst du anschließend über „Beobachtungsbereich hinzufügen“ hinzu. Abrufintervall (15 min) und das Zusammenfassen doppelter Meldungen änderst du später in den Optionen.",
         "data": {
-          "scan_interval": "Abrufintervall",
-          "include_inrix": "Staumeldungen einbeziehen (INRIX)",
-          "merge_duplicates": "Doppelte Meldungen zusammenfassen"
+          "include_inrix": "Staumeldungen einbeziehen (INRIX)"
         },
         "data_description": {
-          "scan_interval": "Wie oft die Quellen abgefragt werden. Sie ändern sich nicht im Minutentakt.",
-          "include_inrix": "Staudaten der Autobahn-API stammen vom kommerziellen Anbieter INRIX.",
-          "merge_duplicates": "Dieselbe Baustelle aus mehreren Quellen (z. B. Landesmeldestelle und Stadt) erscheint nur einmal."
+          "include_inrix": "Staudaten der Autobahn-API stammen vom kommerziellen Anbieter INRIX."
         }
       }
     },
@@ -24,6 +20,7 @@
     "step": {
       "init": {
         "title": "Streckenwacht",
+        "description": "{overview}",
         "data": {
           "scan_interval": "Abrufintervall",
           "include_inrix": "Staumeldungen einbeziehen (INRIX)",
@@ -61,7 +58,7 @@
         },
         "reconfigure": {
           "title": "Beobachtungsbereich ändern",
-          "description": "Ereignisse innerhalb des Kreises werden angezeigt.",
+          "description": "{overview}\n\nEreignisse innerhalb des Kreises werden angezeigt.",
           "data": {
             "name": "Name",
             "location": "Bereich",

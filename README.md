@@ -109,7 +109,7 @@ Hinweis: Im alten HACS-Dashboard (vor Home Assistant 2026.11) fehlt das Icon ([H
 
 ### Datenquellen und Optionen
 
-Beim Hinzufügen fragt Streckenwacht nur nach Abrufintervall und Staumeldungen. Die Datenquellen wählst du pro Beobachtungsbereich (siehe unten); abgefragt wird, was irgendein Bereich nutzt.
+Beim Hinzufügen fragt Streckenwacht nur, ob Staumeldungen (INRIX) dabei sein sollen. Die Datenquellen wählst du pro Beobachtungsbereich (siehe unten); abgefragt wird, was irgendein Bereich nutzt.
 
 <a id="optionen"></a>Später änderbar über **Geräte & Dienste → Streckenwacht → Konfigurieren**:
 
@@ -147,7 +147,7 @@ Auf der Streckenwacht-Seite **Beobachtungsbereich hinzufügen**. Der Dialog füh
 
 > **Tipp für Arbeitswege über ein Autobahnkreuz:** Die Richtungsangabe wechselt am Kreuz. Wer z. B. auf der A81 von Böblingen nach Stuttgart-Feuerbach fährt, braucht „Singen -> Stuttgart“ **und** „Stuttgart -> Heilbronn“.
 
-Bereiche lassen sich jederzeit über ⋮ → **Neu konfigurieren** ändern.
+Bereiche lassen sich jederzeit über ⋮ → **Neu konfigurieren** ändern. Oben im Formular steht dann eine kurze Übersicht: Mittelpunkt und Radius, Quellen, Autobahnen und Richtungen, Meldungsarten, Automationen, die den Bereich nutzen, und was fehlt (z. B. eine Quelle, die den Kreis nicht abdeckt, oder Staus ohne INRIX).
 
 ## Entitäten pro Beobachtungsbereich
 

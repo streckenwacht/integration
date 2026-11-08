@@ -3,16 +3,12 @@
     "step": {
       "user": {
         "title": "Streckenwacht",
-        "description": "Data sources are chosen per observation area. Add areas afterwards via “Add observation area”.",
+        "description": "Data sources are chosen per observation area. Add areas afterwards via “Add observation area”. The update interval (15 min) and merging duplicate reports can be changed later in the options.",
         "data": {
-          "scan_interval": "Update interval",
-          "include_inrix": "Include traffic jams (INRIX)",
-          "merge_duplicates": "Merge duplicate reports"
+          "include_inrix": "Include traffic jams (INRIX)"
         },
         "data_description": {
-          "scan_interval": "How often the sources are polled. They do not change by the minute.",
-          "include_inrix": "Traffic jam data in the Autobahn API comes from the commercial provider INRIX.",
-          "merge_duplicates": "The same roadworks reported by several sources (e.g. Landesmeldestelle and city) are shown once."
+          "include_inrix": "Traffic jam data in the Autobahn API comes from the commercial provider INRIX."
         }
       }
     },
@@ -24,6 +20,7 @@
     "step": {
       "init": {
         "title": "Streckenwacht",
+        "description": "{overview}",
         "data": {
           "scan_interval": "Update interval",
           "include_inrix": "Include traffic jams (INRIX)",
@@ -61,7 +58,7 @@
         },
         "reconfigure": {
           "title": "Change observation area",
-          "description": "Events within the circle are shown.",
+          "description": "{overview}\n\nEvents within the circle are shown.",
           "data": {
             "name": "Name",
             "location": "Area",

@@ -4,6 +4,9 @@ Alle Änderungen an Streckenwacht, neueste zuerst. Die Einträge entsprechen den
 
 ## Unveröffentlicht
 
+- **Übersicht oben im Formular:** „Beobachtungsbereich ändern“ zeigt zuerst, was der Bereich nutzt – Mittelpunkt (Name der Zone, sonst Koordinaten) und Radius, Datenquellen, Autobahnen mit Fahrtrichtungen und Stau-Schwelle, Meldungsarten, die Automationen, die ihn nutzen, und die Zahl der aktuellen Meldungen. Darunter „Was fehlt“, wenn etwas fehlt: eine gewählte Quelle, deren Gebiet den Kreis nicht berührt (oder gar keine), weitere Quellen für das Gebiet, Staus ohne INRIX, eine Quelle, die gerade nicht erreichbar ist. Die Optionen von Streckenwacht listen die Bereiche mit Radius, Zahl der Quellen und Meldungen.
+- **Einrichtung kürzer:** Beim Hinzufügen fragt Streckenwacht nur noch nach den Staumeldungen (INRIX). Abrufintervall (15 min) und „Doppelte Meldungen zusammenfassen“ (an) stehen weiter in den Optionen.
+- **Behoben:** Ohne INRIX setzte „Beobachtungsbereich ändern“ die Stau-Schwelle auf 10 Minuten zurück (das Feld war ausgeblendet). Sie bleibt jetzt, wie sie war.
 - **Bericht für Fehlermeldung lesbarer:** Einstellungen (INRIX, Duplikate) ohne Python-Schreibweise – `yes`/`no` statt `True`/`False`, `none` statt `None`, Listen ohne Klammern, Zeitpunkte als `2026-11-07 12:39 UTC`.
 
 ## 0.9.4 – 2026-11-07

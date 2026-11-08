@@ -8,9 +8,14 @@ from __future__ import annotations
 from typing import Any
 
 import voluptuous as vol
+from homeassistant.components.automation import (
+    automations_with_device,
+    automations_with_entity,
+)
 from homeassistant.config_entries import (
     SOURCE_RECONFIGURE,
     ConfigEntry,
+    ConfigEntryState,
     ConfigFlow,
     ConfigFlowResult,
     ConfigSubentryFlow,
@@ -18,7 +23,9 @@ from homeassistant.config_entries import (
     SubentryFlowResult,
 )
 from homeassistant.const import CONF_LATITUDE, CONF_LONGITUDE, CONF_NAME
-from homeassistant.core import callback
+from homeassistant.core import HomeAssistant, callback
+from homeassistant.helpers import device_registry as dr
+from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers import selector
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
@@ -40,15 +47,31 @@ from .const import (
     DEFAULT_RADIUS,
     DEFAULT_SCAN_INTERVAL,
     DOMAIN,
+    FAILURES_BEFORE_ISSUE,
     MAX_RADIUS,
     MAX_SCAN_INTERVAL,
     MIN_SCAN_INTERVAL,
     SUBENTRY_AREA,
     Source,
 )
+from .coordinator import area_subentries
 from .model import EventType, ObservationArea, is_route_direction, sources_for_circle
+from .overview import Zone, area_overview, entry_overview, place_name
 from .providers import ProviderError
 from .providers.autobahn import AutobahnProvider
+
+
+def _setup_schema() -> vol.Schema:
+    """Setup asks only for INRIX (a choice about commercial data); the poll
+    interval and merging duplicates keep their defaults until changed in the
+    options."""
+    return vol.Schema(
+        {
+            vol.Required(
+                CONF_INCLUDE_INRIX, default=DEFAULT_INCLUDE_INRIX
+            ): selector.BooleanSelector(),
+        }
+    )
 
 
 def _options_schema(defaults: dict[str, Any]) -> vol.Schema:
@@ -77,10 +100,73 @@ def _options_schema(defaults: dict[str, Any]) -> vol.Schema:
 
 def _clean_options(user_input: dict[str, Any]) -> dict[str, Any]:
     return {
-        CONF_SCAN_INTERVAL: int(user_input[CONF_SCAN_INTERVAL]),
-        CONF_INCLUDE_INRIX: bool(user_input[CONF_INCLUDE_INRIX]),
-        CONF_MERGE_DUPLICATES: bool(user_input[CONF_MERGE_DUPLICATES]),
+        CONF_SCAN_INTERVAL: int(
+            user_input.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL)
+        ),
+        CONF_INCLUDE_INRIX: bool(
+            user_input.get(CONF_INCLUDE_INRIX, DEFAULT_INCLUDE_INRIX)
+        ),
+        CONF_MERGE_DUPLICATES: bool(
+            user_input.get(CONF_MERGE_DUPLICATES, DEFAULT_MERGE_DUPLICATES)
+        ),
     }
+
+
+def _language(hass: HomeAssistant) -> str:
+    return "de" if (hass.config.language or "").startswith("de") else "en"
+
+
+def _runtime(entry: ConfigEntry) -> Any:
+    """The entry's runtime data while it is loaded, else None."""
+    if entry.state is not ConfigEntryState.LOADED:
+        return None
+    return getattr(entry, "runtime_data", None)
+
+
+def _unreachable(runtime: Any) -> set[Source]:
+    """Sources failing long enough to have a repair issue."""
+    if runtime is None:
+        return set()
+    return {
+        source
+        for source, coordinator in runtime.coordinators.items()
+        if coordinator.failures >= FAILURES_BEFORE_ISSUE
+    }
+
+
+def _zones(hass: HomeAssistant) -> list[Zone]:
+    zones = []
+    for state in hass.states.async_all("zone"):
+        attrs = state.attributes
+        try:
+            zones.append(
+                Zone(
+                    state.name,
+                    float(attrs["latitude"]),
+                    float(attrs["longitude"]),
+                    float(attrs.get("radius") or 0) / 1000,
+                )
+            )
+        except KeyError, TypeError, ValueError:
+            continue
+    return zones
+
+
+def _area_automations(
+    hass: HomeAssistant, entry: ConfigEntry, subentry_id: str
+) -> list[str]:
+    """Names of the automations using an entity or the device of an area."""
+    found: set[str] = set()
+    for entity in er.async_entries_for_config_entry(er.async_get(hass), entry.entry_id):
+        if entity.config_subentry_id == subentry_id:
+            found.update(automations_with_entity(hass, entity.entity_id))
+    for device in dr.async_entries_for_config_entry(dr.async_get(hass), entry.entry_id):
+        if subentry_id in device.config_entries_subentries.get(entry.entry_id, ()):
+            found.update(automations_with_device(hass, device.id))
+    return sorted(
+        state.name if (state := hass.states.get(entity_id)) else entity_id
+        for entity_id in found
+    )
 
 
 class StreckenwachtConfigFlow(ConfigFlow, domain=DOMAIN):
@@ -94,19 +180,12 @@ class StreckenwachtConfigFlow(ConfigFlow, domain=DOMAIN):
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
     ) -> ConfigFlowResult:
-        """Poll interval and INRIX; sources are chosen per observation area."""
+        """Only INRIX; sources are chosen per observation area."""
         if user_input is not None:
             return self.async_create_entry(
                 title="Streckenwacht", data={}, options=_clean_options(user_input)
             )
-        defaults = {
-            CONF_SCAN_INTERVAL: DEFAULT_SCAN_INTERVAL,
-            CONF_INCLUDE_INRIX: DEFAULT_INCLUDE_INRIX,
-            CONF_MERGE_DUPLICATES: DEFAULT_MERGE_DUPLICATES,
-        }
-        return self.async_show_form(
-            step_id="user", data_schema=_options_schema(defaults)
-        )
+        return self.async_show_form(step_id="user", data_schema=_setup_schema())
 
     @staticmethod
     @callback
@@ -141,8 +220,26 @@ class StreckenwachtOptionsFlow(OptionsFlow):
                 CONF_MERGE_DUPLICATES, DEFAULT_MERGE_DUPLICATES
             ),
         }
+        entry = self.config_entry
+        runtime = _runtime(entry)
+        overview = entry_overview(
+            [
+                (
+                    subentry.title,
+                    subentry.data,
+                    len(runtime.area_events(subentry.subentry_id))
+                    if runtime is not None
+                    else None,
+                )
+                for subentry in area_subentries(entry)
+            ],
+            language=_language(self.hass),
+            unreachable=_unreachable(runtime),
+        )
         return self.async_show_form(
-            step_id="init", data_schema=_options_schema(defaults)
+            step_id="init",
+            data_schema=_options_schema(defaults),
+            description_placeholders={"overview": overview},
         )
 
 
@@ -171,6 +268,12 @@ class AreaSubentryFlow(ConfigSubentryFlow):
     ) -> SubentryFlowResult:
         """Change an existing observation area."""
         return await self._async_area_step("reconfigure", user_input)
+
+    def _inrix(self) -> bool:
+        """Traffic jams (and their threshold) only exist with INRIX data."""
+        return bool(
+            self._get_entry().options.get(CONF_INCLUDE_INRIX, DEFAULT_INCLUDE_INRIX)
+        )
 
     def _stored(self, key: str, default: Any) -> Any:
         """Value of the subentry being reconfigured, else the default."""
@@ -231,6 +334,35 @@ class AreaSubentryFlow(ConfigSubentryFlow):
                 schema, user_input or self._area_defaults()
             ),
             errors=errors,
+            description_placeholders=(
+                {"overview": self._overview()}
+                if self.source == SOURCE_RECONFIGURE
+                else None
+            ),
+        )
+
+    def _overview(self) -> str:
+        """What the area being changed is set up with (as stored)."""
+        entry = self._get_entry()
+        subentry = self._get_reconfigure_subentry()
+        data = subentry.data
+        runtime = _runtime(entry)
+        return area_overview(
+            data,
+            language=_language(self.hass),
+            include_inrix=self._inrix(),
+            place=place_name(
+                float(data[CONF_LATITUDE]),
+                float(data[CONF_LONGITUDE]),
+                _zones(self.hass),
+            ),
+            events=(
+                len(runtime.area_events(subentry.subentry_id))
+                if runtime is not None
+                else None
+            ),
+            automations=_area_automations(self.hass, entry, subentry.subentry_id),
+            unreachable=_unreachable(runtime),
         )
 
     def _area_defaults(self) -> dict[str, Any]:
@@ -315,8 +447,15 @@ class AreaSubentryFlow(ConfigSubentryFlow):
             roads = sorted(user_input.get(CONF_ROADS, []))
             if roads:
                 self._data[CONF_ROADS] = roads
+                # An emptied field falls back to the default; without INRIX
+                # the field is hidden and the stored value stays.
+                fallback = (
+                    DEFAULT_JAM_THRESHOLD
+                    if self._inrix()
+                    else self._stored(CONF_JAM_THRESHOLD, DEFAULT_JAM_THRESHOLD)
+                )
                 self._data[CONF_JAM_THRESHOLD] = int(
-                    user_input.get(CONF_JAM_THRESHOLD, DEFAULT_JAM_THRESHOLD)
+                    user_input.get(CONF_JAM_THRESHOLD, fallback)
                 )
                 return await self.async_step_directions()
             errors[CONF_ROADS] = "no_roads"
@@ -337,8 +476,7 @@ class AreaSubentryFlow(ConfigSubentryFlow):
                 )
             )
         }
-        # Traffic jams (and their threshold) only exist with INRIX data.
-        if self._get_entry().options.get(CONF_INCLUDE_INRIX, DEFAULT_INCLUDE_INRIX):
+        if self._inrix():
             # Optional: an emptied field falls back to the default.
             fields[vol.Optional(CONF_JAM_THRESHOLD)] = selector.NumberSelector(
                 selector.NumberSelectorConfig(

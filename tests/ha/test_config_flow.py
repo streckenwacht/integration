@@ -73,19 +73,16 @@ async def test_user_flow(hass: HomeAssistant) -> None:
         DOMAIN, context={"source": SOURCE_USER}
     )
     assert result["type"] is FlowResultType.FORM
-    assert set(result["data_schema"].schema) == {
-        CONF_SCAN_INTERVAL,
-        CONF_INCLUDE_INRIX,
-        CONF_MERGE_DUPLICATES,
-    }
+    # Setup asks only for INRIX; the rest is in the options.
+    assert set(result["data_schema"].schema) == {CONF_INCLUDE_INRIX}
 
     result = await hass.config_entries.flow.async_configure(
-        result["flow_id"], {CONF_SCAN_INTERVAL: 20.0, CONF_INCLUDE_INRIX: False}
+        result["flow_id"], {CONF_INCLUDE_INRIX: False}
     )
     assert result["type"] is FlowResultType.CREATE_ENTRY
     assert result["title"] == "Streckenwacht"
     assert result["options"] == {
-        CONF_SCAN_INTERVAL: 20,
+        CONF_SCAN_INTERVAL: 15,  # default
         CONF_INCLUDE_INRIX: False,
         CONF_MERGE_DUPLICATES: True,  # default
     }
@@ -105,6 +102,8 @@ async def test_options_flow(hass: HomeAssistant) -> None:
     entry.add_to_hass(hass)
     result = await hass.config_entries.options.async_init(entry.entry_id)
     assert result["type"] is FlowResultType.FORM
+    # No area yet: the overview says what is missing.
+    assert "Add observation area" in result["description_placeholders"]["overview"]
 
     result = await hass.config_entries.options.async_configure(
         result["flow_id"],
@@ -430,6 +429,70 @@ async def test_reconfigure_area(
     assert subentry.data[CONF_ROADS] == ["A8", "A81"]
     assert subentry.data[CONF_RADIUS] == 15000.0
     assert subentry.data[CONF_DIRECTIONS] == []
+
+
+async def test_options_overview_lists_the_areas(hass: HomeAssistant) -> None:
+    entry = entry_with(OPTIONS, [stored_area()])
+    entry.add_to_hass(hass)
+    result = await hass.config_entries.options.async_init(entry.entry_id)
+    overview = result["description_placeholders"]["overview"]
+    # Not loaded: no event counts.
+    assert overview == "**Set up**\n- Alt: radius 5 km, 2 sources"
+
+
+async def test_reconfigure_shows_an_overview(hass: HomeAssistant) -> None:
+    entry = entry_with(
+        OPTIONS | {CONF_INCLUDE_INRIX: False},
+        [stored_area(types=["closure", "traffic_jam"], jam_threshold=20)],
+    )
+    entry.add_to_hass(hass)
+    hass.states.async_set(
+        "zone.work",
+        "0",
+        {"latitude": 48.001, "longitude": 9.0, "radius": 300, "friendly_name": "Work"},
+    )
+    result = await start_reconfigure(hass, entry)
+    overview = result["description_placeholders"]["overview"]
+    assert overview.startswith("**Set up**\n- Centre: Work, radius 5 km\n")
+    assert "- Sources: Autobahn GmbH, Stadt Stuttgart\n" in overview
+    # Without INRIX no jam threshold, and the jams are missing.
+    assert "- Motorways: A8 (direction Stuttgart -> Karlsruhe)\n" in overview
+    assert "- Kinds of reports: Closures, Traffic jams\n" in overview
+    assert "- Automations: none" in overview
+    assert "**Missing**" in overview
+    assert "need INRIX" in overview
+    # The circle (48.0, 9.0) lies outside the city of Stuttgart.
+    assert "nothing from them here: Stadt Stuttgart" in overview
+
+
+async def test_reconfigure_overview_in_german(hass: HomeAssistant) -> None:
+    hass.config.language = "de"
+    entry = entry_with(OPTIONS, [stored_area()])
+    entry.add_to_hass(hass)
+    result = await start_reconfigure(hass, entry)
+    overview = result["description_placeholders"]["overview"]
+    assert overview.startswith(
+        "**Eingerichtet**\n- Mittelpunkt: 48.00, 9.00, Radius 5 km"
+    )
+    assert "Stau zählt ab 10 min" in overview
+
+
+async def test_reconfigure_without_inrix_keeps_the_jam_threshold(
+    hass: HomeAssistant, roads: AsyncMock, directions: AsyncMock
+) -> None:
+    entry = entry_with(
+        OPTIONS | {CONF_INCLUDE_INRIX: False}, [stored_area(jam_threshold=25)]
+    )
+    entry.add_to_hass(hass)
+    (subentry_id,) = entry.subentries
+    result = await start_reconfigure(hass, entry)
+    result = await configure(hass, result, AREA_INPUT)
+    result = await configure(hass, result, SOURCES_INPUT)
+    assert CONF_JAM_THRESHOLD not in result["data_schema"].schema
+    result = await configure(hass, result, {CONF_ROADS: ["A8"]})
+    result = await configure(hass, result, {CONF_DIRECTIONS: []})
+    assert result["reason"] == "reconfigure_successful"
+    assert entry.subentries[subentry_id].data[CONF_JAM_THRESHOLD] == 25
 
 
 async def test_reconfigure_keeps_stored_sources_selectable_after_moving(

@@ -6,7 +6,8 @@ Wie Streckenwacht gebaut ist, was man über die Datenquellen wissen muss und war
 
 ### Konfiguration
 
-- **Ein Config-Entry** „Streckenwacht“ (`single_config_entry`): Abrufintervall (10–60 min, Standard 15), Option „Staumeldungen (INRIX) einbeziehen“ (Standard an). Nur UI, kein YAML. Abgefragt werden die Quellen, die irgendein Bereich nutzt.
+- **Ein Config-Entry** „Streckenwacht“ (`single_config_entry`): Abrufintervall (10–60 min, Standard 15), Option „Staumeldungen (INRIX) einbeziehen“ (Standard an), „Doppelte Meldungen zusammenfassen“ (Standard an). Die Einrichtung fragt nur INRIX, der Rest steht in den Optionen. Nur UI, kein YAML. Abgefragt werden die Quellen, die irgendein Bereich nutzt.
+- **Übersicht oben** (`overview.py`, rein, ohne HA-Importe; seit 2026-11): `reconfigure` eines Bereichs und die Optionen zeigen im Platzhalter `{overview}` einen Markdown-Text „Eingerichtet“/„Was fehlt“. Die Sprache wählt der Code (`hass.config.language`, de sonst en), weil Platzhalter nicht übersetzt werden. Mittelpunkt: Name der Zone, in der er liegt, sonst Koordinaten auf 2 Stellen. Automationen: alle, die eine Entität oder das Gerät des Bereichs referenzieren (`automations_with_entity`/`_device`). „Was fehlt“ nur bei Folgen: Quelle ohne Gebiet am Kreis (Autobahn: grobes Rechteck `const.GERMANY`), nicht gewählte Quellen fürs Gebiet, Staus ohne INRIX, Quellen mit Reparaturhinweis. Gerechnet wird nur beim Öffnen des Formulars.
 - **Ein Config-Subentry `area` je Beobachtungsbereich**, eingerichtet als Assistent `user`/`reconfigure` → `sources` → `roads` → `directions`:
   - Mittelpunkt und Radius per Karte (Standard 10 km, höchstens 100 km – `geo.py` rechnet flach, das ist bis ~100 km genau).
   - Meldungsarten (`types`, seit 0.3.0): gefiltert wird in `ObservationArea.contains()`, also für alle Entities des Bereichs; alle gewählt wird als `None` gespeichert, damit später hinzukommende Arten automatisch dabei sind.
@@ -30,6 +31,7 @@ Wie Streckenwacht gebaut ist, was man über die Datenquellen wissen muss und war
 | `model.py` | `StreckenwachtEvent`, `Period`, `ObservationArea`, `EventType` (`roadworks`, `closure`, `traffic_jam`, `accident`, `warning`) |
 | `geo.py` | Abstände Punkt ↔ GeoJSON |
 | `summary.py` | Zeitabhängige Sichten für die Entities (aktiv, Störungen, Kalendereinträge, größter Reisezeitverlust) |
+| `overview.py` | Übersicht oben in den Formularen (Bereich ändern, Optionen): eingerichtet, was fehlt |
 | `changes.py` | „neu/beendet“-Erkennung inkl. Stau-Glättung (Abschnitt 2, Autobahn) |
 | `known_events.py` | Speichert pro Bereich die bekannten Meldungen (`streckenwacht.<entry_id>.known_events`), damit Neustarts nichts erneut melden |
 | `providers/*.py` | Abruf und Umwandlung je Quelle |
@@ -37,7 +39,7 @@ Wie Streckenwacht gebaut ist, was man über die Datenquellen wissen muss und war
 | `diagnostics.py` | Diagnose-Download; Koordinaten der Bereiche geschwärzt (landet in öffentlichen Issues) |
 | `issue_report.py`, `button.py` | Bericht für Fehlermeldung: allgemeiner Teil (gleich in allen Wachten) und Schaltfläche je Bereich mit den Streckenwacht-Zeilen |
 
-`model.py`, `geo.py`, `summary.py`, `changes.py` und die Provider importieren nichts aus HA und werden lokal getestet.
+`model.py`, `geo.py`, `summary.py`, `overview.py`, `changes.py` und die Provider importieren nichts aus HA und werden lokal getestet.
 
 ### Entities (je Bereich ein Gerät)
 

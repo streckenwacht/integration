@@ -111,7 +111,7 @@ Note: the old HACS dashboard (before Home Assistant 2026.11) does not show the i
 
 ### Data sources and options
 
-When adding the integration, Streckenwacht only asks for the update interval and traffic jams. Data sources are chosen per observation area (see below); whatever any area uses is queried.
+When adding the integration, Streckenwacht only asks whether to include traffic jams (INRIX). Data sources are chosen per observation area (see below); whatever any area uses is queried.
 
 <a id="options"></a>Change them later via **Devices & services → Streckenwacht → Configure**:
 
@@ -149,7 +149,7 @@ On the Streckenwacht page choose **Add observation area**. The dialog guides you
 
 > **Tip for commutes across a motorway junction:** the direction name changes at the junction. Driving the A81 from Böblingen to Stuttgart-Feuerbach, for example, you need "Singen -> Stuttgart" **and** "Stuttgart -> Heilbronn".
 
-Areas can be changed at any time via ⋮ → **Reconfigure**.
+Areas can be changed at any time via ⋮ → **Reconfigure**. The form then starts with a short overview: centre and radius, sources, motorways and directions, kinds of reports, automations using the area, and what is missing (e.g. a source that does not cover the circle, or traffic jams without INRIX).
 
 ## Entities per observation area
 
