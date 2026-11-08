@@ -9,6 +9,9 @@ it until the next reload: "Custom element not found".
 
 With resources in YAML mode they cannot be changed, so the card falls back
 to the extra module URL.
+
+Copies: tarifwacht/custom_components/tarifwacht/frontend_resource.py,
+waermewacht/custom_components/waermewacht/frontend_resource.py (both derived).
 """
 
 from __future__ import annotations
