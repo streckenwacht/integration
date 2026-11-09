@@ -2,7 +2,7 @@
 
 Alle Änderungen an Streckenwacht, neueste zuerst. Die Einträge entsprechen den Release-Texten auf GitHub; was auf `dev` liegt und noch nicht veröffentlicht ist, steht unter „Unveröffentlicht“.
 
-## Unveröffentlicht
+## 0.9.6 – 2026-11-09
 
 - **Behoben:** Die Übersicht in den Optionen und in „Beobachtungsbereich ändern“ schrieb kleine Radien auf Deutsch mit Punkt („2.5 km“), jetzt mit Komma („2,5 km“).
 
