@@ -2,6 +2,10 @@
 
 Alle Änderungen an Streckenwacht, neueste zuerst. Die Einträge entsprechen den Release-Texten auf GitHub; was auf `dev` liegt und noch nicht veröffentlicht ist, steht unter „Unveröffentlicht“.
 
+## Unveröffentlicht
+
+- **Behoben:** Die Übersicht in den Optionen und in „Beobachtungsbereich ändern“ schrieb kleine Radien auf Deutsch mit Punkt („2.5 km“), jetzt mit Komma („2,5 km“).
+
 ## 0.9.5 – 2026-11-08
 
 - **Übersicht oben im Formular:** „Beobachtungsbereich ändern“ zeigt zuerst, was der Bereich nutzt – Mittelpunkt (Name der Zone, sonst Koordinaten) und Radius, Datenquellen, Autobahnen mit Fahrtrichtungen und Stau-Schwelle, Meldungsarten, die Automationen, die ihn nutzen, und die Zahl der aktuellen Meldungen. Darunter „Was fehlt“, wenn etwas fehlt: eine gewählte Quelle, deren Gebiet den Kreis nicht berührt (oder gar keine), weitere Quellen für das Gebiet, Staus ohne INRIX, eine Quelle, die gerade nicht erreichbar ist. Die Optionen von Streckenwacht listen die Bereiche mit Radius, Zahl der Quellen und Meldungen.

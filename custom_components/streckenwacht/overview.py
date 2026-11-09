@@ -181,7 +181,7 @@ def area_overview(
 
     lines = [
         t["centre"].format(
-            place=place or f"{lat:.2f}, {lon:.2f}", radius=_km(radius_km)
+            place=place or f"{lat:.2f}, {lon:.2f}", radius=_km(radius_km, language)
         ),
         t["sources"].format(names=_names(chosen) or "–"),
     ]
@@ -256,7 +256,9 @@ def entry_overview(
         count = len(_sources(data))
         values = {
             "name": name,
-            "radius": _km(float(data.get(CONF_RADIUS) or DEFAULT_RADIUS) / 1000),
+            "radius": _km(
+                float(data.get(CONF_RADIUS) or DEFAULT_RADIUS) / 1000, language
+            ),
             "sources": t["sources_one"]
             if count == 1
             else t["sources_count"].format(count=count),
@@ -298,11 +300,12 @@ def _names(sources: Sequence[Source]) -> str:
     return ", ".join(SOURCE_NAMES[s] for s in sources)
 
 
-def _km(radius_km: float) -> str:
-    """Whole km, below 10 km with one decimal (no trailing .0)."""
-    return (
+def _km(radius_km: float, language: str) -> str:
+    """Whole km, below 10 km with one decimal (no trailing .0); German comma."""
+    text = (
         f"{radius_km:.0f}" if radius_km >= 10 else f"{radius_km:.1f}".removesuffix(".0")
     )
+    return text.replace(".", ",") if language == "de" else text
 
 
 def _markdown(t: Mapping[str, str], lines: list[str], missing: list[str]) -> str:

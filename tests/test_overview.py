@@ -58,6 +58,8 @@ def test_small_radius_with_one_decimal() -> None:
     assert "radius 2.5 km" in text
     text = area_overview(COMMUTE | {"radius": 5000}, language="en", include_inrix=True)
     assert "radius 5 km" in text
+    text = area_overview(COMMUTE | {"radius": 2500}, language="de", include_inrix=True)
+    assert "Radius 2,5 km" in text
 
 
 def test_directions_and_kinds() -> None:
