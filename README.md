@@ -119,7 +119,7 @@ Beim Hinzufügen fragt Streckenwacht nur, ob Staumeldungen (INRIX) dabei sein so
 | Staumeldungen einbeziehen (INRIX) | an | Staus und Reisezeitverlust aus der Autobahn-API |
 | Doppelte Meldungen zusammenfassen | an | Dieselbe Baustelle aus mehreren Quellen erscheint nur einmal (siehe unten) |
 
-<img src="https://raw.githubusercontent.com/streckenwacht/integration/main/assets/screenshots/optionen.png" alt="Optionen: Abrufintervall, Staumeldungen" width="400">
+<img src="https://raw.githubusercontent.com/streckenwacht/integration/main/assets/screenshots/optionen.png" alt="Optionen: oben die eingerichteten Bereiche, darunter Abrufintervall, Staumeldungen und Zusammenfassen" width="420">
 
 ### Beobachtungsbereiche
 

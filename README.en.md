@@ -121,7 +121,7 @@ When adding the integration, Streckenwacht only asks whether to include traffic 
 | Include traffic jams (INRIX) | on | Traffic jams and travel time loss from the Autobahn API |
 | Merge duplicate reports | on | The same roadworks from several sources are shown once (see below) |
 
-<img src="https://raw.githubusercontent.com/streckenwacht/integration/main/assets/screenshots/optionen.png" alt="Options: update interval, traffic jams" width="400">
+<img src="https://raw.githubusercontent.com/streckenwacht/integration/main/assets/screenshots/optionen.png" alt="Options: the configured areas on top, then update interval, traffic jams and merging" width="420">
 
 ### Observation areas
 
