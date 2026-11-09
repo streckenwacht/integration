@@ -54,9 +54,7 @@ TEXTS: dict[str, dict[str, str]] = {
             "Keine gewählte Quelle deckt diesen Kreis ab – hier kommen keine Meldungen."
         ),
         "not_covering": "Kreis außerhalb ihres Gebiets, liefern hier nichts: {names}",
-        "also_available": (
-            "Für dieses Gebiet außerdem verfügbar (Schritt „Datenquellen“): {names}"
-        ),
+        "also_available": "Nicht gewählt, hier aber verfügbar: {names}",
         "inrix": (
             "Staus und Reisezeitverlust nur mit INRIX – in den Optionen von "
             "Streckenwacht einschalten."
@@ -96,9 +94,7 @@ TEXTS: dict[str, dict[str, str]] = {
             "No selected source covers this circle – no events will arrive here."
         ),
         "not_covering": "Circle outside their region, nothing from them here: {names}",
-        "also_available": (
-            "Also available for this region (step “Data sources”): {names}"
-        ),
+        "also_available": "Not chosen, but available here: {names}",
         "inrix": (
             "Traffic jams and travel time loss need INRIX – switch it on in the "
             "Streckenwacht options."
@@ -166,8 +162,9 @@ def area_overview(
     automations: Sequence[str] = (),
     unreachable: Collection[Source] = (),
 ) -> str:
-    """Markdown overview of an area: centre, sources, motorways, kinds of
-    reports, automations, current events, then what is missing (if anything).
+    """Markdown overview of an area: centre, sources (and those available
+    here but not chosen), motorways, kinds of reports, automations, current
+    events, then what is missing (if anything).
 
     `events` is None while the entry is not loaded; `unreachable` are the
     sources failing right now (any, only the area's are named).
@@ -185,6 +182,11 @@ def area_overview(
         ),
         t["sources"].format(names=_names(chosen) or "–"),
     ]
+    covering = _covering(lat, lon, radius_km)
+    # Those the sources step offers and that would deliver something here:
+    # named next to the sources, not as missing (often left out on purpose).
+    if extra := [s for s in Source if s in covering and s not in chosen]:
+        lines.append(t["also_available"].format(names=_names(extra)))
     if Source.AUTOBAHN in chosen and roads:
         directions = list(data.get(CONF_DIRECTIONS) or ())
         details = [
@@ -221,16 +223,12 @@ def area_overview(
             t["events_one"] if events == 1 else t["events"].format(count=events)
         )
 
-    covering = _covering(lat, lon, radius_km)
     missing: list[str] = []
     outside = [s for s in chosen if s not in covering]
     if chosen and len(outside) == len(chosen):
         missing.append(t["nothing_covers"])
     elif outside:
         missing.append(t["not_covering"].format(names=_names(outside)))
-    # Those the sources step offers and that would deliver something here.
-    if extra := [s for s in Source if s in covering and s not in chosen]:
-        missing.append(t["also_available"].format(names=_names(extra)))
     if (
         not include_inrix
         and Source.AUTOBAHN in chosen

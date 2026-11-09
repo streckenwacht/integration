@@ -117,7 +117,7 @@ class IssueReport(StreckenwachtEntity, ButtonEntity):
         return [
             ("areas", str(len(ids))),
             (
-                "pressed in area",
+                "report from area",
                 str(ids.index(self._subentry_id) + 1)
                 if self._subentry_id in ids
                 else "-",
@@ -163,10 +163,14 @@ def settings_lines(options: Mapping[str, Any]) -> Lines:
 
 
 def area_line(data: Mapping[str, Any], events: int) -> str:
-    """An area by its shape: the radius in whole km, how many sources, roads
-    and directions, which types, the jam threshold and how many events it
-    has. Never its centre, name, roads or directions themselves."""
-    radius = max(1, round(float(data.get(CONF_RADIUS, DEFAULT_RADIUS)) / 1000))
+    """An area by its shape: the radius in km as in the settings overview
+    (below 10 km with one decimal), how many sources, roads and directions,
+    which types, the jam threshold and how many events it has. Never its
+    centre, name, roads or directions themselves."""
+    radius_km = float(data.get(CONF_RADIUS, DEFAULT_RADIUS)) / 1000
+    radius = (
+        f"{radius_km:.0f}" if radius_km >= 10 else f"{radius_km:.1f}".removesuffix(".0")
+    )
     sources = data.get(CONF_AREA_SOURCES)
     roads = data.get(CONF_ROADS) or ()
     directions = data.get(CONF_DIRECTIONS) or ()

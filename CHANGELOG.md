@@ -2,6 +2,11 @@
 
 Alle Änderungen an Streckenwacht, neueste zuerst. Die Einträge entsprechen den Release-Texten auf GitHub; was auf `dev` liegt und noch nicht veröffentlicht ist, steht unter „Unveröffentlicht“.
 
+## Unveröffentlicht
+
+- **Übersicht in „Beobachtungsbereich ändern“:** Quellen, die es für das Gebiet gibt, die der Bereich aber nicht nutzt, stehen jetzt direkt unter den Quellen („Nicht gewählt, hier aber verfügbar: …“) statt unter „Was fehlt“. Wer eine Quelle bewusst abgewählt hat, etwa die Autobahn für einen Bereich um die Wohnung, sah dort sonst dauerhaft einen Hinweis, als fehle etwas.
+- **Bericht für Fehlermeldung:** Der Radius steht unter 10 km mit einer Nachkommastelle (`radius 2.5 km`) wie in der Übersicht, statt auf ganze Kilometer gerundet (bisher `radius 2 km`). Die Zeile „pressed in area“ heißt jetzt „report from area“ (der Bereich, an dessen Gerät die Schaltfläche gedrückt wurde).
+
 ## 0.9.6 – 2026-11-09
 
 - **Behoben:** Die Übersicht in den Optionen und in „Beobachtungsbereich ändern“ schrieb kleine Radien auf Deutsch mit Punkt („2.5 km“), jetzt mit Komma („2,5 km“).

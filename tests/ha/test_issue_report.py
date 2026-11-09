@@ -154,7 +154,7 @@ async def test_report_for_a_bug_report(
 
     for line in (
         "areas: 2",
-        "pressed in area: 2",
+        "report from area: 2",
         "sources polled: 2",
         "events in the areas: ",
         "map card: ",

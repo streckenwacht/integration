@@ -385,7 +385,7 @@ Fehler und Ideen bitte als [GitHub-Issue](https://github.com/streckenwacht/integ
 
 - die Versionen von Streckenwacht und Home Assistant;
 - je Datenquelle den letzten Abruf: ok oder die Art des Fehlers (z. B. `timeout`, `HTTP 503`), wie lange er her ist und wie viele Meldungen kamen;
-- je Bereich nur Form und Zahlen: Radius in ganzen Kilometern, Anzahl der Quellen, Autobahnen und Fahrtrichtungen, Meldungsarten, Stau-Schwelle, Anzahl der Meldungen;
+- je Bereich nur Form und Zahlen: Radius in Kilometern (unter 10 km auf eine Nachkommastelle), Anzahl der Quellen, Autobahnen und Fahrtrichtungen, Meldungsarten, Stau-Schwelle, Anzahl der Meldungen;
 - die Optionen (Abrufintervall, Verkehrslage, doppelte Meldungen zusammenfassen), welche Entitäten keinen Wert haben, offene Reparaturhinweise und ob die Kartenkarte als Ressource angemeldet ist.
 
 Koordinaten, Namen der Bereiche, Autobahnen, Fahrtrichtungen, Meldungstexte, Fehlertexte mit Adressen und Entity-IDs stehen nicht darin. Welche Datenquellen genutzt werden, verrät aber die grobe Region, bei einer Stadtquelle die Stadt. Lies den Bericht vor dem Teilen und lösche, was du nicht zeigen willst.

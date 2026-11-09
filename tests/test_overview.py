@@ -95,17 +95,19 @@ def test_inrix_not_missing_without_the_motorways() -> None:
     text = area_overview(area, language="en", include_inrix=False)
     assert "Motorways" not in text
     assert "INRIX" not in text
-    # Not chosen, but available here.
-    assert "Also available for this region (step “Data sources”): Autobahn GmbH" in text
+    # Not chosen, but available here: named, not missing (often on purpose).
+    assert "- Not chosen, but available here: Autobahn GmbH\n" in text
+    assert "**Missing**" not in text
 
 
 def test_sources_available_but_not_chosen() -> None:
     area = COMMUTE | {"sources": ["autobahn"]}
     text = area_overview(area, language="en", include_inrix=True)
-    assert text.endswith(
-        "**Missing**\n- Also available for this region (step “Data sources”): "
-        "MobiData BW, Stadt Stuttgart, Landesmeldestelle Baden-Württemberg"
-    )
+    assert (
+        "- Sources: Autobahn GmbH\n- Not chosen, but available here: MobiData BW, "
+        "Stadt Stuttgart, Landesmeldestelle Baden-Württemberg\n"
+    ) in text
+    assert "**Missing**" not in text
 
 
 def test_source_outside_its_region() -> None:

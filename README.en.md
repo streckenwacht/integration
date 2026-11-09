@@ -387,7 +387,7 @@ Please report bugs and ideas as a [GitHub issue](https://github.com/streckenwach
 
 - the versions of Streckenwacht and Home Assistant;
 - per data source the last poll: ok or the kind of error (e.g. `timeout`, `HTTP 503`), how long ago, and how many reports came;
-- per area only its shape and numbers: radius in whole kilometres, number of sources, motorways and directions, report types, jam threshold, number of reports;
+- per area only its shape and numbers: radius in kilometres (below 10 km to one decimal), number of sources, motorways and directions, report types, jam threshold, number of reports;
 - the options (poll interval, traffic data, merge duplicate reports), which entities have no value, open repair issues and whether the map card is registered as a resource.
 
 Coordinates, area names, motorways, directions, report texts, error texts with addresses and entity ids are not in it. The data sources in use do give away the rough region, the city for a city source. Read the report before sharing it and delete what you would rather not show. Issues in English are welcome.

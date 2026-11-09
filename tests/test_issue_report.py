@@ -70,7 +70,10 @@ def test_area_by_its_shape_only() -> None:
 
 def test_area_without_roads_and_filters() -> None:
     area = {CONF_RADIUS: 300.0, CONF_AREA_SOURCES: ["berlin"], CONF_TYPES: None}
-    assert area_line(area, 0) == "radius 1 km, sources 1, roads 0, types all, events 0"
+    line = area_line(area, 0)
+    assert line == "radius 0.3 km, sources 1, roads 0, types all, events 0"
+    # Below 10 km as in the settings overview, not rounded to whole km.
+    assert area_line(area | {CONF_RADIUS: 2500.0}, 0).startswith("radius 2.5 km,")
 
 
 def test_source_lines() -> None:
