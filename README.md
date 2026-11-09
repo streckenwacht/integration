@@ -55,7 +55,6 @@ Streckenwacht wacht über deine Strecke – ob Autobahn, Bundesstraße oder dein
 | [Stadt Dortmund](https://open-data.dortmund.de/explore/dataset/fb66-baustellen-tagesaktuell/) | Baustellen in Dortmund (aktuell und geplant) | Stadt Dortmund, dl-de/zero-2-0 |
 | [Stadt Aachen](https://bsis.aachen.de) | Baustellen in Aachen (ohne reine Gehweg- und Parkeinschränkungen) | Stadt Aachen, dl-de/by-2-0 |
 | [Stadt Duisburg](https://opendata-duisburg.de/dataset/baustellen-duisburg) | Aktuelle Baustellen in Duisburg | Stadt Duisburg, CC BY 3.0 DE |
-| [Stadt Münster](https://opendata.stadt-muenster.de/dataset/baustellen) | Größere Baustellen in Münster | Stadt Münster, dl-de/by-2-0 |
 | [Ponts et Chaussées Luxemburg](https://data.public.lu/fr/datasets/pch-les-chantiers-actuels/) | Aktuelle und geplante Baustellen auf Luxemburgs Straßen – für Grenzpendler aus Trier, dem Saarland und der Eifel | Administration des Ponts et Chaussées, CC0 |
 | [Mobilitätsportal Technologieregion Karlsruhe](https://mobil.trk.de/) | Baustellen mit Sperrung oder Verkehrsbehinderung in Karlsruhe und der Region | Stadt Karlsruhe / Mobilitätsportal Technologieregion Karlsruhe, CC BY 4.0 |
 | [Hanse- und Universitätsstadt Rostock](https://www.opendata-hro.de/dataset/baustellen) | Baustellen in Rostock (ohne reine Gehweg- und Fassadensicherungen) | Hanse- und Universitätsstadt Rostock, CC0 |
@@ -77,7 +76,7 @@ Die Quellen sind nicht vollständig:
 - MobiData BW deckt Bundes-, Landes- und Kreisstraßen in Baden-Württemberg ab, kommunale Straßen nur vereinzelt.
 - Der Stuttgarter Baustellenkalender deckt nur das „Vorbehaltsstraßennetz“ ab – Wohnstraßen, Notreparaturen und nicht verkehrsrelevante Arbeiten von Versorgern fehlen bewusst.
 - Die norddeutschen Daten sind je Land unterschiedlich ausführlich: In Niedersachsen sind es nur Bundesstraßen, in Mecklenburg-Vorpommern fehlen oft Straßennamen.
-- In Bayern, Hessen und Nordrhein-Westfalen gibt es bisher nur einzelne Städte (München, Frankfurt, Dortmund, Aachen, Duisburg, Münster; Kölns Verkehrskalender ist seit Ende Oktober 2026 abgeschaltet); in Thüringen, Bremen und dem Saarland nur die Autobahnen.
+- In Bayern, Hessen und Nordrhein-Westfalen gibt es bisher nur einzelne Städte (München, Frankfurt, Dortmund, Aachen, Duisburg; Kölns Verkehrskalender ist seit Ende Oktober 2026 abgeschaltet, Münsters Baustellendienst antwortet seitdem nicht mehr); in Thüringen, Bremen und dem Saarland nur die Autobahnen.
 - Unfälle haben in keiner Quelle eine eigene Kategorie; Streckenwacht erkennt sie am Wort „Unfall“ in den Warnungen und Verkehrsstörungen.
 - Keine der Quellen garantiert Vollständigkeit oder eine feste Aktualisierungsfrequenz; alle Angaben stammen ungefiltert von den jeweiligen Behörden und Betreibern.
 

@@ -70,7 +70,6 @@ class Source(StrEnum):
     DORTMUND = "dortmund"
     AACHEN = "aachen"
     DUISBURG = "duisburg"
-    MUENSTER = "muenster"
     LUXEMBURG = "luxemburg"
     KARLSRUHE = "karlsruhe"
     ROSTOCK = "rostock"
@@ -81,9 +80,10 @@ class Source(StrEnum):
 
 
 # Sources that were removed: still dropped from stored areas and repair issues
-# (migration to minor version 3). Köln: the ArcGIS service of the traffic
-# calendar redirects to the city's home page since 2026-10-27.
-REMOVED_SOURCES: Final = ("koeln",)
+# (migration to minor version 3, again in 4). Köln: the ArcGIS service of the
+# traffic calendar redirects to the city's home page since 2026-10-27.
+# Münster: the MapServer WFS answers no query since 2026-10-26.
+REMOVED_SOURCES: Final = ("koeln", "muenster")
 
 # Proper names, used as translation placeholders (not translatable).
 SOURCE_NAMES: Final[dict[Source, str]] = {
@@ -101,7 +101,6 @@ SOURCE_NAMES: Final[dict[Source, str]] = {
     Source.DORTMUND: "Stadt Dortmund",
     Source.AACHEN: "Stadt Aachen",
     Source.DUISBURG: "Stadt Duisburg",
-    Source.MUENSTER: "Stadt Münster",
     Source.LUXEMBURG: "Ponts et Chaussées Luxemburg",
     Source.KARLSRUHE: "Mobilitätsportal Technologieregion Karlsruhe",
     Source.ROSTOCK: "Hanse- und Universitätsstadt Rostock",
@@ -136,7 +135,6 @@ ATTRIBUTION: Final[dict[Source, str]] = {
     Source.DORTMUND: "Stadt Dortmund, dl-de/zero-2-0",
     Source.AACHEN: "Stadt Aachen, dl-de/by-2-0",
     Source.DUISBURG: "Stadt Duisburg, CC BY 3.0 DE",
-    Source.MUENSTER: "Stadt Münster, dl-de/by-2-0",
     Source.LUXEMBURG: "Administration des Ponts et Chaussées, Luxemburg, CC0",
     Source.KARLSRUHE: "Stadt Karlsruhe / Mobilitätsportal Technologieregion Karlsruhe, CC BY 4.0",
     Source.ROSTOCK: "Hanse- und Universitätsstadt Rostock, CC0",
@@ -195,7 +193,6 @@ FRANKFURT: Final[Bounds] = (50.01, 8.47, 50.23, 8.80)
 DORTMUND: Final[Bounds] = (51.41, 7.30, 51.60, 7.64)
 AACHEN: Final[Bounds] = (50.68, 5.97, 50.86, 6.22)
 DUISBURG: Final[Bounds] = (51.33, 6.62, 51.56, 6.83)
-MUENSTER: Final[Bounds] = (51.84, 7.47, 52.06, 7.78)
 LUXEMBURG: Final[Bounds] = (49.44, 5.73, 50.19, 6.53)
 KARLSRUHE: Final[Bounds] = (48.75, 7.85, 49.30, 8.75)
 ROSTOCK: Final[Bounds] = (54.03, 11.95, 54.25, 12.30)
@@ -224,7 +221,6 @@ SOURCE_REGIONS: Final[dict[Source, tuple[Bounds, ...]]] = {
     Source.DORTMUND: (DORTMUND,),
     Source.AACHEN: (AACHEN,),
     Source.DUISBURG: (DUISBURG,),
-    Source.MUENSTER: (MUENSTER,),
     Source.LUXEMBURG: (LUXEMBURG,),
     Source.KARLSRUHE: (KARLSRUHE,),
     Source.ROSTOCK: (ROSTOCK,),

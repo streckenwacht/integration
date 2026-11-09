@@ -145,10 +145,10 @@ def test_unreachable_sources_of_the_area_only() -> None:
         COMMUTE,
         language="en",
         include_inrix=True,
-        unreachable={Source.STUTTGART, Source.MUENSTER},
+        unreachable={Source.STUTTGART, Source.DUISBURG},
     )
     assert "- Currently unreachable: Stadt Stuttgart (see Repairs)" in text
-    assert "Münster" not in text
+    assert "Duisburg" not in text
 
 
 def test_many_automations_are_counted() -> None:

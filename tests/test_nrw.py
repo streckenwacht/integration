@@ -1,4 +1,4 @@
-"""Tests for the NRW city providers: Aachen, Duisburg, Münster."""
+"""Tests for the NRW city providers: Aachen, Duisburg."""
 
 from __future__ import annotations
 
@@ -15,10 +15,8 @@ from custom_components.streckenwacht.model import EventType, ObservationArea, Pe
 from custom_components.streckenwacht.providers.nrw import (
     AachenProvider,
     DuisburgProvider,
-    MuensterProvider,
     parse_aachen,
     parse_duisburg,
-    parse_muenster,
 )
 from custom_components.streckenwacht.providers.wfs import parse_layer
 
@@ -119,37 +117,6 @@ def test_duisburg_closure_from_text() -> None:
     assert event.event_type is EventType.CLOSURE
 
 
-# --- Münster ----------------------------------------------------------------
-
-MS = {
-    "fuid": "17",
-    "bezeichnung": "Wallstraße / Drostehnhofstraße - Kanalsanierung",
-    "typ_bez": "Vollsperrung",
-    "beginntam": "2026/10/05 00:00:00",
-    "endetam": "2026/12/31 00:00:00",
-    "information": "Die Wallstraße wird gesperrt.",
-    "nachname1": "Mustermann",
-    "telefon1": "0251/0000",
-}
-
-
-def test_muenster() -> None:
-    _, event = parse_muenster(feature(**MS))
-    assert event.source is Source.MUENSTER
-    assert event.event_type is EventType.CLOSURE
-    assert event.title == "Wallstraße / Drostehnhofstraße - Kanalsanierung"
-    assert event.road == "Wallstraße / Drostehnhofstraße"
-    assert event.periods == (Period(local(2026, 10, 5), local(2027, 1, 1)),)
-    # Contact names and numbers never end up in the event.
-    assert "Mustermann" not in (event.description or "")
-    assert "0251" not in (event.description or "")
-
-
-def test_muenster_partial_closure() -> None:
-    _, event = parse_muenster(feature(**(MS | {"typ_bez": "Teilsperrung"})))
-    assert event.event_type is EventType.ROADWORKS
-
-
 # --- Fixtures ---------------------------------------------------------------
 
 
@@ -158,7 +125,6 @@ def test_muenster_partial_closure() -> None:
     [
         ("aachen_innenstadt", AachenProvider),
         ("duisburg_baustellen", DuisburgProvider),
-        ("muenster_baustellen", MuensterProvider),
     ],
 )
 def test_fixture_invariants(name: str, provider) -> None:

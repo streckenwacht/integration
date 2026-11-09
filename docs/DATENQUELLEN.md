@@ -58,7 +58,7 @@ BW-Städte sind teilweise schon über MobiData BW abgedeckt (Gemeindestraßen nu
 | 17 | Wuppertal | ❓ | |
 | 18 | Bielefeld – geschlossene Lizenz | ❌ | „Verkehrsmeldungen“ (CSV/XML) bei open-data.bielefeld.de, ungeprüft |
 | 19 | **Bonn** – Datensatz 2026-10-18 nicht auffindbar | ⚠️ | GeoJSON tagesaktuell + Planung ([Open.NRW](https://ckan.open.nrw.de/dataset/baustellen-tagesaktuell-mit-ortsangabe-in-bonn-bn)), Endpunkt ungeprüft |
-| 20 | **Münster** – **umgesetzt in 0.3.0** | ✅ | GeoJSON ([Open Data](https://opendata.stadt-muenster.de/dataset/baustellen)) |
+| 20 | **Münster** – umgesetzt in 0.3.0, **ausgebaut 2026-11** (MapServer beantwortet seit 26.10. keine Abfrage mehr) | ✅ | GeoJSON ([Open Data](https://opendata.stadt-muenster.de/dataset/baustellen)) |
 | 21 | Mannheim | ⚠️ | nur über MobiData BW (teilweise) |
 | 22 | **Karlsruhe** – **umgesetzt in 0.4.0** | ✅ 🔎 | WFS `https://mobil.trk.de/geoserver/TBA/ows` (aktuell + Vorschau), DATEX, GraphQL; CC BY 4.0 |
 | 23–26 | Augsburg, Wiesbaden, Mönchengladbach, Gelsenkirchen | ❓ | |

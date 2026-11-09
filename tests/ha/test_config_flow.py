@@ -61,7 +61,7 @@ def entry_with(options: dict, subentries: list | None = None) -> MockConfigEntry
         title="Streckenwacht",
         options=options,
         subentries_data=subentries or [],
-        minor_version=3,
+        minor_version=4,
     )
 
 

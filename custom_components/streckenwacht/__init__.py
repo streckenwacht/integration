@@ -56,7 +56,7 @@ from .providers.luxemburg import LuxemburgProvider
 from .providers.mobidata_bw import MobiDataBWProvider
 from .providers.muenchen import MuenchenProvider
 from .providers.norddeutschland import NorddeutschlandProvider
-from .providers.nrw import AachenProvider, DuisburgProvider, MuensterProvider
+from .providers.nrw import AachenProvider, DuisburgProvider
 from .providers.rheinland_pfalz import RheinlandPfalzProvider
 from .providers.sachsen import SachsenProvider
 from .providers.sachsen_anhalt import SachsenAnhaltProvider
@@ -93,7 +93,6 @@ PROVIDERS: dict[Source, type[Provider]] = {
     Source.DORTMUND: DortmundProvider,
     Source.AACHEN: AachenProvider,
     Source.DUISBURG: DuisburgProvider,
-    Source.MUENSTER: MuensterProvider,
     Source.LUXEMBURG: LuxemburgProvider,
     Source.KARLSRUHE: KarlsruheProvider,
     Source.ROSTOCK: RostockProvider,
@@ -238,6 +237,8 @@ async def async_migrate_entry(
     2 -> 3: sources that were removed (Köln, its service shut down in
     October 2026) are dropped from the areas; an area left without any shows
     the Autobahn, which covers all of Germany.
+    3 -> 4: the same for Münster (its service answers no query since
+    October 2026).
     """
     if entry.version > 1:
         return False  # downgrade from a future version
@@ -252,7 +253,7 @@ async def async_migrate_entry(
                 )
         options = {k: v for k, v in entry.options.items() if k != CONF_SOURCES}
         hass.config_entries.async_update_entry(entry, options=options, minor_version=2)
-    if entry.minor_version < 3:
+    if entry.minor_version < 4:
         known = {source.value for source in Source}
         for subentry in area_subentries(entry):
             stored = subentry.data.get(CONF_AREA_SOURCES)
@@ -264,7 +265,7 @@ async def async_migrate_entry(
             )
         for removed in REMOVED_SOURCES:
             ir.async_delete_issue(hass, DOMAIN, f"provider_failed_{removed}")
-        hass.config_entries.async_update_entry(entry, minor_version=3)
+        hass.config_entries.async_update_entry(entry, minor_version=4)
     return True
 
 

@@ -175,7 +175,8 @@ class StreckenwachtConfigFlow(ConfigFlow, domain=DOMAIN):
     VERSION = 1
     # 2: data sources per area instead of one list for the whole entry.
     # 3: removed sources (Köln) dropped from the areas.
-    MINOR_VERSION = 3
+    # 4: the same for Münster.
+    MINOR_VERSION = 4
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None

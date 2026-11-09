@@ -109,10 +109,6 @@ DUISBURG_URL = (
     "https://geoportal2.duisburg.de/arcgisserver/rest/services/Masterportal/"
     "MP_Verkehrsportal/MapServer/2/query?where=1%3D1&outFields=*&f=geojson&outSR=4326"
 )
-MUENSTER_URL = (
-    "https://geo.stadt-muenster.de/mapserv/odbaustellen_serv?SERVICE=WFS&VERSION=1.1.0"
-    "&REQUEST=GetFeature&TYPENAME=baustellen&OUTPUTFORMAT=geojson&SRSNAME=EPSG:4326"
-)
 CITY_EXCERPTS = {
     "aachen": (50.765, 6.07, 50.785, 6.10),
     "muenchen": (48.134, 11.566, 48.142, 11.582),
@@ -335,26 +331,6 @@ def staedte() -> None:
     save("aachen_innenstadt.geojson.json", AACHEN_URL, s, b, c)
     s, b, c = get(DUISBURG_URL)
     save("duisburg_baustellen.geojson.json", DUISBURG_URL, s, b, c)
-    s, b, c = get(MUENSTER_URL)
-    if s == 200:
-        # Contact names and phone numbers are not needed for the tests.
-        data = json.loads(b)
-        for feature in data["features"]:
-            props = feature["properties"]
-            for key in list(props):
-                if key.startswith(
-                    (
-                        "telefon",
-                        "gesamtname",
-                        "vorname",
-                        "nachname",
-                        "mobil",
-                        "firmenname",
-                    )
-                ):
-                    props[key] = ""
-        b = json.dumps(data, ensure_ascii=False).encode()
-    save("muenster_baustellen.geojson.json", MUENSTER_URL, s, b, c)
 
 
 def luxemburg() -> None:

@@ -1,18 +1,17 @@
-"""City sources in North Rhine-Westphalia: Aachen, Duisburg, Münster.
+"""City sources in North Rhine-Westphalia: Aachen, Duisburg.
 
 NRW has no open statewide roadworks data; these cities publish their own
-(Dortmund has a module of its own; Köln's traffic calendar was removed
-in 2026-11 after its service was shut down). Bochum's data is not under an
+(Dortmund has a module of its own; Köln's traffic calendar and Münster's
+roadworks WFS were removed in 2026-11 after their services stopped answering). Bochum's data is not under an
 open licence and is left out. See docs/ENTWICKLUNG.md, section 2.
 """
 
 from __future__ import annotations
 
 import re
-from datetime import timedelta
 from typing import Any, ClassVar
 
-from ..const import AACHEN, DUISBURG, MUENSTER, Source
+from ..const import AACHEN, DUISBURG, Source
 from ..model import EventType, Period, StreckenwachtEvent
 from .wfs import (
     GeoJsonProvider,
@@ -22,8 +21,6 @@ from .wfs import (
     first_position,
     german_period,
     iso_date,
-    iso_local,
-    shorten,
     text,
     unglue,
 )
@@ -159,51 +156,3 @@ class DuisburgProvider(GeoJsonProvider):
     }
     region = DUISBURG
     layer = Layer("duisburg", DUISBURG, parse_duisburg)
-
-
-# --- Münster (MapServer WFS, curated) ---------------------------------------
-
-
-def _muenster_time(value: str | None, *, end: bool) -> Any:
-    """ "2026/10/05 00:00:00": a date (local); as end, until the end of that day."""
-    moment = iso_local((value or "").replace("/", "-"))
-    if moment and end and (moment.hour, moment.minute) == (0, 0):
-        moment += timedelta(days=1)
-    return moment
-
-
-def parse_muenster(feature: dict[str, Any]) -> tuple[str, StreckenwachtEvent] | None:
-    """A curated roadworks site (contact names in the data are not used)."""
-    props = feature["properties"]
-    name = text(props.get("bezeichnung")) or "Baustelle"
-    kind = text(props.get("typ_bez"))
-    info = text(props.get("information"))
-    start = _muenster_time(text(props.get("beginntam")), end=False)
-    end = _muenster_time(text(props.get("endetam")), end=True)
-    event = _event(
-        feature,
-        Source.MUENSTER,
-        event_type=EventType.CLOSURE if kind == "Vollsperrung" else EventType.ROADWORKS,
-        title=shorten(name, 90) or name,
-        description=_lines(kind, info),
-        road=name.split(" - ", 1)[0],
-        period=Period(start, end) if start or end else None,
-    )
-    return f"{name}|{props.get('beginntam')}", event
-
-
-class MuensterProvider(GeoJsonProvider):
-    """Roadworks in Münster (~20 sites)."""
-
-    source = Source.MUENSTER
-    urls = ("https://geo.stadt-muenster.de/mapserv/odbaustellen_serv",)
-    params: ClassVar[dict[str, str]] = {
-        "SERVICE": "WFS",
-        "VERSION": "1.1.0",
-        "REQUEST": "GetFeature",
-        "TYPENAME": "baustellen",
-        "OUTPUTFORMAT": "geojson",
-        "SRSNAME": "EPSG:4326",
-    }
-    region = MUENSTER
-    layer = Layer("muenster", MUENSTER, parse_muenster)

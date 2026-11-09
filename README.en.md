@@ -57,7 +57,6 @@ The integration's UI is available in German and English and follows your Home As
 | [City of Dortmund](https://open-data.dortmund.de/explore/dataset/fb66-baustellen-tagesaktuell/) | Roadworks in Dortmund (current and planned) | Stadt Dortmund, dl-de/zero-2-0 |
 | [City of Aachen](https://bsis.aachen.de) | Roadworks in Aachen (without footpath- and parking-only restrictions) | Stadt Aachen, dl-de/by-2-0 |
 | [City of Duisburg](https://opendata-duisburg.de/dataset/baustellen-duisburg) | Current roadworks in Duisburg | Stadt Duisburg, CC BY 3.0 DE |
-| [City of Münster](https://opendata.stadt-muenster.de/dataset/baustellen) | Major roadworks in Münster | Stadt Münster, dl-de/by-2-0 |
 | [Ponts et Chaussées Luxembourg](https://data.public.lu/fr/datasets/pch-les-chantiers-actuels/) | Current and planned roadworks on Luxembourg's roads – for commuters from Trier, Saarland and the Eifel | Administration des Ponts et Chaussées, CC0 |
 | [Mobilitätsportal Technologieregion Karlsruhe](https://mobil.trk.de/) | Roadworks with closures or traffic impact in Karlsruhe and its region | Stadt Karlsruhe / Mobilitätsportal Technologieregion Karlsruhe, CC BY 4.0 |
 | [City of Rostock](https://www.opendata-hro.de/dataset/baustellen) | Roadworks in Rostock (without footpath- and façade-only works) | Hanse- und Universitätsstadt Rostock, CC0 |
@@ -79,7 +78,7 @@ The sources are not complete:
 - MobiData BW covers federal, state and district roads in Baden-Württemberg, municipal roads only occasionally.
 - The Stuttgart roadworks calendar only covers the main road network – residential streets, emergency repairs and utility works without traffic impact are deliberately missing.
 - The northern German data differs per state: Lower Saxony only has federal roads, Mecklenburg-Vorpommern often lacks road names.
-- In Bavaria, Hesse and North Rhine-Westphalia there are only single cities so far (Munich, Frankfurt, Dortmund, Aachen, Duisburg, Münster; Cologne's traffic calendar was shut down in late October 2026); in Thuringia, Bremen and Saarland only motorways.
+- In Bavaria, Hesse and North Rhine-Westphalia there are only single cities so far (Munich, Frankfurt, Dortmund, Aachen, Duisburg; Cologne's traffic calendar was shut down in late October 2026, and Münster's roadworks service has not answered since then); in Thuringia, Bremen and Saarland only motorways.
 - No source has a dedicated accident category; Streckenwacht recognizes accidents by the word "Unfall" in warnings and traffic disruptions.
 - None of the sources guarantees completeness or a fixed update frequency; all information comes unfiltered from the respective authorities and operators.
 
