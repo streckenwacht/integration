@@ -2,7 +2,7 @@
 
 Alle Änderungen an Streckenwacht, neueste zuerst. Die Einträge entsprechen den Release-Texten auf GitHub; was auf `dev` liegt und noch nicht veröffentlicht ist, steht unter „Unveröffentlicht“.
 
-## Unveröffentlicht
+## 0.9.7 – 2026-11-10
 
 ### Entfernt
 - **Quelle Münster (Baustellen).** Der Baustellendienst der Stadt Münster beantwortet seit Ende Oktober 2026 keine Abfrage mehr: Der Server ist erreichbar, aber jede Abfrage läuft ins Leere, auch die Download-Links auf dem Open-Data-Portal der Stadt. Seitdem kamen aus Münster keine Meldungen mehr, und es stand der Reparaturhinweis „Datenquelle nicht erreichbar“. Bereiche verlieren die Quelle beim Update von selbst, der Hinweis verschwindet. Ein Bereich, der nur Münster nutzte, zeigt jetzt die Autobahnen. Liefert die Stadt wieder, kann die Quelle zurückkommen.
