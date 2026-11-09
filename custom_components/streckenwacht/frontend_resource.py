@@ -11,7 +11,9 @@ With resources in YAML mode they cannot be changed, so the card falls back
 to the extra module URL.
 
 Copies: tarifwacht/custom_components/tarifwacht/frontend_resource.py,
-waermewacht/custom_components/waermewacht/frontend_resource.py (both derived).
+waermewacht/custom_components/waermewacht/frontend_resource.py,
+speicherwacht/custom_components/speicherwacht/frontend_resource.py (all
+derived).
 """
 
 from __future__ import annotations
