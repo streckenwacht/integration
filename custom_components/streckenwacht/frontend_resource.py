@@ -12,7 +12,8 @@ to the extra module URL.
 
 Copies: tarifwacht/custom_components/tarifwacht/frontend_resource.py,
 waermewacht/custom_components/waermewacht/frontend_resource.py,
-speicherwacht/custom_components/speicherwacht/frontend_resource.py (all
+speicherwacht/custom_components/speicherwacht/frontend_resource.py,
+einspeisewacht/custom_components/einspeisewacht/frontend_resource.py (all
 derived).
 """
 
