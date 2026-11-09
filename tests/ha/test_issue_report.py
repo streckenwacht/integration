@@ -160,7 +160,7 @@ async def test_report_for_a_bug_report(
         "map card: ",
         "area 1: radius 10 km, sources 2, roads 1, directions 1, "
         "jam threshold 10 min, types all, events 3\n",
-        "area 2: radius 5 km, sources 1, roads 0, types accident/closure, events 0",
+        "area 2: radius 4.6 km, sources 1, roads 0, types accident/closure, events 0",
         "autobahn: ok, 0 min ago, 3 fetched, 3 in the areas\n",
         "mobidata_bw: failed 3x (timeout), last success never, no data",
         "scan_interval: 15 min",
