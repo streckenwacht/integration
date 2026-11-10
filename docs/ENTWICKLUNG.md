@@ -255,8 +255,6 @@ Nicht aus dem Code ablesbar, deshalb hier festgehalten. Gleich in allen Schweste
 
 Stand 2026-10-19. Datenquellen gelten vorerst als ausgeschöpft (Städte-Sweep und TomTom-Prüfung in [`DATENQUELLEN.md`](DATENQUELLEN.md)); gelegentlich erneut prüfen: Rhein-Main/ivm (Zertifikat abgelaufen), Heidelberg (404); Herne liefert seit 2026-10-20 (Lizenzfrage offen, siehe `DATENQUELLEN.md`).
 
-- **Strecke statt Kreis:** Korridor entlang einer Route aus Wegpunkten (Wunsch aus dem Beta-Test). Knackpunkt: Eingabe im Dialog, HA hat keinen Linien-Selektor.
 - **Autobahn-Abschnitte** („A81 zwischen AS X und AS Y“): Abschnittsnamen sind Freitext – zugunsten der Fahrtrichtungen zurückgestellt.
-- **Kartenkarte, nächste Ausbaustufen:** Zeitregler. (Mehrere Bereiche in einer Karte: erledigt in 0.7.0; Gruppierung naher Meldungen: 0.8.0.)
 - **Bekanntmachen:** simon42 Community erledigt (Vorstellung, Updates zu 0.2.0 und 0.3–0.5), HA Community (Custom Integrations, 2026-10-20) erledigt, in der HACS-Standardliste seit 2026-10-24 ([hacs/default#12314](https://github.com/hacs/default/pull/12314), beantragt 2026-10-20); als Nächstes ggf. Awesome Home Assistant.
 - Erledigt: eigene Kartenkarte (0.6.0, siehe Abschnitt 2 „Kartenkarte“), Deduplizierung (0.6.0, siehe Entscheidungen), Langzeitstatistik (der Sensor „Reisezeitverlust“ hat `state_class: measurement`, README zeigt die Statistik-Karte), Kartenansicht per `geo_location`, weitere Datenquellen.
