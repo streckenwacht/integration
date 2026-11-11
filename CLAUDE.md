@@ -41,10 +41,20 @@ Gleicher Ablauf in allen Schwesterprojekten (Eilwacht, Einspeisewacht, Speicherw
 1. Version in `manifest.json`, `const.py` und `pyproject.toml` anheben, `uv lock`; `tests/test_manifest.py` prüft die Gleichheit. „Unveröffentlicht“ in `CHANGELOG.md` zur Version machen. Danach `uv run tools/make_demo.py` laufen lassen und geänderte Dateien unter `docs/demo/` in den Versions-Commit nehmen: Die Demo zeigt die Version und rechnet mit dem Code der Integration, Pages baut nur `main` (Eilwacht 0.3.2 zeigte so noch 0.3.1).
 2. `dev` pushen und auf den CI-Lauf **genau dieses Commits** warten (`gh run list --commit <sha>` mit vollem SHA aus `git rev-parse HEAD`, ein Kurz-SHA findet nichts): Push-CI startet manchmal Minuten verspätet, ein älterer grüner Lauf täuscht.
 3. `main` vorspulen mit `git push origin dev:main` – **ohne Branch-Wechsel** im Arbeitsverzeichnis (auf dem Netzlaufwerk hat `git switch` schon Dateien verloren, ein Release entstand so auf altem Stand). Danach prüfen, dass `origin/main` auf dem Versions-Commit steht.
-4. `gh release create vX --target main --latest --notes-file …` (Text aus dem Changelog). Ziel `main`, kein Kurz-SHA (gibt 422). Immer ein **reguläres** Release, auch für Betas, nie `--prerelease`: Sonst nimmt HACS den letzten Commit und sucht dort vergeblich die ZIP. Blockiert der Auto-Modus das Veröffentlichen: Befehl nennen, der Inhaber führt ihn aus – nie umgehen.
+4. `gh release create vX --target main --latest --notes-file …` (Text nach „Release-Notes“ unten). Ziel `main`, kein Kurz-SHA (gibt 422). Immer ein **reguläres** Release, auch für Betas, nie `--prerelease`: Sonst nimmt HACS den letzten Commit und sucht dort vergeblich die ZIP. Blockiert der Auto-Modus das Veröffentlichen: Befehl nennen, der Inhaber führt ihn aus – nie umgehen.
 5. Workflow „Release-ZIP“ prüfen: `streckenwacht.zip` muss am Release hängen. Der Workflow bricht ab, wenn Tag und `manifest.json` nicht passen; fehlt die ZIP, ihn per Hand mit dem Tag starten. Ohne ZIP scheitern HACS-Installationen.
 6. Prüfen, dass HACS die neue Version sieht: `gh api repos/streckenwacht/integration/releases --jq '.[0].tag_name'` muss das neue Tag sein – HACS nimmt den **ersten** Eintrag dieser Liste, nicht „Latest“. GitHub sortiert sie offenbar nach der Basisversion; innerhalb derselben Basis (`0.1.0b1` … `0.1.0b10`, `0.1.0`) ist die Reihenfolge willkürlich (Tarifwacht 2026-10-27: b10 und 0.1.0 landeten hinter b6, HACS bot keine von beiden an). **Regel:** Nach Vorabversionen die nächste Version mit **höherer Basis** veröffentlichen (`0.1.1` statt `0.1.0` nach `0.1.0b…`), und Vorabnummern zweistellig gar nicht erst erreichen.
 7. Bricht eine Sitzung mitten im Release ab: erst den Stand prüfen (`git log origin/dev origin/main`, CI des Commits, `gh release list`), dann weitermachen.
+
+### Release-Notes (seit 2026-11-11, Anlass Wärmewacht-Issue #5)
+
+HACS zeigt den Release-Text in der Update-Entität von HA. Deshalb **Englisch zuerst, Deutsch darunter** (gleich in allen sechs Wachten):
+
+- Erste Zeile `*(German version below · Deutsche Fassung weiter unten)*`, dann die englische Fassung, dann `---`, `## Deutsch` und der Abschnitt aus dem `CHANGELOG.md` wörtlich.
+- Gruppen, nur wenn belegt, in dieser Reihenfolge: **Action needed / Bitte prüfen** (Breaking Changes, alles, was man nach dem Update selbst tun muss), **New / Neu**, **Fixed / Behoben**, **Changed / Geändert**. Das `CHANGELOG.md` hat dieselben Gruppen als `###`.
+- Jeder Eintrag: fette Überschrift, dann ein bis drei Sätze (was ändert sich, wen betrifft es, was ist zu tun). Hintergrund (Rechenweg, Quellen, Messwerte) gehört in README oder `docs/ENTWICKLUNG.md`, im Eintrag höchstens ein Link.
+- Statt „Anlass: …“ am Ende des Eintrags „(thanks to … / danke an …)“. GitHub-Nutzer mit `@login` (GitHub benachrichtigt sie und zeigt sie als Beitragende am Release), Forum-Nutzer mit ihrem öffentlichen Namen und dem Forum, z. B. „(thanks to suedschwede, simon42 forum)“. Eigene Prüfung: nichts dazuschreiben.
+- Im englischen Teil die Begriffe aus `translations/en.json` verwenden, keine eigene Übersetzung von Feldnamen.
 
 „Unveränderliche Releases“ bleibt in GitHub aus, weil der Workflow die ZIP erst nach dem Veröffentlichen anhängt; die Tags `v*` schützt das Ruleset.
 
