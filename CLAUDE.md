@@ -50,7 +50,7 @@ Gleicher Ablauf in allen Schwesterprojekten (Eilwacht, Einspeisewacht, Speicherw
 
 HACS zeigt den Release-Text in der Update-Entität von HA. Deshalb **Englisch zuerst, Deutsch darunter** (gleich in allen sechs Wachten):
 
-- Erste Zeile `*(German version below · Deutsche Fassung weiter unten)*`, dann die englische Fassung, dann `---`, `## Deutsch` und der Abschnitt aus dem `CHANGELOG.md` wörtlich.
+- Erste Zeile `*(German version below · Deutsche Fassung weiter unten)*`, dann `## English` mit der englischen Fassung, dann `## Deutsch` mit dem Abschnitt aus dem `CHANGELOG.md` wörtlich. **Kein eigenes `---`:** HACS hängt die Texte aller Releases zwischen installierter und neuester Version aneinander (höchstens fünf, Einstellung `release_limit`), je mit `# vX` davor und `---` danach (`update.py`, `async_release_notes`, geprüft 11.11.). Deshalb zählen auch die Texte der letzten fünf Releases, nicht nur der neueste.
 - Gruppen, nur wenn belegt, in dieser Reihenfolge: **Action needed / Bitte prüfen** (Breaking Changes, alles, was man nach dem Update selbst tun muss), **New / Neu**, **Fixed / Behoben**, **Changed / Geändert**. Das `CHANGELOG.md` hat dieselben Gruppen als `###`.
 - Jeder Eintrag: fette Überschrift, dann ein bis drei Sätze (was ändert sich, wen betrifft es, was ist zu tun). Hintergrund (Rechenweg, Quellen, Messwerte) gehört in README oder `docs/ENTWICKLUNG.md`, im Eintrag höchstens ein Link.
 - Statt „Anlass: …“ am Ende des Eintrags „(thanks to … / danke an …)“. GitHub-Nutzer mit `@login` (GitHub benachrichtigt sie und zeigt sie als Beitragende am Release), Forum-Nutzer mit ihrem öffentlichen Namen und dem Forum, z. B. „(thanks to suedschwede, simon42 forum)“. Eigene Prüfung: nichts dazuschreiben.

@@ -4,12 +4,11 @@ Alle Änderungen an Streckenwacht, neueste zuerst. Die Einträge entsprechen den
 
 ## 0.9.7 – 2026-11-10
 
-### Entfernt
-- **Quelle Münster (Baustellen).** Der Baustellendienst der Stadt Münster beantwortet seit Ende Oktober 2026 keine Abfrage mehr: Der Server ist erreichbar, aber jede Abfrage läuft ins Leere, auch die Download-Links auf dem Open-Data-Portal der Stadt. Seitdem kamen aus Münster keine Meldungen mehr, und es stand der Reparaturhinweis „Datenquelle nicht erreichbar“. Bereiche verlieren die Quelle beim Update von selbst, der Hinweis verschwindet. Ein Bereich, der nur Münster nutzte, zeigt jetzt die Autobahnen. Liefert die Stadt wieder, kann die Quelle zurückkommen.
+### Geändert
 
-### Verbessert
-- **Übersicht in „Beobachtungsbereich ändern“:** Quellen, die es für das Gebiet gibt, die der Bereich aber nicht nutzt, stehen jetzt direkt unter den Quellen („Nicht gewählt, hier aber verfügbar: …“) statt unter „Was fehlt“. Wer eine Quelle bewusst abgewählt hat, etwa die Autobahn für einen Bereich um die Wohnung, sah dort sonst dauerhaft einen Hinweis, als fehle etwas.
-- **Bericht für Fehlermeldung:** Der Radius steht unter 10 km mit einer Nachkommastelle (`radius 2.5 km`) wie in der Übersicht, statt auf ganze Kilometer gerundet (bisher `radius 2 km`). Die Zeile „pressed in area“ heißt jetzt „report from area“ (der Bereich, an dessen Gerät die Schaltfläche gedrückt wurde).
+- **Quelle Münster (Baustellen) entfernt.** Der Baustellendienst der Stadt Münster beantwortet seit Ende Oktober 2026 keine Abfrage mehr; seitdem kamen von dort keine Meldungen, und der Reparaturhinweis „… ist nicht erreichbar“ blieb stehen. Bereiche verlieren die Quelle beim Update von selbst, der Hinweis verschwindet; ein Bereich, der nur Münster nutzte, zeigt jetzt die Autobahnen. Liefert die Stadt wieder, kann die Quelle zurückkommen.
+- **Übersicht in „Beobachtungsbereich ändern“:** Quellen, die es für das Gebiet gibt, die der Bereich aber nicht nutzt, stehen jetzt direkt unter den Quellen („Nicht gewählt, hier aber verfügbar: …“) statt unter „Was fehlt“. Eine bewusst abgewählte Quelle sieht so nicht mehr wie ein Fehler aus.
+- **Bericht für Fehlermeldung:** Der Radius steht unter 10 km mit einer Nachkommastelle (`radius 2.5 km`) wie in der Übersicht. Die Zeile „pressed in area“ heißt jetzt „report from area“.
 
 ## 0.9.6 – 2026-11-09
 
