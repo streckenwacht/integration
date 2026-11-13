@@ -121,7 +121,7 @@ Alle vier sind sauber strukturiert und kommen ohne Freitext-Datumsparsing aus.
 
 1. **Generischer WFS/GeoJSON-Provider** mit Feldzuordnung je Quelle und optionalem Vorfilter (CQL) bzw. Begrenzungsrechteck je Bereich. Umgesetzt: **norddeutscher WFS (SH, MV, NI, HH)** als erste Quelle auf Basis von `providers/wfs.py`. Nächste nach Reichweite: **Rheinland-Pfalz** (nach `quelle` filtern), **Berlin, Brandenburg, Sachsen-Anhalt, Frankfurt**, dann **München** (mit Relevanzfilter), Dortmund, Leipzig, Köln, Aachen, Karlsruhe, Münster, Rostock, Kiel.
 2. **Sachsen** (GeoJSON-ZIP; Größe und Rhythmus prüfen, `Last-Modified` nutzen).
-3. **ArcGIS-REST-Adapter** für Duisburg und Bochum (Kölns Verkehrskalender: seit 2026-11 ausgebaut, Dienst abgeschaltet).
+3. ~~**ArcGIS-REST-Adapter** für Duisburg und Bochum~~ Erledigt bzw. entfallen (Stand 2026-11-13): Duisburg läuft über die GeoJSON-Ausgabe seines ArcGIS-Dienstes (`providers/nrw.py`), Bochum hat eine geschlossene Lizenz (`ENTWICKLUNG.md`), Kölns Verkehrskalender ist seit 2026-11 ausgebaut (Dienst abgeschaltet). Ein eigener Adapter lohnt sich erst, wenn eine neue offene ArcGIS-Quelle auftaucht.
 4. **Mobilithek-Länder mit Freigabepflicht** (Bayern, Hessen, NRW, Thüringen, Bremen, Saarland) erst, wenn ein Zugang ohne Zertifikat und Freigabe je Nutzer existiert. Alternativen für diese Lücken siehe nächster Abschnitt.
 
 ## Städte-Sweep 2026-10-18
