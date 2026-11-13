@@ -38,6 +38,8 @@ Stand: **`NOTES.md`** (lokal, nicht im Repo: Arbeitsstand, offene Punkte, Beobac
 
 Gleicher Ablauf in allen Schwesterprojekten (Eilwacht, Einspeisewacht, Speicherwacht, Streckenwacht, Tarifwacht, Wärmewacht). Neue Erkenntnisse zum Ablauf hier eintragen und für die Schwestern melden.
 
+**Versionsnummer** (seit 2026-11-13, Andys Ja, gleich in allen sechs Wachten): die zweite Ziffer (0.x.0) bei neuen Sensoren, Blueprints oder Funktionen und bei allem mit „Bitte prüfen“; die dritte (0.x.y) nur bei Fehlerbehebungen und geänderten Texten. Nach Vorabversionen gilt zusätzlich Schritt 6.
+
 1. Version in `manifest.json`, `const.py` und `pyproject.toml` anheben, `uv lock`; `tests/test_manifest.py` prüft die Gleichheit. „Unveröffentlicht“ in `CHANGELOG.md` zur Version machen. Danach `uv run tools/make_demo.py` laufen lassen und geänderte Dateien unter `docs/demo/` in den Versions-Commit nehmen: Die Demo zeigt die Version und rechnet mit dem Code der Integration, Pages baut nur `main` (Eilwacht 0.3.2 zeigte so noch 0.3.1).
 2. `dev` pushen und auf den CI-Lauf **genau dieses Commits** warten (`gh run list --commit <sha>` mit vollem SHA aus `git rev-parse HEAD`, ein Kurz-SHA findet nichts): Push-CI startet manchmal Minuten verspätet, ein älterer grüner Lauf täuscht.
 3. `main` vorspulen mit `git push origin dev:main` – **ohne Branch-Wechsel** im Arbeitsverzeichnis (auf dem Netzlaufwerk hat `git switch` schon Dateien verloren, ein Release entstand so auf altem Stand). Danach prüfen, dass `origin/main` auf dem Versions-Commit steht.
