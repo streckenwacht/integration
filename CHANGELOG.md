@@ -2,7 +2,7 @@
 
 Alle Änderungen an Streckenwacht, neueste zuerst. Die Einträge entsprechen den Release-Texten auf GitHub; was auf `dev` liegt und noch nicht veröffentlicht ist, steht unter „Unveröffentlicht“.
 
-## Unveröffentlicht
+## 0.10.0 – 2026-11-13
 
 ### Geändert
 
