@@ -5,17 +5,18 @@ blueprint:
     der Reisezeitverlust in einem Streckenwacht-Bereich einen Schwellwert
     überschreitet. Optional nur für eine Fahrtrichtung (die Gegenrichtung
     stört dann nicht) und nur in einem Zeitfenster (z. B. vor der Fahrt zur
-    Arbeit). Der Titel nennt den Bereich. Unter „Weitere Aktionen“ lässt sich
-    die Nachricht zusätzlich weitergeben, etwa an Telegram. Voraussetzung:
-    Staumeldungen (INRIX) sind in den Optionen aktiviert.
+    Arbeit). Hast du mehrere Bereiche, nennt der Titel den Bereich. Unter
+    „Weitere Aktionen“ lässt sich die Nachricht zusätzlich weitergeben, etwa an
+    Telegram. Voraussetzung: Staumeldungen (INRIX) sind in den Optionen
+    aktiviert.
 
     Sends a push notification to a phone with the Home Assistant app as soon
     as the travel time loss in a Streckenwacht area exceeds a threshold.
     Optionally for one direction only (the opposite carriageway is ignored)
-    and only within a time window (e.g. before the drive to work). The title
-    names the area. Under “More actions” the message can also be passed on,
-    for example to Telegram. Requires traffic jam reports (INRIX) to be
-    enabled in the options.
+    and only within a time window (e.g. before the drive to work). With
+    several areas, the title names the area. Under “More actions” the message
+    can also be passed on, for example to Telegram. Requires traffic jam
+    reports (INRIX) to be enabled in the options.
   domain: automation
   author: Streckenwacht
   homeassistant:
@@ -150,9 +151,14 @@ conditions:
 
 actions:
   - variables:
-      # The area is the device of the sensor ("Streckenwacht <area>").
+      # The area is the device of the sensor ("Streckenwacht <area>"). Its name
+      # goes into the title only when there are several areas. Every device of
+      # Streckenwacht is an area (the map markers have none), so count the
+      # devices of its entities.
       head: >-
-        {%- set dev = device_id(delay_sensor) %}
+        {%- set areas = integration_entities('streckenwacht') | map('device_id')
+                         | reject('none') | unique | list %}
+        {%- set dev = device_id(delay_sensor) if areas | count > 1 else none %}
         {%- set area = (device_attr(dev, 'name_by_user') or device_attr(dev, 'name') or '') if dev else '' %}
         {%- set area = area | regex_replace('^Streckenwacht ', '') | trim %}
         {{- 'Streckenwacht · ' ~ area if area and area != 'Streckenwacht' else 'Streckenwacht' -}}

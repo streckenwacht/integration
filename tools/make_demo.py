@@ -89,7 +89,8 @@ JAM_THRESHOLD = 15
 NEW_TYPES = (EventType.CLOSURE, EventType.ACCIDENT)
 LEAD_TIME = timedelta(hours=12)
 # Titles of the blueprints in both languages ("language" input); the demo
-# shows the one of the page. "{head}" is "Streckenwacht · <area>", "{when}"
+# shows the one of the page. "{head}" is "Streckenwacht · <area>" (only with
+# several areas, otherwise "Streckenwacht"), "{when}"
 # the start of the closure, formatted by the page after moving the dates.
 NEW_TITLES = {
     "de": {
@@ -792,10 +793,11 @@ def notifications(
     """What the three blueprints (default settings) sent in the day up to now.
 
     Same texts as their templates, the title in German and English, with the
-    area (the device "Streckenwacht <area>"). "when" (warning ahead of a
-    closure) stays a timestamp: the page formats it after moving the dates.
+    area (the device "Streckenwacht <area>") when there are several. "when"
+    (warning ahead of a closure) stays a timestamp: the page formats it after
+    moving the dates.
     """
-    head = f"Streckenwacht · {area}"
+    head = f"Streckenwacht · {area}" if len(AREAS) > 1 else "Streckenwacht"
     sent: list[dict[str, Any]] = []
     since = now - timedelta(hours=24)
     for event in events:

@@ -17,6 +17,7 @@ from homeassistant.components.blueprint.models import Blueprint, BlueprintInputs
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers import entity_registry as er
+from homeassistant.helpers.entity import entity_sources
 from homeassistant.setup import async_setup_component
 from homeassistant.util import dt as dt_util
 from homeassistant.util.yaml import load_yaml
@@ -31,6 +32,8 @@ BLUEPRINTS = (
 EVENT_ENTITY = "event.streckenwacht_arbeitsweg_event_change"
 DELAY_SENSOR = "sensor.streckenwacht_arbeitsweg_travel_time_loss"
 NEXT_CLOSURE = "sensor.streckenwacht_arbeitsweg_next_closure"
+# An entity of a second area: with it, the titles name the area.
+OTHER_AREA = "event.streckenwacht_stuttgart_event_change"
 # Passes the finished texts on, as a Telegram action would.
 EXTRA_ACTIONS = [
     {"action": "test.extra", "data": {"text": "{{ title }}: {{ message }}"}}
@@ -68,16 +71,35 @@ async def setup_blueprint(
     return calls
 
 
+def add_source(hass: HomeAssistant, entity_id: str, entry_id: str) -> None:
+    """Record the entity as Streckenwacht's, as its entity platform does when
+    it adds it: integration_entities('streckenwacht') reads this."""
+    entity_sources(hass)[entity_id] = {
+        "domain": "streckenwacht",
+        "config_entry": entry_id,
+    }
+
+
 def add_area(
-    hass: HomeAssistant, entity_id: str, name_by_user: str | None = None
+    hass: HomeAssistant,
+    entity_id: str,
+    name: str = "Arbeitsweg",
+    name_by_user: str | None = None,
 ) -> None:
-    """Register the entity on the device of the area, as the integration does."""
-    entry = MockConfigEntry(domain="streckenwacht")
-    entry.add_to_hass(hass)
+    """Register the entity on the device of an area, as the integration does:
+    one config entry, one device "Streckenwacht <area>" per area."""
+    entries = hass.config_entries.async_entries("streckenwacht")
+    entry = (
+        entries[0]
+        if entries
+        else MockConfigEntry(domain="streckenwacht", title="Streckenwacht")
+    )
+    if not entries:
+        entry.add_to_hass(hass)
     device = dr.async_get(hass).async_get_or_create(
         config_entry_id=entry.entry_id,
-        identifiers={("streckenwacht", "area")},
-        name="Streckenwacht Arbeitsweg",
+        identifiers={("streckenwacht", name)},
+        name=f"Streckenwacht {name}",
     )
     if name_by_user:
         dr.async_get(hass).async_update_device(device.id, name_by_user=name_by_user)
@@ -85,12 +107,20 @@ def add_area(
     entity = er.async_get(hass).async_get_or_create(
         domain,
         "streckenwacht",
-        object_id,
+        f"{name}_{object_id}",
         suggested_object_id=object_id,
         config_entry=entry,
         device_id=device.id,
     )
     assert entity.entity_id == entity_id
+    add_source(hass, entity_id, entry.entry_id)
+
+
+def add_map_marker(hass: HomeAssistant) -> None:
+    """An event on the map: an entity of Streckenwacht without a device."""
+    entity_id = "geo_location.a8_heimsheim_pforzheim_nord"
+    hass.states.async_set(entity_id, "12.3", {"source": "streckenwacht"})
+    add_source(hass, entity_id, "marker")
 
 
 def fire(hass: HomeAssistant, timestamp: str, **attributes: Any) -> None:
@@ -98,7 +128,10 @@ def fire(hass: HomeAssistant, timestamp: str, **attributes: Any) -> None:
 
 
 async def test_new_closure_notifies(hass: HomeAssistant) -> None:
+    # One area: the title needs no name (map markers have no device, no area).
     add_area(hass, EVENT_ENTITY)
+    add_area(hass, NEXT_CLOSURE)
+    add_map_marker(hass)
     calls = await setup_blueprint(
         hass,
         "neue_meldung.yaml",
@@ -115,14 +148,16 @@ async def test_new_closure_notifies(hass: HomeAssistant) -> None:
     )
     await hass.async_block_till_done()
     assert len(calls) == 1
-    assert calls[0].data["title"] == "Streckenwacht · Arbeitsweg: Neue Sperrung"
+    assert calls[0].data["title"] == "Streckenwacht: Neue Sperrung"
     assert calls[0].data["message"] == (
         "A81 | Leonberg - Engelbergtunnel (Stuttgart -> Heilbronn)"
     )
 
 
 async def test_new_accident_in_english_with_more_actions(hass: HomeAssistant) -> None:
+    # Two areas: the title names the one of the report.
     add_area(hass, EVENT_ENTITY)
+    add_area(hass, OTHER_AREA, "Stuttgart")
     extra = async_mock_service(hass, "test", "extra")
     calls = await setup_blueprint(
         hass,
@@ -173,7 +208,10 @@ async def test_filtered_types_and_ended(hass: HomeAssistant) -> None:
 
 
 async def test_ended_when_enabled(hass: HomeAssistant) -> None:
-    # Without a device (e.g. a template entity) the title falls back to the name.
+    # Without a device (e.g. a template entity) the title has no area, even
+    # with several areas.
+    add_area(hass, NEXT_CLOSURE)
+    add_area(hass, OTHER_AREA, "Stuttgart")
     calls = await setup_blueprint(
         hass,
         "neue_meldung.yaml",
@@ -200,6 +238,7 @@ async def test_ended_when_enabled(hass: HomeAssistant) -> None:
 
 async def test_traffic_jam_threshold(hass: HomeAssistant) -> None:
     add_area(hass, DELAY_SENSOR, name_by_user="Weg zur Arbeit")
+    add_area(hass, OTHER_AREA, "Stuttgart")
     hass.states.async_set(DELAY_SENSOR, "5", {"title": "A8 | Stau", "direction": None})
     calls = await setup_blueprint(
         hass,
@@ -267,27 +306,29 @@ async def test_traffic_jam_in_one_direction(hass: HomeAssistant) -> None:
     await hass.async_block_till_done()
     assert len(calls) == 1
     # loss and direction of the chosen carriageway, not of the largest jam
-    assert calls[0].data["title"] == "Streckenwacht · Arbeitsweg: Traffic jam +12 min"
+    # one area: no name in the title
+    assert calls[0].data["title"] == "Streckenwacht: Traffic jam +12 min"
     assert calls[0].data["message"] == "Traffic jam (Heidelberg -> Karlsruhe)"
     assert [c.data["text"] for c in extra] == [
-        "Streckenwacht · Arbeitsweg: Traffic jam +12 min: "
-        "Traffic jam (Heidelberg -> Karlsruhe)"
+        "Streckenwacht: Traffic jam +12 min: Traffic jam (Heidelberg -> Karlsruhe)"
     ]
 
 
 # The template trigger re-evaluates now() every minute: its timer outlives the test.
 @pytest.mark.parametrize("expected_lingering_timers", [True])
 @pytest.mark.parametrize(
-    ("language", "title", "time_format"),
+    ("language", "areas", "title", "time_format"),
     [
-        ("de", "Streckenwacht · Arbeitsweg: Sperrung ab", "%d.%m. %H:%M"),
-        ("en", "Streckenwacht · Arbeitsweg: Closure from", "%d %b %H:%M"),
+        ("de", 1, "Streckenwacht: Sperrung ab", "%d.%m. %H:%M"),
+        ("en", 2, "Streckenwacht · Arbeitsweg: Closure from", "%Y-%m-%d %H:%M"),
     ],
 )
 async def test_closure_warning_within_the_lead_time(
-    hass: HomeAssistant, language: str, title: str, time_format: str
+    hass: HomeAssistant, language: str, areas: int, title: str, time_format: str
 ) -> None:
     add_area(hass, NEXT_CLOSURE)
+    if areas > 1:
+        add_area(hass, OTHER_AREA, "Stuttgart")
     now = dt_util.utcnow()
     later = (now + timedelta(hours=48)).isoformat()
     hass.states.async_set(NEXT_CLOSURE, later, {"title": "A81 | Vollsperrung"})

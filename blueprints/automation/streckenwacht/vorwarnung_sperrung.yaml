@@ -4,14 +4,15 @@ blueprint:
     Schickt eine Push-Nachricht an ein Handy mit der Home-Assistant-App, kurz
     bevor in einem Streckenwacht-Bereich eine geplante Sperrung beginnt – etwa am
     Vorabend einer nächtlichen Vollsperrung. Nutzt den Sensor „Nächste Sperrung“.
-    Der Titel nennt den Bereich. Unter „Weitere Aktionen“ lässt sich die
-    Nachricht zusätzlich weitergeben, etwa an Telegram.
+    Hast du mehrere Bereiche, nennt der Titel den Bereich. Unter „Weitere
+    Aktionen“ lässt sich die Nachricht zusätzlich weitergeben, etwa an
+    Telegram.
 
     Sends a push notification to a phone with the Home Assistant app shortly
     before a planned closure begins in a Streckenwacht area – for example the
     evening before a full closure at night. Uses the “Next closure” sensor.
-    The title names the area. Under “More actions” the message can also be
-    passed on, for example to Telegram.
+    With several areas, the title names the area. Under “More actions” the
+    message can also be passed on, for example to Telegram.
   domain: automation
   author: Streckenwacht
   homeassistant:
@@ -106,16 +107,21 @@ variables:
   # Variables are stored as text: format the time right here.
   when: >-
     {{ (as_datetime(states(sensor)) | as_local).strftime(
-         '%d %b %H:%M' if lang == 'en' else '%d.%m. %H:%M') }}
+         '%Y-%m-%d %H:%M' if lang == 'en' else '%d.%m. %H:%M') }}
   report: "{{ state_attr(sensor, 'title') or ('Closure' if lang == 'en' else 'Sperrung') }}"
   where: >-
     {{ state_attr(sensor, 'direction') or state_attr(sensor, 'road') or '' }}
 
 actions:
   - variables:
-      # The area is the device of the sensor ("Streckenwacht <area>").
+      # The area is the device of the sensor ("Streckenwacht <area>"). Its name
+      # goes into the title only when there are several areas. Every device of
+      # Streckenwacht is an area (the map markers have none), so count the
+      # devices of its entities.
       head: >-
-        {%- set dev = device_id(sensor) %}
+        {%- set areas = integration_entities('streckenwacht') | map('device_id')
+                         | reject('none') | unique | list %}
+        {%- set dev = device_id(sensor) if areas | count > 1 else none %}
         {%- set area = (device_attr(dev, 'name_by_user') or device_attr(dev, 'name') or '') if dev else '' %}
         {%- set area = area | regex_replace('^Streckenwacht ', '') | trim %}
         {{- 'Streckenwacht · ' ~ area if area and area != 'Streckenwacht' else 'Streckenwacht' -}}

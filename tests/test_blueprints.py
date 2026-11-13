@@ -1,6 +1,7 @@
 """Static checks for the bundled automation blueprints (run locally and in CI).
 
-How they behave (texts in both languages, area in the title, more actions)
+How they behave (texts in both languages, area in the title with several
+areas, more actions)
 is tested with Home Assistant in tests/ha/test_blueprints.py.
 """
 
@@ -118,6 +119,9 @@ def test_actions_share_title_and_message(path: Path) -> None:
     head = texts["variables"]["head"]
     assert "device_attr(dev, 'name_by_user') or device_attr(dev, 'name')" in head
     assert "'Streckenwacht'" in head  # without a device
+    # The area only with several areas: the devices of the integration count.
+    assert "integration_entities('streckenwacht') | map('device_id')" in head
+    assert "if areas | count > 1 else none" in head
     title = texts["variables"]["title"]
     assert "head" in title
     assert "lang" in title
@@ -127,3 +131,22 @@ def test_actions_share_title_and_message(path: Path) -> None:
     assert phone["title"] == "{{ title }}"
     assert phone["message"] == "{{ message }}"
     assert _input_name(more["sequence"]) == "extra_actions"
+
+
+def test_every_device_is_an_area() -> None:
+    """The blueprints count areas as devices of the integration's entities.
+
+    That holds while only the area entities (entity.py) bring a device; a
+    device for something else (e.g. a hub) would make one area look like two.
+    """
+    code = Path(__file__).parent.parent / "custom_components" / "streckenwacht"
+    with_device = sorted(
+        p.name for p in code.rglob("*.py") if "DeviceInfo(" in p.read_text("utf-8")
+    )
+    assert with_device == ["entity.py"]
+
+
+def test_english_date_is_iso() -> None:
+    """English: 2026-11-10 21:00 (no month names); German stays 10.11. 21:00."""
+    when = load(BLUEPRINTS / "vorwarnung_sperrung.yaml").data["variables"]["when"]
+    assert "'%Y-%m-%d %H:%M' if lang == 'en' else '%d.%m. %H:%M'" in when

@@ -839,13 +839,12 @@
       function notificationsCard(areas) {
         const tx = t();
         const pad = (n) => String(n).padStart(2, "0");
-        // strftime('%d.%m. %H:%M') or, in English, '%d %b %H:%M' of the blueprint
-        const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        // strftime('%d.%m. %H:%M') or, in English, '%Y-%m-%d %H:%M' of the blueprint
         const when = (iso) => {
           const d = new Date(iso);
           const time = `${pad(d.getHours())}:${pad(d.getMinutes())}`;
           return state.lang === "en"
-            ? `${pad(d.getDate())} ${MONTHS[d.getMonth()]} ${time}`
+            ? `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${time}`
             : `${pad(d.getDate())}.${pad(d.getMonth() + 1)}. ${time}`;
         };
         const notes = areas

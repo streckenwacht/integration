@@ -3,14 +3,15 @@ blueprint:
   description: >-
     Schickt eine Push-Nachricht an ein Handy mit der Home-Assistant-App, wenn in
     einem Streckenwacht-Bereich eine Meldung der gewählten Art neu auftaucht –
-    und auf Wunsch auch, wenn sie wieder endet. Der Titel nennt den Bereich.
-    Unter „Weitere Aktionen“ lässt sich die Nachricht zusätzlich weitergeben,
-    etwa an Telegram.
+    und auf Wunsch auch, wenn sie wieder endet. Hast du mehrere Bereiche, nennt
+    der Titel den Bereich. Unter „Weitere Aktionen“ lässt sich die Nachricht
+    zusätzlich weitergeben, etwa an Telegram.
 
     Sends a push notification to a phone with the Home Assistant app when a
     report of the selected types appears in a Streckenwacht area – and,
-    optionally, when it ends again. The title names the area. Under “More
-    actions” the message can also be passed on, for example to Telegram.
+    optionally, when it ends again. With several areas, the title names the
+    area. Under “More actions” the message can also be passed on, for example
+    to Telegram.
   domain: automation
   author: Streckenwacht
   homeassistant:
@@ -120,9 +121,14 @@ conditions:
 
 actions:
   - variables:
-      # The area is the device of the entity ("Streckenwacht <area>").
+      # The area is the device of the entity ("Streckenwacht <area>"). Its name
+      # goes into the title only when there are several areas. Every device of
+      # Streckenwacht is an area (the map markers have none), so count the
+      # devices of its entities.
       head: >-
-        {%- set dev = device_id(trigger.entity_id) %}
+        {%- set areas = integration_entities('streckenwacht') | map('device_id')
+                         | reject('none') | unique | list %}
+        {%- set dev = device_id(trigger.entity_id) if areas | count > 1 else none %}
         {%- set area = (device_attr(dev, 'name_by_user') or device_attr(dev, 'name') or '') if dev else '' %}
         {%- set area = area | regex_replace('^Streckenwacht ', '') | trim %}
         {{- 'Streckenwacht · ' ~ area if area and area != 'Streckenwacht' else 'Streckenwacht' -}}
