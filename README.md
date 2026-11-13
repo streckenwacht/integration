@@ -182,7 +182,17 @@ Ohne YAML: Blueprint importieren, Bereich und Handy auswählen, fertig.
 | **Vorwarnung vor geplanter Sperrung** | Push-Nachricht mit frei wählbarem Vorlauf (Standard 12 Stunden), bevor eine geplante Sperrung beginnt – etwa am Vorabend einer Nachtsperrung | [![Blueprint importieren](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fstreckenwacht%2Fintegration%2Fblob%2Fmain%2Fblueprints%2Fautomation%2Fstreckenwacht%2Fvorwarnung_sperrung.yaml) |
 | **Neue oder beendete Meldung** | Push-Nachricht bei neuen Meldungen der gewählten Arten (z. B. Sperrung, Unfall), auf Wunsch auch bei deren Ende | [![Blueprint importieren](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fstreckenwacht%2Fintegration%2Fblob%2Fmain%2Fblueprints%2Fautomation%2Fstreckenwacht%2Fneue_meldung.yaml) |
 
-Die Benachrichtigungen gehen an ein Handy mit der offiziellen Home-Assistant-App. Wer es anders braucht, findet unten die Beispiele als YAML zum Anpassen.
+Die Benachrichtigungen gehen an ein Handy mit der offiziellen Home-Assistant-App. Der Titel nennt den Bereich, z. B. „Streckenwacht · Arbeitsweg: Neue Sperrung“. Unter „Sprache der Nachricht“ wählst du, ob die Nachricht deutsch oder englisch ist.
+
+Soll die Nachricht zusätzlich woanders hin, etwa an Telegram, trag das im eingeklappten Abschnitt „Weitere Aktionen“ ein. `{{ title }}` und `{{ message }}` enthalten dort den fertigen Text:
+
+```yaml
+action: telegram_bot.send_message
+data:
+  message: "{{ title }}: {{ message }}"
+```
+
+Schon eingerichtete Automationen laufen unverändert weiter; Sprache, Bereich im Titel und „Weitere Aktionen“ gibt es nach einem erneuten Import des Blueprints. Wer es ganz anders braucht, findet unten die Beispiele als YAML zum Anpassen.
 
 ### Push-Nachricht bei Reisezeitverlust
 

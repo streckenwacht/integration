@@ -1,11 +1,21 @@
 blueprint:
-  name: Streckenwacht – Stau-Benachrichtigung
+  name: Streckenwacht – Stau-Benachrichtigung / Traffic jam notification
   description: >-
     Schickt eine Push-Nachricht an ein Handy mit der Home-Assistant-App, sobald
     der Reisezeitverlust in einem Streckenwacht-Bereich einen Schwellwert
     überschreitet. Optional nur für eine Fahrtrichtung (die Gegenrichtung
     stört dann nicht) und nur in einem Zeitfenster (z. B. vor der Fahrt zur
-    Arbeit). Voraussetzung: Staumeldungen (INRIX) sind in den Optionen aktiviert.
+    Arbeit). Der Titel nennt den Bereich. Unter „Weitere Aktionen“ lässt sich
+    die Nachricht zusätzlich weitergeben, etwa an Telegram. Voraussetzung:
+    Staumeldungen (INRIX) sind in den Optionen aktiviert.
+
+    Sends a push notification to a phone with the Home Assistant app as soon
+    as the travel time loss in a Streckenwacht area exceeds a threshold.
+    Optionally for one direction only (the opposite carriageway is ignored)
+    and only within a time window (e.g. before the drive to work). The title
+    names the area. Under “More actions” the message can also be passed on,
+    for example to Telegram. Requires traffic jam reports (INRIX) to be
+    enabled in the options.
   domain: automation
   author: Streckenwacht
   homeassistant:
@@ -13,8 +23,10 @@ blueprint:
   source_url: https://github.com/streckenwacht/integration/blob/main/blueprints/automation/streckenwacht/stau_benachrichtigung.yaml
   input:
     delay_sensor:
-      name: Reisezeitverlust
-      description: Der Sensor „Reisezeitverlust“ des Bereichs.
+      name: Reisezeitverlust / Travel time loss
+      description: >-
+        Der Sensor „Reisezeitverlust“ des Bereichs. / The “Travel time loss”
+        sensor of the area.
       selector:
         entity:
           filter:
@@ -22,8 +34,10 @@ blueprint:
             domain: sensor
             device_class: duration
     threshold:
-      name: Schwellwert
-      description: Ab wie vielen Minuten Verlust benachrichtigt wird.
+      name: Schwellwert / Threshold
+      description: >-
+        Ab wie vielen Minuten Verlust benachrichtigt wird. / From how many
+        minutes of delay a notification is sent.
       default: 15
       selector:
         number:
@@ -32,31 +46,64 @@ blueprint:
           unit_of_measurement: min
           mode: slider
     direction:
-      name: Fahrtrichtung (optional)
+      name: Fahrtrichtung / Direction (optional)
       description: >-
         Nur Staus in dieser Richtung zählen. Das Fahrtziel genügt
         („Heidelberg“), oder die ganze Angabe wie im Attribut „by_direction“
-        des Sensors („Karlsruhe -> Heidelberg“). Leer = alle Richtungen.
+        des Sensors („Karlsruhe -> Heidelberg“). Leer = alle Richtungen. /
+        Only traffic jams in this direction count. The destination is enough
+        (“Heidelberg”), or the full text as in the sensor's “by_direction”
+        attribute (“Karlsruhe -> Heidelberg”). Empty = all directions.
       default: ""
       selector:
         text: {}
     notify_device:
-      name: Handy
-      description: Gerät mit der offiziellen Home-Assistant-App.
+      name: Handy / Phone
+      description: >-
+        Gerät mit der offiziellen Home-Assistant-App. / Device with the
+        official Home Assistant app.
       selector:
         device:
           filter:
             integration: mobile_app
     after:
-      name: Frühestens um
+      name: Frühestens um / Not before
       default: "00:00:00"
       selector:
         time: {}
     before:
-      name: Spätestens um
+      name: Spätestens um / Not after
       default: "23:59:59"
       selector:
         time: {}
+    language:
+      name: Sprache der Nachricht / Language of the message
+      default: de
+      selector:
+        select:
+          options:
+            - label: Deutsch
+              value: de
+            - label: English
+              value: en
+    more_actions:
+      name: Weitere Aktionen (optional) / More actions (optional)
+      icon: mdi:playlist-plus
+      collapsed: true
+      input:
+        extra_actions:
+          name: Weitere Aktionen / More actions
+          description: >-
+            Laufen nach der Push-Nachricht mit dem fertigen Text: `{{ title }}`
+            ist der Titel, `{{ message }}` der Text. Beispiel Telegram: Aktion
+            `telegram_bot.send_message` mit `message: "{{ title }}: {{ message }}"`. /
+            Run after the push notification with the finished text:
+            `{{ title }}` is the title, `{{ message }}` the text. Example
+            Telegram: action `telegram_bot.send_message` with
+            `message: "{{ title }}: {{ message }}"`.
+          default: []
+          selector:
+            action: {}
 
 mode: single
 
@@ -85,6 +132,7 @@ triggers:
       {{ loss.v > threshold }}
 
 variables:
+  lang: !input language
   want: "{{ (wanted or '') | trim | lower }}"
   matches: >-
     {%- set found = namespace(rows=[]) %}
@@ -101,17 +149,30 @@ conditions:
     before: !input before
 
 actions:
+  - variables:
+      # The area is the device of the sensor ("Streckenwacht <area>").
+      head: >-
+        {%- set dev = device_id(delay_sensor) %}
+        {%- set area = (device_attr(dev, 'name_by_user') or device_attr(dev, 'name') or '') if dev else '' %}
+        {%- set area = area | regex_replace('^Streckenwacht ', '') | trim %}
+        {{- 'Streckenwacht · ' ~ area if area and area != 'Streckenwacht' else 'Streckenwacht' -}}
+      title: >-
+        {{ head }}: {{ 'Traffic jam' if lang == 'en' else 'Stau' }}
+        +{{ matches[0][1] if matches else states(delay_sensor) }} min
+      message: >-
+        {%- set direction = matches[0][0] if matches else state_attr(delay_sensor, 'direction') %}
+        {%- if not matches or state_attr(delay_sensor, 'direction') == direction %}
+          {{- state_attr(delay_sensor, 'title')
+              or ('Traffic jam in the area' if lang == 'en' else 'Stau im Bereich') }}
+        {%- else %}
+          {{- 'Traffic jam' if lang == 'en' else 'Stau' }}
+        {%- endif %}
+        {%- if direction %} ({{ direction }}){% endif %}
   - alias: Push-Nachricht an das Handy
     domain: mobile_app
     type: notify
     device_id: !input notify_device
-    title: >-
-      Stau: +{{ matches[0][1] if matches else states(delay_sensor) }} min
-    message: >-
-      {%- set direction = matches[0][0] if matches else state_attr(delay_sensor, 'direction') %}
-      {%- if not matches or state_attr(delay_sensor, 'direction') == direction %}
-        {{- state_attr(delay_sensor, 'title') or 'Stau im Bereich' }}
-      {%- else %}
-        {{- 'Stau' }}
-      {%- endif %}
-      {%- if direction %} ({{ direction }}){% endif %}
+    title: "{{ title }}"
+    message: "{{ message }}"
+  - alias: Weitere Aktionen
+    sequence: !input extra_actions

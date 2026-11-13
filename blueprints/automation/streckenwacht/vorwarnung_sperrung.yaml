@@ -1,9 +1,17 @@
 blueprint:
-  name: Streckenwacht – Vorwarnung vor geplanter Sperrung
+  name: Streckenwacht – Vorwarnung vor geplanter Sperrung / Warning ahead of a planned closure
   description: >-
     Schickt eine Push-Nachricht an ein Handy mit der Home-Assistant-App, kurz
     bevor in einem Streckenwacht-Bereich eine geplante Sperrung beginnt – etwa am
     Vorabend einer nächtlichen Vollsperrung. Nutzt den Sensor „Nächste Sperrung“.
+    Der Titel nennt den Bereich. Unter „Weitere Aktionen“ lässt sich die
+    Nachricht zusätzlich weitergeben, etwa an Telegram.
+
+    Sends a push notification to a phone with the Home Assistant app shortly
+    before a planned closure begins in a Streckenwacht area – for example the
+    evening before a full closure at night. Uses the “Next closure” sensor.
+    The title names the area. Under “More actions” the message can also be
+    passed on, for example to Telegram.
   domain: automation
   author: Streckenwacht
   homeassistant:
@@ -11,8 +19,10 @@ blueprint:
   source_url: https://github.com/streckenwacht/integration/blob/main/blueprints/automation/streckenwacht/vorwarnung_sperrung.yaml
   input:
     next_closure:
-      name: Nächste Sperrung
-      description: Der Sensor „Nächste Sperrung“ des Bereichs.
+      name: Nächste Sperrung / Next closure
+      description: >-
+        Der Sensor „Nächste Sperrung“ des Bereichs. / The “Next closure”
+        sensor of the area.
       selector:
         entity:
           filter:
@@ -20,8 +30,10 @@ blueprint:
             domain: sensor
             device_class: timestamp
     lead_time:
-      name: Vorlauf
-      description: Wie lange vor Beginn der Sperrung benachrichtigt wird.
+      name: Vorlauf / Lead time
+      description: >-
+        Wie lange vor Beginn der Sperrung benachrichtigt wird. / How long
+        before the closure begins the notification is sent.
       default:
         hours: 12
         minutes: 0
@@ -29,12 +41,42 @@ blueprint:
       selector:
         duration: {}
     notify_device:
-      name: Handy
-      description: Gerät mit der offiziellen Home-Assistant-App.
+      name: Handy / Phone
+      description: >-
+        Gerät mit der offiziellen Home-Assistant-App. / Device with the
+        official Home Assistant app.
       selector:
         device:
           filter:
             integration: mobile_app
+    language:
+      name: Sprache der Nachricht / Language of the message
+      default: de
+      selector:
+        select:
+          options:
+            - label: Deutsch
+              value: de
+            - label: English
+              value: en
+    more_actions:
+      name: Weitere Aktionen (optional) / More actions (optional)
+      icon: mdi:playlist-plus
+      collapsed: true
+      input:
+        extra_actions:
+          name: Weitere Aktionen / More actions
+          description: >-
+            Laufen nach der Push-Nachricht mit dem fertigen Text: `{{ title }}`
+            ist der Titel, `{{ message }}` der Text. Beispiel Telegram: Aktion
+            `telegram_bot.send_message` mit `message: "{{ title }}: {{ message }}"`. /
+            Run after the push notification with the finished text:
+            `{{ title }}` is the title, `{{ message }}` the text. Example
+            Telegram: action `telegram_bot.send_message` with
+            `message: "{{ title }}: {{ message }}"`.
+          default: []
+          selector:
+            action: {}
 
 mode: single
 
@@ -60,16 +102,31 @@ triggers:
       {%- endif %}
 
 variables:
+  lang: !input language
   # Variables are stored as text: format the time right here.
-  when: "{{ (as_datetime(states(sensor)) | as_local).strftime('%d.%m. %H:%M') }}"
-  title: "{{ state_attr(sensor, 'title') or 'Sperrung' }}"
+  when: >-
+    {{ (as_datetime(states(sensor)) | as_local).strftime(
+         '%d %b %H:%M' if lang == 'en' else '%d.%m. %H:%M') }}
+  report: "{{ state_attr(sensor, 'title') or ('Closure' if lang == 'en' else 'Sperrung') }}"
   where: >-
     {{ state_attr(sensor, 'direction') or state_attr(sensor, 'road') or '' }}
 
 actions:
+  - variables:
+      # The area is the device of the sensor ("Streckenwacht <area>").
+      head: >-
+        {%- set dev = device_id(sensor) %}
+        {%- set area = (device_attr(dev, 'name_by_user') or device_attr(dev, 'name') or '') if dev else '' %}
+        {%- set area = area | regex_replace('^Streckenwacht ', '') | trim %}
+        {{- 'Streckenwacht · ' ~ area if area and area != 'Streckenwacht' else 'Streckenwacht' -}}
+      title: >-
+        {{ head }}: {{ 'Closure from' if lang == 'en' else 'Sperrung ab' }} {{ when }}
+      message: "{{ report }}{{ ' (' ~ where ~ ')' if where else '' }}"
   - alias: Push-Nachricht an das Handy
     domain: mobile_app
     type: notify
     device_id: !input notify_device
-    title: "Sperrung ab {{ when }}"
-    message: "{{ title }}{{ ' (' ~ where ~ ')' if where else '' }}"
+    title: "{{ title }}"
+    message: "{{ message }}"
+  - alias: Weitere Aktionen
+    sequence: !input extra_actions

@@ -1,9 +1,16 @@
 blueprint:
-  name: Streckenwacht – Neue oder beendete Meldung
+  name: Streckenwacht – Neue oder beendete Meldung / New or ended report
   description: >-
     Schickt eine Push-Nachricht an ein Handy mit der Home-Assistant-App, wenn in
     einem Streckenwacht-Bereich eine Meldung der gewählten Art neu auftaucht –
-    und auf Wunsch auch, wenn sie wieder endet.
+    und auf Wunsch auch, wenn sie wieder endet. Der Titel nennt den Bereich.
+    Unter „Weitere Aktionen“ lässt sich die Nachricht zusätzlich weitergeben,
+    etwa an Telegram.
+
+    Sends a push notification to a phone with the Home Assistant app when a
+    report of the selected types appears in a Streckenwacht area – and,
+    optionally, when it ends again. The title names the area. Under “More
+    actions” the message can also be passed on, for example to Telegram.
   domain: automation
   author: Streckenwacht
   homeassistant:
@@ -11,16 +18,20 @@ blueprint:
   source_url: https://github.com/streckenwacht/integration/blob/main/blueprints/automation/streckenwacht/neue_meldung.yaml
   input:
     event_entity:
-      name: Ereignisänderung
-      description: Die Entität „Ereignisänderung“ des Bereichs.
+      name: Ereignisänderung / Event change
+      description: >-
+        Die Entität „Ereignisänderung“ des Bereichs. / The “Event change”
+        entity of the area.
       selector:
         entity:
           filter:
             integration: streckenwacht
             domain: event
     types:
-      name: Arten
-      description: Bei welchen Arten von Meldungen benachrichtigt wird.
+      name: Arten / Types
+      description: >-
+        Bei welchen Arten von Meldungen benachrichtigt wird. / Which types of
+        reports send a notification.
       default:
         - closure
         - accident
@@ -28,28 +39,58 @@ blueprint:
         select:
           multiple: true
           options:
-            - label: Sperrung
+            - label: Sperrung / Closure
               value: closure
-            - label: Unfall
+            - label: Unfall / Accident
               value: accident
-            - label: Stau
+            - label: Stau / Traffic jam
               value: traffic_jam
-            - label: Baustelle
+            - label: Baustelle / Roadworks
               value: roadworks
-            - label: Sonstige Warnung
+            - label: Sonstige Warnung / Other warning
               value: warning
     notify_ended:
-      name: Auch bei Ende benachrichtigen
+      name: Auch bei Ende benachrichtigen / Also notify when it ends
       default: false
       selector:
         boolean: {}
     notify_device:
-      name: Handy
-      description: Gerät mit der offiziellen Home-Assistant-App.
+      name: Handy / Phone
+      description: >-
+        Gerät mit der offiziellen Home-Assistant-App. / Device with the
+        official Home Assistant app.
       selector:
         device:
           filter:
             integration: mobile_app
+    language:
+      name: Sprache der Nachricht / Language of the message
+      default: de
+      selector:
+        select:
+          options:
+            - label: Deutsch
+              value: de
+            - label: English
+              value: en
+    more_actions:
+      name: Weitere Aktionen (optional) / More actions (optional)
+      icon: mdi:playlist-plus
+      collapsed: true
+      input:
+        extra_actions:
+          name: Weitere Aktionen / More actions
+          description: >-
+            Laufen nach der Push-Nachricht mit dem fertigen Text: `{{ title }}`
+            ist der Titel, `{{ message }}` der Text. Beispiel Telegram: Aktion
+            `telegram_bot.send_message` mit `message: "{{ title }}: {{ message }}"`. /
+            Run after the push notification with the finished text:
+            `{{ title }}` is the title, `{{ message }}` the text. Example
+            Telegram: action `telegram_bot.send_message` with
+            `message: "{{ title }}: {{ message }}"`.
+          default: []
+          selector:
+            action: {}
 
 # Several events can arrive in one update: send each of them.
 mode: queued
@@ -62,19 +103,14 @@ triggers:
 variables:
   types: !input types
   notify_ended: !input notify_ended
+  lang: !input language
   # to_state is empty when the entity is removed (e.g. the area was deleted)
   event_type: "{{ trigger.to_state.attributes.get('event_type', '') if trigger.to_state else '' }}"
   kind: "{{ trigger.to_state.attributes.get('type', '') if trigger.to_state else '' }}"
-  title: "{{ trigger.to_state.attributes.get('title', '') if trigger.to_state else '' }}"
+  report: "{{ trigger.to_state.attributes.get('title', '') if trigger.to_state else '' }}"
   where: >-
     {%- set a = trigger.to_state.attributes if trigger.to_state else {} %}
     {{- a.get('direction') or a.get('road') or '' -}}
-  labels:
-    closure: Sperrung
-    accident: Unfall
-    traffic_jam: Stau
-    roadworks: Baustelle
-    warning: Warnung
 
 conditions:
   - condition: template
@@ -83,11 +119,37 @@ conditions:
          or (event_type == 'ended' and notify_ended and kind in types) }}
 
 actions:
+  - variables:
+      # The area is the device of the entity ("Streckenwacht <area>").
+      head: >-
+        {%- set dev = device_id(trigger.entity_id) %}
+        {%- set area = (device_attr(dev, 'name_by_user') or device_attr(dev, 'name') or '') if dev else '' %}
+        {%- set area = area | regex_replace('^Streckenwacht ', '') | trim %}
+        {{- 'Streckenwacht · ' ~ area if area and area != 'Streckenwacht' else 'Streckenwacht' -}}
+      title: >-
+        {%- set texts = {
+          'de': {
+            'new': {'closure': 'Neue Sperrung', 'accident': 'Neuer Unfall',
+                    'traffic_jam': 'Neuer Stau', 'roadworks': 'Neue Baustelle',
+                    'warning': 'Neue Warnung', '': 'Neue Meldung'},
+            'ended': {'closure': 'Sperrung beendet', 'accident': 'Unfall beendet',
+                      'traffic_jam': 'Stau beendet', 'roadworks': 'Baustelle beendet',
+                      'warning': 'Warnung beendet', '': 'Meldung beendet'}},
+          'en': {
+            'new': {'closure': 'New closure', 'accident': 'New accident',
+                    'traffic_jam': 'New traffic jam', 'roadworks': 'New roadworks',
+                    'warning': 'New warning', '': 'New report'},
+            'ended': {'closure': 'Closure ended', 'accident': 'Accident ended',
+                      'traffic_jam': 'Traffic jam ended', 'roadworks': 'Roadworks ended',
+                      'warning': 'Warning ended', '': 'Report ended'}}} %}
+        {%- set t = texts[lang if lang in texts else 'de']['new' if event_type == 'new' else 'ended'] %}
+        {{- head ~ ': ' ~ t.get(kind, t['']) -}}
+      message: "{{ report }}{{ ' (' ~ where ~ ')' if where else '' }}"
   - alias: Push-Nachricht an das Handy
     domain: mobile_app
     type: notify
     device_id: !input notify_device
-    title: >-
-      {{ 'Neu' if event_type == 'new' else 'Beendet' }}:
-      {{ labels.get(kind, 'Meldung') }}
-    message: "{{ title }}{{ ' (' ~ where ~ ')' if where else '' }}"
+    title: "{{ title }}"
+    message: "{{ message }}"
+  - alias: Weitere Aktionen
+    sequence: !input extra_actions

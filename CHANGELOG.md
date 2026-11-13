@@ -2,6 +2,12 @@
 
 Alle Änderungen an Streckenwacht, neueste zuerst. Die Einträge entsprechen den Release-Texten auf GitHub; was auf `dev` liegt und noch nicht veröffentlicht ist, steht unter „Unveröffentlicht“.
 
+## Unveröffentlicht
+
+### Geändert
+
+- **Blueprints zweisprachig, mit weiteren Aktionen (z. B. Telegram) und dem Namen des Bereichs im Titel.** Die Nachricht kann deutsch oder englisch sein, der Titel lautet z. B. „Streckenwacht · Arbeitsweg: Neue Sperrung“, und im eingeklappten Abschnitt „Weitere Aktionen“ lässt sich der fertige Text weitergeben. Bestehende Automationen laufen unverändert; die Neuerungen gibt es nach einem erneuten Import des Blueprints.
+
 ## 0.9.7 – 2026-11-10
 
 ### Geändert

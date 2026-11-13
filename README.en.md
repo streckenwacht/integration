@@ -176,7 +176,7 @@ A `new` event contains `id`, `title`, `type`, `source`, `road`, `direction`, `st
 
 ### Ready-made blueprints
 
-No YAML: import the blueprint, select the area and your phone, done. *The blueprints currently use German texts (names and notifications).*
+No YAML: import the blueprint, select the area and your phone, done.
 
 | Blueprint | What it does | |
 |---|---|---|
@@ -184,7 +184,17 @@ No YAML: import the blueprint, select the area and your phone, done. *The bluepr
 | **Vorwarnung vor geplanter Sperrung** (closure warning) | Push notification with a configurable lead time (default 12 hours) before a planned closure begins – e.g. the evening before a night closure | [![Import blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fstreckenwacht%2Fintegration%2Fblob%2Fmain%2Fblueprints%2Fautomation%2Fstreckenwacht%2Fvorwarnung_sperrung.yaml) |
 | **Neue oder beendete Meldung** (new or ended report) | Push notification for new reports of the selected types (e.g. closure, accident), optionally also when they end | [![Import blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fstreckenwacht%2Fintegration%2Fblob%2Fmain%2Fblueprints%2Fautomation%2Fstreckenwacht%2Fneue_meldung.yaml) |
 
-Notifications go to a phone running the official Home Assistant app. If you need something else, adapt the YAML examples below.
+Notifications go to a phone running the official Home Assistant app. The title names the area, e.g. “Streckenwacht · Commute: New closure”. Under “Language of the message” you choose whether the message is in German or English.
+
+To send the message somewhere else as well, for example to Telegram, add it in the collapsed section “More actions”. There `{{ title }}` and `{{ message }}` hold the finished text:
+
+```yaml
+action: telegram_bot.send_message
+data:
+  message: "{{ title }}: {{ message }}"
+```
+
+Automations you already set up keep working unchanged; the language, the area in the title and “More actions” come with a re-import of the blueprint. If you need something else entirely, adapt the YAML examples below.
 
 ### Push notification on travel time loss
 

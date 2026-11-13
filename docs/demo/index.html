@@ -327,7 +327,7 @@
           quiet: "Keine Benachrichtigungen in den letzten 24 Stunden.",
           pushNote:
             "Das hätten die drei Blueprints mit ihren Standardeinstellungen in den letzten 24 Stunden " +
-            "geschickt. Importieren:",
+            "geschickt (Sprache: Deutsch). Importieren:",
           blueprints: {
             stau_benachrichtigung: "Stau-Benachrichtigung",
             vorwarnung_sperrung: "Vorwarnung vor geplanter Sperrung",
@@ -415,7 +415,7 @@
           quiet: "No notifications in the last 24 hours.",
           pushNote:
             "What the three blueprints would have sent in the last 24 hours with their default settings " +
-            "(they write German texts). Import:",
+            "(language: English). Import:",
           blueprints: {
             stau_benachrichtigung: "Traffic jam notification",
             vorwarnung_sperrung: "Warning ahead of a planned closure",
@@ -835,25 +835,29 @@
           </div>`;
       }
 
-      // The pushes the blueprints sent: texts as in their templates (German).
+      // The pushes the blueprints sent: texts as in their templates, in the page's language.
       function notificationsCard(areas) {
         const tx = t();
         const pad = (n) => String(n).padStart(2, "0");
-        // strftime('%d.%m. %H:%M') of the blueprint
+        // strftime('%d.%m. %H:%M') or, in English, '%d %b %H:%M' of the blueprint
+        const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         const when = (iso) => {
           const d = new Date(iso);
-          return `${pad(d.getDate())}.${pad(d.getMonth() + 1)}. ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+          const time = `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+          return state.lang === "en"
+            ? `${pad(d.getDate())} ${MONTHS[d.getMonth()]} ${time}`
+            : `${pad(d.getDate())}.${pad(d.getMonth() + 1)}. ${time}`;
         };
         const notes = areas
-          .flatMap((data) => data.notifications.map((n) => ({ ...n, area: data.area.name })))
+          .flatMap((data) => data.notifications)
           .sort((a, b) => Date.parse(b.at) - Date.parse(a.at));
         const pushes = notes.length
           ? notes
               .map(
                 (n) => `
               <div class="push">
-                <div class="app">${icon("bell-ring-outline")}<span>Home Assistant · ${escapeHtml(n.area)}</span><span>${relative(n.at)}</span></div>
-                <b>${escapeHtml(n.title || `Sperrung ab ${when(n.when)}`)}</b>${escapeHtml(n.message)}
+                <div class="app">${icon("bell-ring-outline")}<span>Home Assistant</span><span>${relative(n.at)}</span></div>
+                <b>${escapeHtml((n.title?.[state.lang] ?? n.title ?? "").replace("{when}", n.when ? when(n.when) : ""))}</b>${escapeHtml(n.message)}
               </div>`,
               )
               .join("")

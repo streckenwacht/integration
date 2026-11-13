@@ -88,12 +88,32 @@ MOMENTS = {
 JAM_THRESHOLD = 15
 NEW_TYPES = (EventType.CLOSURE, EventType.ACCIDENT)
 LEAD_TIME = timedelta(hours=12)
-NEW_LABELS = {
-    EventType.CLOSURE: "Sperrung",
-    EventType.ACCIDENT: "Unfall",
-    EventType.TRAFFIC_JAM: "Stau",
-    EventType.ROADWORKS: "Baustelle",
-    EventType.WARNING: "Warnung",
+# Titles of the blueprints in both languages ("language" input); the demo
+# shows the one of the page. "{head}" is "Streckenwacht · <area>", "{when}"
+# the start of the closure, formatted by the page after moving the dates.
+NEW_TITLES = {
+    "de": {
+        EventType.CLOSURE: "Neue Sperrung",
+        EventType.ACCIDENT: "Neuer Unfall",
+        EventType.TRAFFIC_JAM: "Neuer Stau",
+        EventType.ROADWORKS: "Neue Baustelle",
+        EventType.WARNING: "Neue Warnung",
+    },
+    "en": {
+        EventType.CLOSURE: "New closure",
+        EventType.ACCIDENT: "New accident",
+        EventType.TRAFFIC_JAM: "New traffic jam",
+        EventType.ROADWORKS: "New roadworks",
+        EventType.WARNING: "New warning",
+    },
+}
+JAM_TITLE = {
+    "de": "{head}: Stau +{delay} min",
+    "en": "{head}: Traffic jam +{delay} min",
+}
+CLOSURE_TITLE = {
+    "de": "{head}: Sperrung ab {{when}}",
+    "en": "{head}: Closure from {{when}}",
 }
 # Integrations poll every 15 minutes: a report shows up a few minutes late.
 POLL_DELAY = timedelta(minutes=4)
@@ -767,13 +787,15 @@ def _where(event: StreckenwachtEvent) -> str:
 
 
 def notifications(
-    events: list[StreckenwachtEvent], now: datetime
+    events: list[StreckenwachtEvent], now: datetime, area: str
 ) -> list[dict[str, Any]]:
     """What the three blueprints (default settings) sent in the day up to now.
 
-    Same texts as their templates. "when" (warning ahead of a closure) stays a
-    timestamp: the page formats it after moving the dates.
+    Same texts as their templates, the title in German and English, with the
+    area (the device "Streckenwacht <area>"). "when" (warning ahead of a
+    closure) stays a timestamp: the page formats it after moving the dates.
     """
+    head = f"Streckenwacht · {area}"
     sent: list[dict[str, Any]] = []
     since = now - timedelta(hours=24)
     for event in events:
@@ -784,7 +806,10 @@ def notifications(
                 {
                     "blueprint": "neue_meldung",
                     "at": live + POLL_DELAY,
-                    "title": f"Neu: {NEW_LABELS[event.event_type]}",
+                    "title": {
+                        lang: f"{head}: {titles[event.event_type]}"
+                        for lang, titles in NEW_TITLES.items()
+                    },
                     "message": event.title + _where(event),
                 }
             )
@@ -802,6 +827,10 @@ def notifications(
                         "blueprint": "vorwarnung_sperrung",
                         "at": fire,
                         "when": period.start.isoformat(),
+                        "title": {
+                            lang: title.format(head=head)
+                            for lang, title in CLOSURE_TITLE.items()
+                        },
                         "message": upcoming.event.title + _where(upcoming.event),
                     }
                 )
@@ -812,7 +841,10 @@ def notifications(
             {
                 "blueprint": "stau_benachrichtigung",
                 "at": delayed.start + POLL_DELAY,
-                "title": f"Stau: +{delay} min",
+                "title": {
+                    lang: title.format(head=head, delay=delay)
+                    for lang, title in JAM_TITLE.items()
+                },
                 "message": delayed.title + _where(delayed),
             }
         )
@@ -898,7 +930,7 @@ def main() -> None:
                 "features": features,
                 "entities": entities(inside, now),
                 "calendar": calendar(inside, now),
-                "notifications": notifications(inside, now),
+                "notifications": notifications(inside, now, area.name),
             }
             result["moments"][moment] = view
             states = {k: v["state"] for k, v in view["entities"].items()}
