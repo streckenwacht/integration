@@ -32,6 +32,7 @@ The integration's UI is available in German and English and follows your Home As
 - **"Disruption active"** as soon as a closure, an accident or a significant traffic jam is active in the area – long-term roadworks, closures lasting months (after their first week) and minor delays deliberately do not trigger it.
 - **Travel time loss** in minutes (largest current value in the area).
 - **Event for new and ended reports** – ideal for push notifications.
+- **Ready-made blueprints** for traffic jams, an early warning before a planned closure and new or ended reports, to your phone and optionally to Telegram & co. ([more](#ready-made-blueprints)).
 - **Map:** all current reports as markers on the dashboard map card.
 - If one source fails, the others keep working; after repeated failures a notice appears under *Repairs*.
 

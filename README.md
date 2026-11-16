@@ -30,6 +30,7 @@ Streckenwacht wacht über deine Strecke – ob Autobahn, Bundesstraße oder dein
 - **„Störung aktiv“**, sobald im Bereich eine Sperrung, ein Unfall oder ein nennenswerter Stau aktiv ist – Dauerbaustellen, monatelange Sperrungen (nach ihrer ersten Woche) und kleine Verzögerungen lösen ihn bewusst nicht aus.
 - **Reisezeitverlust** in Minuten (größter aktueller Wert im Bereich).
 - **Event bei neuen und beendeten Meldungen** – ideal für Push-Nachrichten.
+- **Fertige Blueprints** für Stau, Vorwarnung vor einer geplanten Sperrung und neue oder beendete Meldungen, aufs Handy und auf Wunsch an Telegram & Co. ([mehr](#fertige-blueprints)).
 - **Karte:** alle aktuellen Meldungen als Punkte auf der Kartenkarte im Dashboard.
 - Fällt eine Quelle aus, laufen die anderen weiter; nach wiederholten Fehlern erscheint ein Hinweis unter *Reparaturen*.
 
