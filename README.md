@@ -15,6 +15,8 @@ Streckenwacht wacht über deine Strecke – ob Autobahn, Bundesstraße oder dein
 
 **Ausprobieren ohne Installation:** Die [Demo](https://streckenwacht.github.io/integration/?lang=de) zeigt Kartenkarte, Dashboard, Kalender und Push-Nachrichten zu verschiedenen Tageszeiten – mit erfundenen Meldungen, aber gerechnet vom Code der Integration. Dazu: Welche Datenquellen gibt es an deinem Ort?
 
+Die Oberfläche gibt es auf Deutsch und Englisch; sie folgt der Sprache deines Home Assistant.
+
 ## Inhalt
 
 - [Was Streckenwacht kann](#was-streckenwacht-kann) · [Datenquellen](#datenquellen) · [Was Streckenwacht nicht kann](#was-streckenwacht-nicht-kann)

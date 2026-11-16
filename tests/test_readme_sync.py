@@ -1,17 +1,26 @@
 """README.md (German) and README.en.md (English) must tell the same.
 
 Copy of waermewacht/tests/test_readme_sync.py (as of
-d8c3da5). Do not change here; make changes there and copy them here
+6a6fa35). Do not change here; make changes there and copy them here
 (tools/check_shared.py in the parent folder reports differences).
 
 Both files are split at their headings into sections. Section by section the
-heading level, the number of table rows, list items and code blocks, the
+heading level, the number of table rows, list items, paragraphs and code
+blocks, the
 inline code, the images and the links must match; text is free. Every
 internal link (``#anchor``) must point to a heading or an ``<a id>`` in the
 same file. Deliberate differences go into ``tests/readme_sync_allow.json``:
 ``{"replace": {"mein_handy": "my_phone"}, "code": [...], "links": [...]}``.
 ``replace`` turns German spellings into English ones in the German code and
 links before comparing; ``code`` and ``links`` are left out on both sides.
+``paragraphs`` (``{"<German heading>": n}``) allows n more English paragraphs
+in a section, ``length`` (``{"<German heading>": [low, high]}``) another
+range for the length check.
+
+The text of a section may not be much shorter or longer in English: between
+0.75 and 1.35 times the German length, for sections with at least 300
+characters (German sentences tend to be a little longer). That catches a
+sentence added to one language only, also inside a list item.
 
 Stops a feature from landing in only one language (found 2026-11-16: the
 English README of Wärmewacht had missed several releases).
@@ -38,6 +47,9 @@ CODE_SPAN = re.compile(r"(`+)(.+?)\1")
 LINK = re.compile(r"!?\[[^\]]*\]\(\s*<?([^)\s>]+)>?(?:\s+\"[^\"]*\")?\s*\)")
 HTML_SRC = re.compile(r"""\b(?:src|srcset|href)=["']([^"']+)["']""")
 ANCHOR_ID = re.compile(r"""<a\s+(?:name|id)=["']([^"']+)["']""")
+NOT_TEXT = re.compile(r"\]\([^)]*\)|`[^`]*`|<[^>]+>|https?://\S+")
+LENGTH_RANGE = (0.75, 1.35)
+LENGTH_MIN_CHARS = 300
 
 
 @dataclass
@@ -49,20 +61,22 @@ class Section:
     line: int
     table_rows: int = 0
     list_items: int = 0
+    paragraphs: int = 0
     code_blocks: int = 0
+    chars: int = 0
     code: list[str] = field(default_factory=list)
     links: list[str] = field(default_factory=list)
 
 
-def _allow() -> tuple[dict[str, str], set[str], set[str]]:
-    if not ALLOW.exists():
-        return {}, set(), set()
-    data = json.loads(ALLOW.read_text(encoding="utf-8"))
-    return (
-        dict(data.get("replace", {})),
-        set(data.get("code", [])),
-        set(data.get("links", [])),
-    )
+def _allow() -> dict:
+    data = json.loads(ALLOW.read_text(encoding="utf-8")) if ALLOW.exists() else {}
+    return {
+        "replace": dict(data.get("replace", {})),
+        "code": set(data.get("code", [])),
+        "links": set(data.get("links", [])),
+        "paragraphs": dict(data.get("paragraphs", {})),
+        "length": {k: tuple(v) for k, v in data.get("length", {}).items()},
+    }
 
 
 def _translate(value: str, replace: dict[str, str]) -> str:
@@ -88,12 +102,17 @@ def parse(path: Path) -> list[Section]:
     """Split a README into sections (the part before the first heading is one)."""
     sections = [Section(title="(top)", level=0, line=1)]
     fence: str | None = None
+    block_start = True  # the previous line ended a block
     for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
         stripped = line.strip()
         section = sections[-1]
         if fence:
             if stripped.startswith(fence):
                 fence = None
+                block_start = True
+            continue
+        if not stripped:
+            block_start = True
             continue
         if stripped.startswith(("```", "~~~")):
             fence = stripped[:3]
@@ -111,6 +130,10 @@ def parse(path: Path) -> list[Section]:
             section.table_rows += 1
         elif LIST_ITEM.match(line):
             section.list_items += 1
+        elif block_start and not line.startswith(" "):
+            section.paragraphs += 1
+        block_start = False
+        section.chars += len(NOT_TEXT.sub("", line).strip())
         section.code += [m.group(2).strip() for m in CODE_SPAN.finditer(line)]
         plain = _strip_code(line)
         for target in LINK.findall(plain) + HTML_SRC.findall(plain):
@@ -173,7 +196,8 @@ def internal_links(path: Path) -> list[tuple[int, str]]:
 
 
 def _differences(de: list[Section], en: list[Section]) -> list[str]:
-    replace, allow_code, allow_links = _allow()
+    allow = _allow()
+    replace, allow_code, allow_links = allow["replace"], allow["code"], allow["links"]
     problems = []
     if [s.level for s in de] != [s.level for s in en]:
         de_titles = [f"{'#' * s.level} {s.title}" for s in de[1:]]
@@ -189,11 +213,18 @@ def _differences(de: list[Section], en: list[Section]) -> list[str]:
         return problems
     for d, e in zip(de, en, strict=True):
         where = f"README.md:{d.line} {d.title!r} / README.en.md:{e.line} {e.title!r}"
-        for name in ("table_rows", "list_items", "code_blocks"):
-            if getattr(d, name) != getattr(e, name):
+        extra = {"paragraphs": allow["paragraphs"].get(d.title, 0)}
+        for name in ("table_rows", "list_items", "paragraphs", "code_blocks"):
+            if getattr(d, name) + extra.get(name, 0) != getattr(e, name):
                 problems.append(
                     f"{where}: {name} {getattr(d, name)} / {getattr(e, name)}"
                 )
+        low, high = allow["length"].get(d.title, LENGTH_RANGE)
+        if d.chars >= LENGTH_MIN_CHARS and not low <= e.chars / d.chars <= high:
+            problems.append(
+                f"{where}: text length {d.chars} / {e.chars} characters "
+                f"(English {e.chars / d.chars:.2f} of German, expected {low}–{high})"
+            )
         code_de = sorted(_translate(c, replace) for c in d.code if c not in allow_code)
         code_en = sorted(c for c in e.code if c not in allow_code)
         if code_de != code_en:
