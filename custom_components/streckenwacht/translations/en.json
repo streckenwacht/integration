@@ -72,7 +72,7 @@
         },
         "sources": {
           "title": "Data sources",
-          "description": "Offered are the motorways and the sources whose region touches this area.",
+          "description": "Offered are the motorways and the sources whose region touches this area.\n\nA source for your region is missing? Feel free to let us know ([issue]({issues_url})), ideally with a link to open data of your city or state (road works, closures).",
           "data": {
             "sources": "Data sources"
           },

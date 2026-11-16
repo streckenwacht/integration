@@ -2,6 +2,12 @@
 
 Alle Änderungen an Streckenwacht, neueste zuerst. Die Einträge entsprechen den Release-Texten auf GitHub; was auf `dev` liegt und noch nicht veröffentlicht ist, steht unter „Unveröffentlicht“.
 
+## Unveröffentlicht
+
+### Geändert
+
+- **Hinweis auf fehlende Quellen.** Der Schritt „Datenquellen“ eines Beobachtungsbereichs sagt jetzt, wohin man sich wenden kann, wenn für die eigene Region eine Quelle fehlt, am besten mit einem Link auf offene Daten der Stadt oder des Landes.
+
 ## 0.10.0 – 2026-11-13
 
 ### Geändert

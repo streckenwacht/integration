@@ -60,6 +60,10 @@ from .overview import Zone, area_overview, entry_overview, place_name
 from .providers import ProviderError
 from .providers.autobahn import AutobahnProvider
 
+# Where to suggest a missing source (as a placeholder: translations may hold
+# no URLs).
+ISSUES_URL = "https://github.com/streckenwacht/integration/issues"
+
 
 def _setup_schema() -> vol.Schema:
     """Setup asks only for INRIX (a choice about commercial data); the poll
@@ -436,6 +440,8 @@ class AreaSubentryFlow(ConfigSubentryFlow):
                 schema, user_input or {CONF_AREA_SOURCES: default}
             ),
             errors=errors,
+            # Where to suggest a missing source (translations hold no URLs).
+            description_placeholders={"issues_url": ISSUES_URL},
         )
 
     async def async_step_roads(

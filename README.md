@@ -65,6 +65,8 @@ Streckenwacht wacht über deine Strecke – ob Autobahn, Bundesstraße oder dein
 
 Alle Entitäten tragen die jeweilige Namensnennung im Attribut `attribution`.
 
+**Für deine Region fehlt eine Quelle?** Gib gern Bescheid ([Fehler melden](#fehler-melden)), am besten mit einem Link auf offene Daten deiner Stadt oder deines Landes (Baustellen, Sperrungen). Die Einrichtung eines Beobachtungsbereichs sagt es auch.
+
 ### Doppelte Meldungen
 
 Manche Baustellen melden mehrere Quellen – in Stuttgart etwa die Landesmeldestelle die Sperrung und die Stadt die Bauarbeiten dahinter. Solche Meldungen fasst Streckenwacht zu einer zusammen: gleiche Straße, höchstens 300 m auseinander, passender Zeitraum, nur Baustellen und Sperrungen. Die Sperrung führt; die anderen Quellen stehen in der Beschreibung, in `also_reported_by` und in der Namensnennung. Benachrichtigt wird einmal. Abschalten lässt sich das unter *Konfigurieren*.

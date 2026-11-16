@@ -67,6 +67,8 @@ The integration's UI is available in German and English and follows your Home As
 
 Every entity carries the required attribution in its `attribution` attribute.
 
+**A source for your region is missing?** Feel free to let us know ([Reporting issues](#reporting-issues)), ideally with a link to open data of your city or state (road works, closures). The setup of an observation area says so too.
+
 ### Duplicate reports
 
 Some roadworks are reported by several sources – in Stuttgart, for example, the Landesmeldestelle reports the closure and the city the works behind it. Streckenwacht merges such reports into one: same road, at most 300 m apart, matching time window, roadworks and closures only. The closure leads; the other sources are listed in the description, in `also_reported_by` and in the attribution. You are notified once. It can be switched off under *Configure*.

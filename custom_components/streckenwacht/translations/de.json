@@ -72,7 +72,7 @@
         },
         "sources": {
           "title": "Datenquellen",
-          "description": "Angeboten werden die Autobahnen und die Quellen, deren Gebiet diesen Bereich berührt.",
+          "description": "Angeboten werden die Autobahnen und die Quellen, deren Gebiet diesen Bereich berührt.\n\nFür deine Region fehlt eine Quelle? Gib gern Bescheid ([Issue]({issues_url})), am besten mit einem Link auf offene Daten deiner Stadt oder deines Landes (Baustellen, Sperrungen).",
           "data": {
             "sources": "Datenquellen"
           },

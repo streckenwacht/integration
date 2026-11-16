@@ -200,6 +200,10 @@ async def test_add_area_wizard(
     # step 2: the sources covering Stuttgart, all preselected
     result = await configure(hass, result, AREA_INPUT)
     assert result["step_id"] == "sources"
+    # Where to suggest a missing source.
+    assert result["description_placeholders"] == {
+        "issues_url": "https://github.com/streckenwacht/integration/issues"
+    }
     offered = ["autobahn", "mobidata_bw", "stuttgart", "lms_bw"]
     assert options_of(result, CONF_AREA_SOURCES) == offered
     assert suggested(result, CONF_AREA_SOURCES) == offered
