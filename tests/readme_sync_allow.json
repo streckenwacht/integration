@@ -1,0 +1,6 @@
+{
+  "replace": {
+    "Demo-erfundene_Daten": "Demo-sample_data",
+    "streckenwacht_arbeitsweg": "streckenwacht_commute"
+  }
+}
