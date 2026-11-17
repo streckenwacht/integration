@@ -7,9 +7,13 @@ Usage (from the repo root):
 Each source is fetched for a test area inside its region (the Autobahn API
 for A8/A81 around Stuttgart). A source counts as a problem if it fails twice,
 returns nothing, nothing lies in its own region (positions no longer parsed)
-or no record has a time (date fields changed). Exit code 1 if any source has
-a problem. Run weekly by
-.github/workflows/source-check.yml; nothing is written except the report.
+or no record has a time (date fields changed). Candidates (sources not built
+in because they did not deliver, docs/DATENQUELLEN.md) are fetched too: one
+that delivers again counts as a finding, so the weekly issue says it is time
+to build it in (then move it from CANDIDATES to the providers) or to drop
+it. Exit code 1 if any source has a problem or any candidate delivers. Run
+weekly by .github/workflows/source-check.yml; nothing is written except the
+report.
 """
 
 from __future__ import annotations
@@ -35,6 +39,28 @@ from custom_components.streckenwacht.providers import ProviderError
 
 MAX_RADIUS_KM = 50
 RETRY_AFTER_S = 60
+CANDIDATE_TIMEOUT_S = 30
+
+
+@dataclass(frozen=True)
+class Candidate:
+    """A source not built in yet: delivers once `url` answers 200 over a
+    verified TLS connection with `marker` in the body."""
+
+    name: str
+    url: str
+    marker: str
+    why: str  # why it is not built in (shown in the report)
+
+
+CANDIDATES: tuple[Candidate, ...] = (
+    Candidate(
+        "Heidelberg",
+        "https://www.heidelberg.de/site/Heidelberg2021/BSTXC/1254509/data.json",
+        "{",
+        "Katalog-Adresse liefert 404 (seit 2026-10-18)",
+    ),
+)
 
 
 def test_area(source: Source) -> ObservationArea:
@@ -90,8 +116,29 @@ async def check(session: aiohttp.ClientSession, source: Source) -> Result:
     raise AssertionError("unreachable")
 
 
-def report(results: list[Result]) -> str:
+async def check_candidate(
+    session: aiohttp.ClientSession, candidate: Candidate
+) -> str | None:
+    """None while the candidate does not deliver, else what it gave."""
+    try:
+        async with session.get(
+            candidate.url, timeout=aiohttp.ClientTimeout(total=CANDIDATE_TIMEOUT_S)
+        ) as response:
+            if response.status != 200:
+                return None
+            body = await response.text(errors="replace")
+    except aiohttp.ClientError, TimeoutError:
+        return None
+    if candidate.marker not in body:
+        return None
+    return f"HTTP 200, {len(body) // 1024} KB"
+
+
+def report(
+    results: list[Result], candidates: list[tuple[Candidate, str | None]]
+) -> str:
     problems = [r for r in results if r.problem]
+    delivering = [c for c, found in candidates if found]
     now = datetime.now(UTC).strftime("%Y-%m-%d %H:%M UTC")
     lines = [
         f"## Quellen-Check {now}",
@@ -111,14 +158,32 @@ def report(results: list[Result]) -> str:
             f" | {r.share(lambda e: bool(e.road))}"
             f" | {r.problem or 'ok'} |"
         )
+    if candidates:
+        lines += [
+            "",
+            "### Kandidaten (noch nicht eingebaut)",
+            "",
+            f"**{len(delivering)} Kandidat(en) liefern: einbauen oder aus `CANDIDATES` nehmen.**"
+            if delivering
+            else "Kein Kandidat liefert.",
+            "",
+            "| Kandidat | Stand | Warum nicht eingebaut |",
+            "|---|---|---|",
+        ]
+        lines += [
+            f"| {c.name} | {found or 'liefert nicht'} | {c.why} |"
+            for c, found in candidates
+        ]
     return "\n".join(lines) + "\n"
 
 
-async def check_all() -> list[Result]:
+async def check_all() -> tuple[list[Result], list[tuple[Candidate, str | None]]]:
     # Windows: aiodns (installed with Home Assistant) cannot find the DNS servers.
     connector = aiohttp.TCPConnector(resolver=aiohttp.ThreadedResolver())
     async with aiohttp.ClientSession(connector=connector) as session:
-        return list(await asyncio.gather(*(check(session, s) for s in Source)))
+        results = list(await asyncio.gather(*(check(session, s) for s in Source)))
+        found = await asyncio.gather(*(check_candidate(session, c) for c in CANDIDATES))
+        return results, list(zip(CANDIDATES, found, strict=True))
 
 
 if __name__ == "__main__":
@@ -126,9 +191,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--markdown", help="also write the report to this file")
     args = parser.parse_args()
-    results = asyncio.run(check_all())
-    text = report(results)
+    results, candidates = asyncio.run(check_all())
+    text = report(results, candidates)
     print(text)
     if args.markdown:
         Path(args.markdown).write_text(text, encoding="utf-8")
-    sys.exit(1 if any(r.problem for r in results) else 0)
+    attention = any(r.problem for r in results) or any(f for _, f in candidates)
+    sys.exit(1 if attention else 0)

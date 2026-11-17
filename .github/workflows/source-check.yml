@@ -58,7 +58,7 @@ jobs:
           elif [ -n "$open" ]; then
             gh issue comment "$open" --body-file body.md
           else
-            gh issue create --title "Quellen-Check: Datenquellen mit Problemen" \
+            gh issue create --title "Quellen-Check: Datenquellen mit Problemen oder lieferndem Kandidaten" \
               --label "$label" --body-file body.md
           fi
       - name: Fail on problems
