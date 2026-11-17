@@ -107,8 +107,6 @@ Or manually:
 2. Restart Home Assistant.
 3. **Settings → Devices & services → Add integration → Streckenwacht**.
 
-Note: the old HACS dashboard (before Home Assistant 2026.11) does not show the icon ([HACS issue #5171](https://github.com/hacs/integration/issues/5171)); the Marketplace and the settings do.
-
 ## Setup
 
 ### Data sources and options

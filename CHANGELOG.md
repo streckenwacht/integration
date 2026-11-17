@@ -7,6 +7,7 @@ Alle Änderungen an Streckenwacht, neueste zuerst. Die Einträge entsprechen den
 ### Geändert
 
 - **Hinweis auf fehlende Quellen.** Der Schritt „Datenquellen“ eines Beobachtungsbereichs sagt jetzt, wohin man sich wenden kann, wenn für die eigene Region eine Quelle fehlt, am besten mit einem Link auf offene Daten der Stadt oder des Landes.
+- **README:** Hinweis aufs fehlende Icon im alten HACS-Dashboard entfernt (seit Home Assistant 2026.11 gibt es den Marketplace).
 
 ## 0.10.0 – 2026-11-13
 
