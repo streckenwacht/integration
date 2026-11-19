@@ -393,7 +393,9 @@ With `label_mode: icon` each marker shows the icon of its type (roadworks, closu
 
 ## Reporting issues
 
-Please report bugs and ideas as a [GitHub issue](https://github.com/streckenwacht/integration/issues), for bugs with the **report for a bug report**: press *Devices & services → Streckenwacht → device of an area → Diagnostic → Report for a bug report*. The report shows up as a notification (bell at the bottom left) to copy and covers all areas, whichever one you press it on. It holds:
+Questions, ideas and experiences are welcome in the [Discussions](https://github.com/streckenwacht/integration/discussions). For bugs:
+
+Please report bugs as a [GitHub issue](https://github.com/streckenwacht/integration/issues), with the **report for a bug report**: press *Devices & services → Streckenwacht → device of an area → Diagnostic → Report for a bug report*. The report shows up as a notification (bell at the bottom left) to copy and covers all areas, whichever one you press it on. It holds:
 
 - the versions of Streckenwacht and Home Assistant;
 - per data source the last poll: ok or the kind of error (e.g. `timeout`, `HTTP 503`), how long ago, and how many reports came;

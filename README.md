@@ -393,7 +393,9 @@ Mit `label_mode: icon` zeigt jeder Punkt das Symbol seiner Art (Baustelle, Sperr
 
 ## Fehler melden
 
-Fehler und Ideen bitte als [GitHub-Issue](https://github.com/streckenwacht/integration/issues), bei Fehlern mit dem **Bericht für Fehlermeldung**: *Geräte & Dienste → Streckenwacht → Gerät eines Bereichs → Diagnose → Bericht für Fehlermeldung* drücken. Der Bericht erscheint als Benachrichtigung (Glocke unten links) zum Kopieren und gilt für alle Bereiche, egal an welchem du drückst. Er enthält:
+Fragen, Ideen und Erfahrungen sind in den [Discussions](https://github.com/streckenwacht/integration/discussions) gut aufgehoben. Für Fehler:
+
+Fehler bitte als [GitHub-Issue](https://github.com/streckenwacht/integration/issues), mit dem **Bericht für Fehlermeldung**: *Geräte & Dienste → Streckenwacht → Gerät eines Bereichs → Diagnose → Bericht für Fehlermeldung* drücken. Der Bericht erscheint als Benachrichtigung (Glocke unten links) zum Kopieren und gilt für alle Bereiche, egal an welchem du drückst. Er enthält:
 
 - die Versionen von Streckenwacht und Home Assistant;
 - je Datenquelle den letzten Abruf: ok oder die Art des Fehlers (z. B. `timeout`, `HTTP 503`), wie lange er her ist und wie viele Meldungen kamen;
